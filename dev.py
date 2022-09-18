@@ -1,18 +1,63 @@
 import json
 
 ###############################################################################
-# Results Files
+# Load File
 ###############################################################################
 fName = '/home/chipdelmal/Documents/GitHub/s3s/export-1663442390/results.json'
 with open(fName, 'r') as file:
     data = json.load(file)
 histSize = len(data)
 
-i = 25
+i = 20
 battleHist = data[i]['data']
-
 bDetail = battleHist['vsHistoryDetail']
+###############################################################################
+# Battle Info
+###############################################################################
 bKeys = bDetail.keys()
+kNames = (
+    'id', 'vsRule', 'vsMode', 'judgement', 'awards', 'duration', 'knockout',
+    'playedTime'
+)
+(bId, vRule, vMode, result, awards, duration, knock, date) = [
+    bDetail.get(k) for k in kNames
+]
+###############################################################################
+# Team Info
+###############################################################################
+team = bDetail['myTeam']
+###############################################################################
+# Players Info
+###############################################################################
+players = bDetail['myTeam']['players']
 
-kNames = ('id', 'vsRule', 'vsMode', 'result')
-(bId, vRule, vMode, result) = [bDetail.get(k) for k in kNames]
+pix = 0
+player = players[pix]
+# Player data -----------------------------------------------------------------
+(pName, pSelf, pWeapon, pResult) = [
+    player[k] for k in ('name', 'isMyself', 'weapon', 'result')
+]
+pResults = {
+    k: pResult[k] for k in ('kill', 'death', 'assist', 'special')
+}
+# Gear ------------------------------------------------------------------------
+gearTypes = ('headGear', 'clothingGear', 'shoesGear')
+gear = player['clothingGear']
+(name, main) = (gear['name'], gear['primaryGearPower']['name'])
+adPow = {
+    f'S Ability {i}': g['name'] 
+    for (i, g) in enumerate(gear['additionalGearPowers'])
+}
+gDict = {'Name': name, 'MAbility'}
+# Weapons ---------------------------------------------------------------------
+(pwMain, pwSecondary, pwSpecial) = (
+    pWeapon['name'], pWeapon['subWeapon'], pWeapon['specialWeapon']
+)
+# Dictionary ------------------------------------------------------------------
+pDict = {
+    'player name': pName, 'self': pSelf,
+    'main weapon': pwMain, 'sub weapon': pwSecondary['name'], 
+    'special': pwSpecial,
+    **pResults, 'paint': player['paint']
+}
+
