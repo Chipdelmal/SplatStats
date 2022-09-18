@@ -3,6 +3,7 @@
 
 import pandas as pd
 import parsers as par
+import auxiliary as aux
 
 class Battle:
     """
@@ -19,11 +20,22 @@ class Battle:
         Prints the person's name and age.
     """
     def __init__(self, battleDetail):
-        # Get allied team details ---------------------------------------------
-        players = battleDetail['myTeam']['players']
+        #######################################################################
+        # Get allied team details
+        #######################################################################
+        myTeam = battleDetail['myTeam']
+        # Get players details -------------------------------------------------
+        players = myTeam['players']
         playersInfo = par.getPlayersBattleInfo(players)
-        self.alliedTeam = pd.DataFrame.from_dict(playersInfo)
-        # Get enemy teams details ---------------------------------------------
+        # Add W/L column ------------------------------------------------------
+        win = aux.boolWinLose(myTeam['judgement'])
+        # Assign dataframe ----------------------------------------------------
+        alliedDF = pd.DataFrame.from_dict(playersInfo)
+        alliedDF['Win'] = win
+        self.alliedTeam = alliedDF
+        #######################################################################
+        # Get enemy teams details
+        #######################################################################
         enemyTeams = []
         for i in range(len(battleDetail['otherTeams'])):
             eTeam = battleDetail['otherTeams'][i]

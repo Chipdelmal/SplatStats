@@ -1,6 +1,8 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
+import auxiliary as aux
+
 def getPlayerWeapon(player):
     pWeapon = player['weapon']
     wDict = {
@@ -17,18 +19,9 @@ def getPlayerResults(player):
     }
     return pResults
 
-def gearPrepend(gearType):
-    if (gearType=='headGear'):
-        gPrep = 'head'
-    elif (gearType=='clothingGear'):
-        gPrep = 'shirt'
-    elif (gearType=='shoesGear'):
-        gPrep = 'shoes'
-    return gPrep
-
 def getGearUnit(player, gType='headGear'):
     gear = player[gType]
-    gPrep = gearPrepend(gType)
+    gPrep = aux.gearPrepend(gType)
     keyPat = [f'{gPrep} {s}' for s in ['name', 'main', 'sub_0', 'sub_1', 'sub_2']]
     adPow = dict.fromkeys(keyPat)
     adPow[f'{gPrep} name'] = gear['name']
@@ -57,8 +50,8 @@ def getPlayersBattleInfo(players):
             **weaponsDict,
             **resultsDict, 'paint': player['paint'],
             **gearDict,
-            'self': player['isMyself'],
-            'player id': player['id']
+            'self': player['isMyself']
+            # 'player id': player['id']
         }
         playersInfo[pix] = pDict
     return playersInfo

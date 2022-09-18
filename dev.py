@@ -12,8 +12,7 @@ with open(fName, 'r') as file:
 histSize = len(data)
 
 i = 6
-battleHist = data[i]['data']
-bDetail = battleHist['vsHistoryDetail']
+bDetail = data[i]['data']['vsHistoryDetail']
 battle = bat.Battle(bDetail)
 battle.alliedTeam
 ###############################################################################
@@ -42,9 +41,6 @@ enemiesInfo = par.getPlayersBattleInfo(oPlayers)
 
 
 
-
-df = pd.DataFrame.from_dict(playersInfo)
-df
 
 # pix = 2
 # player = players[pix]
