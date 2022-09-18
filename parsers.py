@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
+import pandas as pd
 import auxiliary as aux
 
 def getPlayerWeapon(player):
@@ -55,3 +56,25 @@ def getPlayersBattleInfo(players):
         }
         playersInfo[pix] = pDict
     return playersInfo
+
+
+def getMatchScore(teamResult, matchType):
+    if matchType == 'Turf War':
+        return teamResult['paintRatio']
+    else: 
+        return teamResult['score']
+    
+    
+def getTeamDataframe(team, matchType):
+    # Get players details -------------------------------------------------
+    players = team['players']
+    playersInfo = getPlayersBattleInfo(players)
+    # Add W/L column ------------------------------------------------------
+    win = aux.boolWinLose(team['judgement'])
+    # Add score -----------------------------------------------------------
+    scoreInfo = getMatchScore(team['result'], matchType)
+    # Assign dataframe ----------------------------------------------------
+    alliedDF = pd.DataFrame.from_dict(playersInfo)
+    alliedDF['win'] = win
+    alliedDF['score'] = scoreInfo
+    return alliedDF

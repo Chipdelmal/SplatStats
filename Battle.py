@@ -20,6 +20,12 @@ class Battle:
         Duration of the match (in seconds)
     ko : bool
         Battle finished in KO?
+    matchType: str
+        Type of match ("Turf War", "Tower Control", "Rainkamer"...)
+    matchMode: str
+        UNCLEAR
+    festMatch: bool
+        UNCLEAR
         
     Methods
     -------
@@ -30,6 +36,9 @@ class Battle:
         #######################################################################
         # Battle info
         #######################################################################
+        self.festMatch = False
+        self.matchType = battleDetail['vsRule']['name']
+        self.matchMode = battleDetail['vsMode']['mode']
         self.stage = battleDetail['vsStage']['name']
         self.ko = aux.boolKO(battleDetail['knockout'])
         self.datetime = parse(battleDetail['playedTime'])
@@ -38,22 +47,14 @@ class Battle:
         # Get allied team details
         #######################################################################
         myTeam = battleDetail['myTeam']
-        # Get players details -------------------------------------------------
-        players = myTeam['players']
-        playersInfo = par.getPlayersBattleInfo(players)
-        # Add W/L column ------------------------------------------------------
-        win = aux.boolWinLose(myTeam['judgement'])
-        # Assign dataframe ----------------------------------------------------
-        alliedDF = pd.DataFrame.from_dict(playersInfo)
-        alliedDF['win'] = win
-        self.alliedTeam = alliedDF
+        self.alliedTeam = par.getTeamDataframe(myTeam, self.matchType)
         #######################################################################
         # Get enemy teams details
         #######################################################################
-        enemyTeams = []
-        for i in range(len(battleDetail['otherTeams'])):
+        nTeams = len(battleDetail['otherTeams'])
+        enemyTeams = [None]*nTeams
+        for i in range(nTeams):
             eTeam = battleDetail['otherTeams'][i]
-            ePlayers = eTeam['players']
-            enemiesInfo = par.getPlayersBattleInfo(ePlayers)
-            enemyTeams.append(pd.DataFrame.from_dict(enemiesInfo))
+            enemyTeams[i] = par.getTeamDataframe(eTeam, self.matchType)
         self.enemyTeams = enemyTeams
+        

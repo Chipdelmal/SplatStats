@@ -13,16 +13,22 @@ with open(fName, 'r') as file:
     data = json.load(file)
 histSize = len(data)
 
-i = 4
+i = 1
 bDetail = data[i]['data']['vsHistoryDetail']
 battle = bat.Battle(bDetail)
-battle.stage
+battle.enemyTeams[0]
 
-bDetail['knockout']
+bDetail.keys()
+bDetail['festMatch']
+bDetail['vsRule']
+bDetail['vsMode']
+bDetail['myTeam']['players'][0]['result']
+bDetail['otherTeams'][0]['players'][0]['result']
+
 ###############################################################################
 # Battle Info
 ###############################################################################
-bKeys = bDetail.keys()
+
 kNames = (
     'id', 'vsRule', 'vsMode', 'judgement', 'awards', 'duration', 'knockout',
     'playedTime'
