@@ -1,4 +1,5 @@
 import json
+import parsers as par
 
 ###############################################################################
 # Load File
@@ -33,31 +34,25 @@ players = bDetail['myTeam']['players']
 
 pix = 0
 player = players[pix]
-# Player data -----------------------------------------------------------------
-(pName, pSelf, pWeapon, pResult) = [
-    player[k] for k in ('name', 'isMyself', 'weapon', 'result')
-]
-pResults = {
-    k: pResult[k] for k in ('kill', 'death', 'assist', 'special')
-}
 # Gear ------------------------------------------------------------------------
 gearTypes = ('headGear', 'clothingGear', 'shoesGear')
 gear = player['clothingGear']
 (name, main) = (gear['name'], gear['primaryGearPower']['name'])
 adPow = {
-    f'S Ability {i}': g['name'] 
+    f'sub {i}': g['name'] 
     for (i, g) in enumerate(gear['additionalGearPowers'])
 }
-gDict = {'Name': name, 'MAbility'}
-# Weapons ---------------------------------------------------------------------
-(pwMain, pwSecondary, pwSpecial) = (
-    pWeapon['name'], pWeapon['subWeapon'], pWeapon['specialWeapon']
-)
+gDict = {'name': name, 'main': main, **adPow}
+# Condensed Info --------------------------------------------------------------
+resultsDict = par.getPlayerResults(player['result'])
+weaponsDict = par.getPlayerWeapon(player['weapon'])
 # Dictionary ------------------------------------------------------------------
 pDict = {
-    'player name': pName, 'self': pSelf,
-    'main weapon': pwMain, 'sub weapon': pwSecondary['name'], 
-    'special': pwSpecial,
-    **pResults, 'paint': player['paint']
+    'player name': player['name'], 'player name id': player['nameId'], 
+    **weaponsDict,
+    **resultsDict, 'paint': player['paint'],
+    'player id': player['id'],
+    'self': player['isMyself']
 }
+pDict
 
