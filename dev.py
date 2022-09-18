@@ -32,27 +32,20 @@ team = bDetail['myTeam']
 ###############################################################################
 players = bDetail['myTeam']['players']
 
-pix = 0
+pix = 2
 player = players[pix]
-# Gear ------------------------------------------------------------------------
-gearTypes = ('headGear', 'clothingGear', 'shoesGear')
-gear = player['clothingGear']
-(name, main) = (gear['name'], gear['primaryGearPower']['name'])
-adPow = {
-    f'sub {i}': g['name'] 
-    for (i, g) in enumerate(gear['additionalGearPowers'])
-}
-gDict = {'name': name, 'main': main, **adPow}
 # Condensed Info --------------------------------------------------------------
-resultsDict = par.getPlayerResults(player['result'])
-weaponsDict = par.getPlayerWeapon(player['weapon'])
+resultsDict = par.getPlayerResults(player)
+weaponsDict = par.getPlayerWeapon(player)
+gearDict = par.getGear(player)
 # Dictionary ------------------------------------------------------------------
 pDict = {
     'player name': player['name'], 'player name id': player['nameId'], 
     **weaponsDict,
     **resultsDict, 'paint': player['paint'],
-    'player id': player['id'],
-    'self': player['isMyself']
+    **gearDict,
+    'self': player['isMyself'],
+    'player id': player['id']
 }
 pDict
 
