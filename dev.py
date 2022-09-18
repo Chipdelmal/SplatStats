@@ -1,5 +1,7 @@
 import json
 import parsers as par
+import Battle as bat
+import pandas as pd
 
 ###############################################################################
 # Load File
@@ -9,9 +11,11 @@ with open(fName, 'r') as file:
     data = json.load(file)
 histSize = len(data)
 
-i = 20
+i = 6
 battleHist = data[i]['data']
 bDetail = battleHist['vsHistoryDetail']
+battle = bat.Battle(bDetail)
+battle.alliedTeam
 ###############################################################################
 # Battle Info
 ###############################################################################
@@ -27,25 +31,35 @@ kNames = (
 # Team Info
 ###############################################################################
 team = bDetail['myTeam']
-###############################################################################
-# Players Info
-###############################################################################
 players = bDetail['myTeam']['players']
+playersInfo = par.getPlayersBattleInfo(players)
+###############################################################################
+# Enemy Info
+###############################################################################
+oTeam = bDetail['otherTeams'][0]
+oPlayers = oTeam['players']
+enemiesInfo = par.getPlayersBattleInfo(oPlayers)
 
-pix = 2
-player = players[pix]
-# Condensed Info --------------------------------------------------------------
-resultsDict = par.getPlayerResults(player)
-weaponsDict = par.getPlayerWeapon(player)
-gearDict = par.getGear(player)
-# Dictionary ------------------------------------------------------------------
-pDict = {
-    'player name': player['name'], 'player name id': player['nameId'], 
-    **weaponsDict,
-    **resultsDict, 'paint': player['paint'],
-    **gearDict,
-    'self': player['isMyself'],
-    'player id': player['id']
-}
-pDict
+
+
+
+df = pd.DataFrame.from_dict(playersInfo)
+df
+
+# pix = 2
+# player = players[pix]
+# # Condensed Info ----------------------------------------------------------
+# resultsDict = par.getPlayerResults(player)
+# weaponsDict = par.getPlayerWeapon(player)
+# gearDict = par.getGear(player)
+# # Dictionary --------------------------------------------------------------
+# pDict = {
+#     'player name': player['name'], 'player name id': player['nameId'], 
+#     **weaponsDict,
+#     **resultsDict, 'paint': player['paint'],
+#     **gearDict,
+#     'self': player['isMyself'],
+#     'player id': player['id']
+# }
+# playersInfo[pix] = pDict
 
