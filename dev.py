@@ -7,14 +7,18 @@ import pandas as pd
 # Load File
 ###############################################################################
 fName = '/home/chipdelmal/Documents/GitHub/s3s/export-1663442390/results.json'
+# fName = '/home/chipdelmal/Documents/GitHub/s3s/export-1663524543/results.json'
+
 with open(fName, 'r') as file:
     data = json.load(file)
 histSize = len(data)
 
-i = 6
+i = 4
 bDetail = data[i]['data']['vsHistoryDetail']
 battle = bat.Battle(bDetail)
-battle.alliedTeam
+battle.stage
+
+bDetail['knockout']
 ###############################################################################
 # Battle Info
 ###############################################################################
