@@ -15,9 +15,14 @@ def getPlayerWeapon(player):
 
 def getPlayerResults(player):
     pResult = player['result']
-    pResults = {
-        k: pResult[k] for k in ('kill', 'death', 'assist', 'special')
-    }
+    if pResult:
+        pResults = {
+            k: pResult[k] for k in ('kill', 'death', 'assist', 'special')
+        }
+    else:
+        pResults = {
+            'kill': False, 'death': False, 'assist': False, 'special': False
+        }
     return pResults
 
 def getGearUnit(player, gType='headGear'):
@@ -41,11 +46,11 @@ def getGear(player):
 def getPlayersBattleInfo(players):
     playersInfo = [None]*len(players)
     for (pix, player) in enumerate(players):
-        # Condensed Info ----------------------------------------------------------
+        # Condensed Info ------------------------------------------------------
         resultsDict = getPlayerResults(player)
         weaponsDict = getPlayerWeapon(player)
         gearDict = getGear(player)
-        # Dictionary --------------------------------------------------------------
+        # Dictionary ----------------------------------------------------------
         pDict = {
             'player name': player['name'], 'player name id': player['nameId'], 
             **weaponsDict,
@@ -59,21 +64,24 @@ def getPlayersBattleInfo(players):
 
 
 def getMatchScore(teamResult, matchType):
-    if matchType == 'Turf War':
-        return teamResult['paintRatio']
-    else: 
-        return teamResult['score']
-    
+    # Check it the match finished correctly
+    if teamResult:
+        if matchType == 'Turf War':
+            return teamResult['paintRatio']
+        else: 
+            return teamResult['score']
+    else:
+        return False
     
 def getTeamDataframe(team, matchType):
-    # Get players details -------------------------------------------------
+    # Get players details -----------------------------------------------------
     players = team['players']
     playersInfo = getPlayersBattleInfo(players)
-    # Add W/L column ------------------------------------------------------
+    # Add W/L column ----------------------------------------------------------
     win = aux.boolWinLose(team['judgement'])
-    # Add score -----------------------------------------------------------
+    # Add score ---------------------------------------------------------------
     scoreInfo = getMatchScore(team['result'], matchType)
-    # Assign dataframe ----------------------------------------------------
+    # Assign dataframe --------------------------------------------------------
     alliedDF = pd.DataFrame.from_dict(playersInfo)
     alliedDF['win'] = win
     alliedDF['score'] = scoreInfo

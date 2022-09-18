@@ -36,5 +36,5 @@ Install s3s as explained [here](https://github.com/frozenpandaman/s3s), then dow
 * `shoes sub_1`: Shoesgear's sub ability @ slot 2
 * `shoes sub_2`: Shoesgear's sub ability @ slot 3
 * `self`: Is this player the one who generated the dataset?
-* `win`: Did this team win?
-* `score`: Score obtained in the match (if "Turf War", this stat is "paint")
+* `win`: Win (W), Lose (L) or not finished (NA)
+* `score`: Score obtained in the match (if "Turf War", this stat is "paint"; and if the match did not finish correctly, it is `False`)

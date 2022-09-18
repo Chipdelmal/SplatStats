@@ -10,10 +10,8 @@ class Battle:
     """
     Attributes
     ----------
-    alliedTeam : dataframe
-        Breakdown of the user's team
-    enemyTeams : list of dataframes
-        Breakdown of the enemy teams
+    id : str
+        Battle's hash id
     datetime : datetime
         Date/time at which the battle took place
     duration : int
@@ -26,6 +24,12 @@ class Battle:
         UNCLEAR
     festMatch: bool
         UNCLEAR
+    stage : str
+        Stage's name
+    alliedTeam : dataframe
+        Breakdown of the user's team
+    enemyTeams : list of dataframes
+        Breakdown of the enemy teams
         
     Methods
     -------
@@ -36,6 +40,7 @@ class Battle:
         #######################################################################
         # Battle info
         #######################################################################
+        self.id = battleDetail['id']
         self.festMatch = False
         self.matchType = battleDetail['vsRule']['name']
         self.matchMode = battleDetail['vsMode']['mode']
