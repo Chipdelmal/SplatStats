@@ -1,6 +1,8 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
+import dill as pkl
+
 def gearPrepend(gearType):
     if (gearType=='headGear'):
         gPrep = 'head'
@@ -25,3 +27,11 @@ def boolKO(koString):
     else:
         koBool = False
     return koBool
+
+def datetimeToString(datetime):
+    return datetime.strftime("%Y_%m_%d-%Hh%M")
+
+def loadBattle(fPath):
+    with open(fPath, 'rb') as f:
+        battle = pkl.load(f)
+    return battle

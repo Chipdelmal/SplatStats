@@ -1,8 +1,9 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
+import dill as pkl
+from os import path
 from dateutil.parser import parse
-import pandas as pd
 import parsers as par
 import auxiliary as aux
 
@@ -33,13 +34,14 @@ class Battle:
         
     Methods
     -------
-    info(additional=""):
-        Prints the person's name and age.
+    exportBattle(path=""):
+        Exports battle object to disk.
     """
+    ###########################################################################
+    # Battle info
+    ###########################################################################
     def __init__(self, battleDetail):
-        #######################################################################
-        # Battle info
-        #######################################################################
+        # Battle info ---------------------------------------------------------
         self.id = battleDetail['id']
         self.festMatch = False
         self.matchType = battleDetail['vsRule']['name']
@@ -48,14 +50,10 @@ class Battle:
         self.ko = aux.boolKO(battleDetail['knockout'])
         self.datetime = parse(battleDetail['playedTime'])
         self.duration = int(battleDetail['duration'])
-        #######################################################################
-        # Get allied team details
-        #######################################################################
+        # Get allied team details ---------------------------------------------
         myTeam = battleDetail['myTeam']
         self.alliedTeam = par.getTeamDataframe(myTeam, self.matchType)
-        #######################################################################
-        # Get enemy teams details
-        #######################################################################
+        # Get enemy teams details ---------------------------------------------
         nTeams = len(battleDetail['otherTeams'])
         enemyTeams = [None]*nTeams
         for i in range(nTeams):
@@ -63,3 +61,10 @@ class Battle:
             enemyTeams[i] = par.getTeamDataframe(eTeam, self.matchType)
         self.enemyTeams = enemyTeams
         
+    ###########################################################################
+    # Export Methods
+    ###########################################################################
+    def dumpBattle(self, fPath='./'):
+        fName = aux.datetimeToString(self.datetime)
+        with open(path.join(fPath, f'{fName}.pkl'), 'wb') as f:
+            pkl.dump(self, f)

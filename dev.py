@@ -1,7 +1,9 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
 import json
-import parsers as par
 import Battle as bat
-import pandas as pd
+import auxiliary as aux
 
 ###############################################################################
 # Load File
@@ -18,8 +20,9 @@ i = 2
 bDetail = data[i]['data']['vsHistoryDetail']
 # Process battle history ------------------------------------------------------
 battle = bat.Battle(bDetail)
-battle.id
-
-bDetail.keys()
-bDetail['festMatch']
+# Export battle history -------------------------------------------------------
+battle.dumpBattle('./Battles/')
+# Import battle history -------------------------------------------------------
+fName = aux.datetimeToString(battle.datetime)
+battleLoaded = aux.loadBattle(f'./Battles/{fName}.pkl')
 
