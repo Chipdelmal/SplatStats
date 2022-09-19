@@ -26,8 +26,10 @@ i = 0
 bDetail = data[i]['data']['vsHistoryDetail']
 # Process battle history ------------------------------------------------------
 battle = splat.Battle(bDetail)
-battle.alliedTeam
+battle.enemyTeams
+battle.getPlayerByCategory('čħîþ ウナギ', battle.alliedTeam, category='player name')
 battle.getAllyByCategory('čħîþ ウナギ', category='player name')
+battle.getEnemyByCategory('CHIPPI', category='player name')[0]
 
 # Export battle history -------------------------------------------------------
 battle.dumpBattle('./BattlesData/')

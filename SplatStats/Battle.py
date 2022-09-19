@@ -3,9 +3,11 @@
 
 import dill as pkl
 from os import path
+import pandas as pd
 from dateutil.parser import parse
 import SplatStats.parsers as par
 import SplatStats.auxiliary as aux
+pd.options.mode.chained_assignment = None
 
 class Battle:
     """
@@ -64,10 +66,24 @@ class Battle:
     ###########################################################################
     # Filtering Methods
     ###########################################################################
-    def getAllyByCategory(self, name, category='player name'):
-        fltr = self.alliedTeam[category]==name
-        rowMatch = self.alliedTeam[fltr]
+    def getPlayerByCategory(self, name, team, category='player name'):
+        fltr = team[category]==name
+        rowMatch = team[fltr]
+        rowMatch['datetime'] = self.datetime
+        rowMatch['ko'] = self.ko
+        rowMatch['stage'] = self.stage
+        rowMatch['match type'] = self.matchType
+        rowMatch['duration'] = self.duration
         return rowMatch
+    def getAllyByCategory(self, name, category='player name'):
+        py = self.getPlayerByCategory(name, self.alliedTeam, category=category)
+        return py
+    def getEnemyByCategory(self, name, category='player name'):
+        pyrs = [
+            self.getPlayerByCategory(name, eTeam, category=category)
+            for eTeam in self.enemyTeams
+        ]
+        return pyrs
     ###########################################################################
     # Export Methods
     ###########################################################################
