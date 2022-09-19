@@ -9,7 +9,7 @@ develop:
 	$(pip) install -e .
 
 clean_develop:
-	- $(pip) uninstall -y MK8D
+	- $(pip) uninstall -y SplatStats
 	- rm -rf *.egg-info
 
 clean_sdist:

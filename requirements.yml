@@ -5,12 +5,16 @@ channels:
 dependencies:
   - _libgcc_mutex
   - _openmp_mutex
+  - alsa-lib
   - asttokens
+  - attr
   - backcall
   - backports
   - backports.functools_lru_cache
   - beautifulsoup4
   - bleach
+  - brotli
+  - brotli-bin
   - brotlipy
   - bzip2
   - ca-certificates
@@ -19,7 +23,9 @@ dependencies:
   - charset-normalizer
   - cmarkgfm
   - commonmark
+  - contourpy
   - cryptography
+  - cycler
   - dataclasses
   - dbus
   - debugpy
@@ -29,14 +35,29 @@ dependencies:
   - entrypoints
   - executing
   - expat
+  - fftw
+  - font-ttf-dejavu-sans-mono
+  - font-ttf-inconsolata
+  - font-ttf-source-code-pro
+  - font-ttf-ubuntu
+  - fontconfig
+  - fonts-conda-ecosystem
+  - fonts-conda-forge
+  - fonttools
   - freetype
   - future
   - gettext
+  - glib
+  - glib-tools
+  - gst-plugins-base
+  - gstreamer
+  - icu
   - idna
   - importlib-metadata
   - importlib_metadata
   - ipykernel
   - ipython
+  - jack
   - jaraco.classes
   - jedi
   - jeepney
@@ -44,13 +65,27 @@ dependencies:
   - jupyter_client
   - jupyter_core
   - keyring
+  - keyutils
+  - kiwisolver
+  - krb5
   - lcms2
   - ld_impl_linux-64
   - lerc
   - libblas
+  - libbrotlicommon
+  - libbrotlidec
+  - libbrotlienc
+  - libcap
   - libcblas
+  - libclang
+  - libclang13
+  - libcups
+  - libdb
   - libdeflate
+  - libedit
+  - libevent
   - libffi
+  - libflac
   - libgcc-ng
   - libgfortran-ng
   - libgfortran5
@@ -58,21 +93,38 @@ dependencies:
   - libgomp
   - libiconv
   - liblapack
+  - libllvm14
   - libnsl
+  - libogg
   - libopenblas
+  - libopus
   - libpng
+  - libpq
+  - libsndfile
   - libsodium
   - libsqlite
   - libstdcxx-ng
   - libtiff
+  - libtool
+  - libudev1
   - libuuid
+  - libvorbis
   - libwebp-base
   - libxcb
+  - libxkbcommon
+  - libxml2
   - libzlib
+  - matplotlib
+  - matplotlib-base
   - matplotlib-inline
   - more-itertools
+  - munkres
+  - mysql-common
+  - mysql-libs
   - ncurses
   - nest-asyncio
+  - nspr
+  - nss
   - numpy
   - openjpeg
   - openssl
@@ -85,21 +137,27 @@ dependencies:
   - pillow
   - pip
   - pkginfo
+  - ply
+  - portaudio
   - prompt-toolkit
   - psutil
   - pthread-stubs
   - ptyprocess
+  - pulseaudio
   - pure_eval
   - pycparser
   - pygments
   - pyopenssl
   - pyparsing
+  - pyqt
+  - pyqt5-sip
   - pysocks
   - python
   - python-dateutil
   - python_abi
   - pytz
   - pyzmq
+  - qt-main
   - readline
   - readme_renderer
   - requests
@@ -108,19 +166,28 @@ dependencies:
   - rich
   - secretstorage
   - setuptools
+  - sip
   - six
   - soupsieve
+  - sqlite
   - stack_data
   - tk
+  - toml
   - tornado
   - traitlets
   - twine
   - typing_extensions
   - tzdata
+  - unicodedata2
   - urllib3
   - wcwidth
   - webencodings
   - wheel
+  - xcb-util
+  - xcb-util-image
+  - xcb-util-keysyms
+  - xcb-util-renderutil
+  - xcb-util-wm
   - xorg-libxau
   - xorg-libxdmcp
   - xz
@@ -129,3 +196,4 @@ dependencies:
   - zstd
   - pip:
     - msgpack
+    - splatstats

@@ -32,7 +32,7 @@ class History:
         hFiles = aux.getHistoryFiles(hFolders, pattern='results.json')
         self.historyFiles = hFiles
         # Start the battle files list as empty --------------------------------
-        self.battleFilepaths = []
+        self.getBattleFilepaths()
 
     ###########################################################################
     # Dump all battles

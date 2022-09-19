@@ -14,8 +14,9 @@ import matplotlib.pyplot as plt
     '/home/chipdelmal/Documents/GitHub/s3s/',
     '/home/chipdelmal/Documents/GitHub/SplatStats/BattlesData'
 )
+# Create history object
 history = splat.History(iPath, oPath)
-history.getBattleFilepaths()
+# Get the battles filepaths
 playerHistory = history.getPlayerHistory('čħîþ ウナギ')
 finished = playerHistory[playerHistory['win']!='NA']
 

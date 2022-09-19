@@ -90,6 +90,7 @@ class Battle:
         return py
     
     def getEnemyByCategory(self, name, category='player name'):
+        # Might be unsafe for tri-battles! check later!
         pyrs = [
             self.getPlayerByCategory(name, eTeam, category=category)
             for eTeam in self.enemyTeams
