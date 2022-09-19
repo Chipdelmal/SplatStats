@@ -78,9 +78,10 @@ class Battle:
         rowMatch['match type'] = self.matchType
         rowMatch['duration'] = self.duration
         # Add awards info -----------------------------------------------------
-        awards = aux.awardsToStrings(self.awards)
-        for i in range(len(awards)):
-            rowMatch[f'award_{i}'] = awards[i]
+        if (rowMatch.shape[0]>0) and int(rowMatch['self']):
+            awards = aux.awardsToStrings(self.awards)
+            for i in range(len(awards)):
+                rowMatch[f'award_{i}'] = awards[i]
         # Return filtered row -------------------------------------------------
         return rowMatch
     
@@ -92,7 +93,7 @@ class Battle:
         pyrs = [
             self.getPlayerByCategory(name, eTeam, category=category)
             for eTeam in self.enemyTeams
-        ]
+        ][0]
         return pyrs
     
     ###########################################################################

@@ -58,13 +58,29 @@ class History:
         self.battleFilepaths = battleFilepaths
         
     ###########################################################################
-    # Read battle
+    # Get player allied history dataframe
     ###########################################################################
-    def getPlayerAlliedHistory(self, playerName, category='player name'):
+    def getPlayerHistory(self, playerName, category='player name'):
         playerDFs = []
         for batFile in self.battleFilepaths:
             battle = aux.loadBattle(batFile)
-            row = battle.getAllyByCategory(playerName, category=category)
+            rowA = battle.getAllyByCategory(playerName, category=category)
+            rowE = battle.getEnemyByCategory(playerName, category=category)
+            if rowA is not None:
+                playerDFs.append(rowA)
+            if rowE is not None:
+                playerDFs.append(rowE)
+        playerDF = pd.concat(playerDFs, axis=0)
+        playerDF.reset_index(drop=True, inplace=True)
+        playerDF.drop(['player name', 'player name id'], axis=1, inplace=True)
+        playerDF.drop_duplicates(inplace=True)
+        return  playerDF
+    
+    def getPlayerEnemyHistory(self, playerName, category='player name'):
+        playerDFs = []
+        for batFile in self.battleFilepaths:
+            battle = aux.loadBattle(batFile)
+            row = battle.getEnemyByCategory(playerName, category=category)
             playerDFs.append(row)
         playerDF = pd.concat(playerDFs, axis=0)
         playerDF.reset_index(drop=True, inplace=True)
