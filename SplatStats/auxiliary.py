@@ -48,3 +48,10 @@ def getHistoryFiles(histFolders, pattern='results.json'):
         histFiles.extend(glob(path.join(f, pattern)))
     return histFiles
 
+def awardsToStrings(awardsDF, sep='@'):
+    awds = []
+    for i in range(awardsDF.shape[0]):
+        row = awardsDF.iloc[i]
+        awds.append(f"{row['name']}{sep}{row['rank']}{sep}{row['place']}")
+    return awds
+    

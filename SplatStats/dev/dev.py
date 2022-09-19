@@ -31,6 +31,9 @@ battle.getPlayerByCategory('čħîþ ウナギ', battle.alliedTeam, category='pl
 battle.getAllyByCategory('čħîþ ウナギ', category='player name')
 battle.getEnemyByCategory('CHIPPI', category='player name')[0]
 
+awards = battle.awards
+
+
 # Export battle history -------------------------------------------------------
 battle.dumpBattle('./BattlesData/')
 ###############################################################################

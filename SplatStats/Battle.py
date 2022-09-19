@@ -63,27 +63,38 @@ class Battle:
             eTeam = battleDetail['otherTeams'][i]
             enemyTeams[i] = par.getTeamDataframe(eTeam, self.matchType)
         self.enemyTeams = enemyTeams
+        
     ###########################################################################
     # Filtering Methods
     ###########################################################################
     def getPlayerByCategory(self, name, team, category='player name'):
-        fltr = team[category]==name
+        # Filter player -------------------------------------------------------
+        fltr = (team[category]==name)
         rowMatch = team[fltr]
+        # Add flattenned battle info ------------------------------------------
         rowMatch['datetime'] = self.datetime
         rowMatch['ko'] = self.ko
         rowMatch['stage'] = self.stage
         rowMatch['match type'] = self.matchType
         rowMatch['duration'] = self.duration
+        # Add awards info -----------------------------------------------------
+        awards = aux.awardsToStrings(self.awards)
+        for i in range(len(awards)):
+            rowMatch[f'award_{i}'] = awards[i]
+        # Return filtered row -------------------------------------------------
         return rowMatch
+    
     def getAllyByCategory(self, name, category='player name'):
         py = self.getPlayerByCategory(name, self.alliedTeam, category=category)
         return py
+    
     def getEnemyByCategory(self, name, category='player name'):
         pyrs = [
             self.getPlayerByCategory(name, eTeam, category=category)
             for eTeam in self.enemyTeams
         ]
         return pyrs
+    
     ###########################################################################
     # Export Methods
     ###########################################################################
