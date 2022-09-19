@@ -5,7 +5,7 @@ import json
 import pandas as pd
 from os import path
 import SplatStats as splat
-
+import matplotlib.pyplot as plt
 
 # Demo names:
 #   čħîþ ウナギ, Yami ウナギ, April ウナギ, Riché ウナギ, Oswal　ウナギ, Murazee
@@ -17,13 +17,21 @@ import SplatStats as splat
 history = splat.History(iPath, oPath)
 history.getBattleFilepaths()
 playerHistory = history.getPlayerHistory('čħîþ ウナギ')
-playerHistory
+finished = playerHistory[playerHistory['win']!='NA']
+
+(fig, ax) = plt.subplots()
+vp = ax.violinplot(
+    [
+        list(finished['kill']), 
+        list(finished['death'])
+    ], [2, 4], 
+    widths=2, showmeans=True, showmedians=False, showextrema=True
+)
+sum(finished['kill'])/sum(finished['death'])
+
 
 playerHistory.to_csv(path.join(oPath, 'chipHistory.csv'))
-
 battleFiles = history.battleFilepaths
-
-
 
 
 
