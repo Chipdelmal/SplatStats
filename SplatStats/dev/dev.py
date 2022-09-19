@@ -2,13 +2,35 @@
 # -*- coding: utf-8 -*-
 
 import json
+import pandas as pd
+from os import path
 import SplatStats as splat
 
-hPath = '/home/chipdelmal/Documents/GitHub/s3s/'
+(iPath, oPath) = (
+    '/home/chipdelmal/Documents/GitHub/s3s/',
+    '/home/chipdelmal/Documents/GitHub/SplatStats/BattlesData'
+)
+history = splat.History(iPath, oPath)
+history.getBattleFilepaths()
+playerHistory = history.getPlayerAlliedHistory('čħîþ ウナギ')
+playerHistory.to_csv(path.join(oPath, 'chipHistory.csv'))
+
+battleFiles = history.battleFilepaths
+# Iterate through battles -----------------------------------------------------
+playerDFs = []
+for batFile in battleFiles:
+    battle = splat.loadBattle(batFile)
+    row = battle.getAllyByCategory('čħîþ ウナギ', category='player name')
+    playerDFs.append(row)
+player = pd.concat(playerDFs, axis=0)
+player = player.reset_index(drop=True)
+player = player.drop(['player name', 'player name id'], axis=1)
+player = player.drop_duplicates()
+player
 ###############################################################################
 # Get filepaths
 ###############################################################################
-hFolders = splat.getHistoryFolders(hPath)
+hFolders = splat.getHistoryFolders(iPath)
 hFiles = splat.getHistoryFiles(hFolders)
 ###############################################################################
 # Load file

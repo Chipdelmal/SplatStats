@@ -12,6 +12,10 @@ class Player:
     """
     Attributes
     ----------
+    name : str
+        Player's in-game name
+    id : int
+        Player's in-game id
         
     Methods
     -------
@@ -19,5 +23,7 @@ class Player:
     ###########################################################################
     # Player info
     ###########################################################################
-    def __init__(self, battle):
+    def __init__(self, name, id):
+        self.name = name
+        self.id = id
         return True
