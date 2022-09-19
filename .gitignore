@@ -1,3 +1,6 @@
+# Workspaces
+*.code-workspace
+
 # Folders 
 Battles
 
