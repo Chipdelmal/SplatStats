@@ -1,14 +1,18 @@
 # SplatStats
 
-**UNDER DEVELOPMENT**
+**UNDER DEVELOPMENT** 
 
-## Downloading Data
+This codebase is meant to work in tandem with the [s3s package](https://github.com/frozenpandaman/s3s) to refactor and analayze [Splatoon 3](https://en.wikipedia.org/wiki/Splatoon_3)'s data. When finished, it will be able to take exported `json` files, re-shape them, and visualize the data from battles history.
 
-Install s3s as explained [here](https://github.com/frozenpandaman/s3s), then download stats jsons by running: `python s3s.py -o`
+## Instructions
 
-## Battle Object
+**Downloading data**: Install s3s as explained [here](https://github.com/frozenpandaman/s3s), then download stats jsons by running: `python s3s.py -o`
 
-### Teams Dataframe
+## Data Structures
+
+### Battle Object
+
+#### Teams Dataframe
 
 * `player name`: Player's name used in the match
 * `player name id`: Player's in-game id
@@ -39,7 +43,7 @@ Install s3s as explained [here](https://github.com/frozenpandaman/s3s), then dow
 * `win`: Win (W), Lose (L) or not finished (NA)
 * `score`: Score obtained in the match (if "Turf War", this stat is "paint"; and if the match did not finish correctly, it is `False`)
 
-### Awards Dataframe
+#### Awards Dataframe
 
 * `name`: Name of the award
 * `rank`: Gold/Silver rank

@@ -36,8 +36,3 @@ battle.dumpBattle('./Battles/')
 ###############################################################################
 fName = aux.datetimeToString(battle.datetime)
 battleLoaded = aux.loadBattle(f'./Battles/{fName}.pkl')
-
-
-
-
-
