@@ -4,8 +4,8 @@
 import dill as pkl
 from os import path
 from dateutil.parser import parse
-import parsers as par
-import auxiliary as aux
+import SplatStats.parsers as par
+import SplatStats.auxiliary as aux
 
 class Battle:
     """

@@ -2,16 +2,15 @@
 # -*- coding: utf-8 -*-
 
 import json
-import Battle as bat
-import auxiliary as aux
+import SplatStats as splat
 
 
 hPath = '/home/chipdelmal/Documents/GitHub/s3s/'
 ###############################################################################
 # Get filepaths
 ###############################################################################
-hFolders = aux.getHistoryFolders(hPath)
-hFiles = aux.getHistoryFiles(hFolders)
+hFolders = splat.getHistoryFolders(hPath)
+hFiles = splat.getHistoryFiles(hFolders)
 ###############################################################################
 # Load file
 #   fName = '/home/chipdelmal/Documents/GitHub/s3s/export-1663442390/results.json'
@@ -27,12 +26,12 @@ histSize = len(data)
 i = 0
 bDetail = data[i]['data']['vsHistoryDetail']
 # Process battle history ------------------------------------------------------
-battle = bat.Battle(bDetail)
-battle.awards
+battle = splat.Battle(bDetail)
+battle.alliedTeam
 # Export battle history -------------------------------------------------------
-battle.dumpBattle('./Battles/')
+battle.dumpBattle('./BattlesData/')
 ###############################################################################
 # Load Battle
 ###############################################################################
-fName = aux.datetimeToString(battle.datetime)
-battleLoaded = aux.loadBattle(f'./Battles/{fName}.pkl')
+fName = splat.datetimeToString(battle.datetime)
+battleLoaded = splat.loadBattle(f'./BattlesData/{fName}.pkl')

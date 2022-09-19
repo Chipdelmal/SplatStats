@@ -2,7 +2,7 @@
 *.code-workspace
 
 # Folders 
-Battles
+BattlesData
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

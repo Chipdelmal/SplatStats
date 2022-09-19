@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 import pandas as pd
-import auxiliary as aux
+import SplatStats.auxiliary as aux
 
 def getPlayerWeapon(player):
     pWeapon = player['weapon']
