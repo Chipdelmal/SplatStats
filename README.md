@@ -23,7 +23,7 @@ This codebase is meant to work in tandem with the [s3s package](https://github.c
 * `death`: Death count
 * `assist`: Number of assists
 * `special`: Number of specials
-* `paint`: 
+* `paint`: Painted surface
 * `head name`: Headgear's name
 * `head main`: Headgear's main ability
 * `head sub_0`: Headgear's sub ability @ slot 1

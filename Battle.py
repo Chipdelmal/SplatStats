@@ -14,7 +14,7 @@ class Battle:
     id : str
         Battle's hash id
     datetime : datetime
-        Date/time at which the battle took place
+        Date/time at which the battle took place (zero timezone UTC)
     duration : int
         Duration of the match (in seconds)
     ko : bool

@@ -5,10 +5,16 @@ import json
 import Battle as bat
 import auxiliary as aux
 
+hPath = '/home/chipdelmal/Documents/GitHub/s3s/'
+###############################################################################
+# Get filepaths
+###############################################################################
+hFolders = aux.getHistoryFolders(hPath)
+hFiles = aux.getHistoryFiles(hFolders)
 ###############################################################################
 # Load File
 ###############################################################################
-fName = '/home/chipdelmal/Documents/GitHub/s3s/export-1663524543/results.json'
+fName = hFiles[6]
 with open(fName, 'r') as file:
     data = json.load(file)
 histSize = len(data)
