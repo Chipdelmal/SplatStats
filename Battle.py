@@ -34,8 +34,8 @@ class Battle:
         
     Methods
     -------
-    exportBattle(path=""):
-        Exports battle object to disk.
+    dumpBattle(path="./"):
+        Exports serialized battle object to disk.
     """
     ###########################################################################
     # Battle info
@@ -50,6 +50,7 @@ class Battle:
         self.ko = aux.boolKO(battleDetail['knockout'])
         self.datetime = parse(battleDetail['playedTime'])
         self.duration = int(battleDetail['duration'])
+        self.awards = par.parseAwards(battleDetail['awards'])
         # Get allied team details ---------------------------------------------
         myTeam = battleDetail['myTeam']
         self.alliedTeam = par.getTeamDataframe(myTeam, self.matchType)
@@ -60,7 +61,6 @@ class Battle:
             eTeam = battleDetail['otherTeams'][i]
             enemyTeams[i] = par.getTeamDataframe(eTeam, self.matchType)
         self.enemyTeams = enemyTeams
-        
     ###########################################################################
     # Export Methods
     ###########################################################################

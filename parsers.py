@@ -86,3 +86,13 @@ def getTeamDataframe(team, matchType):
     alliedDF['win'] = win
     alliedDF['score'] = scoreInfo
     return alliedDF
+
+def parseAwards(awardsList):
+    awards = []
+    for aw in awardsList:
+        (name, rank) = (aw['name'], aw['rank'])
+        awards.append({
+            'place': name[1:2], 'name': name[3:], 'rank': rank.lower()
+        })
+    awardsDF = pd.DataFrame.from_dict(awards)
+    return awardsDF

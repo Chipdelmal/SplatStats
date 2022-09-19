@@ -2,6 +2,8 @@
 # -*- coding: utf-8 -*-
 
 import dill as pkl
+from os import path
+from glob import glob
 
 def gearPrepend(gearType):
     if (gearType=='headGear'):
@@ -35,3 +37,14 @@ def loadBattle(fPath):
     with open(fPath, 'rb') as f:
         battle = pkl.load(f)
     return battle
+
+def getHistoryFolders(histPath, expPat='export-*'):
+    histFolders = glob(path.join(histPath, expPat))
+    return histFolders
+
+def getHistoryFiles(histFolders, pattern='results.json'):
+    histFiles = []
+    for f in histFolders:
+        histFiles.extend(glob(path.join(f, pattern)))
+    return histFiles
+

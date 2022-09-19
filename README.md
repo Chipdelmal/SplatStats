@@ -19,7 +19,7 @@ Install s3s as explained [here](https://github.com/frozenpandaman/s3s), then dow
 * `death`: Death count
 * `assist`: Number of assists
 * `special`: Number of specials
-* `paint`:
+* `paint`: 
 * `head name`: Headgear's name
 * `head main`: Headgear's main ability
 * `head sub_0`: Headgear's sub ability @ slot 1
@@ -38,3 +38,9 @@ Install s3s as explained [here](https://github.com/frozenpandaman/s3s), then dow
 * `self`: Is this player the one who generated the dataset?
 * `win`: Win (W), Lose (L) or not finished (NA)
 * `score`: Score obtained in the match (if "Turf War", this stat is "paint"; and if the match did not finish correctly, it is `False`)
+
+### Awards Dataframe
+
+* `name`: Name of the award
+* `rank`: Gold/Silver rank
+* `place`: Placing in top
