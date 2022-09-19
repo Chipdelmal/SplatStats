@@ -4,7 +4,6 @@
 import json
 import SplatStats as splat
 
-
 hPath = '/home/chipdelmal/Documents/GitHub/s3s/'
 ###############################################################################
 # Get filepaths
@@ -28,6 +27,8 @@ bDetail = data[i]['data']['vsHistoryDetail']
 # Process battle history ------------------------------------------------------
 battle = splat.Battle(bDetail)
 battle.alliedTeam
+battle.getAllyByCategory('čħîþ ウナギ', category='player name')
+
 # Export battle history -------------------------------------------------------
 battle.dumpBattle('./BattlesData/')
 ###############################################################################
@@ -35,3 +36,4 @@ battle.dumpBattle('./BattlesData/')
 ###############################################################################
 fName = splat.datetimeToString(battle.datetime)
 battleLoaded = splat.loadBattle(f'./BattlesData/{fName}.pkl')
+

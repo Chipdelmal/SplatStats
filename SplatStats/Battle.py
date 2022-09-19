@@ -62,6 +62,13 @@ class Battle:
             enemyTeams[i] = par.getTeamDataframe(eTeam, self.matchType)
         self.enemyTeams = enemyTeams
     ###########################################################################
+    # Filtering Methods
+    ###########################################################################
+    def getAllyByCategory(self, name, category='player name'):
+        fltr = self.alliedTeam[category]==name
+        rowMatch = self.alliedTeam[fltr]
+        return rowMatch
+    ###########################################################################
     # Export Methods
     ###########################################################################
     def dumpBattle(self, fPath='./'):
