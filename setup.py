@@ -9,7 +9,7 @@ with open(version_path, 'wt') as fversion:
     fversion.write('__version__ = "'+this_version+'"')
 
 REQUIRED_PACKAGES=[
-    'dill', 'pandas', 'matplotlib', 'termcolor'
+    'dill', 'pandas', 'matplotlib', 'termcolor', 'numpy'
 ]
 
 with open("README.md", "r") as fh:
