@@ -3,16 +3,14 @@
 
 import json
 import warnings
-import dill as pkl
 from os import path
 import pandas as pd
 from glob import glob
 from termcolor import colored
 from dateutil.parser import parse
-import SplatStats.Battle as bat
-import SplatStats.parsers as pa
 import SplatStats.constants as cst
 import SplatStats.auxiliary as aux
+import SplatStats.Battle as bat
 warnings.simplefilter(action='ignore', category=FutureWarning)
 
 class History:
@@ -36,8 +34,8 @@ class History:
         hFiles = aux.getHistoryFiles(hFolders, pattern='results.json')
         self.historyFiles = hFiles
         # Start the battle files list as empty --------------------------------
-        self.dumpBattlesFromJSONS()
-        self.getBattleFilepaths()
+        # self.dumpBattlesFromJSONS()
+        # self.getBattleFilepaths()
 
     ###########################################################################
     # Dump all battles
