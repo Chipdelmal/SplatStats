@@ -2,14 +2,17 @@
 # -*- coding: utf-8 -*-
 
 import json
+import warnings
 import dill as pkl
 from os import path
 import pandas as pd
 from glob import glob
 from dateutil.parser import parse
 import SplatStats.Battle as bat
-import SplatStats.parsers as par
+import SplatStats.parsers as pa
+import SplatStats.constants as cst
 import SplatStats.auxiliary as aux
+warnings.simplefilter(action='ignore', category=FutureWarning)
 
 class History:
     """
@@ -47,7 +50,6 @@ class History:
                 bDetail = data[i]['data']['vsHistoryDetail']
                 # Process battle history --------------------------------------
                 battle = bat.Battle(bDetail)
-                battle.alliedTeam
                 # Export battle history ---------------------------------------
                 battle.dumpBattle(self.outputPath)
                 
@@ -59,7 +61,7 @@ class History:
         self.battleFilepaths = battleFilepaths
         
     ###########################################################################
-    # Get player allied history dataframe
+    # Get player history dataframe
     ###########################################################################
     def getPlayerHistory(self, playerName, category='player name'):
         playerDFs = []
@@ -72,19 +74,13 @@ class History:
             if rowE is not None:
                 playerDFs.append(rowE)
         playerDF = pd.concat(playerDFs, axis=0)
+        playerDF.astype(cst.BATTLE_DTYPES)
+        # Re-arrange dataframe ------------------------------------------------
+        playerDF.sort_values(by='datetime', inplace=True)
         playerDF.reset_index(drop=True, inplace=True)
-        playerDF.drop(['player name', 'player name id'], axis=1, inplace=True)
+        playerDF.drop([
+            'player name', 'player name id', 'self'
+        ], axis=1, inplace=True)
         playerDF.drop_duplicates(inplace=True)
         return  playerDF
     
-    def getPlayerEnemyHistory(self, playerName, category='player name'):
-        playerDFs = []
-        for batFile in self.battleFilepaths:
-            battle = aux.loadBattle(batFile)
-            row = battle.getEnemyByCategory(playerName, category=category)
-            playerDFs.append(row)
-        playerDF = pd.concat(playerDFs, axis=0)
-        playerDF.reset_index(drop=True, inplace=True)
-        playerDF.drop(['player name', 'player name id'], axis=1, inplace=True)
-        playerDF.drop_duplicates(inplace=True)
-        return  playerDF

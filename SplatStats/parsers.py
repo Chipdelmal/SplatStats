@@ -3,6 +3,7 @@
 
 import pandas as pd
 import SplatStats.auxiliary as aux
+import SplatStats.constants as cst
 
 def getPlayerWeapon(player):
     pWeapon = player['weapon']
@@ -21,7 +22,7 @@ def getPlayerResults(player):
         }
     else:
         pResults = {
-            'kill': False, 'death': False, 'assist': False, 'special': False
+            'kill': 0, 'death': 0, 'assist': 0, 'special': 0
         }
     return pResults
 
@@ -61,7 +62,6 @@ def getPlayersBattleInfo(players):
         }
         playersInfo[pix] = pDict
     return playersInfo
-
 
 def getMatchScore(teamResult, matchType):
     # Check it the match finished correctly
