@@ -18,17 +18,17 @@ import matplotlib.pyplot as plt
 history = splat.History(iPath, oPath)
 # Get the battles filepaths
 playerHistory = history.getPlayerHistory('čħîþ ウナギ')
-finished = playerHistory[playerHistory['win']!='NA']
+validMatches = playerHistory[playerHistory['win']!='NA']
 
 (fig, ax) = plt.subplots()
 vp = ax.violinplot(
     [
-        list(finished['kill']), 
-        list(finished['death'])
+        list(validMatches['kill']), 
+        list(validMatches['death'])
     ], [2, 4], 
     widths=2, showmeans=True, showmedians=False, showextrema=True
 )
-sum(finished['kill'])/sum(finished['death'])
+sum(validMatches['kill'])/sum(validMatches['death'])
 
 
 playerHistory.to_csv(path.join(oPath, 'chipHistory.csv'))
@@ -53,7 +53,7 @@ histSize = len(data)
 ###############################################################################
 # Explore operations
 ###############################################################################
-i = 8
+i = 0
 bDetail = data[i]['data']['vsHistoryDetail']
 # Process battle history ------------------------------------------------------
 battle = splat.Battle(bDetail)
