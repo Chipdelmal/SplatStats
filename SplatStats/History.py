@@ -7,6 +7,7 @@ import dill as pkl
 from os import path
 import pandas as pd
 from glob import glob
+from termcolor import colored
 from dateutil.parser import parse
 import SplatStats.Battle as bat
 import SplatStats.parsers as pa
@@ -42,9 +43,15 @@ class History:
     # Dump all battles
     ###########################################################################
     def dumpBattlesFromJSONS(self):
-        for fName in self.historyFiles:
+        fNum = len(self.historyFiles)
+        for (ix, fName) in enumerate(self.historyFiles):
+            # Print progress --------------------------------------------------
+            cpt = colored(f'* Parsing JSONs {ix+1:05d}/{fNum:05d}', 'red')
+            print(cpt, end='\r')
+            # Load JSON -------------------------------------------------------
             with open(fName, 'r') as file:
                 data = json.load(file)
+            # Process battles in file -----------------------------------------
             histSize = len(data)
             for i in range(histSize):
                 bDetail = data[i]['data']['vsHistoryDetail']
@@ -64,11 +71,17 @@ class History:
     # Get player history dataframe
     ###########################################################################
     def getPlayerHistory(self, playerName, category='player name'):
+        fNum = len(self.battleFilepaths)
         playerDFs = []
-        for batFile in self.battleFilepaths:
+        for (ix, batFile) in enumerate(self.battleFilepaths):
+            # Print progress --------------------------------------------------
+            cpt = colored(f'* Loading History {ix+1:05d}/{fNum:05d}', 'red')
+            print(cpt, end='\r')
+            # Process battle --------------------------------------------------
             battle = aux.loadBattle(batFile)
             rowA = battle.getAllyByCategory(playerName, category=category)
             rowE = battle.getEnemyByCategory(playerName, category=category)
+            # Append row to list ----------------------------------------------
             if rowA is not None:
                 playerDFs.append(rowA)
             if rowE is not None:
