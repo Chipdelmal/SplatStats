@@ -13,7 +13,7 @@ import matplotlib.pyplot as plt
 demoNames = [
     'čħîþ ウナギ', 'Yami ウナギ', 'April ウナギ', 
     'Riché ウナギ', 'Oswal　ウナギ', 'Murazee']
-plyrNme = demoNames[3]
+plyrNme = demoNames[0]
 ###############################################################################
 # Get filepaths
 ###############################################################################
