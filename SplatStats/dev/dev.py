@@ -15,23 +15,24 @@ import matplotlib.pyplot as plt
 # Create Player Objects
 ###############################################################################
 historyFilepaths = splat.getDataFilepaths(iPath, filePat='results.json')
-bPathsDumped = splat.dumpBattlesFromJSONS(historyFilepaths, oPath)
-bPathsRead = splat.getBattleFilepaths(oPath)
+# bPaths = splat.dumpBattlesFromJSONS(historyFilepaths, oPath)
+bPaths = splat.getBattleFilepaths(oPath)
 ###############################################################################
 # Create Player Objects
 ###############################################################################
-chip = splat.Player('čħîþ ウナギ', 7293)
-yami = splat.Player('Yami ウナギ', None)
-april = splat.Player('April ウナギ', None)
-richie = splat.Player('Riché ウナギ', None)
-memo = splat.Player('Oswal　ウナギ', None)
-tomas = splat.Player('Murazee', None)
+chip =   splat.Player('čħîþ ウナギ', bPaths, id=7293)
+yami =   splat.Player('Yami ウナギ', bPaths, id=None)
+april =  splat.Player('April ウナギ', bPaths, id=None)
+richie = splat.Player('Riché ウナギ', bPaths, id=None)
+memo =   splat.Player('Oswal　ウナギ', bPaths, id=None)
+tomas =  splat.Player('Murazee', bPaths, id=None)
 # Group players for iterations ------------------------------------------------
 team = (chip, yami, april, richie, memo, tomas)
 
+chip.getPlayerHistory()
 
 
-
+bPaths
 
 
 ###############################################################################

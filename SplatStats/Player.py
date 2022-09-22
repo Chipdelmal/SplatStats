@@ -28,26 +28,27 @@ class Player:
     ###########################################################################
     # Player info
     ###########################################################################
-    def __init__(self, name, id=None):
+    def __init__(self, name, bPaths, id=None):
         self.name = name
         self.id = id
+        self.bPaths = bPaths
         self.battlesHistory = None
     
     ###########################################################################
     # Get player history dataframe
     ###########################################################################
-    def getPlayerHistory(self, bPaths, category='player name'):
-        fNum = len(bPaths)
+    def getPlayerHistory(self, category='player name'):
+        fNum = len(self.bPaths)
         playerDFs = []
-        for (ix, batFile) in enumerate(bPaths):
+        for (ix, batFile) in enumerate(self.bPaths):
             # Print progress --------------------------------------------------
             cpt = colored(f'* Loading History {ix+1:05d}/{fNum:05d}', 'red')
             print(cpt, end='\r')
             # Process battle --------------------------------------------------
             battle = aux.loadBattle(batFile)
             (rowA, rowE) = (
-                battle.getAllyByCategory(self.playerName, category=category),
-                battle.getEnemyByCategory(self.playerName, category=category)
+                battle.getAllyByCategory(self.name, category=category),
+                battle.getEnemyByCategory(self.name, category=category)
             )
             # Append row to list ----------------------------------------------
             if rowA is not None:
@@ -63,5 +64,7 @@ class Player:
             'player name', 'player name id', 'self'
         ], axis=1, inplace=True)
         playerDF.drop_duplicates(inplace=True)
-        return  playerDF
+        # Assign object to player's history -----------------------------------
+        self.battlesHistory = playerDF
+        return playerDF
     

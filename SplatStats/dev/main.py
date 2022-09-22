@@ -12,21 +12,29 @@ from matplotlib import markers
     '/home/chipdelmal/Documents/GitHub/s3s/',
     '/home/chipdelmal/Documents/GitHub/SplatStats/BattlesData'
 )
-demoNames = [
-    'čħîþ ウナギ', 'Yami ウナギ', 'April ウナギ', 
-    'Riché ウナギ', 'Oswal　ウナギ', 'Murazee']
-plyrNme = demoNames[0]
 ###############################################################################
-# Get filepaths
+# Create Player Objects
 ###############################################################################
-# Create history object -------------------------------------------------------
-history = splat.History(iPath, oPath)
-history.dumpBattlesFromJSONS()
-history.getBattleFilepaths()
-# Get player history ----------------------------------------------------------
-playerHistory = history.getPlayerHistory(plyrNme)
+historyFilepaths = splat.getDataFilepaths(iPath, filePat='results.json')
+# bPaths = splat.dumpBattlesFromJSONS(historyFilepaths, oPath)
+bPaths = splat.getBattleFilepaths(oPath)
+###############################################################################
+# Create Player Objects
+###############################################################################
+chip    = splat.Player('čħîþ ウナギ', bPaths, id=7293)
+yami    = splat.Player('Yami ウナギ', bPaths, id=None)
+april   = splat.Player('April ウナギ', bPaths, id=None)
+richie  = splat.Player('Riché ウナギ', bPaths, id=None)
+memo    = splat.Player('Oswal　ウナギ', bPaths, id=None)
+tomas   = splat.Player('Murazee', bPaths, id=None)
+# Group players for iterations ------------------------------------------------
+team = (chip, yami, april, richie, memo, tomas)
+###############################################################################
+# Process Player
+###############################################################################
+probePlayer = chip
+playerHistory = probePlayer.getPlayerHistory()
 validMatches = playerHistory[playerHistory['win']!='NA']
-validMatches
 ###############################################################################
 # Plot K/D ratio
 ###############################################################################
@@ -84,7 +92,7 @@ pLv = [np.interp(i, [0, ymax], [0, max(paint)]) for i in kLv]
 ax.set_yticks(kLv)
 ax.set_yticklabels([f'{i}/{round(p)}' for (i, p) in zip(kLv, pLv)])
 plt.savefig(
-    path.join(oPath, plyrNme+'-KDratio.png'), 
+    path.join(oPath, (chip.name)+'-BHistory.png'), 
     dpi=300, bbox_inches='tight'
 )
 
