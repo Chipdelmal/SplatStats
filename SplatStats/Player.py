@@ -103,14 +103,22 @@ class Player:
         # Stats dictionary ----------------------------------------------------
         pStats = {
             # W/L stats
-            'win': wins, 'loss': loss, 'win ratio': winR, 
+            'wl': {
+                'win': wins, 'loss': loss, 'win ratio': winR
+            },
             # KDASP stats
-            'kills': kTot, 'deaths': aTot, 'assists': sTot, 
-            'special': sTot, 'paint': pTot,
-            'kills avg': kAvg,  'deaths avg': dAvg, 'assist avg': aAvg,
-            'special avg': sAvg, 'paint avg': pAvg,
+            'kdasp': {
+                'kills': kTot, 'deaths': dTot, 'assists': aTot, 
+                'special': sTot, 'paint': pTot 
+            },
+            'kdasp avg': {
+                'kills': kAvg,  'deaths': dAvg, 'assist': aAvg,
+                'special': sAvg, 'paint': pAvg,
+            },
             # Special stats
-            'kill ratio': killRatio, 'kills per minute': kpmAvg
+            'other': {
+                'kill ratio': killRatio, 'kills per minute': kpmAvg
+            }
         }
         return pStats
         
