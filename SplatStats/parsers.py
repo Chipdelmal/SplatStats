@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 
 import pandas as pd
+from termcolor import colored
 import SplatStats.auxiliary as aux
 import SplatStats.constants as cst
 
@@ -96,3 +97,40 @@ def parseAwards(awardsList):
         })
     awardsDF = pd.DataFrame.from_dict(awards)
     return awardsDF
+
+
+def parsePlayerHistoryFromBattles(
+        battleRecords, name, category='player name', validOnly=True
+    ):
+    battles = battleRecords
+    fNum = len(battles)
+    playerDFs = []
+    for (ix, battle) in enumerate(battles):
+        # Print progress --------------------------------------------------
+        cpt = colored(f'* Processing History {ix+1:05d}/{fNum:05d}', 'blue')
+        print(cpt, end='\r')
+        # Process battle --------------------------------------------------
+        (rowA, rowE) = (
+            battle.getAllyByCategory(name, category=category),
+            battle.getEnemyByCategory(name, category=category)
+        )
+        # Append row to list ----------------------------------------------
+        if rowA is not None:
+            playerDFs.append(rowA)
+        if rowE is not None:
+            playerDFs.append(rowE)
+    playerDF = pd.concat(playerDFs, axis=0)
+    playerDF.astype(cst.BATTLE_DTYPES)
+    # Re-arrange dataframe ------------------------------------------------
+    playerDF.sort_values(by='datetime', inplace=True)
+    playerDF.reset_index(drop=True, inplace=True)
+    playerDF.drop([
+        'player name', 'player name id', 'self'
+    ], axis=1, inplace=True)
+    playerDF.drop_duplicates(inplace=True)
+    # Assign object to player's history -----------------------------------
+    if validOnly:
+        bHist = playerDF[playerDF['win']!='NA']
+    else:
+        bHist = playerDF
+    return bHist
