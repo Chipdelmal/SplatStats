@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
+from sys import argv
 from os import path
 import numpy as np
 import SplatStats as splat
@@ -8,10 +9,13 @@ import matplotlib.pyplot as plt
 from matplotlib.patches import Rectangle
 from matplotlib import markers
 
-(iPath, oPath) = (
-    '/home/chipdelmal/Documents/GitHub/s3s/',
-    '/home/chipdelmal/Documents/GitHub/SplatStats/BattlesData'
-)
+if splat.isNotebook():
+    (iPath, oPath) = (
+        '/home/chipdelmal/Documents/GitHub/s3s/',
+        '/home/chipdelmal/Documents/GitHub/SplatStats/BattlesData'
+    )
+else:
+    (iPath, oPath) = argv[1:]
 ###############################################################################
 # Create Player Objects
 ###############################################################################

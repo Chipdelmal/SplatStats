@@ -98,8 +98,9 @@ class Player:
         loss = len(win)-wins
         # Ratios --------------------------------------------------------------
         killRatio = kTot/dTot
-        killsPerMinute = self.battlesHistory['kill']/matchDuration
-        kpmAvg = np.mean(killsPerMinute)
+        (kpm, dpm, apm, spm, ppm) = [
+            np.mean(bHist[i]/matchDuration) for i in cats
+        ]
         # Stats dictionary ----------------------------------------------------
         pStats = {
             # W/L stats
@@ -107,17 +108,18 @@ class Player:
                 'win': wins, 'loss': loss, 
                 'win ratio': winR, 'kill ratio': killRatio
             },
-            # KDASP stats
-            'kdasp': {
+            # KPADS stats
+            'kpads': {
                 'kills': kTot, 'deaths': dTot, 'assists': aTot, 
                 'special': sTot, 'paint': pTot 
             },
-            'kdasp avg': {
+            'kpads avg': {
                 'kills': kAvg,  'deaths': dAvg, 'assist': aAvg,
                 'special': sAvg, 'paint': pAvg,
             },
-            'kdasp per min': {
-                'kills': kpmAvg
+            'kpads per min': {
+                'kills': kpm, 'deaths': dpm, 'assist': apm,
+                'special': spm, 'paint': ppm
             }
         }
         return pStats
