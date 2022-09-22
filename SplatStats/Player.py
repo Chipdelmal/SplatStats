@@ -82,36 +82,35 @@ class Player:
         matchNum = bHist.shape[0]
         matchDuration = (bHist['duration']/60)
         # Getting counts ------------------------------------------------------
-        cats = 'kill', 'death', 'assist', 'special'
-        (killCnt, deathCnt, asstCnt, specCnt) = [bHist[cat] for cat in cats]
+        cats = ('kill', 'death', 'assist', 'special', 'paint')
+        (kCnt, dCnt, aCnt, sCnt, pCnt) = [bHist[cat] for cat in cats]
+        # Kill/Death/Assist/Paint stats ---------------------------------------
+        (kTot, dTot, aTot, sTot, pTot) = [
+            sum(i) for i in (kCnt, dCnt, aCnt, sCnt, pCnt)
+        ]
+        (kAvg, dAvg, aAvg, sAvg, pAvg) = [
+            i/matchNum for i in (kTot, dTot, aTot, sTot, pTot)
+        ]
         # Win/lose stats (NA are loss) ----------------------------------------
         win  = [True if i=='W' else False for i in bHist['win']]
         wins = sum(win)
         winR = wins/len(win)
         loss = len(win)-wins
-        # Kill/Death/Assist stats ---------------------------------------------
-        (killTot, deathTot, asstTot, specTot) = [
-            sum(i) for i in (killCnt, deathCnt, asstCnt, specCnt)
-        ]
-        killRatio = killTot/deathTot
+        # Ratios --------------------------------------------------------------
+        killRatio = kTot/dTot
         killsPerMinute = self.battlesHistory['kill']/matchDuration
         kpmAvg = np.mean(killsPerMinute)
-        (kAvg, dAvg, aAvg, sAvg) = [
-            i/matchNum for i in (killTot, deathTot, asstTot, specTot)
-        ]
         # Stats dictionary ----------------------------------------------------
         pStats = {
-            'win': wins, 
-            'loss': loss,
-            'win ratio': winR, 
-            'kills': killTot, 
-            'deaths': asstTot, 
-            'assists': specTot, 
-            'kills avg': kAvg, 
-            'deaths avg': dAvg, 
-            'assist avg': aAvg,
-            'kill ratio': killRatio,
-            'kills per minute': kpmAvg
+            # W/L stats
+            'win': wins, 'loss': loss, 'win ratio': winR, 
+            # KDASP stats
+            'kills': kTot, 'deaths': aTot, 'assists': sTot, 
+            'special': sTot, 'paint': pTot,
+            'kills avg': kAvg,  'deaths avg': dAvg, 'assist avg': aAvg,
+            'special avg': sAvg, 'paint avg': pAvg,
+            # Special stats
+            'kill ratio': killRatio, 'kills per minute': kpmAvg
         }
         return pStats
         
