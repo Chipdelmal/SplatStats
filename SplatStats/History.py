@@ -30,7 +30,7 @@ class History:
         self.outputPath = oPath
         self.inputPath = iPath
         # Get history filepaths -----------------------------------------------
-        hFolders = aux.getHistoryFolders(iPath, expPat='export-*')
+        hFolders = aux.getHistoryFolders(iPath, fldrPat='export-*')
         hFiles = aux.getHistoryFiles(hFolders, pattern='results.json')
         self.historyFiles = hFiles
         # Start the battle files list as empty --------------------------------

@@ -102,5 +102,7 @@ class Battle:
     ###########################################################################
     def dumpBattle(self, fPath='./'):
         fName = aux.datetimeToString(self.datetime)
-        with open(path.join(fPath, f'{fName}.pkl'), 'wb') as f:
+        bPath = path.join(fPath, f'{fName}.pkl')
+        with open(bPath, 'wb') as f:
             pkl.dump(self, f)
+        return bPath

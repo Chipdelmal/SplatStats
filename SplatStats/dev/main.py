@@ -31,16 +31,13 @@ validMatches
 # Plot K/D ratio
 ###############################################################################
 timeScale = False
-(kill, death, matchType, weapon, win, special, paint, assist) = (
-    list(validMatches['kill']), 
-    list(validMatches['death']),
-    list(validMatches['match type']),
-    list(validMatches['main weapon']),
-    list(validMatches['win']),
-    list(validMatches['special']),
-    list(validMatches['paint']),
-    list(validMatches['assist'])
+cats = (
+    'kill', 'death', 'match type', 'main weapon', 
+    'win', 'special', 'paint', 'assist'
 )
+(kill, death, matchType, weapon, win, special, paint, assist) = [
+    list(validMatches[cat]) for cat in cats
+]
 dates = list(validMatches['datetime'])
 hoursDiff = [(d-min(dates)).seconds/3600  for d in dates]
 ymax = max(max(kill), max(death))

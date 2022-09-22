@@ -38,8 +38,8 @@ def loadBattle(fPath):
         battle = pkl.load(f)
     return battle
 
-def getHistoryFolders(histPath, expPat='export-*'):
-    histFolders = glob(path.join(histPath, expPat))
+def getHistoryFolders(histPath, fldrPat='export-*'):
+    histFolders = glob(path.join(histPath, fldrPat))
     return histFolders
 
 def getHistoryFiles(histFolders, pattern='results.json'):
