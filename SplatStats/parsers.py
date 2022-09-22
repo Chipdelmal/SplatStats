@@ -100,35 +100,39 @@ def parseAwards(awardsList):
 
 
 def parsePlayerHistoryFromBattles(
-        battleRecords, name, category='player name', validOnly=True
+        battleRecords, name, category='player name', 
+        validOnly=True, timezone=None
     ):
     battles = battleRecords
     fNum = len(battles)
     playerDFs = []
     for (ix, battle) in enumerate(battles):
-        # Print progress --------------------------------------------------
-        cpt = colored(f'* Processing History {ix+1:05d}/{fNum:05d}', 'blue')
-        print(cpt, end='\r')
-        # Process battle --------------------------------------------------
+        # Print progress ------------------------------------------------------
+        # cpt = colored(f'* Processing History {ix+1:05d}/{fNum:05d}', 'blue')
+        # print(cpt, end='\r')
+        # Process battle ------------------------------------------------------
         (rowA, rowE) = (
             battle.getAllyByCategory(name, category=category),
             battle.getEnemyByCategory(name, category=category)
         )
-        # Append row to list ----------------------------------------------
+        # Append row to list --------------------------------------------------
         if rowA is not None:
             playerDFs.append(rowA)
         if rowE is not None:
             playerDFs.append(rowE)
     playerDF = pd.concat(playerDFs, axis=0)
     playerDF.astype(cst.BATTLE_DTYPES)
-    # Re-arrange dataframe ------------------------------------------------
+    # Re-arrange dataframe ----------------------------------------------------
     playerDF.sort_values(by='datetime', inplace=True)
     playerDF.reset_index(drop=True, inplace=True)
     playerDF.drop([
         'player name', 'player name id', 'self'
     ], axis=1, inplace=True)
     playerDF.drop_duplicates(inplace=True)
-    # Assign object to player's history -----------------------------------
+    # Fix timezone ------------------------------------------------------------
+    if timezone:
+        playerDF['datetime'] = playerDF['datetime'].dt.tz_convert(timezone)
+    # Assign object to player's history ---------------------------------------
     if validOnly:
         bHist = playerDF[playerDF['win']!='NA']
     else:

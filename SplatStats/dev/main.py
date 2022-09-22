@@ -19,26 +19,29 @@ else:
 ###############################################################################
 # Create Player Objects
 ###############################################################################
-historyFilepaths = splat.getDataFilepaths(iPath, filePat='results.json')
+# historyFilepaths = splat.getDataFilepaths(iPath, filePat='results.json')
 # bPaths = splat.dumpBattlesFromJSONS(historyFilepaths, oPath)
 bPaths = splat.getBattleFilepaths(oPath)
 ###############################################################################
 # Create Player Objects
 ###############################################################################
-chip    = splat.Player('čħîþ ウナギ', bPaths, id=7293)
-yami    = splat.Player('Yami ウナギ', bPaths, id=None)
-# april   = splat.Player('April ウナギ', bPaths, id=None)
-# richie  = splat.Player('Riché ウナギ', bPaths, id=None)
-# memo    = splat.Player('Oswal　ウナギ', bPaths, id=None)
-# tomas   = splat.Player('Murazee', bPaths, id=None)
-# Group players for iterations ------------------------------------------------
+NAMES = (
+    'čħîþ ウナギ', 'Yami ウナギ', 'Riché ウナギ',
+    'Oswal　ウナギ', 'April ウナギ', 'Murazee'
+)
+chip = splat.Player('čħîþ ウナギ', bPaths, timezone='America/Los_Angeles')
+# (chip, yami, april, richie, memo, tomas) = [
+#     splat.Player(nme, bPaths, timezone='America/Los_Angeles')
+#     for nme in NAMES
+# ]
 # team = (chip, yami, april, richie, memo, tomas)
 ###############################################################################
 # Process Player
 ###############################################################################
 plyr = chip
 playerHistory = plyr.battlesHistory
-plyr.playerStats
+plyr.getBattleRecordsByType('Rainmaker')
+playerHistory
 ###############################################################################
 # Plot K/D ratio
 ###############################################################################

@@ -31,6 +31,7 @@ def calcBattleHistoryStats(bHist):
     pStats = {
         # W/L stats
         'general': {
+            'total matches': matchNum,
             'win': wins, 'loss': loss, 
             'win ratio': winR, 'kill ratio': killRatio
         },

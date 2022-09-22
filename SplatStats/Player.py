@@ -22,6 +22,8 @@ class Player:
         Player's in-game name
     id : int
         Player's in-game id
+    battlesRecords : list of objects
+        Full list of battle objects
     battlesHistory : dataframe
         Player's full battle history
         
@@ -31,10 +33,11 @@ class Player:
     ###########################################################################
     # Player info
     ###########################################################################
-    def __init__(self, name, bPaths, id=None):
+    def __init__(self, name, bPaths, id=None, timezone=None):
         self.name = name
         self.id = id
         self.bPaths = bPaths
+        self.timezone = timezone
         # Parse player's battles dataframe ------------------------------------
         self.battleRecords = self.getBattleRecords()
         self.battlesHistory = self.parsePlayerHistoryFromBattles()
@@ -52,12 +55,18 @@ class Player:
             battleRecords[ix] = battle
         return battleRecords
 
+    def getBattleRecordsByType(self, battleType):
+        battles = self.battlesHistory
+        fltr = (battles['match type']==battleType)
+        return battles[fltr]
+        
     ###########################################################################
     # Get player history dataframe
     ###########################################################################
     def parsePlayerHistoryFromBattles(self, validOnly=True):
         battlesHistory = par.parsePlayerHistoryFromBattles(
-            self.battleRecords, self.name, validOnly=validOnly
+            self.battleRecords, self.name, 
+            validOnly=validOnly, timezone=self.timezone
         )
         self.battlesHistory = battlesHistory
         return self.battlesHistory
