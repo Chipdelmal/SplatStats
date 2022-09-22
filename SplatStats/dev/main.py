@@ -29,7 +29,7 @@ NAMES = (
     'čħîþ ウナギ', 'Yami ウナギ', 'Riché ウナギ',
     'Oswal　ウナギ', 'April ウナギ', 'Murazee'
 )
-chip = splat.Player('čħîþ ウナギ', bPaths, timezone='America/Los_Angeles')
+plyr = splat.Player('čħîþ ウナギ', bPaths, timezone='America/Los_Angeles')
 # (chip, yami, april, richie, memo, tomas) = [
 #     splat.Player(nme, bPaths, timezone='America/Los_Angeles')
 #     for nme in NAMES
@@ -38,10 +38,8 @@ chip = splat.Player('čħîþ ウナギ', bPaths, timezone='America/Los_Angeles'
 ###############################################################################
 # Process Player
 ###############################################################################
-plyr = chip
 playerHistory = plyr.battlesHistory
-plyr.getBattleRecordsByType('Rainmaker')
-playerHistory
+plyr.getBattleRecordsByType('Tower Control')
 ###############################################################################
 # Plot K/D ratio
 ###############################################################################
@@ -93,13 +91,14 @@ ax.set_ylim(-2, ymax+2)
 ax.set_aspect(.25/ax.get_data_ratio())
 ax.set_xticks(list(range(mNum)))
 plt.xticks(rotation=90)
+ax.tick_params(axis='x', which='major', labelsize=7.5)
 ax.set_xticklabels(weapon)
 kLv = range(0, ymax+5, 5)
 pLv = [np.interp(i, [0, ymax], [0, max(paint)]) for i in kLv]
 ax.set_yticks(kLv)
 ax.set_yticklabels([f'{i}/{round(p)}' for (i, p) in zip(kLv, pLv)])
 plt.savefig(
-    path.join(oPath, (chip.name)+'-BHistory.png'), 
+    path.join(oPath, (plyr.name)+' BHistory.png'), 
     dpi=300, bbox_inches='tight'
 )
 

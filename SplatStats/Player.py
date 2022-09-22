@@ -19,13 +19,17 @@ class Player:
     Attributes
     ----------
     name : str
-        Player's in-game name
+        Player's in-game name.
     id : int
-        Player's in-game id
+        Player's in-game id.
+    bPaths : list of paths
+        List of paths for all the battle files to be analyzed.
+    timezone : str
+        Datetime-valid timezone string id for the player's location.
     battlesRecords : list of objects
-        Full list of battle objects
+        Full list of battle objects.
     battlesHistory : dataframe
-        Player's full battle history
+        Player's full battle history.
         
     Methods
     -------
@@ -38,9 +42,10 @@ class Player:
         self.id = id
         self.bPaths = bPaths
         self.timezone = timezone
-        # Parse player's battles dataframe ------------------------------------
+        # Parse player's battles dataframes -----------------------------------
         self.battleRecords = self.getBattleRecords()
         self.battlesHistory = self.parsePlayerHistoryFromBattles()
+        self.battlesHistoryByType = self.getPlayerHistoryByTypes()
         # Assign stats --------------------------------------------------------
         self.playerStats = self.calcPlayerStats()
 
@@ -71,6 +76,16 @@ class Player:
         self.battlesHistory = battlesHistory
         return self.battlesHistory
     
+    def getPlayerHistoryByTypes(self):
+        bTypes = (
+            'Turf War', 'Tower Control', 'Rainmaker', 
+            'Splat Zones', 'Clam Blitz'
+        )
+        bTypesHist = {
+            bType: self.getBattleRecordsByType(bType) for bType in bTypes
+        }
+        return bTypesHist
+        
     ###########################################################################
     # Calculate player stats from history dataframe
     ###########################################################################
@@ -79,3 +94,5 @@ class Player:
         hStats = stt.calcBattleHistoryStats(bHist)
         return hStats
         
+    
+

@@ -25,7 +25,7 @@ class Battle:
         Type of match ("Turf War", "Tower Control", "Rainkamer"...)
     matchMode: str
         UNCLEAR
-    festMatch: bool
+    festMatch: UNCLEAR
         UNCLEAR
     stage : str
         Stage's name
