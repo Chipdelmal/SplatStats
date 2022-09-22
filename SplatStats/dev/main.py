@@ -23,18 +23,18 @@ bPaths = splat.getBattleFilepaths(oPath)
 ###############################################################################
 chip    = splat.Player('čħîþ ウナギ', bPaths, id=7293)
 yami    = splat.Player('Yami ウナギ', bPaths, id=None)
-april   = splat.Player('April ウナギ', bPaths, id=None)
-richie  = splat.Player('Riché ウナギ', bPaths, id=None)
-memo    = splat.Player('Oswal　ウナギ', bPaths, id=None)
-tomas   = splat.Player('Murazee', bPaths, id=None)
+# april   = splat.Player('April ウナギ', bPaths, id=None)
+# richie  = splat.Player('Riché ウナギ', bPaths, id=None)
+# memo    = splat.Player('Oswal　ウナギ', bPaths, id=None)
+# tomas   = splat.Player('Murazee', bPaths, id=None)
 # Group players for iterations ------------------------------------------------
-team = (chip, yami, april, richie, memo, tomas)
+# team = (chip, yami, april, richie, memo, tomas)
 ###############################################################################
 # Process Player
 ###############################################################################
-probePlayer = chip
-playerHistory = probePlayer.getPlayerHistory()
-validMatches = playerHistory[playerHistory['win']!='NA']
+plyr = chip
+playerHistory = plyr.battlesHistory
+plyr.calcPlayerStats()
 ###############################################################################
 # Plot K/D ratio
 ###############################################################################
@@ -44,9 +44,9 @@ cats = (
     'win', 'special', 'paint', 'assist'
 )
 (kill, death, matchType, weapon, win, special, paint, assist) = [
-    list(validMatches[cat]) for cat in cats
+    list(playerHistory[cat]) for cat in cats
 ]
-dates = list(validMatches['datetime'])
+dates = list(playerHistory['datetime'])
 hoursDiff = [(d-min(dates)).seconds/3600  for d in dates]
 ymax = max(max(kill), max(death))
 # Use match type for point shape ----------------------------------------------

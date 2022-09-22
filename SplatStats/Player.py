@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 
 import dill as pkl
+import numpy as np
 from os import path
 import pandas as pd
 from termcolor import colored
@@ -32,12 +33,13 @@ class Player:
         self.name = name
         self.id = id
         self.bPaths = bPaths
-        self.battlesHistory = None
+        # Parse player's battles dataframe ------------------------------------
+        self.battlesHistory = self.parsePlayerHistory()
     
     ###########################################################################
     # Get player history dataframe
     ###########################################################################
-    def getPlayerHistory(self, category='player name'):
+    def parsePlayerHistory(self, category='player name', validOnly=True):
         fNum = len(self.bPaths)
         playerDFs = []
         for (ix, batFile) in enumerate(self.bPaths):
@@ -65,6 +67,51 @@ class Player:
         ], axis=1, inplace=True)
         playerDF.drop_duplicates(inplace=True)
         # Assign object to player's history -----------------------------------
-        self.battlesHistory = playerDF
-        return playerDF
+        if validOnly:
+            self.battlesHistory = playerDF[playerDF['win']!='NA']
+        else:
+            self.battlesHistory = playerDF
+        return self.battlesHistory
     
+    ###########################################################################
+    # Calculate player stats from history dataframe
+    ###########################################################################
+    def calcPlayerStats(self):
+        bHist = self.battlesHistory
+        # Getting constants ---------------------------------------------------
+        matchNum = bHist.shape[0]
+        matchDuration = (bHist['duration']/60)
+        # Getting counts ------------------------------------------------------
+        cats = 'kill', 'death', 'assist', 'special'
+        (killCnt, deathCnt, asstCnt, specCnt) = [bHist[cat] for cat in cats]
+        # Win/lose stats (NA are loss) ----------------------------------------
+        win  = [True if i=='W' else False for i in bHist['win']]
+        wins = sum(win)
+        winR = wins/len(win)
+        loss = len(win)-wins
+        # Kill/Death/Assist stats ---------------------------------------------
+        (killTot, deathTot, asstTot, specTot) = [
+            sum(i) for i in (killCnt, deathCnt, asstCnt, specCnt)
+        ]
+        killRatio = killTot/deathTot
+        killsPerMinute = self.battlesHistory['kill']/matchDuration
+        kpmAvg = np.mean(killsPerMinute)
+        (kAvg, dAvg, aAvg, sAvg) = [
+            i/matchNum for i in (killTot, deathTot, asstTot, specTot)
+        ]
+        # Stats dictionary ----------------------------------------------------
+        pStats = {
+            'win': wins, 
+            'loss': loss,
+            'win ratio': winR, 
+            'kills': killTot, 
+            'deaths': asstTot, 
+            'assists': specTot, 
+            'kills avg': kAvg, 
+            'deaths avg': dAvg, 
+            'assist avg': aAvg,
+            'kill ratio': killRatio,
+            'kills per minute': kpmAvg
+        }
+        return pStats
+        
