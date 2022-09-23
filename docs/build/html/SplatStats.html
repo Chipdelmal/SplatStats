@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
+    <title>SplatStats package &#8212; SplatStats 0.1 documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/bootstrap-sphinx.css" />
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="_static/doctools.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<script type="text/javascript" src="_static/js/jquery-1.12.4.min.js"></script>
+<script type="text/javascript" src="_static/js/jquery-fix.js"></script>
+<script type="text/javascript" src="_static/bootstrap-3.4.1/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="_static/bootstrap-sphinx.js"></script>
+
+  </head><body>
+
+  <div id="navbar" class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="index.html">
+          SplatStats</a>
+        <span class="navbar-text navbar-version pull-left"><b></b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="index.html">Site <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"></ul>
+</li>
+              
+                <li class="dropdown">
+  <a role="button"
+     id="dLabelLocalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="#">Page <b class="caret"></b></a>
+  <ul class="dropdown-menu localtoc"
+      role="menu"
+      aria-labelledby="dLabelLocalToc"><ul>
+<li><a class="reference internal" href="#">SplatStats package</a><ul>
+<li><a class="reference internal" href="#submodules">Submodules</a></li>
+<li><a class="reference internal" href="#module-SplatStats.Battle">SplatStats.Battle module</a></li>
+<li><a class="reference internal" href="#module-SplatStats.Player">SplatStats.Player module</a></li>
+<li><a class="reference internal" href="#module-SplatStats.auxiliary">SplatStats.auxiliary module</a></li>
+<li><a class="reference internal" href="#module-SplatStats.constants">SplatStats.constants module</a></li>
+<li><a class="reference internal" href="#module-SplatStats.files">SplatStats.files module</a></li>
+<li><a class="reference internal" href="#module-SplatStats.parsers">SplatStats.parsers module</a></li>
+<li><a class="reference internal" href="#module-SplatStats.stats">SplatStats.stats module</a></li>
+<li><a class="reference internal" href="#module-SplatStats">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+              
+                
+              
+            
+            
+            
+            
+              <li class="hidden-sm">
+<div id="sourcelink">
+  <a href="_sources/SplatStats.rst.txt"
+     rel="nofollow">Source</a>
+</div></li>
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+    <div class="body col-md-12 content" role="main">
+      
+  <section id="splatstats-package">
+<h1>SplatStats package<a class="headerlink" href="#splatstats-package" title="Permalink to this heading">¶</a></h1>
+<section id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this heading">¶</a></h2>
+</section>
+<section id="module-SplatStats.Battle">
+<span id="splatstats-battle-module"></span><h2>SplatStats.Battle module<a class="headerlink" href="#module-SplatStats.Battle" title="Permalink to this heading">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="SplatStats.Battle.Battle">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">SplatStats.Battle.</span></span><span class="sig-name descname"><span class="pre">Battle</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">battleDetail</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#SplatStats.Battle.Battle" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="SplatStats.Battle.Battle.id">
+<span class="sig-name descname"><span class="pre">id</span></span><a class="headerlink" href="#SplatStats.Battle.Battle.id" title="Permalink to this definition">¶</a></dt>
+<dd><p>Battle’s hash id</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="SplatStats.Battle.Battle.datetime">
+<span class="sig-name descname"><span class="pre">datetime</span></span><a class="headerlink" href="#SplatStats.Battle.Battle.datetime" title="Permalink to this definition">¶</a></dt>
+<dd><p>Date/time at which the battle took place (zero timezone UTC)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>datetime</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="SplatStats.Battle.Battle.duration">
+<span class="sig-name descname"><span class="pre">duration</span></span><a class="headerlink" href="#SplatStats.Battle.Battle.duration" title="Permalink to this definition">¶</a></dt>
+<dd><p>Duration of the match (in seconds)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="SplatStats.Battle.Battle.ko">
+<span class="sig-name descname"><span class="pre">ko</span></span><a class="headerlink" href="#SplatStats.Battle.Battle.ko" title="Permalink to this definition">¶</a></dt>
+<dd><p>Battle finished in KO?</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="SplatStats.Battle.Battle.matchType">
+<span class="sig-name descname"><span class="pre">matchType</span></span><a class="headerlink" href="#SplatStats.Battle.Battle.matchType" title="Permalink to this definition">¶</a></dt>
+<dd><p>Type of match (“Turf War”, “Tower Control”, “Rainkamer”…)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="SplatStats.Battle.Battle.matchMode">
+<span class="sig-name descname"><span class="pre">matchMode</span></span><a class="headerlink" href="#SplatStats.Battle.Battle.matchMode" title="Permalink to this definition">¶</a></dt>
+<dd><p>UNCLEAR</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="SplatStats.Battle.Battle.festMatch">
+<span class="sig-name descname"><span class="pre">festMatch</span></span><a class="headerlink" href="#SplatStats.Battle.Battle.festMatch" title="Permalink to this definition">¶</a></dt>
+<dd><p>UNCLEAR</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>UNCLEAR</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="SplatStats.Battle.Battle.stage">
+<span class="sig-name descname"><span class="pre">stage</span></span><a class="headerlink" href="#SplatStats.Battle.Battle.stage" title="Permalink to this definition">¶</a></dt>
+<dd><p>Stage’s name</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="SplatStats.Battle.Battle.alliedTeam">
+<span class="sig-name descname"><span class="pre">alliedTeam</span></span><a class="headerlink" href="#SplatStats.Battle.Battle.alliedTeam" title="Permalink to this definition">¶</a></dt>
+<dd><p>Breakdown of the user’s team</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>dataframe</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="SplatStats.Battle.Battle.enemyTeams">
+<span class="sig-name descname"><span class="pre">enemyTeams</span></span><a class="headerlink" href="#SplatStats.Battle.Battle.enemyTeams" title="Permalink to this definition">¶</a></dt>
+<dd><p>Breakdown of the enemy teams</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>list of dataframes</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">dumpBattle(path=&quot;./&quot;):</span></span></dt>
+<dd><p>Exports serialized battle object to disk.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="SplatStats.Battle.Battle.dumpBattle">
+<span class="sig-name descname"><span class="pre">dumpBattle</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fPath</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'./'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#SplatStats.Battle.Battle.dumpBattle" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="SplatStats.Battle.Battle.getAllyByCategory">
+<span class="sig-name descname"><span class="pre">getAllyByCategory</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">category</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'player</span> <span class="pre">name'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#SplatStats.Battle.Battle.getAllyByCategory" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="SplatStats.Battle.Battle.getEnemyByCategory">
+<span class="sig-name descname"><span class="pre">getEnemyByCategory</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">category</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'player</span> <span class="pre">name'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#SplatStats.Battle.Battle.getEnemyByCategory" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="SplatStats.Battle.Battle.getPlayerByCategory">
+<span class="sig-name descname"><span class="pre">getPlayerByCategory</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">team</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">category</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'player</span> <span class="pre">name'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#SplatStats.Battle.Battle.getPlayerByCategory" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-SplatStats.Player">
+<span id="splatstats-player-module"></span><h2>SplatStats.Player module<a class="headerlink" href="#module-SplatStats.Player" title="Permalink to this heading">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="SplatStats.Player.Player">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">SplatStats.Player.</span></span><span class="sig-name descname"><span class="pre">Player</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bPaths</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">timezone</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#SplatStats.Player.Player" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="SplatStats.Player.Player.name">
+<span class="sig-name descname"><span class="pre">name</span></span><a class="headerlink" href="#SplatStats.Player.Player.name" title="Permalink to this definition">¶</a></dt>
+<dd><p>Player’s in-game name.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="SplatStats.Player.Player.id">
+<span class="sig-name descname"><span class="pre">id</span></span><a class="headerlink" href="#SplatStats.Player.Player.id" title="Permalink to this definition">¶</a></dt>
+<dd><p>Player’s in-game id.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="SplatStats.Player.Player.bPaths">
+<span class="sig-name descname"><span class="pre">bPaths</span></span><a class="headerlink" href="#SplatStats.Player.Player.bPaths" title="Permalink to this definition">¶</a></dt>
+<dd><p>List of paths for all the battle files to be analyzed.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>list of paths</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="SplatStats.Player.Player.timezone">
+<span class="sig-name descname"><span class="pre">timezone</span></span><a class="headerlink" href="#SplatStats.Player.Player.timezone" title="Permalink to this definition">¶</a></dt>
+<dd><p>Datetime-valid timezone string id for the player’s location.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="SplatStats.Player.Player.battlesRecords">
+<span class="sig-name descname"><span class="pre">battlesRecords</span></span><a class="headerlink" href="#SplatStats.Player.Player.battlesRecords" title="Permalink to this definition">¶</a></dt>
+<dd><p>Full list of battle objects.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>list of objects</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="SplatStats.Player.Player.battlesHistory">
+<span class="sig-name descname"><span class="pre">battlesHistory</span></span><a class="headerlink" href="#SplatStats.Player.Player.battlesHistory" title="Permalink to this definition">¶</a></dt>
+<dd><p>Full battle history.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>dataframe</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="SplatStats.Player.Player.battlesHistoryByType">
+<span class="sig-name descname"><span class="pre">battlesHistoryByType</span></span><a class="headerlink" href="#SplatStats.Player.Player.battlesHistoryByType" title="Permalink to this definition">¶</a></dt>
+<dd><p>Battle history broken up by match types: “Turf War”, “Rainmaker”, “Splat Zones”, “Clam Blitz”, “Tower Control”</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>set of dataframes</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="SplatStats.Player.Player.playerStats">
+<span class="sig-name descname"><span class="pre">playerStats</span></span><a class="headerlink" href="#SplatStats.Player.Player.playerStats" title="Permalink to this definition">¶</a></dt>
+<dd><p>Stats on full battle history.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>set</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="SplatStats.Player.Player.playerStatsByType">
+<span class="sig-name descname"><span class="pre">playerStatsByType</span></span><a class="headerlink" href="#SplatStats.Player.Player.playerStatsByType" title="Permalink to this definition">¶</a></dt>
+<dd><p>Stats on battle history by match-type</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>set of sets</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="SplatStats.Player.Player.calcPlayerStats">
+<span class="sig-name descname"><span class="pre">calcPlayerStats</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#SplatStats.Player.Player.calcPlayerStats" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="SplatStats.Player.Player.calcPlayerStatsByTypes">
+<span class="sig-name descname"><span class="pre">calcPlayerStatsByTypes</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#SplatStats.Player.Player.calcPlayerStatsByTypes" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="SplatStats.Player.Player.getBattleRecords">
+<span class="sig-name descname"><span class="pre">getBattleRecords</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#SplatStats.Player.Player.getBattleRecords" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="SplatStats.Player.Player.getBattleRecordsByType">
+<span class="sig-name descname"><span class="pre">getBattleRecordsByType</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">battleType</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#SplatStats.Player.Player.getBattleRecordsByType" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="SplatStats.Player.Player.getPlayerHistoryByTypes">
+<span class="sig-name descname"><span class="pre">getPlayerHistoryByTypes</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#SplatStats.Player.Player.getPlayerHistoryByTypes" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="SplatStats.Player.Player.parsePlayerHistoryFromBattles">
+<span class="sig-name descname"><span class="pre">parsePlayerHistoryFromBattles</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">validOnly</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#SplatStats.Player.Player.parsePlayerHistoryFromBattles" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-SplatStats.auxiliary">
+<span id="splatstats-auxiliary-module"></span><h2>SplatStats.auxiliary module<a class="headerlink" href="#module-SplatStats.auxiliary" title="Permalink to this heading">¶</a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="SplatStats.auxiliary.awardsToStrings">
+<span class="sig-prename descclassname"><span class="pre">SplatStats.auxiliary.</span></span><span class="sig-name descname"><span class="pre">awardsToStrings</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">awardsDF</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sep</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'&#64;'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#SplatStats.auxiliary.awardsToStrings" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="SplatStats.auxiliary.boolKO">
+<span class="sig-prename descclassname"><span class="pre">SplatStats.auxiliary.</span></span><span class="sig-name descname"><span class="pre">boolKO</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">koString</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#SplatStats.auxiliary.boolKO" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="SplatStats.auxiliary.boolWinLose">
+<span class="sig-prename descclassname"><span class="pre">SplatStats.auxiliary.</span></span><span class="sig-name descname"><span class="pre">boolWinLose</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">winString</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#SplatStats.auxiliary.boolWinLose" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="SplatStats.auxiliary.datetimeToString">
+<span class="sig-prename descclassname"><span class="pre">SplatStats.auxiliary.</span></span><span class="sig-name descname"><span class="pre">datetimeToString</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">datetime</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#SplatStats.auxiliary.datetimeToString" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="SplatStats.auxiliary.gearPrepend">
+<span class="sig-prename descclassname"><span class="pre">SplatStats.auxiliary.</span></span><span class="sig-name descname"><span class="pre">gearPrepend</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">gearType</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#SplatStats.auxiliary.gearPrepend" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="SplatStats.auxiliary.getHistoryFiles">
+<span class="sig-prename descclassname"><span class="pre">SplatStats.auxiliary.</span></span><span class="sig-name descname"><span class="pre">getHistoryFiles</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">histFolders</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pattern</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'results.json'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#SplatStats.auxiliary.getHistoryFiles" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="SplatStats.auxiliary.getHistoryFolders">
+<span class="sig-prename descclassname"><span class="pre">SplatStats.auxiliary.</span></span><span class="sig-name descname"><span class="pre">getHistoryFolders</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">histPath</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fldrPat</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'export-*'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#SplatStats.auxiliary.getHistoryFolders" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="SplatStats.auxiliary.isNotebook">
+<span class="sig-prename descclassname"><span class="pre">SplatStats.auxiliary.</span></span><span class="sig-name descname"><span class="pre">isNotebook</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#SplatStats.auxiliary.isNotebook" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="SplatStats.auxiliary.loadBattle">
+<span class="sig-prename descclassname"><span class="pre">SplatStats.auxiliary.</span></span><span class="sig-name descname"><span class="pre">loadBattle</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fPath</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#SplatStats.auxiliary.loadBattle" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</section>
+<section id="module-SplatStats.constants">
+<span id="splatstats-constants-module"></span><h2>SplatStats.constants module<a class="headerlink" href="#module-SplatStats.constants" title="Permalink to this heading">¶</a></h2>
+</section>
+<section id="module-SplatStats.files">
+<span id="splatstats-files-module"></span><h2>SplatStats.files module<a class="headerlink" href="#module-SplatStats.files" title="Permalink to this heading">¶</a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="SplatStats.files.dumpBattlesFromJSONS">
+<span class="sig-prename descclassname"><span class="pre">SplatStats.files.</span></span><span class="sig-name descname"><span class="pre">dumpBattlesFromJSONS</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">historyFilepaths</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">oPath</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#SplatStats.files.dumpBattlesFromJSONS" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="SplatStats.files.getBattleFilepaths">
+<span class="sig-prename descclassname"><span class="pre">SplatStats.files.</span></span><span class="sig-name descname"><span class="pre">getBattleFilepaths</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">bPath</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filePat</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'*.pkl'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#SplatStats.files.getBattleFilepaths" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="SplatStats.files.getDataFilepaths">
+<span class="sig-prename descclassname"><span class="pre">SplatStats.files.</span></span><span class="sig-name descname"><span class="pre">getDataFilepaths</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">iPath</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fldrPat</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'export-*'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filePat</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'results.json'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#SplatStats.files.getDataFilepaths" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</section>
+<section id="module-SplatStats.parsers">
+<span id="splatstats-parsers-module"></span><h2>SplatStats.parsers module<a class="headerlink" href="#module-SplatStats.parsers" title="Permalink to this heading">¶</a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="SplatStats.parsers.getGear">
+<span class="sig-prename descclassname"><span class="pre">SplatStats.parsers.</span></span><span class="sig-name descname"><span class="pre">getGear</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">player</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#SplatStats.parsers.getGear" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="SplatStats.parsers.getGearUnit">
+<span class="sig-prename descclassname"><span class="pre">SplatStats.parsers.</span></span><span class="sig-name descname"><span class="pre">getGearUnit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">player</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gType</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'headGear'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#SplatStats.parsers.getGearUnit" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="SplatStats.parsers.getMatchScore">
+<span class="sig-prename descclassname"><span class="pre">SplatStats.parsers.</span></span><span class="sig-name descname"><span class="pre">getMatchScore</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">teamResult</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">matchType</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#SplatStats.parsers.getMatchScore" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="SplatStats.parsers.getPlayerResults">
+<span class="sig-prename descclassname"><span class="pre">SplatStats.parsers.</span></span><span class="sig-name descname"><span class="pre">getPlayerResults</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">player</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#SplatStats.parsers.getPlayerResults" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="SplatStats.parsers.getPlayerWeapon">
+<span class="sig-prename descclassname"><span class="pre">SplatStats.parsers.</span></span><span class="sig-name descname"><span class="pre">getPlayerWeapon</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">player</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#SplatStats.parsers.getPlayerWeapon" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="SplatStats.parsers.getPlayersBattleInfo">
+<span class="sig-prename descclassname"><span class="pre">SplatStats.parsers.</span></span><span class="sig-name descname"><span class="pre">getPlayersBattleInfo</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">players</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#SplatStats.parsers.getPlayersBattleInfo" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="SplatStats.parsers.getTeamDataframe">
+<span class="sig-prename descclassname"><span class="pre">SplatStats.parsers.</span></span><span class="sig-name descname"><span class="pre">getTeamDataframe</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">team</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">matchType</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#SplatStats.parsers.getTeamDataframe" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="SplatStats.parsers.parseAwards">
+<span class="sig-prename descclassname"><span class="pre">SplatStats.parsers.</span></span><span class="sig-name descname"><span class="pre">parseAwards</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">awardsList</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#SplatStats.parsers.parseAwards" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="SplatStats.parsers.parsePlayerHistoryFromBattles">
+<span class="sig-prename descclassname"><span class="pre">SplatStats.parsers.</span></span><span class="sig-name descname"><span class="pre">parsePlayerHistoryFromBattles</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">battleRecords</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">category</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'player</span> <span class="pre">name'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">validOnly</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">timezone</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#SplatStats.parsers.parsePlayerHistoryFromBattles" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</section>
+<section id="module-SplatStats.stats">
+<span id="splatstats-stats-module"></span><h2>SplatStats.stats module<a class="headerlink" href="#module-SplatStats.stats" title="Permalink to this heading">¶</a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="SplatStats.stats.calcBattleHistoryStats">
+<span class="sig-prename descclassname"><span class="pre">SplatStats.stats.</span></span><span class="sig-name descname"><span class="pre">calcBattleHistoryStats</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">bHist</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#SplatStats.stats.calcBattleHistoryStats" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</section>
+<section id="module-SplatStats">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-SplatStats" title="Permalink to this heading">¶</a></h2>
+</section>
+</section>
+
+
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+    </p>
+    <p>
+        &copy; Copyright 2022, chipdelmal.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 5.1.1.<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>

@@ -32,7 +32,7 @@ setuptools.setup(
         "Operating System :: OS Independent",
     ],
     extras_require={
-        'dev': ['twine', 'wheel', 'sphinx', 'piccolo-theme']
+        'dev': ['twine', 'wheel', 'sphinx', 'sphinx-bootstrap-theme']
     },
     python_requires='>=3.10',
 )
