@@ -29,7 +29,13 @@ class Player:
     battlesRecords : list of objects
         Full list of battle objects.
     battlesHistory : dataframe
-        Player's full battle history.
+        Full battle history.
+    battlesHistoryByType : set of dataframes
+        Battle history broken up by match types: "Turf War", "Rainmaker", "Splat Zones", "Clam Blitz", "Tower Control"
+    playerStats : set
+        Stats on full battle history.
+    playerStatsByType : set of sets
+        Stats on battle history by match-type
         
     Methods
     -------
@@ -48,6 +54,7 @@ class Player:
         self.battlesHistoryByType = self.getPlayerHistoryByTypes()
         # Assign stats --------------------------------------------------------
         self.playerStats = self.calcPlayerStats()
+        self.playerStatsByType = self.calcPlayerStatsByTypes()
 
     ###########################################################################
     # Get battle records
@@ -77,15 +84,12 @@ class Player:
         return self.battlesHistory
     
     def getPlayerHistoryByTypes(self):
-        bTypes = (
-            'Turf War', 'Tower Control', 'Rainmaker', 
-            'Splat Zones', 'Clam Blitz'
-        )
+        bTypes = cst.MATCH_TYPES
         bTypesHist = {
             bType: self.getBattleRecordsByType(bType) for bType in bTypes
         }
         return bTypesHist
-        
+
     ###########################################################################
     # Calculate player stats from history dataframe
     ###########################################################################
@@ -94,5 +98,13 @@ class Player:
         hStats = stt.calcBattleHistoryStats(bHist)
         return hStats
         
-    
-
+    def calcPlayerStatsByTypes(self):
+        (bTypes, bHists) = (
+            cst.MATCH_TYPES, 
+            self.battlesHistoryByType
+        )
+        hStatsHist = {
+            bType: stt.calcBattleHistoryStats(bHists[bType]) 
+            for bType in bTypes if (bHists[bType].shape[0] > 1)
+        }
+        return hStatsHist

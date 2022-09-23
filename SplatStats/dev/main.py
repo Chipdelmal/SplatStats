@@ -29,12 +29,14 @@ NAMES = (
     'čħîþ ウナギ', 'Yami ウナギ', 'Riché ウナギ',
     'Oswal　ウナギ', 'April ウナギ', 'Murazee'
 )
-plyr = splat.Player('čħîþ ウナギ', bPaths, timezone='America/Los_Angeles')
+plyr = splat.Player(NAMES[0], bPaths, timezone='America/Los_Angeles')
 # (chip, yami, april, richie, memo, tomas) = [
 #     splat.Player(nme, bPaths, timezone='America/Los_Angeles')
 #     for nme in NAMES
 # ]
 # team = (chip, yami, april, richie, memo, tomas)
+plyr.battlesHistory
+plyr.playerStatsByType
 ###############################################################################
 # Process Player
 ###############################################################################
@@ -99,6 +101,6 @@ ax.set_yticks(kLv)
 ax.set_yticklabels([f'{i}/{round(p)}' for (i, p) in zip(kLv, pLv)])
 plt.savefig(
     path.join(oPath, (plyr.name)+' BHistory.png'), 
-    dpi=300, bbox_inches='tight'
+    dpi=300, bbox_inches='tight', facecolor=fig.get_facecolor()
 )
 

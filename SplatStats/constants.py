@@ -7,3 +7,7 @@ BATTLE_DTYPES = {
     'assist': int,
     'special': int
 }
+
+MATCH_TYPES = (
+    'Turf War', 'Tower Control', 'Rainmaker', 'Splat Zones', 'Clam Blitz'
+)
