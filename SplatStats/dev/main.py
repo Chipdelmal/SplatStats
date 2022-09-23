@@ -8,6 +8,7 @@ import SplatStats as splat
 import matplotlib.pyplot as plt
 from matplotlib.patches import Rectangle
 from matplotlib import markers
+from collections import Counter
 
 if splat.isNotebook():
     (iPath, oPath) = (
@@ -36,11 +37,16 @@ plyr = splat.Player(NAMES[0], bPaths, timezone='America/Los_Angeles')
 # ]
 # team = (chip, yami, april, richie, memo, tomas)
 plyr.battlesHistory
-plyr.playerStatsByType
+plyr.playerStats
+
+bHist = plyr.battlesHistory
+Counter(list(bHist['award_0'])+list(bHist['award_1'])+list(bHist['award_2']))
+
 ###############################################################################
 # Process Player
 ###############################################################################
 playerHistory = plyr.battlesHistory
+playerHistory['award_0'].unique()
 plyr.getBattleRecordsByType('Tower Control')
 ###############################################################################
 # Plot K/D ratio

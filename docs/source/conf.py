@@ -33,6 +33,5 @@ exclude_patterns = []
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#options-for-html-output
 
 add_module_names = False
-
 html_theme = 'press'
 html_static_path = ['_static']

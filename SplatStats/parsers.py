@@ -92,9 +92,14 @@ def parseAwards(awardsList):
     awards = []
     for aw in awardsList:
         (name, rank) = (aw['name'], aw['rank'])
-        awards.append({
-            'place': name[1:2], 'name': name[3:], 'rank': rank.lower()
-        })
+        if name[0]=='#':
+            awards.append({
+                'place': name[1:2], 'name': name[3:], 'rank': rank.lower()
+            })
+        else:
+            awards.append({
+                'place': '0', 'name': name[:], 'rank': rank.lower()
+            })  
     awardsDF = pd.DataFrame.from_dict(awards)
     return awardsDF
 

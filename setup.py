@@ -27,12 +27,13 @@ setuptools.setup(
     long_description_content_type="text/markdown",
     url="https://github.com/Chipdelmal/SplatStats",
     packages=setuptools.find_packages(),
-    classifiers=[
-        "License :: OSI Approved :: Apache Software License",
-        "Operating System :: OS Independent",
-    ],
     extras_require={
         'dev': ['twine', 'wheel', 'sphinx', 'sphinx-bootstrap-theme']
     },
     python_requires='>=3.10',
+    license='GPLv3',
+    classifiers=[
+        "Programming Language :: Python :: 3.10",
+        "Operating System :: OS Independent"
+    ]
 )
