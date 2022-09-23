@@ -34,5 +34,5 @@ exclude_patterns = []
 
 add_module_names = False
 
-html_theme = 'sphinxdoc'
+html_theme = 'press'
 html_static_path = ['_static']

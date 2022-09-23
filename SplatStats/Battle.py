@@ -38,6 +38,12 @@ class Battle:
     -------
     dumpBattle(path="./"):
         Exports serialized battle object to disk.
+    getPlayerByCategory():
+
+    getAllyByCategory():
+    
+    getEnemyByCategory():
+    
     """
     ###########################################################################
     # Battle info
