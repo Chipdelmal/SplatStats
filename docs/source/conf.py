@@ -3,13 +3,16 @@
 # For the full list of built-in configuration values, see the documentation:
 # https://www.sphinx-doc.org/en/master/usage/configuration.html
 
+import os
+from SplatStats._version import __version__
+
 # -- Project information -----------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#project-information
 
 project = 'SplatStats'
 copyright = '2022, chipdelmal'
 author = 'chipdelmal'
-release = '0.1'
+release = str(__version__)
 
 # -- General configuration ---------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration
@@ -29,5 +32,7 @@ exclude_patterns = []
 # -- Options for HTML output -------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#options-for-html-output
 
-html_theme = 'haiku'
+add_module_names = False
+
+html_theme = 'sphinxdoc'
 html_static_path = ['_static']

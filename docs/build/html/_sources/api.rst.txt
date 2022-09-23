@@ -1,0 +1,13 @@
+API
+===
+
+Welcome to our API!
+
+Battle
+------------
+
+.. autosummary::
+   :toctree: generated
+   :nosignatures:
+
+   SplatStats.Battle
