@@ -3,8 +3,10 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-Welcome to SplatStats's documentation!
+SplatStats's docs!
 ======================================
+
+Come back in a few weeks for more info!
 
 .. toctree::
    :maxdepth: 2

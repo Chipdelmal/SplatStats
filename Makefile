@@ -36,3 +36,8 @@ conda_update:
 conda_export:
 	- pip freeze > ./requirements.txt
 	- conda env export | cut -f 1 -d '=' | grep -v "prefix" > ./requirements.yml
+
+doc:
+	- pip install .
+	- sphinx-apidoc -f -o docs/source SplatStats
+	- sphinx-build -b html docs/source/ docs/build/html

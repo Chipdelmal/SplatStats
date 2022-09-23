@@ -31,5 +31,8 @@ setuptools.setup(
         "License :: OSI Approved :: Apache Software License",
         "Operating System :: OS Independent",
     ],
+    extras_require={
+        'dev': ['twine', 'wheel', 'sphinx', 'piccolo-theme']
+    },
     python_requires='>=3.10',
 )
