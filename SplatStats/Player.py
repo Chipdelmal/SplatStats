@@ -105,6 +105,6 @@ class Player:
         )
         hStatsHist = {
             bType: stt.calcBattleHistoryStats(bHists[bType]) 
-            for bType in bTypes if (bHists[bType].shape[0] > 1)
+            for bType in bTypes if (bHists[bType].shape[0] > 0)
         }
         return hStatsHist
