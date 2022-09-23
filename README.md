@@ -2,13 +2,13 @@
 
 **UNDER DEVELOPMENT** 
 
-This codebase is meant to work in tandem with the [s3s package](https://github.com/frozenpandaman/s3s) to refactor and analayze [Splatoon 3](https://en.wikipedia.org/wiki/Splatoon_3)'s data. When finished, it will be able to take exported `json` files, re-shape them, and visualize the data from battles history.
+This codebase is works in tandem with the [s3s package](https://github.com/frozenpandaman/s3s) to refactor and analayze [Splatoon 3](https://en.wikipedia.org/wiki/Splatoon_3)'s data. When finished, it will be able to take exported `json` files, re-shape them, and visualize the data from battles history.
 
 ## Instructions
 
 **Downloading data**: Install s3s as explained [here](https://github.com/frozenpandaman/s3s), then download stats jsons by running: `python s3s.py -o`
 
-## Data Structures
+<!-- ## Data Structures
 
 ### Battle Object
 
@@ -47,4 +47,4 @@ This codebase is meant to work in tandem with the [s3s package](https://github.c
 
 * `name`: Name of the award
 * `rank`: Gold/Silver rank
-* `place`: Placing in top
+* `place`: Placing in top -->
