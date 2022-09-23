@@ -1,0 +1,126 @@
+Quickstart
+======================================
+
+The first thing to do is to get `s3s <https://github.com/frozenpandaman/s3s/>`_ installed and running in your system. 
+Even though `SplatStats <https://chipdelmal.github.io/SplatStats/>`_ doesn't strictly require the package to be used, it's the way we will be downloading the JSON history data into our system.
+
+Getting s3s up and running
+____________________________________________
+
+We will provide a brief set of instructions to get `s3s <https://github.com/frozenpandaman/s3s/>`_ running, but please refer to `their repo <https://github.com/frozenpandaman/s3s/>`_ for more information.
+
+First, we need to clone or download the `repository <https://github.com/frozenpandaman/s3s/>`_. Once we do this, we navigate to the folder and install the required libraries with:
+
+.. code-block:: bash
+
+    pip install -r requirements.txt
+
+
+With those in place, we run the main script with the `-o` flag so that it exports the JSON files to disk:
+
+.. code-block:: bash
+
+    python s3s.py -o
+
+
+The first time it's run, it will ask us to follow some instructions so that it can gain access to your splatoon data (for more information have a look at `s3s <https://github.com/frozenpandaman/s3s/>`_ or `splatnet2statink <https://github.com/frozenpandaman/splatnet2statink>`  instructions).
+Please note that it might be necessary to create an account in `stat.ink <https://stat.ink/>`_ to generate a couple of keys.
+
+
+
+Installing SplatStats
+____________________________________________
+
+
+To install the latest `SplatStats <https://chipdelmal.github.io/SplatStats/>`_ version, simply run:
+
+.. code-block:: bash
+
+    pip install SplatStats
+
+
+The use of virtual environments is highly recommended, and we do provide our `requirements.yml <https://github.com/Chipdelmal/SplatStats/blob/main/requirements.yml>`_ file to install all the required dependencies to run both `SplatStats <https://chipdelmal.github.io/SplatStats/>`_ and `s3s <https://github.com/frozenpandaman/s3s/>`_ in an `anaconda <https://www.anaconda.com/>`_ virtual environment. 
+
+
+
+Getting a player's history dataframe
+____________________________________________
+
+.. code-block:: python
+
+    import SplatStats as splat
+
+    # The name of the player as it appears in-game
+    playerName = 'čħîþ ウナギ'
+    # iPath is the location in which the "export-*" folders are located (from s3s)
+    # oPath is where we want our data to be exported to
+    (iPath, oPath) = ('/GitHub/s3s/', './BattlesData')
+
+    # Get s3s JSON history filepaths, process and dump the battles to pkl files
+    hPaths = splat.getDataFilepaths(iPath, filePat='results.json')
+    bPaths = splat.dumpBattlesFromJSONS(hPaths, oPath)
+    # Generate a Player object
+    plyr = splat.Player(playerName, bPaths)
+    # Check the player's battle history dataframe
+    plyr.battlesHistory
+
+This should bring up a dataframe containing the full player's history (as available in the JSON files) like this one:
+
+.. image:: ../img/playerDF.png
+    :width: 100%
+
+Additionally, we could check the player's stats:
+
+.. code-block:: python
+
+    # Check the player's overall stats
+    plyr.playerStats
+
+
+Which should return something like the following dictionary:
+
+.. code-block:: python
+
+    {
+        'general': {
+            'total matches': 163,
+            'win': 98,
+            'loss': 65,
+            'win ratio': 0.6012269938650306,
+            'kill ratio': 2.321375186846039
+        },
+        'kpads': {
+            'kills': 1553,
+            'deaths': 669,
+            'assists': 228,
+            'special': 353,
+            'paint': 147846
+        },
+        'kpads avg': {
+            'kills': 9.52760736196319,
+            'deaths': 4.104294478527607,
+            'assist': 1.3987730061349692,
+            'special': 2.165644171779141,
+            'paint': 907.0306748466257
+        },
+        'kpads per min': {
+            'kills': 2.9288214317457775,
+            'deaths': 1.2288724769901596,
+            'assist': 0.4255475880146193,
+            'special': 0.6723816423510918,
+            'paint': 284.23987972673893
+        }
+    }
+
+Where `kpads` is shorthand for "kills, paint, assist, deaths, specials".
+
+We could also get these stats broken down by match type:
+
+.. code-block:: python
+
+    # Check the player's overall stats
+    plyr.playerStatsByType
+
+
+Which adds another upper level to the dictionary with they keys: `Turf War`, `Splat Zones`, `Clam Blitz`, `Tower Control`, and `Rainmaker`.
+

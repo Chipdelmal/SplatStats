@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html  lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1"><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
+      <title>Quickstart</title>
+    
+          <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+          <link rel="stylesheet" href="_static/theme.css " type="text/css" />
+      
+      <!-- sphinx script_files -->
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="_static/doctools.js"></script>
+
+      
+      <!-- bundled in js (rollup iife) -->
+      <!-- <script src="_static/theme-vendors.js"></script> -->
+      <script src="_static/theme.js" defer></script>
+    
+  <link rel="index" title="Index" href="genindex.html" />
+  <link rel="search" title="Search" href="search.html" />
+  <link rel="next" title="Code Structure" href="packageStructure.html" />
+  <link rel="prev" title="SplatStats’ docs!" href="index.html" /> 
+  </head>
+
+  <body>
+    <div id="app">
+    <div class="theme-container" :class="pageClasses"><navbar @toggle-sidebar="toggleSidebar">
+  <router-link to="index.html" class="home-link">
+    
+      <span class="site-name">SplatStats</span>
+    
+  </router-link>
+
+  <div class="links">
+    <navlinks class="can-hide">
+
+
+
+    </navlinks>
+  </div>
+</navbar>
+
+      
+      <div class="sidebar-mask" @click="toggleSidebar(false)">
+      </div>
+        <sidebar @toggle-sidebar="toggleSidebar">
+          
+          <navlinks>
+            
+
+
+
+            
+          </navlinks><div id="searchbox" class="searchbox" role="search">
+  <div class="caption"><span class="caption-text">Quick search</span>
+    <div class="searchformwrapper">
+      <form class="search" action="search.html" method="get">
+        <input type="text" name="q" />
+        <input type="submit" value="Search" />
+        <input type="hidden" name="check_keywords" value="yes" />
+        <input type="hidden" name="area" value="default" />
+      </form>
+    </div>
+  </div>
+</div><div class="sidebar-links" role="navigation" aria-label="main navigation">
+  
+    <div class="sidebar-group">
+      <p class="caption">
+        <span class="caption-text"><a href="index.html#splatstats-docs">Contents</a></span>
+      </p>
+      <ul class="current">
+        
+          <li class="toctree-l1 current">
+            
+              <a href="#" class="reference internal current">Quickstart</a>
+            
+
+            
+              <ul>
+                
+                  <li class="toctree-l2"><a href="#getting-s3s-up-and-running" class="reference internal">Getting s3s up and running</a></li>
+                
+                  <li class="toctree-l2"><a href="#installing-splatstats" class="reference internal">Installing SplatStats</a></li>
+                
+                  <li class="toctree-l2"><a href="#getting-a-player-s-history-dataframe" class="reference internal">Getting a player’s history dataframe</a></li>
+                
+              </ul>
+            
+          </li>
+
+        
+          <li class="toctree-l1 ">
+            
+              <a href="packageStructure.html" class="reference internal ">Code Structure</a>
+            
+
+            
+          </li>
+
+        
+      </ul>
+    </div>
+  
+</div>
+        </sidebar>
+
+      <page>
+          <div class="body-header" role="navigation" aria-label="navigation">
+  
+  <ul class="breadcrumbs">
+    <li><a href="index.html">Docs</a> &raquo;</li>
+    
+    <li>Quickstart</li>
+  </ul>
+  
+
+  <ul class="page-nav">
+  <li class="prev">
+    <a href="index.html"
+       title="previous chapter">← SplatStats’ docs!</a>
+  </li>
+  <li class="next">
+    <a href="packageStructure.html"
+       title="next chapter">Code Structure →</a>
+  </li>
+</ul>
+  
+</div>
+<hr>
+          <div class="content" role="main" v-pre>
+            
+  <section id="quickstart">
+<h1>Quickstart<a class="headerlink" href="#quickstart" title="Permalink to this heading">¶</a></h1>
+<p>The first thing to do is to get <a class="reference external" href="https://github.com/frozenpandaman/s3s/">s3s</a> installed and running in your system.
+Even though <a class="reference external" href="https://chipdelmal.github.io/SplatStats/">SplatStats</a> doesn’t strictly require the package to be used, it’s the way we will be downloading the JSON history data into our system.</p>
+<section id="getting-s3s-up-and-running">
+<h2>Getting s3s up and running<a class="headerlink" href="#getting-s3s-up-and-running" title="Permalink to this heading">¶</a></h2>
+<p>We will provide a brief set of instructions to get <a class="reference external" href="https://github.com/frozenpandaman/s3s/">s3s</a> running, but please refer to <a class="reference external" href="https://github.com/frozenpandaman/s3s/">their repo</a> for more information.</p>
+<p>First, we need to clone or download the <a class="reference external" href="https://github.com/frozenpandaman/s3s/">repository</a>. Once we do this, we navigate to the folder and install the required libraries with:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip install -r requirements.txt
+</pre></div>
+</div>
+<p>With those in place, we run the main script with the <cite>-o</cite> flag so that it exports the JSON files to disk:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python s3s.py -o
+</pre></div>
+</div>
+<p>The first time it’s run, it will ask us to follow some instructions so that it can gain access to your splatoon data (for more information have a look at <a class="reference external" href="https://github.com/frozenpandaman/s3s/">s3s</a> or <cite>splatnet2statink &lt;https://github.com/frozenpandaman/splatnet2statink&gt;</cite>  instructions).
+Please note that it might be necessary to create an account in <a class="reference external" href="https://stat.ink/">stat.ink</a> to generate a couple of keys.</p>
+</section>
+<section id="installing-splatstats">
+<h2>Installing SplatStats<a class="headerlink" href="#installing-splatstats" title="Permalink to this heading">¶</a></h2>
+<p>To install the latest <a class="reference external" href="https://chipdelmal.github.io/SplatStats/">SplatStats</a> version, simply run:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip install SplatStats
+</pre></div>
+</div>
+<p>The use of virtual environments is highly recommended, and we do provide our <a class="reference external" href="https://github.com/Chipdelmal/SplatStats/blob/main/requirements.yml">requirements.yml</a> file to install all the required dependencies to run both <a class="reference external" href="https://chipdelmal.github.io/SplatStats/">SplatStats</a> and <a class="reference external" href="https://github.com/frozenpandaman/s3s/">s3s</a> in an <a class="reference external" href="https://www.anaconda.com/">anaconda</a> virtual environment.</p>
+</section>
+<section id="getting-a-player-s-history-dataframe">
+<h2>Getting a player’s history dataframe<a class="headerlink" href="#getting-a-player-s-history-dataframe" title="Permalink to this heading">¶</a></h2>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">SplatStats</span> <span class="k">as</span> <span class="nn">splat</span>
+
+<span class="c1"># The name of the player as it appears in-game</span>
+<span class="n">playerName</span> <span class="o">=</span> <span class="s1">&#39;čħîþ ウナギ&#39;</span>
+<span class="c1"># iPath is the location in which the &quot;export-*&quot; folders are located (from s3s)</span>
+<span class="c1"># oPath is where we want our data to be exported to</span>
+<span class="p">(</span><span class="n">iPath</span><span class="p">,</span> <span class="n">oPath</span><span class="p">)</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;/GitHub/s3s/&#39;</span><span class="p">,</span> <span class="s1">&#39;./BattlesData&#39;</span><span class="p">)</span>
+
+<span class="c1"># Get s3s JSON history filepaths, process and dump the battles to pkl files</span>
+<span class="n">hPaths</span> <span class="o">=</span> <span class="n">splat</span><span class="o">.</span><span class="n">getDataFilepaths</span><span class="p">(</span><span class="n">iPath</span><span class="p">,</span> <span class="n">filePat</span><span class="o">=</span><span class="s1">&#39;results.json&#39;</span><span class="p">)</span>
+<span class="n">bPaths</span> <span class="o">=</span> <span class="n">splat</span><span class="o">.</span><span class="n">dumpBattlesFromJSONS</span><span class="p">(</span><span class="n">hPaths</span><span class="p">,</span> <span class="n">oPath</span><span class="p">)</span>
+<span class="c1"># Generate a Player object</span>
+<span class="n">plyr</span> <span class="o">=</span> <span class="n">splat</span><span class="o">.</span><span class="n">Player</span><span class="p">(</span><span class="n">playerName</span><span class="p">,</span> <span class="n">bPaths</span><span class="p">)</span>
+<span class="c1"># Check the player&#39;s battle history dataframe</span>
+<span class="n">plyr</span><span class="o">.</span><span class="n">battlesHistory</span>
+</pre></div>
+</div>
+<p>This should bring up a dataframe containing the full player’s history (as available in the JSON files) like this one:</p>
+<a class="reference internal image-reference" href="_images/playerDF.png"><img alt="_images/playerDF.png" src="_images/playerDF.png" style="width: 100%;" /></a>
+<p>Additionally, we could check the player’s stats:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Check the player&#39;s overall stats</span>
+<span class="n">plyr</span><span class="o">.</span><span class="n">playerStats</span>
+</pre></div>
+</div>
+<p>Which should return something like the following dictionary:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="s1">&#39;general&#39;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s1">&#39;total matches&#39;</span><span class="p">:</span> <span class="mi">163</span><span class="p">,</span>
+        <span class="s1">&#39;win&#39;</span><span class="p">:</span> <span class="mi">98</span><span class="p">,</span>
+        <span class="s1">&#39;loss&#39;</span><span class="p">:</span> <span class="mi">65</span><span class="p">,</span>
+        <span class="s1">&#39;win ratio&#39;</span><span class="p">:</span> <span class="mf">0.6012269938650306</span><span class="p">,</span>
+        <span class="s1">&#39;kill ratio&#39;</span><span class="p">:</span> <span class="mf">2.321375186846039</span>
+    <span class="p">},</span>
+    <span class="s1">&#39;kpads&#39;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s1">&#39;kills&#39;</span><span class="p">:</span> <span class="mi">1553</span><span class="p">,</span>
+        <span class="s1">&#39;deaths&#39;</span><span class="p">:</span> <span class="mi">669</span><span class="p">,</span>
+        <span class="s1">&#39;assists&#39;</span><span class="p">:</span> <span class="mi">228</span><span class="p">,</span>
+        <span class="s1">&#39;special&#39;</span><span class="p">:</span> <span class="mi">353</span><span class="p">,</span>
+        <span class="s1">&#39;paint&#39;</span><span class="p">:</span> <span class="mi">147846</span>
+    <span class="p">},</span>
+    <span class="s1">&#39;kpads avg&#39;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s1">&#39;kills&#39;</span><span class="p">:</span> <span class="mf">9.52760736196319</span><span class="p">,</span>
+        <span class="s1">&#39;deaths&#39;</span><span class="p">:</span> <span class="mf">4.104294478527607</span><span class="p">,</span>
+        <span class="s1">&#39;assist&#39;</span><span class="p">:</span> <span class="mf">1.3987730061349692</span><span class="p">,</span>
+        <span class="s1">&#39;special&#39;</span><span class="p">:</span> <span class="mf">2.165644171779141</span><span class="p">,</span>
+        <span class="s1">&#39;paint&#39;</span><span class="p">:</span> <span class="mf">907.0306748466257</span>
+    <span class="p">},</span>
+    <span class="s1">&#39;kpads per min&#39;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s1">&#39;kills&#39;</span><span class="p">:</span> <span class="mf">2.9288214317457775</span><span class="p">,</span>
+        <span class="s1">&#39;deaths&#39;</span><span class="p">:</span> <span class="mf">1.2288724769901596</span><span class="p">,</span>
+        <span class="s1">&#39;assist&#39;</span><span class="p">:</span> <span class="mf">0.4255475880146193</span><span class="p">,</span>
+        <span class="s1">&#39;special&#39;</span><span class="p">:</span> <span class="mf">0.6723816423510918</span><span class="p">,</span>
+        <span class="s1">&#39;paint&#39;</span><span class="p">:</span> <span class="mf">284.23987972673893</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Where <cite>kpads</cite> is shorthand for “kills, paint, assist, deaths, specials”.</p>
+<p>We could also get these stats broken down by match type:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Check the player&#39;s overall stats</span>
+<span class="n">plyr</span><span class="o">.</span><span class="n">playerStatsByType</span>
+</pre></div>
+</div>
+<p>Which adds another upper level to the dictionary with they keys: <cite>Turf War</cite>, <cite>Splat Zones</cite>, <cite>Clam Blitz</cite>, <cite>Tower Control</cite>, and <cite>Rainmaker</cite>.</p>
+</section>
+</section>
+
+
+          </div>
+          <div class="page-nav">
+            <div class="inner"><ul class="page-nav">
+  <li class="prev">
+    <a href="index.html"
+       title="previous chapter">← SplatStats’ docs!</a>
+  </li>
+  <li class="next">
+    <a href="packageStructure.html"
+       title="next chapter">Code Structure →</a>
+  </li>
+</ul><div class="footer" role="contentinfo">
+      &#169; Copyright 2022, chipdelmal.
+    <br>
+    Created using <a href="http://sphinx-doc.org/">Sphinx</a> 5.1.1 with <a href="https://github.com/schettino72/sphinx_press_theme">Press Theme</a> 0.8.0.
+</div>
+            </div>
+          </div>
+      </page>
+    </div></div>
+    
+    
+  </body>
+</html>

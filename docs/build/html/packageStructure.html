@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html  lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1"><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
+      <title>Code Structure</title>
+    
+          <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+          <link rel="stylesheet" href="_static/theme.css " type="text/css" />
+      
+      <!-- sphinx script_files -->
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="_static/doctools.js"></script>
+
+      
+      <!-- bundled in js (rollup iife) -->
+      <!-- <script src="_static/theme-vendors.js"></script> -->
+      <script src="_static/theme.js" defer></script>
+    
+  <link rel="index" title="Index" href="genindex.html" />
+  <link rel="search" title="Search" href="search.html" />
+  <link rel="prev" title="Quickstart" href="quickstart.html" /> 
+  </head>
+
+  <body>
+    <div id="app">
+    <div class="theme-container" :class="pageClasses"><navbar @toggle-sidebar="toggleSidebar">
+  <router-link to="index.html" class="home-link">
+    
+      <span class="site-name">SplatStats</span>
+    
+  </router-link>
+
+  <div class="links">
+    <navlinks class="can-hide">
+
+
+
+    </navlinks>
+  </div>
+</navbar>
+
+      
+      <div class="sidebar-mask" @click="toggleSidebar(false)">
+      </div>
+        <sidebar @toggle-sidebar="toggleSidebar">
+          
+          <navlinks>
+            
+
+
+
+            
+          </navlinks><div id="searchbox" class="searchbox" role="search">
+  <div class="caption"><span class="caption-text">Quick search</span>
+    <div class="searchformwrapper">
+      <form class="search" action="search.html" method="get">
+        <input type="text" name="q" />
+        <input type="submit" value="Search" />
+        <input type="hidden" name="check_keywords" value="yes" />
+        <input type="hidden" name="area" value="default" />
+      </form>
+    </div>
+  </div>
+</div><div class="sidebar-links" role="navigation" aria-label="main navigation">
+  
+    <div class="sidebar-group">
+      <p class="caption">
+        <span class="caption-text"><a href="index.html#splatstats-docs">Contents</a></span>
+      </p>
+      <ul class="current">
+        
+          <li class="toctree-l1 ">
+            
+              <a href="quickstart.html" class="reference internal ">Quickstart</a>
+            
+
+            
+          </li>
+
+        
+          <li class="toctree-l1 current">
+            
+              <a href="#" class="reference internal current">Code Structure</a>
+            
+
+            
+              <ul>
+                
+                  <li class="toctree-l2"><a href="#auxiliary-routines" class="reference internal">Auxiliary Routines</a></li>
+                
+                  <li class="toctree-l2"><a href="#player" class="reference internal">Player</a></li>
+                
+                  <li class="toctree-l2"><a href="#battle" class="reference internal">Battle</a></li>
+                
+              </ul>
+            
+          </li>
+
+        
+      </ul>
+    </div>
+  
+</div>
+        </sidebar>
+
+      <page>
+          <div class="body-header" role="navigation" aria-label="navigation">
+  
+  <ul class="breadcrumbs">
+    <li><a href="index.html">Docs</a> &raquo;</li>
+    
+    <li>Code Structure</li>
+  </ul>
+  
+
+  <ul class="page-nav">
+  <li class="prev">
+    <a href="quickstart.html"
+       title="previous chapter">← Quickstart</a>
+  </li>
+</ul>
+  
+</div>
+<hr>
+          <div class="content" role="main" v-pre>
+            
+  <section id="code-structure">
+<h1>Code Structure<a class="headerlink" href="#code-structure" title="Permalink to this heading">¶</a></h1>
+<section id="auxiliary-routines">
+<h2>Auxiliary Routines<a class="headerlink" href="#auxiliary-routines" title="Permalink to this heading">¶</a></h2>
+</section>
+<section id="player">
+<h2>Player<a class="headerlink" href="#player" title="Permalink to this heading">¶</a></h2>
+<p>The uppermost level class is the <cite>Player</cite>.
+Most of the time we will be dealing with this class, as it is the one that encapsulates the <cite>Battle</cite> objects and provides with the most interfaces to handle and analyze the data.</p>
+</section>
+<section id="battle">
+<h2>Battle<a class="headerlink" href="#battle" title="Permalink to this heading">¶</a></h2>
+<section id="team-dataframe">
+<h3>Team Dataframe<a class="headerlink" href="#team-dataframe" title="Permalink to this heading">¶</a></h3>
+<p>The results of a team that was part of a battle are stored in a dataframe object.</p>
+<ul class="simple">
+<li><p><cite>player name:</cite> Player’s name used in the match</p></li>
+<li><p><cite>player name id:</cite> Player’s in-game id</p></li>
+<li><p><cite>main weapon:</cite> Main weapon used</p></li>
+<li><p><cite>sub weapon:</cite> Sub weapon used</p></li>
+<li><p><cite>special weapon:</cite> Special weapon used</p></li>
+<li><p><cite>kill:</cite> Kill count</p></li>
+<li><p><cite>death:</cite> Death count</p></li>
+<li><p><cite>assist:</cite> Number of assists</p></li>
+<li><p><cite>special:</cite> Number of specials</p></li>
+<li><p><cite>paint:</cite> Painted surface</p></li>
+<li><p><cite>head name:</cite> Headgear’s name</p></li>
+<li><p><cite>head main:</cite> Headgear’s main ability</p></li>
+<li><p><cite>head sub_0:</cite> Headgear’s sub ability &#64; slot 1</p></li>
+<li><p><cite>head sub_1:</cite> Headgear’s sub ability &#64; slot 2</p></li>
+<li><p><cite>head sub_2:</cite> Headgear’s sub ability &#64; slot 3</p></li>
+<li><p><cite>shirt name:</cite> Shirtgear’s name</p></li>
+<li><p><cite>shirt main:</cite> Shirtgear’s main ability</p></li>
+<li><p><cite>shirt sub_0:</cite> Shirtgear’s sub ability &#64; slot 1</p></li>
+<li><p><cite>shirt sub_1:</cite> Shirtgear’s sub ability &#64; slot 2</p></li>
+<li><p><cite>shirt sub_2:</cite> Shirtgear’s sub ability &#64; slot 3</p></li>
+<li><p><cite>shoes name:</cite> Shoesgear’s name</p></li>
+<li><p><cite>shoes main:</cite> Shoesgear’s main ability</p></li>
+<li><p><cite>shoes sub_0:</cite> Shoesgear’s sub ability &#64; slot 1</p></li>
+<li><p><cite>shoes sub_1:</cite> Shoesgear’s sub ability &#64; slot 2</p></li>
+<li><p><cite>shoes sub_2:</cite> Shoesgear’s sub ability &#64; slot 3</p></li>
+<li><p><cite>self:</cite> Is this player the one who generated the dataset?</p></li>
+<li><p><cite>win:</cite> Win (W), Lose (L) or not finished (NA)</p></li>
+<li><p><cite>score:</cite> Score obtained in the match (if “Turf War”, this stat is “paint”; and if the match did not finish correctly the variable takes a value of <cite>False</cite>)</p></li>
+</ul>
+</section>
+</section>
+</section>
+
+
+          </div>
+          <div class="page-nav">
+            <div class="inner"><ul class="page-nav">
+  <li class="prev">
+    <a href="quickstart.html"
+       title="previous chapter">← Quickstart</a>
+  </li>
+</ul><div class="footer" role="contentinfo">
+      &#169; Copyright 2022, chipdelmal.
+    <br>
+    Created using <a href="http://sphinx-doc.org/">Sphinx</a> 5.1.1 with <a href="https://github.com/schettino72/sphinx_press_theme">Press Theme</a> 0.8.0.
+</div>
+            </div>
+          </div>
+      </page>
+    </div></div>
+    
+    
+  </body>
+</html>

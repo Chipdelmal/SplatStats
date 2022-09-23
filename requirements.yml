@@ -5,9 +5,11 @@ channels:
 dependencies:
   - _libgcc_mutex
   - _openmp_mutex
+  - alabaster
   - alsa-lib
   - asttokens
   - attr
+  - babel
   - backcall
   - backports
   - backports.functools_lru_cache
@@ -22,6 +24,7 @@ dependencies:
   - cffi
   - charset-normalizer
   - cmarkgfm
+  - colorama
   - commonmark
   - contourpy
   - cryptography
@@ -53,6 +56,7 @@ dependencies:
   - gstreamer
   - icu
   - idna
+  - imagesize
   - importlib-metadata
   - importlib_metadata
   - ipykernel
@@ -61,6 +65,7 @@ dependencies:
   - jaraco.classes
   - jedi
   - jeepney
+  - jinja2
   - jpeg
   - jupyter_client
   - jupyter_core
@@ -114,6 +119,7 @@ dependencies:
   - libxkbcommon
   - libxml2
   - libzlib
+  - markupsafe
   - matplotlib
   - matplotlib-base
   - matplotlib-inline
@@ -168,9 +174,18 @@ dependencies:
   - setuptools
   - sip
   - six
+  - snowballstemmer
   - soupsieve
+  - sphinx
+  - sphinxcontrib-applehelp
+  - sphinxcontrib-devhelp
+  - sphinxcontrib-htmlhelp
+  - sphinxcontrib-jsmath
+  - sphinxcontrib-qthelp
+  - sphinxcontrib-serializinghtml
   - sqlite
   - stack_data
+  - termcolor
   - tk
   - toml
   - tornado
@@ -195,5 +210,10 @@ dependencies:
   - zipp
   - zstd
   - pip:
+    - karma-sphinx-theme
     - msgpack
+    - piccolo-theme
+    - sphinx-bootstrap-theme
+    - sphinx-press-theme
     - splatstats
+    - zerovm-sphinx-theme
