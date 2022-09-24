@@ -41,7 +41,7 @@ NAMES = (
     'čħîþ ウナギ', 'Yami ウナギ', 'Riché ウナギ',
     'Oswal　ウナギ', 'April ウナギ', 'Murazee'
 )
-plyr = splat.Player(NAMES[3], bPaths, timezone='America/Los_Angeles')
+plyr = splat.Player(NAMES[0], bPaths, timezone='America/Los_Angeles')
 # (chip, yami, april, richie, memo, tomas) = [
 #     splat.Player(nme, bPaths, timezone='America/Los_Angeles')
 #     for nme in NAMES
@@ -49,27 +49,12 @@ plyr = splat.Player(NAMES[3], bPaths, timezone='America/Los_Angeles')
 # team = (chip, yami, april, richie, memo, tomas)
 playerHistory = plyr.battlesHistory
 ###############################################################################
-# Violin plot
+# Histogram
 ###############################################################################
 srs = {
     cat: list(playerHistory[cat]) for cat in ('kill', 'death', 'assist', 'special')
 }
 srsDF = pd.DataFrame(srs)
-
-# plt.figure(figsize=(10,10))
-# # sns.violinplot(data=srsDF)
-# # sns.stripplot(data=srsDF, color="k", alpha=0.8, size=2)
-# sns.swarmplot(data=srsDF, color="k", alpha=0.8, size=.9)
-
-
-# pyplot.hist(srsDF['kill'],  50, alpha=0.5, label='kill')
-# pyplot.hist(srsDF['death'], 50, alpha=0.5, label='death')
-# pyplot.hist(srsDF['assist'], 50, alpha=0.5, label='assist')
-# pyplot.hist(srsDF['special'], 50, alpha=0.5, label='special')
-###############################################################################
-# Histogram
-###############################################################################
-# dataframe
 df = pd.DataFrame({
     'var1': np.array(srsDF['kill'])+np.array(srsDF['assist']*.5), 
     'var2': srsDF['death']
@@ -78,10 +63,10 @@ df = pd.DataFrame({
 # Fig size
 (fig, ax) = plt.subplots(figsize=(15, 8))
 # plot histogram chart for var1
-sns.histplot(x=df.var1, stat="frequency", bins=ceil(max(df['var1'])), edgecolor='black')
+sns.histplot(x=df.var1, stat="density", bins=ceil(max(df['var1'])), edgecolor='black')
 n_bins = 10
 # get positions and heights of bars
-heights, bins = np.histogram(df.var2, density=False, bins=max(df['var2'])) 
+heights, bins = np.histogram(df.var2, density=True, bins=max(df['var2'])) 
 # multiply by -1 to reverse it
 heights *= -1
 bin_width = np.diff(bins)[0]
@@ -89,7 +74,8 @@ bin_pos =( bins[:-1] + bin_width / 2)
 # plot
 plt.bar(bin_pos, heights, width=bin_width, edgecolor='black')
 
-ax.set_ylim(-25, 25)
+ax.set_xlim(0, 35)
+ax.set_ylim(-.25, .25)
 
 # show the graph
 plt.show()

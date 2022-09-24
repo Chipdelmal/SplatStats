@@ -6,6 +6,8 @@ import pandas as pd
 from os import path
 import SplatStats as splat
 import matplotlib.pyplot as plt
+from collections import Counter
+
 
 (iPath, oPath) = (
     '/home/chipdelmal/Documents/GitHub/s3s/',
@@ -14,13 +16,13 @@ import matplotlib.pyplot as plt
 ###############################################################################
 # Create Player Objects
 ###############################################################################
-historyFilepaths = splat.getDataFilepaths(iPath, filePat='results.json')
-bPaths = splat.dumpBattlesFromJSONS(historyFilepaths, oPath)
+# historyFilepaths = splat.getDataFilepaths(iPath, filePat='results.json')
+# bPaths = splat.dumpBattlesFromJSONS(historyFilepaths, oPath)
 bPaths = splat.getBattleFilepaths(oPath)
 ###############################################################################
 # Create Player Objects
 ###############################################################################
-chip =   splat.Player('čħîþ ウナギ', bPaths, id=7293)
+chip = splat.Player('čħîþ ウナギ', bPaths, id=7293)
 # yami =   splat.Player('Yami ウナギ', bPaths, id=None)
 # april =  splat.Player('April ウナギ', bPaths, id=None)
 # richie = splat.Player('Riché ウナギ', bPaths, id=None)
@@ -37,6 +39,20 @@ chip.battlesHistory
 
 bPaths
 
+
+bDetails = chip.battleRecords
+bDetail = chip.battleRecords[0]
+
+(allies, enemies) = ([], [])
+for bDetail in bDetails:
+    pDict = bDetail.getAlliesAndEnemiesNames()
+    allies.append(pDict['allies'])
+    enemies.append(pDict['enemies'])
+(allies, enemies) = [splat.flattenList(i) for i in (allies, enemies)] 
+(alliesC, enemiesC) = [Counter(i) for i in (allies, enemies)]
+
+
+bDetail.getAlliesAndEnemies()
 
 ###############################################################################
 # Get filepaths

@@ -104,6 +104,12 @@ class Battle:
         ][0]
         return pyrs
     
+    def getAlliesAndEnemiesNames(bDetail):
+        aPlayers = list(bDetail.alliedTeam['player name'])
+        ePlayers = [list(e['player name']) for e in bDetail.enemyTeams]
+        pDict = {'allies': aPlayers, 'enemies': aux.flattenList(ePlayers)}
+        return pDict
+    
     ###########################################################################
     # Export Methods
     ###########################################################################

@@ -55,6 +55,7 @@ def awardsToStrings(awardsDF, sep='@'):
         awds.append(f"{row['name']}{sep}{row['rank']}{sep}{row['place']}")
     return awds
     
+flattenList = lambda irregular_list:[element for item in irregular_list for element in flattenList(item)] if type(irregular_list) is list else [irregular_list]
 
 def isNotebook():
     try:
