@@ -5,7 +5,8 @@ BATTLE_DTYPES = {
     'kill': int,
     'death': int,
     'assist': int,
-    'special': int
+    'special': int,
+    'splatfest': bool
 }
 
 MATCH_TYPES = (

@@ -36,18 +36,7 @@ plyr = splat.Player(NAMES[0], bPaths, timezone='America/Los_Angeles')
 #     for nme in NAMES
 # ]
 # team = (chip, yami, april, richie, memo, tomas)
-plyr.battlesHistory
-plyr.playerStatsByType
-
-# bHist = plyr.battlesHistory
-# Counter(list(bHist['award_0'])+list(bHist['award_1'])+list(bHist['award_2']))
-
-###############################################################################
-# Process Player
-###############################################################################
 playerHistory = plyr.battlesHistory
-playerHistory['award_0'].unique()
-plyr.getBattleRecordsByType('Tower Control')
 ###############################################################################
 # Plot K/D ratio
 ###############################################################################

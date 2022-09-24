@@ -33,6 +33,7 @@ chip.battleRecords[1].datetime
 chip.battleRecords[1].matchMode
 chip.battleRecords[1].festMatch
 
+chip.battlesHistory
 
 bPaths
 
