@@ -83,6 +83,7 @@ class Battle:
         rowMatch['stage'] = self.stage
         rowMatch['match type'] = self.matchType
         rowMatch['duration'] = self.duration
+        rowMatch['splatfest'] = self.festMatch
         # Add awards info -----------------------------------------------------
         if (rowMatch.shape[0]>0) and int(rowMatch['self']):
             awards = aux.awardsToStrings(self.awards)

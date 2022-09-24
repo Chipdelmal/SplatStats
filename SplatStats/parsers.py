@@ -109,7 +109,6 @@ def parsePlayerHistoryFromBattles(
         validOnly=True, timezone=None
     ):
     battles = battleRecords
-    fNum = len(battles)
     playerDFs = []
     for (ix, battle) in enumerate(battles):
         # Print progress ------------------------------------------------------
