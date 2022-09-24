@@ -31,6 +31,9 @@ chip = splat.Player('čħîþ ウナギ', bPaths, id=7293)
 # Group players for iterations ------------------------------------------------
 # team = (chip, yami, april, richie, memo, tomas)
 
+
+chip.getAlliesAndEnemiesCounts()
+
 chip.battleRecords[1].datetime
 chip.battleRecords[1].matchMode
 chip.battleRecords[1].festMatch

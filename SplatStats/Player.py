@@ -7,6 +7,7 @@ from os import path
 import pandas as pd
 from termcolor import colored
 from dateutil.parser import parse
+from collections import Counter
 import SplatStats.stats as stt
 import SplatStats.Battle as bat
 import SplatStats.parsers as par
@@ -108,3 +109,17 @@ class Player:
             for bType in bTypes if (bHists[bType].shape[0] > 0)
         }
         return hStatsHist
+    ###########################################################################
+    # Calculate player stats from history dataframe
+    ########################################################################### 
+    def getAlliesAndEnemiesCounts(self): 
+        bDetails = self.battleRecords
+        (allies, enemies) = ([], [])
+        for bDetail in bDetails:
+            pDict = bDetail.getAlliesAndEnemiesNames()
+            allies.append(pDict['allies'])
+            enemies.append(pDict['enemies'])
+        (allies, enemies) = [aux.flattenList(i) for i in (allies, enemies)] 
+        (alliesC, enemiesC) = [Counter(i) for i in (allies, enemies)]
+        alliesC.pop(self.name)
+        return {'allies': alliesC, 'enemies': enemiesC}
