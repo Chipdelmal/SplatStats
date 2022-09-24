@@ -109,8 +109,9 @@ class Player:
             for bType in bTypes if (bHists[bType].shape[0] > 0)
         }
         return hStatsHist
+    
     ###########################################################################
-    # Calculate player stats from history dataframe
+    # Get the names and counts of allies and enemies as appearing in battles
     ########################################################################### 
     def getAlliesAndEnemiesCounts(self): 
         bDetails = self.battleRecords
