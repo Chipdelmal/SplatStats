@@ -15,21 +15,23 @@ import matplotlib.pyplot as plt
 # Create Player Objects
 ###############################################################################
 historyFilepaths = splat.getDataFilepaths(iPath, filePat='results.json')
-# bPaths = splat.dumpBattlesFromJSONS(historyFilepaths, oPath)
+bPaths = splat.dumpBattlesFromJSONS(historyFilepaths, oPath)
 bPaths = splat.getBattleFilepaths(oPath)
 ###############################################################################
 # Create Player Objects
 ###############################################################################
 chip =   splat.Player('čħîþ ウナギ', bPaths, id=7293)
-yami =   splat.Player('Yami ウナギ', bPaths, id=None)
-april =  splat.Player('April ウナギ', bPaths, id=None)
-richie = splat.Player('Riché ウナギ', bPaths, id=None)
-memo =   splat.Player('Oswal　ウナギ', bPaths, id=None)
-tomas =  splat.Player('Murazee', bPaths, id=None)
+# yami =   splat.Player('Yami ウナギ', bPaths, id=None)
+# april =  splat.Player('April ウナギ', bPaths, id=None)
+# richie = splat.Player('Riché ウナギ', bPaths, id=None)
+# memo =   splat.Player('Oswal　ウナギ', bPaths, id=None)
+# tomas =  splat.Player('Murazee', bPaths, id=None)
 # Group players for iterations ------------------------------------------------
-team = (chip, yami, april, richie, memo, tomas)
+# team = (chip, yami, april, richie, memo, tomas)
 
-chip.getPlayerHistory()
+chip.battleRecords[1].datetime
+chip.battleRecords[1].matchMode
+chip.battleRecords[1].festMatch
 
 
 bPaths
@@ -45,7 +47,7 @@ hFiles = splat.getHistoryFiles(hFolders)
 #   fName = '/home/chipdelmal/Documents/GitHub/s3s/export-1663442390/results.json'
 #   fName = '/home/chipdelmal/Documents/GitHub/s3s/export-1663524543/results.json'
 ###############################################################################
-fName = hFiles[0]
+fName = hFiles[-1]
 with open(fName, 'r') as file:
     data = json.load(file)
 histSize = len(data)
@@ -57,6 +59,8 @@ bDetail = data[i]['data']['vsHistoryDetail']
 # Process battle history ------------------------------------------------------
 battle = splat.Battle(bDetail)
 battle.alliedTeam
+battle.datetime
+battle.festMatch
 battle.getPlayerByCategory('čħîþ ウナギ', battle.alliedTeam, category='player name')
 battle.getAllyByCategory('čħîþ ウナギ', category='player name')
 battle.getEnemyByCategory('CHIPPI', category='player name')[0]

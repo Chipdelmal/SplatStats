@@ -51,9 +51,9 @@ class Battle:
     def __init__(self, battleDetail):
         # Battle info ---------------------------------------------------------
         self.id = battleDetail['id']
-        self.festMatch = False
         self.matchType = battleDetail['vsRule']['name']
         self.matchMode = battleDetail['vsMode']['mode']
+        self.festMatch = (True if self.matchMode=='FEST' else False)
         self.stage = battleDetail['vsStage']['name']
         self.ko = aux.boolKO(battleDetail['knockout'])
         self.datetime = parse(battleDetail['playedTime'])
