@@ -1,12 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-import dill as pkl
-import numpy as np
-from os import path
-import pandas as pd
-from termcolor import colored
-from dateutil.parser import parse
 from collections import Counter
 import SplatStats.stats as stt
 import SplatStats.Battle as bat

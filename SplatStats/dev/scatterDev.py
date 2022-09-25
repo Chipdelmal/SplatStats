@@ -20,8 +20,8 @@ else:
 ###############################################################################
 # Create Player Objects
 ###############################################################################
-historyFilepaths = splat.getDataFilepaths(iPath, filePat='results.json')
-bPaths = splat.dumpBattlesFromJSONS(historyFilepaths, oPath)
+# historyFilepaths = splat.getDataFilepaths(iPath, filePat='results.json')
+# bPaths = splat.dumpBattlesFromJSONS(historyFilepaths, oPath)
 bPaths = splat.getBattleFilepaths(oPath)
 ###############################################################################
 # Create Player Objects
@@ -31,7 +31,7 @@ NAMES = (
     'Oswal　ウナギ', 'April ウナギ', 'Murazee', 
     'DantoNnoob'
 )
-plyr = splat.Player(NAMES[0], bPaths, timezone='America/Los_Angeles')
+plyr = splat.Player(NAMES[6], bPaths, timezone='America/Los_Angeles')
 # (chip, yami, april, richie, memo, tomas) = [
 #     splat.Player(nme, bPaths, timezone='America/Los_Angeles')
 #     for nme in NAMES
@@ -106,6 +106,7 @@ kLv = range(0, ymax+5, 5)
 pLv = [np.interp(i, [0, ymax], [0, max(paint)]) for i in kLv]
 ax.set_yticks(kLv)
 ax.set_yticklabels([f'{i}/{round(p)}' for (i, p) in zip(kLv, pLv)])
+plt.title(plyr.name)
 plt.savefig(
     path.join(oPath, (plyr.name)+' BHistory.png'), 
     dpi=300, bbox_inches='tight', facecolor=fig.get_facecolor()

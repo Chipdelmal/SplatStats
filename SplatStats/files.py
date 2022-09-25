@@ -2,13 +2,10 @@
 import json
 import warnings
 from os import path
-import pandas as pd
 from glob import glob
 from termcolor import colored
-from dateutil.parser import parse
-import SplatStats.constants as cst
-import SplatStats.auxiliary as aux
 import SplatStats.Battle as bat
+import SplatStats.auxiliary as aux
 warnings.simplefilter(action='ignore', category=FutureWarning)
 
 ###########################################################################

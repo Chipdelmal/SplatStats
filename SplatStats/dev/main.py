@@ -36,9 +36,12 @@ plyr = splat.Player(NAMES[0], bPaths, timezone='America/Los_Angeles')
 #     for nme in NAMES
 # ]
 # team = (chip, yami, april, richie, memo, tomas)
+###############################################################################
+# Pulling out some stats
+###############################################################################
 bHist = plyr.battlesHistory
 plyr.playerStats
 
 
 bFiltered = bHist[bHist['main weapon'] == 'Splattershot']
-splat.calcBattleHistoryStats(bHist)
+splat.calcBattleHistoryStats(bFiltered)
