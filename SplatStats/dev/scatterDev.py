@@ -7,8 +7,7 @@ import numpy as np
 import SplatStats as splat
 import matplotlib.pyplot as plt
 from matplotlib.patches import Rectangle
-from matplotlib import markers
-from collections import Counter
+from colorutils import Color
 
 if splat.isNotebook():
     (iPath, oPath) = (
@@ -20,8 +19,8 @@ else:
 ###############################################################################
 # Create Player Objects
 ###############################################################################
-historyFilepaths = splat.getDataFilepaths(iPath, filePat='results.json')
-bPaths = splat.dumpBattlesFromJSONS(historyFilepaths, oPath)
+# historyFilepaths = splat.getDataFilepaths(iPath, filePat='results.json')
+# bPaths = splat.dumpBattlesFromJSONS(historyFilepaths, oPath)
 bPaths = splat.getBattleFilepaths(oPath)
 ###############################################################################
 # Create Player Objects
@@ -31,7 +30,7 @@ NAMES = (
     'Oswal　ウナギ', 'April ウナギ', 'Murazee', 
     'DantoNnoob'
 )
-plyr = splat.Player(NAMES[-1], bPaths, timezone='America/Los_Angeles')
+plyr = splat.Player(NAMES[0], bPaths, timezone='America/Los_Angeles')
 # (chip, yami, april, richie, memo, tomas) = [
 #     splat.Player(nme, bPaths, timezone='America/Los_Angeles')
 #     for nme in NAMES
@@ -58,20 +57,11 @@ mNum = len(matchType)
 for i in range(mNum):
     # Get shape and color for markers and lines -------------------------------
     shape = 'o' if matchType[i] != 'Turf War' else 'o'
-    color = 'blue' if kill[i] >= death[i] else 'red'
+    color = splat.CLR_KILL_DEATH['kill'] if kill[i] >= death[i] else splat.CLR_KILL_DEATH['death'] 
     colorMT = 'white' if matchType[i] == 'Turf War' else 'purple'
-    colorWL = 'green' if win[i] == 'W' else 'red'
+    colorWL = splat.CLR_WIN_LOSE[win[i]]
     shapeWL = r'$\uparrow$' if win[i] == 'W' else r'$\downarrow$'
-    if matchType[i] == 'Rainmaker':
-        shapeMT = "1"
-    elif matchType[i] == 'Splat Zones':
-        shapeMT = "2"
-    elif matchType[i] == 'Clam Blitz':
-        shapeMT = "3"
-    elif matchType[i] == 'Tower Control':
-        shapeMT = "4"
-    else:
-        shapeMT = '-'
+    shapeMT = splat.MRKR_MT[matchType[i]]
     xPos = hoursDiff[i] if timeScale else i
     # Plot kill to death range ------------------------------------------------
     ax.plot(xPos, kill[i], 'o', color=color, alpha=0.35, zorder=1)
@@ -94,6 +84,7 @@ for i in range(mNum):
     # )
 # ax.hlines([0], 0, 1, color='k', transform=ax.get_yaxis_transform())
 xLim = max(hoursDiff) if timeScale else mNum
+# ax.set_facecolor('#EFF2EB')
 ax.set_xlim(-.5, xLim-.5)
 # ax.set_ylim(-2, max(max(kill), max(death))+2)
 ax.set_ylim(-2, ymax+2)
