@@ -31,7 +31,7 @@ NAMES = (
     'Oswal　ウナギ', 'April ウナギ', 'Murazee', 
     'DantoNnoob'
 )
-plyr = splat.Player(NAMES[1], bPaths, timezone='America/Los_Angeles')
+plyr = splat.Player(NAMES[-1], bPaths, timezone='America/Los_Angeles')
 # (chip, yami, april, richie, memo, tomas) = [
 #     splat.Player(nme, bPaths, timezone='America/Los_Angeles')
 #     for nme in NAMES

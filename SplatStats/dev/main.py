@@ -42,6 +42,8 @@ plyr = splat.Player(NAMES[0], bPaths, timezone='America/Los_Angeles')
 bHist = plyr.battlesHistory
 plyr.playerStats
 
+plyr.getAlliesAndEnemiesCounts()['allies']
+
 
 bFiltered = bHist[bHist['main weapon'] == 'Splattershot']
 splat.calcBattleHistoryStats(bFiltered)
