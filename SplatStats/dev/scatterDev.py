@@ -20,8 +20,8 @@ else:
 ###############################################################################
 # Create Player Objects
 ###############################################################################
-# historyFilepaths = splat.getDataFilepaths(iPath, filePat='results.json')
-# bPaths = splat.dumpBattlesFromJSONS(historyFilepaths, oPath)
+historyFilepaths = splat.getDataFilepaths(iPath, filePat='results.json')
+bPaths = splat.dumpBattlesFromJSONS(historyFilepaths, oPath)
 bPaths = splat.getBattleFilepaths(oPath)
 ###############################################################################
 # Create Player Objects
@@ -31,7 +31,7 @@ NAMES = (
     'Oswal　ウナギ', 'April ウナギ', 'Murazee', 
     'DantoNnoob'
 )
-plyr = splat.Player(NAMES[6], bPaths, timezone='America/Los_Angeles')
+plyr = splat.Player(NAMES[1], bPaths, timezone='America/Los_Angeles')
 # (chip, yami, april, richie, memo, tomas) = [
 #     splat.Player(nme, bPaths, timezone='America/Los_Angeles')
 #     for nme in NAMES
@@ -100,7 +100,7 @@ ax.set_ylim(-2, ymax+2)
 ax.set_aspect(.25/ax.get_data_ratio())
 ax.set_xticks(list(range(mNum)))
 plt.xticks(rotation=90)
-ax.tick_params(axis='x', which='major', labelsize=7.5)
+ax.tick_params(axis='x', which='major', labelsize=5)
 ax.set_xticklabels(weapon)
 kLv = range(0, ymax+5, 5)
 pLv = [np.interp(i, [0, ymax], [0, max(paint)]) for i in kLv]

@@ -1,6 +1,8 @@
 
-# Functions
+# Constants
 from .constants import *
+from .colors import *
+# Functions
 from .auxiliary import *
 from .parsers import *
 from .stats import *
