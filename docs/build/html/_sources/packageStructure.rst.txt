@@ -1,12 +1,6 @@
 Code Structure
 ======================================
 
-Auxiliary Routines
----------------------
-
-
-
-
 Player
 ---------------------
 
@@ -53,9 +47,14 @@ The results of a team that was part of a battle are stored in a dataframe object
 * `score:` Score obtained in the match (if "Turf War", this stat is "paint"; and if the match did not finish correctly the variable takes a value of `False`)
 
 
+
 .. Awards Dataframe
 
 .. https://www.gamepur.com/guides/all-multiplayer-medals-in-splatoon-3-and-what-they-mean
 .. * `name`: Name of the award
 .. * `rank`: Gold/Silver rank
 .. * `place`: Placing in top 
+
+
+Auxiliary Routines
+---------------------

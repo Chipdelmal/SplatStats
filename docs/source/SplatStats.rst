@@ -28,6 +28,14 @@ SplatStats.auxiliary module
    :undoc-members:
    :show-inheritance:
 
+SplatStats.colors module
+------------------------
+
+.. automodule:: SplatStats.colors
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 SplatStats.constants module
 ---------------------------
 
@@ -48,6 +56,22 @@ SplatStats.parsers module
 -------------------------
 
 .. automodule:: SplatStats.parsers
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+SplatStats.plots module
+-----------------------
+
+.. automodule:: SplatStats.plots
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+SplatStats.plotsAux module
+--------------------------
+
+.. automodule:: SplatStats.plotsAux
    :members:
    :undoc-members:
    :show-inheritance:

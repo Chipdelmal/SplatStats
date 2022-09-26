@@ -89,7 +89,7 @@ def getHistoryFolders(histPath, fldrPat='export-*'):
 
     Args:
         histPath (path): Full basepath in which all the folders are stored.
-        fldrPat (str, optional): Glob pattern to match in searching for folder names. Defaults to 'export-*'.
+        fldrPat (str, optional): Glob pattern to match in searching for folder names. Defaults to 'export-\*'.
 
     Returns:
         list: Unsorted list of folders that match the glob pattern.

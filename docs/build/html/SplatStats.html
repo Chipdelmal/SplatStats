@@ -262,6 +262,11 @@
 <dd></dd></dl>
 
 <dl class="py method">
+<dt class="sig sig-object py" id="SplatStats.Battle.Battle.getAlliesAndEnemiesNames">
+<span class="sig-name descname"><span class="pre">getAlliesAndEnemiesNames</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#SplatStats.Battle.Battle.getAlliesAndEnemiesNames" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
 <dt class="sig sig-object py" id="SplatStats.Battle.Battle.getAllyByCategory">
 <span class="sig-name descname"><span class="pre">getAllyByCategory</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">category</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'player</span> <span class="pre">name'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#SplatStats.Battle.Battle.getAllyByCategory" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
@@ -395,6 +400,11 @@
 <dd></dd></dl>
 
 <dl class="py method">
+<dt class="sig sig-object py" id="SplatStats.Player.Player.getAlliesAndEnemiesCounts">
+<span class="sig-name descname"><span class="pre">getAlliesAndEnemiesCounts</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#SplatStats.Player.Player.getAlliesAndEnemiesCounts" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
 <dt class="sig sig-object py" id="SplatStats.Player.Player.getBattleRecords">
 <span class="sig-name descname"><span class="pre">getBattleRecords</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#SplatStats.Player.Player.getBattleRecords" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
@@ -422,48 +432,170 @@
 <dl class="py function">
 <dt class="sig sig-object py" id="SplatStats.auxiliary.awardsToStrings">
 <span class="sig-name descname"><span class="pre">awardsToStrings</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">awardsDF</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sep</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'&#64;'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#SplatStats.auxiliary.awardsToStrings" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Condenses an awards dataframe into a list of strings for easier handling in player’s history.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>awardsDF</strong> (<em>dataframe</em>) – Dataframe of awards as parsed from JSON files.</p></li>
+<li><p><strong>sep</strong> (<em>str</em><em>, </em><em>optional</em>) – Separator character for strings elements. Defaults to ‘&#64;’.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>List of award strings.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>list</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="SplatStats.auxiliary.boolKO">
 <span class="sig-name descname"><span class="pre">boolKO</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">koString</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#SplatStats.auxiliary.boolKO" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Converts the KO string in the JSONs to a bool.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>koString</strong> (<em>str</em>) – KO string</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>KO value either in win or lose condition.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="SplatStats.auxiliary.boolWinLose">
 <span class="sig-name descname"><span class="pre">boolWinLose</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">winString</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#SplatStats.auxiliary.boolWinLose" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Shortens and standardizes the win/lose string from JSONs.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>winString</strong> (<em>str</em>) – Win/lose string in long form.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>W/L string in shortform</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="SplatStats.auxiliary.datetimeToString">
 <span class="sig-name descname"><span class="pre">datetimeToString</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">datetime</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#SplatStats.auxiliary.datetimeToString" title="Permalink to this definition">¶</a></dt>
+<dd><p>Converts a datetime object into a standardized string form.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>datetime</strong> (<em>datetime</em>) – Standard datetime object to format into string.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Standardized datetime string in the form “Y_M_D-Hhm”</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="SplatStats.auxiliary.flattenList">
+<span class="sig-name descname"><span class="pre">flattenList</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">irregular_list</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#SplatStats.auxiliary.flattenList" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="SplatStats.auxiliary.gearPrepend">
 <span class="sig-name descname"><span class="pre">gearPrepend</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">gearType</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#SplatStats.auxiliary.gearPrepend" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Takes a gear type string as found in JSONs and standardizes it.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>gearType</strong> (<em>str</em>) – ID string of the type of gear.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Standardized gear string</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="SplatStats.auxiliary.getHistoryFiles">
 <span class="sig-name descname"><span class="pre">getHistoryFiles</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">histFolders</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pattern</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'results.json'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#SplatStats.auxiliary.getHistoryFiles" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Given a list of folders, it looks for matches in filenames.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>histFolders</strong> (<em>list</em>) – List of folder paths to search for matches in.</p></li>
+<li><p><strong>pattern</strong> (<em>str</em><em>, </em><em>optional</em>) – Glob pattern for filenames matches. Defaults to ‘results.json’.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Full filepaths for all the glob file matches.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>list</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="SplatStats.auxiliary.getHistoryFolders">
 <span class="sig-name descname"><span class="pre">getHistoryFolders</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">histPath</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fldrPat</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'export-*'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#SplatStats.auxiliary.getHistoryFolders" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Parses the folder paths for all instances matching a pattern (used to find JSON files folders).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>histPath</strong> (<em>path</em>) – Full basepath in which all the folders are stored.</p></li>
+<li><p><strong>fldrPat</strong> (<em>str</em><em>, </em><em>optional</em>) – Glob pattern to match in searching for folder names. Defaults to ‘export-*’.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Unsorted list of folders that match the glob pattern.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>list</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="SplatStats.auxiliary.isNotebook">
 <span class="sig-name descname"><span class="pre">isNotebook</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#SplatStats.auxiliary.isNotebook" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Detects if the file is being run as a jupyter notebook (for dev purposes).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Is true if the file is being run in an interactive session.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="SplatStats.auxiliary.loadBattle">
 <span class="sig-name descname"><span class="pre">loadBattle</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fPath</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#SplatStats.auxiliary.loadBattle" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Reads a pickled battle file from disk.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>fPath</strong> (<em>filepath</em>) – Full path in which the battle pkl file can be found.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Battle object (see class’ docs)</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>object</p>
+</dd>
+</dl>
+</dd></dl>
 
+</section>
+<section id="module-SplatStats.colors">
+<span id="splatstats-colors-module"></span><h2>SplatStats.colors module<a class="headerlink" href="#module-SplatStats.colors" title="Permalink to this heading">¶</a></h2>
 </section>
 <section id="module-SplatStats.constants">
 <span id="splatstats-constants-module"></span><h2>SplatStats.constants module<a class="headerlink" href="#module-SplatStats.constants" title="Permalink to this heading">¶</a></h2>
@@ -533,6 +665,12 @@
 <span class="sig-name descname"><span class="pre">parsePlayerHistoryFromBattles</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">battleRecords</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">category</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'player</span> <span class="pre">name'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">validOnly</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">timezone</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#SplatStats.parsers.parsePlayerHistoryFromBattles" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
+</section>
+<section id="module-SplatStats.plots">
+<span id="splatstats-plots-module"></span><h2>SplatStats.plots module<a class="headerlink" href="#module-SplatStats.plots" title="Permalink to this heading">¶</a></h2>
+</section>
+<section id="module-SplatStats.plotsAux">
+<span id="splatstats-plotsaux-module"></span><h2>SplatStats.plotsAux module<a class="headerlink" href="#module-SplatStats.plotsAux" title="Permalink to this heading">¶</a></h2>
 </section>
 <section id="module-SplatStats.stats">
 <span id="splatstats-stats-module"></span><h2>SplatStats.stats module<a class="headerlink" href="#module-SplatStats.stats" title="Permalink to this heading">¶</a></h2>
