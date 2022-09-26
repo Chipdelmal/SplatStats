@@ -4,6 +4,14 @@
 import numpy as np
 
 def calcBattleHistoryStats(bHist):
+    """Calculates the basic player stats for a battle history dataframe.
+
+    Args:
+        bHist (dataframe): Battle history dataframe for a player.
+
+    Returns:
+        dict: Dictionary containing the stats (kills, paint, assists, deaths, specials) in normal, average, and per minute forms.
+    """    
     # Getting constants ---------------------------------------------------
     matchNum = bHist.shape[0]
     matchDuration = (bHist['duration']/60)
