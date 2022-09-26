@@ -7,6 +7,7 @@ import numpy as np
 import SplatStats as splat
 import matplotlib.pyplot as plt
 from matplotlib.patches import Rectangle
+from matplotlib.patches import FancyBboxPatch
 from colorutils import Color
 
 if splat.isNotebook():
@@ -72,7 +73,17 @@ for i in range(mNum):
     ax.plot(xPos, assist[i], ".", color='k', alpha=0.1, zorder=0)
     ax.plot(xPos, -1, marker=shapeWL, color=colorWL, alpha=0.3, zorder=0, markersize=10)
     pnt = np.interp(paint[i], [0, max(paint)], [0, ymax])
-    ax.add_patch(Rectangle((xPos-.5, 0), 1, pnt, facecolor='magenta', alpha=.05, zorder=-5))
+    # Paint -------------------------------------------------------------------
+    # ax.add_patch(Rectangle((xPos-.5, ymax+2), 1, -pnt, facecolor='#C42138', alpha=.075, zorder=-5))
+    ax.add_patch(Rectangle((xPos-.5, 0), 1, pnt, facecolor=splat.CLR_PAINT, alpha=.075, zorder=-5))
+    # ax.add_patch(
+    #     FancyBboxPatch(
+    #         (xPos-.5, 0), 1, pnt,
+    #         boxstyle="round,pad=0,rounding_size=.125",
+    #         ec="none", facecolor='#C42138', alpha=.075, zorder=-5,
+    #         mutation_aspect=4
+    #     )
+    # )
     # Plot vspan for match type -----------------------------------------------
     ax.plot(xPos, ymax+1, shapeMT, color='k', alpha=0.2, zorder=0)
     if splatfest[i]:
@@ -82,6 +93,12 @@ for i in range(mNum):
     #     [xPos], 0, 1, color=colorWL, alpha=.1,
     #     transform=ax.get_xaxis_transform(), zorder=-15
     # )
+for i in range(0, ymax-1, 5):
+    ax.hlines(
+        i, 0, 1, 
+        color='k', ls='--', alpha=.125, lw=1,
+        transform=ax.get_yaxis_transform(), zorder=-50
+    )
 # ax.hlines([0], 0, 1, color='k', transform=ax.get_yaxis_transform())
 xLim = max(hoursDiff) if timeScale else mNum
 # ax.set_facecolor('#EFF2EB')
@@ -96,7 +113,7 @@ ax.set_xticklabels(weapon)
 kLv = range(0, ymax+5, 5)
 pLv = [np.interp(i, [0, ymax], [0, max(paint)]) for i in kLv]
 ax.set_yticks(kLv)
-ax.set_yticklabels([f'{i}/{round(p)}' for (i, p) in zip(kLv, pLv)])
+ax.set_yticklabels([f'{i:02d} ({round(p):04d})' for (i, p) in zip(kLv, pLv)])
 plt.title(plyr.name)
 plt.savefig(
     path.join(oPath, (plyr.name)+' BHistory.png'), 

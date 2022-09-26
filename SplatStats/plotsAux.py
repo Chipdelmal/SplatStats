@@ -19,7 +19,7 @@ MRKR_MT = {
     'Splat Zones':          '2',
     'Clam Blitz':           '3',
     'Tower Control':        '4',
-    'Tricolor Turf War':    '8'
+    'Tricolor Turf War':    'D'
 }
 
 # Colors for scatter elements
@@ -32,3 +32,5 @@ CLR_WIN_LOSE = {
     'W': clr.SKY_V_GOLD_S2[0],
     'L': clr.LBLUE_V_FUCHSIA_S2[1]
 }
+
+CLR_PAINT = '#C42138'
