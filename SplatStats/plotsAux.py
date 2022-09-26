@@ -12,7 +12,7 @@ MRKR_STATS = {
     'special':  '_'
 }
 
-# Markers for match types
+# Markers/Colors for match types
 MRKR_MT = {
     'Turf War':             '-',
     'Rainmaker':            '1',
@@ -21,16 +21,22 @@ MRKR_MT = {
     'Tower Control':        '4',
     'Tricolor Turf War':    'D'
 }
+CLR_MT = {
+    'Turf War':             clr.BLUE_V_GREEN_S2[0],
+    'Rainmaker':            clr.WINNERW_V_WOUTERW_S2[2],
+    'Splat Zones':          clr.BLUE_V_GREEN_S2[2],
+    'Clam Blitz':           clr.RPURPLE_V_GAPPLE_S2[0],
+    'Tower Control':        clr.YELLOW_V_TBLUE_S2[1],
+    'Tricolor Turf War':    clr.LPINK_V_BLUE_S2[0]  
+}
 
 # Colors for scatter elements
 CLR_KILL_DEATH = {
     'kill':  clr.LPINK_V_BLUE_S2[1],
     'death': clr.LPINK_V_BLUE_S2[0]
 }
-
 CLR_WIN_LOSE = {
     'W': clr.SKY_V_GOLD_S2[0],
     'L': clr.LBLUE_V_FUCHSIA_S2[1]
 }
-
-CLR_PAINT = '#C42138'
+CLR_PAINT = clr.EATIT_V_SAVEIT_S2[0]

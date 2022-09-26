@@ -59,14 +59,14 @@ for i in range(mNum):
     # Get shape and color for markers and lines -------------------------------
     shape = 'o' if matchType[i] != 'Turf War' else 'o'
     color = splat.CLR_KILL_DEATH['kill'] if kill[i] >= death[i] else splat.CLR_KILL_DEATH['death'] 
-    colorMT = 'white' if matchType[i] == 'Turf War' else 'purple'
+    colorMT = splat.CLR_MT[matchType[i]]
     colorWL = splat.CLR_WIN_LOSE[win[i]]
     shapeWL = r'$\uparrow$' if win[i] == 'W' else r'$\downarrow$'
     shapeMT = splat.MRKR_MT[matchType[i]]
     xPos = hoursDiff[i] if timeScale else i
     # Plot kill to death range ------------------------------------------------
-    ax.plot(xPos, kill[i], 'o', color=color, alpha=0.35, zorder=1)
-    ax.plot(xPos, death[i], 'X', color=color, alpha=0.35, zorder=1)
+    ax.plot(xPos, kill[i], 'o', color=color, alpha=0.35, ms=4, zorder=1)
+    ax.plot(xPos, death[i], 'X', color=color, alpha=0.35, ms=4, zorder=1)
     ax.vlines(xPos, kill[i], death[i], color=color, alpha=0.2, zorder=2)
     # Specials and W/L --------------------------------------------------------
     ax.plot(xPos, special[i], "_", color='k', alpha=0.1, zorder=0)
@@ -74,33 +74,26 @@ for i in range(mNum):
     ax.plot(xPos, -1, marker=shapeWL, color=colorWL, alpha=0.3, zorder=0, markersize=10)
     pnt = np.interp(paint[i], [0, max(paint)], [0, ymax])
     # Paint -------------------------------------------------------------------
-    # ax.add_patch(Rectangle((xPos-.5, ymax+2), 1, -pnt, facecolor='#C42138', alpha=.075, zorder=-5))
     ax.add_patch(Rectangle((xPos-.5, 0), 1, pnt, facecolor=splat.CLR_PAINT, alpha=.075, zorder=-5))
-    # ax.add_patch(
-    #     FancyBboxPatch(
-    #         (xPos-.5, 0), 1, pnt,
-    #         boxstyle="round,pad=0,rounding_size=.125",
-    #         ec="none", facecolor='#C42138', alpha=.075, zorder=-5,
-    #         mutation_aspect=4
-    #     )
-    # )
     # Plot vspan for match type -----------------------------------------------
-    ax.plot(xPos, ymax+1, shapeMT, color='k', alpha=0.2, zorder=0)
+    ax.plot(xPos, ymax+1, shapeMT, color=colorMT, alpha=0.2, zorder=0)
     if splatfest[i]:
         ax.plot(xPos, ymax+1, '.', color='r', alpha=0.2, zorder=0, ms=1)
-    # ax.axvspan(xPos-.5, xPos+.5, color=colorMT, alpha=.05, lw=0, zorder=-10)
-    # ax.vlines(
-    #     [xPos], 0, 1, color=colorWL, alpha=.1,
-    #     transform=ax.get_xaxis_transform(), zorder=-15
-    # )
+xLim = max(hoursDiff) if timeScale else mNum
 for i in range(0, ymax-1, 5):
     ax.hlines(
         i, 0, 1, 
-        color='k', ls='--', alpha=.125, lw=1,
+        color='k', ls='--', alpha=.125, lw=.75,
         transform=ax.get_yaxis_transform(), zorder=-50
     )
+for i in range(0, xLim, 10):
+    ax.vlines(
+        i, 0, ymax+2, 
+        color='k', ls='--', alpha=.125, lw=.75,
+        # transform=ax.get_xaxis_transform(), 
+        zorder=-50
+    )
 # ax.hlines([0], 0, 1, color='k', transform=ax.get_yaxis_transform())
-xLim = max(hoursDiff) if timeScale else mNum
 # ax.set_facecolor('#EFF2EB')
 ax.set_xlim(-.5, xLim-.5)
 # ax.set_ylim(-2, max(max(kill), max(death))+2)
