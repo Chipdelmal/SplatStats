@@ -45,3 +45,6 @@ plyr.playerStats
 plyr.getAlliesAndEnemiesCounts()['allies']
 bFiltered = bHist[bHist['main weapon'] == 'Splattershot']
 splat.calcBattleHistoryStats(bFiltered)
+
+
+plyr.getPlayerHistoryByTypes()

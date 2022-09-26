@@ -34,6 +34,12 @@ class Player:
         
     Methods
     -------
+    getBattleRecords(): list
+        Loads the battle information from the battle filepaths (bPaths) related to the player instance.
+        
+    getBattleHistoryByType(battleType): list of objects
+        Returns battle dataframes 
+    
     """
     ###########################################################################
     # Player info
@@ -62,11 +68,7 @@ class Player:
             battleRecords[ix] = battle
         return battleRecords
 
-    def getBattleRecordsByType(self, battleType):
-        battles = self.battlesHistory
-        fltr = (battles['match type']==battleType)
-        return battles[fltr]
-        
+       
     ###########################################################################
     # Get player history dataframe
     ###########################################################################
@@ -81,9 +83,14 @@ class Player:
     def getPlayerHistoryByTypes(self):
         bTypes = cst.MATCH_TYPES
         bTypesHist = {
-            bType: self.getBattleRecordsByType(bType) for bType in bTypes
+            bType: self.getBattleHistoryByType(bType) for bType in bTypes
         }
         return bTypesHist
+
+    def getBattleHistoryByType(self, battleType):
+        battles = self.battlesHistory
+        fltr = (battles['match type']==battleType)
+        return battles[fltr]
 
     ###########################################################################
     # Calculate player stats from history dataframe

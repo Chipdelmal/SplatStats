@@ -390,6 +390,18 @@
 </dd></dl>
 
 <dl class="py method">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">getBattleRecords():</span> <span class="pre">list</span></span></dt>
+<dd><p>Loads the battle information from the battle filepaths (bPaths) related to the player instance.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">getBattleHistoryByType(battleType):</span> <span class="pre">list</span> <span class="pre">of</span> <span class="pre">objects</span></span></dt>
+<dd><p>Returns battle dataframes</p>
+</dd></dl>
+
+<dl class="py method">
 <dt class="sig sig-object py" id="SplatStats.Player.Player.calcPlayerStats">
 <span class="sig-name descname"><span class="pre">calcPlayerStats</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#SplatStats.Player.Player.calcPlayerStats" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
@@ -405,13 +417,13 @@
 <dd></dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="SplatStats.Player.Player.getBattleRecords">
-<span class="sig-name descname"><span class="pre">getBattleRecords</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#SplatStats.Player.Player.getBattleRecords" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="SplatStats.Player.Player.getBattleHistoryByType">
+<span class="sig-name descname"><span class="pre">getBattleHistoryByType</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">battleType</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#SplatStats.Player.Player.getBattleHistoryByType" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="SplatStats.Player.Player.getBattleRecordsByType">
-<span class="sig-name descname"><span class="pre">getBattleRecordsByType</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">battleType</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#SplatStats.Player.Player.getBattleRecordsByType" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="SplatStats.Player.Player.getBattleRecords">
+<span class="sig-name descname"><span class="pre">getBattleRecords</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#SplatStats.Player.Player.getBattleRecords" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
@@ -605,17 +617,63 @@
 <dl class="py function">
 <dt class="sig sig-object py" id="SplatStats.files.dumpBattlesFromJSONS">
 <span class="sig-name descname"><span class="pre">dumpBattlesFromJSONS</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">historyFilepaths</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">oPath</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#SplatStats.files.dumpBattlesFromJSONS" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Takes a list of s3s “results.json” filepaths, converts them into batle objects and serializes them to disk.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>historyFilepaths</strong> (<em>list</em>) – List of “results.json” filepaths (use “getDataFilepaths”)</p></li>
+<li><p><strong>oPath</strong> (<em>str</em>) – Path in which the battle pkl files will be stored.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>List of filepaths to battle files.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>list</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="SplatStats.files.getBattleFilepaths">
 <span class="sig-name descname"><span class="pre">getBattleFilepaths</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">bPath</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filePat</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'*.pkl'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#SplatStats.files.getBattleFilepaths" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Parses all the battle files from a folder.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>bPath</strong> (<em>str</em>) – Path to the folder from where the battle files will be loaded.</p></li>
+<li><p><strong>filePat</strong> (<em>str</em><em>, </em><em>optional</em>) – Pattern to match for in filenames. Defaults to ‘<a href="#id1"><span class="problematic" id="id2">*</span></a>.pkl’.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Filepaths to battle files.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>list</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="SplatStats.files.getDataFilepaths">
 <span class="sig-name descname"><span class="pre">getDataFilepaths</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">iPath</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fldrPat</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'export-*'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filePat</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'results.json'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#SplatStats.files.getDataFilepaths" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Gets the filepaths in which files with a certain pattern can be found inside folders with a given pattern.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>iPath</strong> (<em>str</em>) – Base path in which we will perform the folders search.</p></li>
+<li><p><strong>fldrPat</strong> (<em>str</em><em>, </em><em>optional</em>) – Glob pattern for folder matches. Defaults to ‘export-<a href="#id3"><span class="problematic" id="id4">*</span></a>’.</p></li>
+<li><p><strong>filePat</strong> (<em>str</em><em>, </em><em>optional</em>) – Glob pattern for file matches inside the folders. Defaults to ‘results.json’.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>List of filepaths that match the provided patterns.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>list</p>
+</dd>
+</dl>
+</dd></dl>
 
 </section>
 <section id="module-SplatStats.parsers">
