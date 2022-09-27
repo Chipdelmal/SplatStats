@@ -128,7 +128,7 @@
 <dl class="py attribute">
 <dt class="sig sig-object py" id="SplatStats.Battle.Battle.id">
 <span class="sig-name descname"><span class="pre">id</span></span><a class="headerlink" href="#SplatStats.Battle.Battle.id" title="Permalink to this definition">¶</a></dt>
-<dd><p>Battle’s hash id</p>
+<dd><p>Battle’s hash id.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>str</p>
@@ -139,7 +139,7 @@
 <dl class="py attribute">
 <dt class="sig sig-object py" id="SplatStats.Battle.Battle.datetime">
 <span class="sig-name descname"><span class="pre">datetime</span></span><a class="headerlink" href="#SplatStats.Battle.Battle.datetime" title="Permalink to this definition">¶</a></dt>
-<dd><p>Date/time at which the battle took place (zero timezone UTC)</p>
+<dd><p>Date/time at which the battle took place (zero timezone UTC).</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>datetime</p>
@@ -150,7 +150,7 @@
 <dl class="py attribute">
 <dt class="sig sig-object py" id="SplatStats.Battle.Battle.duration">
 <span class="sig-name descname"><span class="pre">duration</span></span><a class="headerlink" href="#SplatStats.Battle.Battle.duration" title="Permalink to this definition">¶</a></dt>
-<dd><p>Duration of the match (in seconds)</p>
+<dd><p>Duration of the match (in seconds).</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>int</p>
@@ -172,7 +172,7 @@
 <dl class="py attribute">
 <dt class="sig sig-object py" id="SplatStats.Battle.Battle.matchType">
 <span class="sig-name descname"><span class="pre">matchType</span></span><a class="headerlink" href="#SplatStats.Battle.Battle.matchType" title="Permalink to this definition">¶</a></dt>
-<dd><p>Type of match (“Turf War”, “Tower Control”, “Rainkamer”, “Splat Zones”, “Clam Blitz”)</p>
+<dd><p>Type of match (“Turf War”, “Tower Control”, “Rainkamer”, “Splat Zones”, “Clam Blitz”).</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>str</p>
@@ -183,7 +183,7 @@
 <dl class="py attribute">
 <dt class="sig sig-object py" id="SplatStats.Battle.Battle.matchMode">
 <span class="sig-name descname"><span class="pre">matchMode</span></span><a class="headerlink" href="#SplatStats.Battle.Battle.matchMode" title="Permalink to this definition">¶</a></dt>
-<dd><p>Used for splatfest identifier</p>
+<dd><p>Used for splatfest identifier.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>str</p>
@@ -205,7 +205,7 @@
 <dl class="py attribute">
 <dt class="sig sig-object py" id="SplatStats.Battle.Battle.stage">
 <span class="sig-name descname"><span class="pre">stage</span></span><a class="headerlink" href="#SplatStats.Battle.Battle.stage" title="Permalink to this definition">¶</a></dt>
-<dd><p>Stage’s name</p>
+<dd><p>Stage’s name.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>str</p>
@@ -216,7 +216,7 @@
 <dl class="py attribute">
 <dt class="sig sig-object py" id="SplatStats.Battle.Battle.alliedTeam">
 <span class="sig-name descname"><span class="pre">alliedTeam</span></span><a class="headerlink" href="#SplatStats.Battle.Battle.alliedTeam" title="Permalink to this definition">¶</a></dt>
-<dd><p>Breakdown of the user’s team</p>
+<dd><p>Breakdown of the user’s team.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>dataframe</p>
@@ -227,10 +227,21 @@
 <dl class="py attribute">
 <dt class="sig sig-object py" id="SplatStats.Battle.Battle.enemyTeams">
 <span class="sig-name descname"><span class="pre">enemyTeams</span></span><a class="headerlink" href="#SplatStats.Battle.Battle.enemyTeams" title="Permalink to this definition">¶</a></dt>
-<dd><p>Breakdown of the enemy teams</p>
+<dd><p>Breakdown of the enemy teams.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>list of dataframes</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="SplatStats.Battle.Battle.awards">
+<span class="sig-name descname"><span class="pre">awards</span></span><a class="headerlink" href="#SplatStats.Battle.Battle.awards" title="Permalink to this definition">¶</a></dt>
+<dd><p>List of awards obtained in the battle.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>list</p>
 </dd>
 </dl>
 </dd></dl>
@@ -255,17 +266,59 @@
 <dl class="py method">
 <dt class="sig sig-object py" id="SplatStats.Battle.Battle.getAlliesAndEnemiesNames">
 <span class="sig-name descname"><span class="pre">getAlliesAndEnemiesNames</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#SplatStats.Battle.Battle.getAlliesAndEnemiesNames" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Returns a dictionary containing the names of allies and enemies.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>bDetail</strong> (<em>_type_</em>) – _description_</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Contains names of allies and enemies separated by key.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>dict</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="SplatStats.Battle.Battle.getAllyByCategory">
 <span class="sig-name descname"><span class="pre">getAllyByCategory</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">category</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'player</span> <span class="pre">name'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#SplatStats.Battle.Battle.getAllyByCategory" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Returns an ally dataframe row filtering by a given category (usually ‘name’).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>name</strong> (<em>str</em><em> or </em><em>int</em>) – String or number to match in the category.</p></li>
+<li><p><strong>category</strong> (<em>str</em><em>, </em><em>optional</em>) – Category (column) name in the dataframe. Defaults to ‘player name’.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Dataframe row that conforms to player history shape (see class’ docs).</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>dataframe</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="SplatStats.Battle.Battle.getEnemyByCategory">
 <span class="sig-name descname"><span class="pre">getEnemyByCategory</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">category</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'player</span> <span class="pre">name'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#SplatStats.Battle.Battle.getEnemyByCategory" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Returns an enemy dataframe row filtering by a given category (usually ‘name’).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>name</strong> (<em>str</em><em> or </em><em>int</em>) – String or number to match in the category.</p></li>
+<li><p><strong>category</strong> (<em>str</em><em>, </em><em>optional</em>) – Category (column) name in the dataframe. Defaults to ‘player name’.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Dataframe row that conforms to player history shape (see class’ docs).</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>dataframe</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="SplatStats.Battle.Battle.getPlayerByCategory">
@@ -690,7 +743,7 @@
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>bPath</strong> (<em>str</em>) – Path to the folder from where the battle files will be loaded.</p></li>
-<li><p><strong>filePat</strong> (<em>str</em><em>, </em><em>optional</em>) – Pattern to match for in filenames. Defaults to ‘<a href="#id1"><span class="problematic" id="id2">*</span></a>.pkl’.</p></li>
+<li><p><strong>filePat</strong> (<em>str</em><em>, </em><em>optional</em>) – Pattern to match for in filenames. Defaults to ‘*.pkl’.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
@@ -710,7 +763,7 @@
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>iPath</strong> (<em>str</em>) – Base path in which we will perform the folders search.</p></li>
-<li><p><strong>fldrPat</strong> (<em>str</em><em>, </em><em>optional</em>) – Glob pattern for folder matches. Defaults to ‘export-<a href="#id3"><span class="problematic" id="id4">*</span></a>’.</p></li>
+<li><p><strong>fldrPat</strong> (<em>str</em><em>, </em><em>optional</em>) – Glob pattern for folder matches. Defaults to ‘export-*’.</p></li>
 <li><p><strong>filePat</strong> (<em>str</em><em>, </em><em>optional</em>) – Glob pattern for file matches inside the folders. Defaults to ‘results.json’.</p></li>
 </ul>
 </dd>
@@ -777,6 +830,28 @@
 </section>
 <section id="module-SplatStats.plotsAux">
 <span id="splatstats-plotsaux-module"></span><h2>SplatStats.plotsAux module<a class="headerlink" href="#module-SplatStats.plotsAux" title="Permalink to this heading">¶</a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="SplatStats.plotsAux.mapNumberToSaturation">
+<span class="sig-name descname"><span class="pre">mapNumberToSaturation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">num</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">colorHex</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">numLims</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">(0,</span> <span class="pre">15,</span> <span class="pre">50)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">satLims</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">(0,</span> <span class="pre">0.1,</span> <span class="pre">1)</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#SplatStats.plotsAux.mapNumberToSaturation" title="Permalink to this definition">¶</a></dt>
+<dd><p>Linearly maps a variable within a range (numLim) to the saturation value of a color.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>num</strong> (<em>float</em>) – Number in the (numLim) range.</p></li>
+<li><p><strong>colorHex</strong> (<em>str</em>) – Color of which the saturation will be changed.</p></li>
+<li><p><strong>numLims</strong> (<em>tuple</em><em>, </em><em>optional</em>) – Range of values the number can take. Defaults to (0, 15, 50).</p></li>
+<li><p><strong>satLims</strong> (<em>tuple</em><em>, </em><em>optional</em>) – Range of saturations the values will be linearly mapped to. Defaults to (0, 1, 1).</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Hex of the new color with saturation changed dependent on the number value.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
 </section>
 <section id="module-SplatStats.stats">
 <span id="splatstats-stats-module"></span><h2>SplatStats.stats module<a class="headerlink" href="#module-SplatStats.stats" title="Permalink to this heading">¶</a></h2>
