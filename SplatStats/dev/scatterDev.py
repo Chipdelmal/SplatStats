@@ -20,8 +20,8 @@ else:
 ###############################################################################
 # Create Player Objects
 ###############################################################################
-historyFilepaths = splat.getDataFilepaths(iPath, filePat='results.json')
-bPaths = splat.dumpBattlesFromJSONS(historyFilepaths, oPath)
+# historyFilepaths = splat.getDataFilepaths(iPath, filePat='results.json')
+# bPaths = splat.dumpBattlesFromJSONS(historyFilepaths, oPath)
 bPaths = splat.getBattleFilepaths(oPath)
 ###############################################################################
 # Create Player Objects
@@ -52,6 +52,7 @@ cats = (
 dates = list(playerHistory['datetime'])
 hoursDiff = [(d-min(dates)).seconds/3600  for d in dates]
 ymax = max(max(kill), max(death))
+kLv = range(0, ymax+5, 5)
 # Use match type for point shape ----------------------------------------------
 mNum = len(matchType)
 (fig, ax) = plt.subplots(figsize=(30, 15))
@@ -76,9 +77,9 @@ for i in range(mNum):
     # Paint -------------------------------------------------------------------
     ax.add_patch(Rectangle((xPos-.5, 0), 1, pnt, facecolor=splat.CLR_PAINT, alpha=.075, zorder=-5))
     # Plot vspan for match type -----------------------------------------------
-    ax.plot(xPos, ymax+1, shapeMT, color=colorMT, alpha=0.3, zorder=0)
+    ax.plot(xPos, max(kLv)-1, shapeMT, color=colorMT, alpha=0.3, zorder=0)
     if splatfest[i]:
-        ax.plot(xPos, ymax+1, '.', color='r', alpha=0.2, zorder=0, ms=1)
+        ax.plot(xPos, max(kLv)-1, '.', color='r', alpha=0.2, zorder=0, ms=1.25)
 xLim = max(hoursDiff) if timeScale else mNum
 for i in range(0, ymax-1, 5):
     ax.hlines(
@@ -86,13 +87,13 @@ for i in range(0, ymax-1, 5):
         color='k', ls='--', alpha=.125, lw=.75,
         transform=ax.get_yaxis_transform(), zorder=-50
     )
-for i in range(0, xLim, 10):
-    ax.vlines(
-        i, 0, ymax+2, 
-        color='k', ls='--', alpha=.125, lw=.75,
-        # transform=ax.get_xaxis_transform(), 
-        zorder=-50
-    )
+# Stats -----------------------------------------------------------------------
+stats = plyr.playerStats
+avg = stats['kpads avg']
+(kill, death, assist) = (avg['kills'], avg['deaths'], avg['assist'])
+adjRatio = (kill+0.5*assist)/(death)
+pA = f"(kills [{kill:.2f}] + 0.5*assists [{assist:.2f}])/(deaths [{death:.2f}]) = {adjRatio:.2f}"
+pB = f"[paint: {avg['paint']:.2f}] [special: {avg['special']:.2f}] "
 # ax.hlines([0], 0, 1, color='k', transform=ax.get_yaxis_transform())
 # ax.set_facecolor('#EFF2EB')
 ax.set_xlim(-.5, xLim-.5)
@@ -103,12 +104,20 @@ ax.set_xticks(list(range(mNum)))
 plt.xticks(rotation=90)
 ax.tick_params(axis='x', which='major', labelsize=5)
 ax.set_xticklabels(weapon)
-kLv = range(0, ymax+5, 5)
+for i in range(0, xLim, 10):
+    ax.vlines(
+        i, 0, max(kLv)+2, 
+        color='k', ls='--', alpha=.125, lw=.75,
+        # transform=ax.get_xaxis_transform(), 
+        zorder=-50
+    )
 pLv = [np.interp(i, [0, ymax], [0, max(paint)]) for i in kLv]
 ax.set_yticks(kLv)
 ax.set_yticklabels([f'{i:02d} ({round(p):04d})' for (i, p) in zip(kLv, pLv)])
-plt.title(plyr.name)
+pName = plyr.name.split(' ')[0]
+plt.title(pName+'       '+pA+'         '+pB)
 plt.savefig(
     path.join(oPath, (plyr.name)+' BHistory.png'), 
     dpi=300, bbox_inches='tight', facecolor=fig.get_facecolor()
 )
+
