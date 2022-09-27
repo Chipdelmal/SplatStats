@@ -59,7 +59,8 @@ mNum = len(matchType)
 for i in range(mNum):
     # Get shape and color for markers and lines -------------------------------
     shape = 'o' if matchType[i] != 'Turf War' else 'o'
-    color = splat.CLR_KILL_DEATH['kill'] if kill[i] >= death[i] else splat.CLR_KILL_DEATH['death'] 
+    color = splat.CLR_KILL_DEATH['kill'] if kill[i] >= death[i] else splat.CLR_KILL_DEATH['death']
+    # colVal = splat.mapNumberToSaturation(abs(kill[i]-death[i]), color, satLims=(.5, 1, 1)) 
     colorMT = splat.CLR_MT[matchType[i]]
     colorWL = splat.CLR_WIN_LOSE[win[i]]
     shapeWL = r'$\uparrow$' if win[i] == 'W' else r'$\downarrow$'

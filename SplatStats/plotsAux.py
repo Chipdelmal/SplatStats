@@ -2,41 +2,26 @@
 # Auxiliary Functions and Constants for Plots
 ###############################################################################
 
-import SplatStats.colors as clr
+import numpy as np
+from colorutils import Color
 
-# Markers for basic stats
-MRKR_STATS = {
-    'kill':     'o',
-    'death':    'x',
-    'assist':   '.',
-    'special':  '_'
-}
 
-# Markers/Colors for match types
-MRKR_MT = {
-    'Turf War':             '-',
-    'Rainmaker':            '1',
-    'Splat Zones':          '2',
-    'Clam Blitz':           '3',
-    'Tower Control':        '4',
-    'Tricolor Turf War':    'D'
-}
-CLR_MT = {
-    'Turf War':             clr.BLUE_V_GREEN_S2[0],
-    'Rainmaker':            clr.WINNERW_V_WOUTERW_S2[2],
-    'Splat Zones':          clr.BLUE_V_GREEN_S2[2],
-    'Clam Blitz':           clr.RPURPLE_V_GAPPLE_S2[0],
-    'Tower Control':        clr.YELLOW_V_TBLUE_S2[1],
-    'Tricolor Turf War':    clr.LPINK_V_BLUE_S2[0]  
-}
+def mapNumberToSaturation(
+        num, colorHex, 
+        numLims=(0, 15, 50), satLims=(0, .1, 1)
+    ):
+    """Linearly maps a variable within a range (numLim) to the saturation value of a color.
 
-# Colors for scatter elements
-CLR_KILL_DEATH = {
-    'kill':  clr.LPINK_V_BLUE_S2[1],
-    'death': clr.LPINK_V_BLUE_S2[0]
-}
-CLR_WIN_LOSE = {
-    'W': clr.SKY_V_GOLD_S2[0],
-    'L': clr.LBLUE_V_FUCHSIA_S2[1]
-}
-CLR_PAINT = clr.EATIT_V_SAVEIT_S2[0]
+    Args:
+        num (float): Number in the (numLim) range.
+        colorHex (str): Color of which the saturation will be changed.
+        numLims (tuple, optional): Range of values the number can take. Defaults to (0, 15, 50).
+        satLims (tuple, optional): Range of saturations the values will be linearly mapped to. Defaults to (0, 1, 1).
+
+    Returns:
+        str: Hex of the new color with saturation changed dependent on the number value.
+    """    
+    iPol = np.interp(num, numLims, satLims)
+    kCol = Color(hex=colorHex)
+    kOut = Color(hsv=(kCol.hsv[0], iPol, kCol.hsv[1]))
+    return kOut.hex
