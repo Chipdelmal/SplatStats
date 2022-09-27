@@ -1,7 +1,7 @@
 ###############################################################################
 # Color Constants (source: https://splatoonwiki.org/wiki/Ink)
 #   The use of a VSCode extension like "Color Highlight" is highly 
-#   recommended to explore these colores
+#   recommended to explore this file.
 ###############################################################################
 
 ###############################################################################
