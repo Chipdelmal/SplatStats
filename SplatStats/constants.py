@@ -31,14 +31,14 @@ MRKR_MT = {
     'Splat Zones':          '2',
     'Clam Blitz':           '3',
     'Tower Control':        '4',
-    'Tricolor Turf War':    'D'
+    'Tricolor Turf War':    '.'
 }
 CLR_MT = {
     'Turf War':             clr.BLUE_V_GREEN_S2[0],
     'Rainmaker':            clr.WINNERW_V_WOUTERW_S2[2],
     'Splat Zones':          clr.BLUE_V_GREEN_S2[2],
     'Clam Blitz':           clr.RPURPLE_V_GAPPLE_S2[0],
-    'Tower Control':        clr.YELLOW_V_TBLUE_S2[1],
+    'Tower Control':        clr.CHAOS_V_ORDER_S2[2],
     'Tricolor Turf War':    clr.LPINK_V_BLUE_S2[0]  
 }
 # Colors for scatter elements

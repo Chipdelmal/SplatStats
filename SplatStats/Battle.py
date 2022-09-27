@@ -32,7 +32,11 @@ class Battle:
     alliedTeam : dataframe
         Breakdown of the user's team
     enemyTeams : list of dataframes
-        Breakdown of the enemy teams  
+        Breakdown of the enemy teams
+    duration : int
+        Duration of the battle (in seconds)
+    awards : str
+        
     """
     ###########################################################################
     # Battle info
