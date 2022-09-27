@@ -58,3 +58,44 @@ def calcBattleHistoryStats(bHist):
         }
     }
     return pStats
+
+
+def frequencyInRange(array, xMin, xMax):
+    """Calculates the number of entries of an array that fall within the defined range.
+
+    Args:
+        array (array): Array from which the frequencies will be calculated.
+        xMin (float): Lower bound of the range for the count (inclusive).
+        xMax (float): Upper bound of the range for the count (non-inclusive).
+
+    Returns:
+        int: Frequency of occurrences that fall within the range.
+    """    
+    count = 0
+    for n in array:
+        if (xMin <= n) and (n < xMax):
+            count += 1
+    return count
+
+def calcBinnedFrequencies(array, xMin, xMax, binSize=1, normalized=False):
+    """Calculates the binned frequencies of numbers in the array in the ranges defined.
+
+    Args:
+        array (array): Array from which all the frequencies will be calculated.
+        xMin (int): Lowest possible value that will be counted.
+        xMax (int): Highest possible value that will be counted.
+        binSize (int, optional): Step size for the binning (from xMin to xMax in intervals of binSize). Defaults to 1.
+        normalized (bool, optional): If true, the frequencies are divided by the total so that they sum to 1. Defaults to False.
+
+    Returns:
+        array: Frequencies of ocurrences in the defined ranges.
+    """    
+    freqs = np.array([
+        frequencyInRange(array, i, i+binSize) for i in 
+        range(xMin, xMax, binSize)
+    ])
+    total = np.sum(freqs)
+    if normalized:
+        freqs = freqs/total
+    return freqs
+
