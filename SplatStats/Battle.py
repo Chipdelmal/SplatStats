@@ -22,28 +22,17 @@ class Battle:
     ko : bool
         Battle finished in KO?
     matchType: str
-        Type of match ("Turf War", "Tower Control", "Rainkamer"...)
+        Type of match ("Turf War", "Tower Control", "Rainkamer", "Splat Zones", "Clam Blitz")
     matchMode: str
-        UNCLEAR
-    festMatch: UNCLEAR
-        UNCLEAR
+        Used for splatfest identifier
+    festMatch: bool
+        Determines if the match was a splatfest event.
     stage : str
         Stage's name
     alliedTeam : dataframe
         Breakdown of the user's team
     enemyTeams : list of dataframes
-        Breakdown of the enemy teams
-        
-    Methods
-    -------
-    dumpBattle(path="./"):
-        Exports serialized battle object to disk.
-    getPlayerByCategory():
-
-    getAllyByCategory():
-    
-    getEnemyByCategory():
-    
+        Breakdown of the enemy teams  
     """
     ###########################################################################
     # Battle info
@@ -114,6 +103,14 @@ class Battle:
     # Export Methods
     ###########################################################################
     def dumpBattle(self, fPath='./'):
+        """Serializes battle to disk with datetime as name.
+
+        Args:
+            fPath (str, optional): Path to which the object will be saved. Defaults to './'.
+
+        Returns:
+            str: Filepath to serialized battle.
+        """        
         fName = aux.datetimeToString(self.datetime)
         bPath = path.join(fPath, f'{fName}.pkl')
         with open(bPath, 'wb') as f:

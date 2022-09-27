@@ -172,7 +172,7 @@
 <dl class="py attribute">
 <dt class="sig sig-object py" id="SplatStats.Battle.Battle.matchType">
 <span class="sig-name descname"><span class="pre">matchType</span></span><a class="headerlink" href="#SplatStats.Battle.Battle.matchType" title="Permalink to this definition">¶</a></dt>
-<dd><p>Type of match (“Turf War”, “Tower Control”, “Rainkamer”…)</p>
+<dd><p>Type of match (“Turf War”, “Tower Control”, “Rainkamer”, “Splat Zones”, “Clam Blitz”)</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>str</p>
@@ -183,7 +183,7 @@
 <dl class="py attribute">
 <dt class="sig sig-object py" id="SplatStats.Battle.Battle.matchMode">
 <span class="sig-name descname"><span class="pre">matchMode</span></span><a class="headerlink" href="#SplatStats.Battle.Battle.matchMode" title="Permalink to this definition">¶</a></dt>
-<dd><p>UNCLEAR</p>
+<dd><p>Used for splatfest identifier</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>str</p>
@@ -194,10 +194,10 @@
 <dl class="py attribute">
 <dt class="sig sig-object py" id="SplatStats.Battle.Battle.festMatch">
 <span class="sig-name descname"><span class="pre">festMatch</span></span><a class="headerlink" href="#SplatStats.Battle.Battle.festMatch" title="Permalink to this definition">¶</a></dt>
-<dd><p>UNCLEAR</p>
+<dd><p>Determines if the match was a splatfest event.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>UNCLEAR</p>
+<dd class="field-odd"><p>bool</p>
 </dd>
 </dl>
 </dd></dl>
@@ -236,30 +236,21 @@
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">dumpBattle(path=&quot;./&quot;):</span></span></dt>
-<dd><p>Exports serialized battle object to disk.</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">getPlayerByCategory():</span></span></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">getAllyByCategory():</span></span></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">getEnemyByCategory():</span></span></dt>
-<dd></dd></dl>
-
-<dl class="py method">
 <dt class="sig sig-object py" id="SplatStats.Battle.Battle.dumpBattle">
 <span class="sig-name descname"><span class="pre">dumpBattle</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fPath</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'./'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#SplatStats.Battle.Battle.dumpBattle" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Serializes battle to disk with datetime as name.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>fPath</strong> (<em>str</em><em>, </em><em>optional</em>) – Path to which the object will be saved. Defaults to ‘./’.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Filepath to serialized battle.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="SplatStats.Battle.Battle.getAlliesAndEnemiesNames">
@@ -390,51 +381,108 @@
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">getBattleRecords():</span> <span class="pre">list</span></span></dt>
-<dd><p>Loads the battle information from the battle filepaths (bPaths) related to the player instance.</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">getBattleHistoryByType(battleType):</span> <span class="pre">list</span> <span class="pre">of</span> <span class="pre">objects</span></span></dt>
-<dd><p>Returns battle dataframes</p>
-</dd></dl>
-
-<dl class="py method">
 <dt class="sig sig-object py" id="SplatStats.Player.Player.calcPlayerStats">
 <span class="sig-name descname"><span class="pre">calcPlayerStats</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#SplatStats.Player.Player.calcPlayerStats" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Calculates and returns the stats for the player’s battle history.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>KPADS dictionary of stats.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>dict</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="SplatStats.Player.Player.calcPlayerStatsByTypes">
 <span class="sig-name descname"><span class="pre">calcPlayerStatsByTypes</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#SplatStats.Player.Player.calcPlayerStatsByTypes" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Calculates and returns the stats for the player’s battle history broken by match types.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>KPADS dictionaries of stats broken up by match type.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>list</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="SplatStats.Player.Player.filterBattleHistoryWithType">
+<span class="sig-name descname"><span class="pre">filterBattleHistoryWithType</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">battleType</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#SplatStats.Player.Player.filterBattleHistoryWithType" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets all the battles that match a certain battle type from a history dataframe.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>battleType</strong> (<em>str</em>) – String ID of the match type.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Filtered history dataframe containing only the matches of a certain type.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>dataframe</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="SplatStats.Player.Player.getAlliesAndEnemiesCounts">
 <span class="sig-name descname"><span class="pre">getAlliesAndEnemiesCounts</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#SplatStats.Player.Player.getAlliesAndEnemiesCounts" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="SplatStats.Player.Player.getBattleHistoryByType">
-<span class="sig-name descname"><span class="pre">getBattleHistoryByType</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">battleType</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#SplatStats.Player.Player.getBattleHistoryByType" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Counts the number of times the player has been ally or faced a certain oponent.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Dictionary of counter objects containing the frequencies of matches with other players.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>dict</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="SplatStats.Player.Player.getBattleRecords">
 <span class="sig-name descname"><span class="pre">getBattleRecords</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#SplatStats.Player.Player.getBattleRecords" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Loads all the battle files belonging to the player (bPaths) and assigns it to battleRecords.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>All battle objects loaded from files (see class’ docs).</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>list</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="SplatStats.Player.Player.getPlayerHistoryByTypes">
 <span class="sig-name descname"><span class="pre">getPlayerHistoryByTypes</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#SplatStats.Player.Player.getPlayerHistoryByTypes" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Groups the player history into dictionary items corresponding to the match type played.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Dictionary containing the different battle history dataframes.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>dict of dataframes</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="SplatStats.Player.Player.parsePlayerHistoryFromBattles">
 <span class="sig-name descname"><span class="pre">parsePlayerHistoryFromBattles</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">validOnly</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#SplatStats.Player.Player.parsePlayerHistoryFromBattles" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Extracts the player’s history from the battle records by matching the name in the dataframes.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>validOnly</strong> (<em>bool</em><em>, </em><em>optional</em>) – Filters out battles which didn’t finish correctly (disconnects). Defaults to True.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Full battle history dataframe for the player, in which each row is the result of a match.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>dataframe</p>
+</dd>
+</dl>
+</dd></dl>
 
 </dd></dl>
 
@@ -741,7 +789,7 @@
 <dd class="field-odd"><p><strong>bHist</strong> (<em>dataframe</em>) – Battle history dataframe for a player.</p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>Dictionary containing the stats (kills, paint, assists, deaths, specials) in normal, average, and per minute forms.</p>
+<dd class="field-even"><p>Stats (kills, paint, assists, deaths, specials) in normal, average, and per minute forms.</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>dict</p>

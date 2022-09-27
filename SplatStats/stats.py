@@ -10,7 +10,7 @@ def calcBattleHistoryStats(bHist):
         bHist (dataframe): Battle history dataframe for a player.
 
     Returns:
-        dict: Dictionary containing the stats (kills, paint, assists, deaths, specials) in normal, average, and per minute forms.
+        dict: Stats (kills, paint, assists, deaths, specials) in normal, average, and per minute forms.
     """    
     # Getting constants ---------------------------------------------------
     matchNum = bHist.shape[0]

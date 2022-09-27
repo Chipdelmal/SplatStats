@@ -20,8 +20,8 @@ else:
 ###############################################################################
 # Create Player Objects
 ###############################################################################
-# historyFilepaths = splat.getDataFilepaths(iPath, filePat='results.json')
-# bPaths = splat.dumpBattlesFromJSONS(historyFilepaths, oPath)
+historyFilepaths = splat.getDataFilepaths(iPath, filePat='results.json')
+bPaths = splat.dumpBattlesFromJSONS(historyFilepaths, oPath)
 bPaths = splat.getBattleFilepaths(oPath)
 ###############################################################################
 # Create Player Objects
@@ -76,7 +76,7 @@ for i in range(mNum):
     # Paint -------------------------------------------------------------------
     ax.add_patch(Rectangle((xPos-.5, 0), 1, pnt, facecolor=splat.CLR_PAINT, alpha=.075, zorder=-5))
     # Plot vspan for match type -----------------------------------------------
-    ax.plot(xPos, ymax+1, shapeMT, color=colorMT, alpha=0.2, zorder=0)
+    ax.plot(xPos, ymax+1, shapeMT, color=colorMT, alpha=0.3, zorder=0)
     if splatfest[i]:
         ax.plot(xPos, ymax+1, '.', color='r', alpha=0.2, zorder=0, ms=1)
 xLim = max(hoursDiff) if timeScale else mNum
