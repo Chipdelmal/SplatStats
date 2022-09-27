@@ -14,29 +14,27 @@ class Battle:
     Attributes
     ----------
     id : str
-        Battle's hash id
+        Battle's hash id.
     datetime : datetime
-        Date/time at which the battle took place (zero timezone UTC)
+        Date/time at which the battle took place (zero timezone UTC).
     duration : int
-        Duration of the match (in seconds)
+        Duration of the match (in seconds).
     ko : bool
         Battle finished in KO?
     matchType: str
-        Type of match ("Turf War", "Tower Control", "Rainkamer", "Splat Zones", "Clam Blitz")
+        Type of match ("Turf War", "Tower Control", "Rainkamer", "Splat Zones", "Clam Blitz").
     matchMode: str
-        Used for splatfest identifier
+        Used for splatfest identifier.
     festMatch: bool
         Determines if the match was a splatfest event.
     stage : str
-        Stage's name
+        Stage's name.
     alliedTeam : dataframe
-        Breakdown of the user's team
+        Breakdown of the user's team.
     enemyTeams : list of dataframes
-        Breakdown of the enemy teams
-    duration : int
-        Duration of the battle (in seconds)
-    awards : str
-        
+        Breakdown of the enemy teams.
+    awards : list
+        List of awards obtained in the battle.
     """
     ###########################################################################
     # Battle info
@@ -67,6 +65,16 @@ class Battle:
     # Filtering Methods
     ###########################################################################
     def getPlayerByCategory(self, name, team, category='player name'):
+        """Gets the player row given a team in the battle object.
+
+        Args:
+            name (str): Name of the player.
+            team (dataframe): Team the player should be in.
+            category (str, optional): _description_. Defaults to 'player name'.
+
+        Returns:
+            dataframe: Player's dataframe row that conforms to player history shape (see class' doc).
+        """        
         # Filter player -------------------------------------------------------
         fltr = (team[category]==name)
         rowMatch = team[fltr]
@@ -86,20 +94,43 @@ class Battle:
         return rowMatch
     
     def getAllyByCategory(self, name, category='player name'):
-        py = self.getPlayerByCategory(name, self.alliedTeam, category=category)
-        return py
+        """Returns an ally dataframe row filtering by a given category (usually 'name').
+
+        Args:
+            name (str or int): String or number to match in the category.
+            category (str, optional): Category (column) name in the dataframe. Defaults to 'player name'.
+
+        Returns:
+            dataframe: Dataframe row that conforms to player history shape (see class' docs).
+        """        
+        pyr = self.getPlayerByCategory(name, self.alliedTeam, category=category)
+        return pyr
     
     def getEnemyByCategory(self, name, category='player name'):
-        # Might be unsafe for tri-battles! check later!
+        """Returns an enemy dataframe row filtering by a given category (usually 'name').
+
+        Args:
+            name (str or int): String or number to match in the category.
+            category (str, optional): Category (column) name in the dataframe. Defaults to 'player name'.
+
+        Returns:
+            dataframe: Dataframe row that conforms to player history shape (see class' docs).
+        """        
+        # Unsafe for tri-battles! check and fix later!
         pyrs = [
             self.getPlayerByCategory(name, eTeam, category=category)
             for eTeam in self.enemyTeams
         ][0]
         return pyrs
     
-    def getAlliesAndEnemiesNames(bDetail):
-        aPlayers = list(bDetail.alliedTeam['player name'])
-        ePlayers = [list(e['player name']) for e in bDetail.enemyTeams]
+    def getAlliesAndEnemiesNames(self):
+        """Returns a dictionary containing the names of allies and enemies.
+
+        Returns:
+            dict: Contains names of allies and enemies separated by key.
+        """        
+        aPlayers = list(self.alliedTeam['player name'])
+        ePlayers = [list(e['player name']) for e in self.enemyTeams]
         pDict = {'allies': aPlayers, 'enemies': aux.flattenList(ePlayers)}
         return pDict
     

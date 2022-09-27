@@ -268,14 +268,11 @@
 <span class="sig-name descname"><span class="pre">getAlliesAndEnemiesNames</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#SplatStats.Battle.Battle.getAlliesAndEnemiesNames" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns a dictionary containing the names of allies and enemies.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>bDetail</strong> (<em>_type_</em>) – _description_</p>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Contains names of allies and enemies separated by key.</p>
 </dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>Contains names of allies and enemies separated by key.</p>
-</dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>dict</p>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>dict</p>
 </dd>
 </dl>
 </dd></dl>
@@ -323,7 +320,23 @@
 <dl class="py method">
 <dt class="sig sig-object py" id="SplatStats.Battle.Battle.getPlayerByCategory">
 <span class="sig-name descname"><span class="pre">getPlayerByCategory</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">team</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">category</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'player</span> <span class="pre">name'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#SplatStats.Battle.Battle.getPlayerByCategory" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Gets the player row given a team in the battle object.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>name</strong> (<em>str</em>) – Name of the player.</p></li>
+<li><p><strong>team</strong> (<em>dataframe</em>) – Team the player should be in.</p></li>
+<li><p><strong>category</strong> (<em>str</em><em>, </em><em>optional</em>) – _description_. Defaults to ‘player name’.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Player’s dataframe row that conforms to player history shape (see class’ doc).</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>dataframe</p>
+</dd>
+</dl>
+</dd></dl>
 
 </dd></dl>
 

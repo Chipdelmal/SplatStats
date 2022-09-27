@@ -40,7 +40,6 @@ def dumpBattlesFromJSONS(historyFilepaths, oPath):
             bPath = battle.dumpBattle(oPath)
             bPaths.append(bPath)
     return bPaths
-
         
 ###########################################################################
 # Get filepaths
@@ -50,7 +49,7 @@ def getDataFilepaths(iPath, fldrPat='export-*', filePat='results.json'):
 
     Args:
         iPath (str): Base path in which we will perform the folders search.
-        fldrPat (str, optional): Glob pattern for folder matches. Defaults to 'export-*'.
+        fldrPat (str, optional): Glob pattern for folder matches. Defaults to 'export-\*'.
         filePat (str, optional): Glob pattern for file matches inside the folders. Defaults to 'results.json'.
 
     Returns:
@@ -66,7 +65,7 @@ def getBattleFilepaths(bPath, filePat='*.pkl'):
 
     Args:
         bPath (str): Path to the folder from where the battle files will be loaded.
-        filePat (str, optional): Pattern to match for in filenames. Defaults to '*.pkl'.
+        filePat (str, optional): Pattern to match for in filenames. Defaults to '\*.pkl'.
 
     Returns:
         list: Filepaths to battle files.
