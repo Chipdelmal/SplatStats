@@ -8,7 +8,7 @@
 
 **UNDER DEVELOPMENT** 
 
-This codebase is works in tandem with the [s3s package](https://github.com/frozenpandaman/s3s) to refactor and analayze [Splatoon 3](https://en.wikipedia.org/wiki/Splatoon_3)'s data. When finished, it will be able to take exported `json` files, re-shape them, and visualize the data from battles history.
+This codebase works in tandem with the [s3s package](https://github.com/frozenpandaman/s3s) to refactor and analayze [Splatoon 3](https://en.wikipedia.org/wiki/Splatoon_3)'s data. When finished, it will be able to load [s3s package](https://github.com/frozenpandaman/s3s) `json` files, re-shape them, and visualize the data from battles history.
 
 
 ![](./docs/img/playerDF.png)

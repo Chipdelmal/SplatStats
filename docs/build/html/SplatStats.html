@@ -963,6 +963,36 @@
 </section>
 <section id="module-SplatStats.plots">
 <span id="splatstats-plots-module"></span><h2>SplatStats.plots module<a class="headerlink" href="#module-SplatStats.plots" title="Permalink to this heading">¶</a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="SplatStats.plots.plotKillsAndDeathsHistogram">
+<span class="sig-name descname"><span class="pre">plotKillsAndDeathsHistogram</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">figAx</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">playerHistory</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">killRange</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">binSize</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">assistsAdjustment</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">normalized</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">yRange</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">(-0.25,</span> <span class="pre">0.25)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">aspect</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.25</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">alpha</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.35</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">edgecolor</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'k'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">kColor</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'#311AA8'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dColor</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'#D60E6E'</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#SplatStats.plots.plotKillsAndDeathsHistogram" title="Permalink to this definition">¶</a></dt>
+<dd><p>_summary_</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>figAx</strong> (<em>tuple</em>) – (fig, ax) tuple as initialized by matplotlib (plt.subplots)</p></li>
+<li><p><strong>playerHistory</strong> (<em>dataframe</em>) – Player history dataframe with kills, deaths and assists categories.</p></li>
+<li><p><strong>killRange</strong> (<em>tuple</em>) – Minimum and maximum values to consider in the kill or death counts.</p></li>
+<li><p><strong>yRange</strong> (<em>tuple</em><em>, </em><em>optional</em>) – Minimum and maximum range values for the y axis in the plot. Defaults to (-.25, .25).</p></li>
+<li><p><strong>aspect</strong> (<em>float</em><em>, </em><em>optional</em>) – Aspect ratio of the output plot. Defaults to .25.</p></li>
+<li><p><strong>binSize</strong> (<em>int</em><em>, </em><em>optional</em>) – Bin sizes for the frequency counts. Defaults to 1.</p></li>
+<li><p><strong>assistsAdjustment</strong> (<em>bool</em><em>, </em><em>optional</em>) – If TRUE, the kills value is calculated as kills+0.5*assists. Defaults to True.</p></li>
+<li><p><strong>normalized</strong> (<em>bool</em><em>, </em><em>optional</em>) – If TRUE, the frequencies are divided by the total, so that they add to one. Defaults to True.</p></li>
+<li><p><strong>alpha</strong> (<em>float</em><em>, </em><em>optional</em>) – Opacity of the rectangles. Defaults to 0.35.</p></li>
+<li><p><strong>kColor</strong> (<em>hex</em><em>, </em><em>optional</em>) – Facecolor for the “kills” rectangles. Defaults to pkg constant.</p></li>
+<li><p><strong>dColor</strong> (<em>hex</em><em>, </em><em>optional</em>) – Facecolor for the “deaths” rectangles. Defaults to pkg constant.</p></li>
+<li><p><strong>edgecolor</strong> (<em>hex</em><em>, </em><em>optional</em>) – Edgecolor for all the rectangles. Defaults to ‘k’.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Matplotlib’s fig and ax objects.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>(fix, ax)</p>
+</dd>
+</dl>
+</dd></dl>
+
 </section>
 <section id="module-SplatStats.plotsAux">
 <span id="splatstats-plotsaux-module"></span><h2>SplatStats.plotsAux module<a class="headerlink" href="#module-SplatStats.plotsAux" title="Permalink to this heading">¶</a></h2>
@@ -1004,6 +1034,50 @@
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>dict</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="SplatStats.stats.calcBinnedFrequencies">
+<span class="sig-name descname"><span class="pre">calcBinnedFrequencies</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">array</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xMin</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xMax</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">binSize</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">normalized</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#SplatStats.stats.calcBinnedFrequencies" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculates the binned frequencies of numbers in the array in the ranges defined.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>array</strong> (<em>array</em>) – Array from which all the frequencies will be calculated.</p></li>
+<li><p><strong>xMin</strong> (<em>int</em>) – Lowest possible value that will be counted.</p></li>
+<li><p><strong>xMax</strong> (<em>int</em>) – Highest possible value that will be counted.</p></li>
+<li><p><strong>binSize</strong> (<em>int</em><em>, </em><em>optional</em>) – Step size for the binning (from xMin to xMax in intervals of binSize). Defaults to 1.</p></li>
+<li><p><strong>normalized</strong> (<em>bool</em><em>, </em><em>optional</em>) – If true, the frequencies are divided by the total so that they sum to 1. Defaults to False.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Frequencies of ocurrences in the defined ranges.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>array</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="SplatStats.stats.frequencyInRange">
+<span class="sig-name descname"><span class="pre">frequencyInRange</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">array</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xMin</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xMax</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#SplatStats.stats.frequencyInRange" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculates the number of entries of an array that fall within the defined range.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>array</strong> (<em>array</em>) – Array from which the frequencies will be calculated.</p></li>
+<li><p><strong>xMin</strong> (<em>float</em>) – Lower bound of the range for the count (inclusive).</p></li>
+<li><p><strong>xMax</strong> (<em>float</em>) – Upper bound of the range for the count (non-inclusive).</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Frequency of occurrences that fall within the range.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>int</p>
 </dd>
 </dl>
 </dd></dl>
