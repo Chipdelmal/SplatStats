@@ -795,47 +795,170 @@
 <dl class="py function">
 <dt class="sig sig-object py" id="SplatStats.parsers.getGear">
 <span class="sig-name descname"><span class="pre">getGear</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">player</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#SplatStats.parsers.getGear" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Extracts the full gear elements from the player JSON dictionary.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>player</strong> (<em>dict</em>) – Player dictionary as extracted from JSON.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Standardized gear dictionary.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>dict</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="SplatStats.parsers.getGearUnit">
 <span class="sig-name descname"><span class="pre">getGearUnit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">player</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gType</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'headGear'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#SplatStats.parsers.getGearUnit" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Extracts the gear elements from the player JSON dictionary.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>player</strong> (<em>dict</em>) – Player dictionary as extracted from JSON.</p></li>
+<li><p><strong>gType</strong> (<em>str</em><em>, </em><em>optional</em>) – _description_. Defaults to ‘headGear’.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Standardized gear dictionary for a given set (head, clothing, shoes).</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>dict</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="SplatStats.parsers.getMatchScore">
 <span class="sig-name descname"><span class="pre">getMatchScore</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">teamResult</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">matchType</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#SplatStats.parsers.getMatchScore" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>From the teamResult JSON structure and match type, selects which score should be parsed.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>teamResult</strong> (<em>dict</em>) – JSON dictionary of team results.</p></li>
+<li><p><strong>matchType</strong> (<em>str</em>) – String ID of the match type.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Score of the match (false if the match didn’t finish correctly).</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>float/int/bool</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="SplatStats.parsers.getPlayerResults">
 <span class="sig-name descname"><span class="pre">getPlayerResults</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">player</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#SplatStats.parsers.getPlayerResults" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Extracts the KADS elements from the player JSON dictionary.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>player</strong> (<em>dict</em>) – Player dictionary as extracted from JSON.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>KADS dictionary</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>dict</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="SplatStats.parsers.getPlayerWeapon">
 <span class="sig-name descname"><span class="pre">getPlayerWeapon</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">player</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#SplatStats.parsers.getPlayerWeapon" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Extracts the weapons elements from the player JSON dictionary.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>player</strong> (<em>dict</em>) – Player dictionary as extrated from JSON.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Standardized weapon dictionary.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>dict</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="SplatStats.parsers.getPlayersBattleInfo">
 <span class="sig-name descname"><span class="pre">getPlayersBattleInfo</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">players</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#SplatStats.parsers.getPlayersBattleInfo" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Players JSON object.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>players</strong> (<em>dict</em>) – Players dictionary as parsed from JSON.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Player info dictionary.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>dict</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="SplatStats.parsers.getTeamDataframe">
 <span class="sig-name descname"><span class="pre">getTeamDataframe</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">team</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">matchType</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#SplatStats.parsers.getTeamDataframe" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Compiles a consistent dataframe from the JSON structured team result structure.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>team</strong> (<em>dict</em>) – JSON-original team dictionary of results.</p></li>
+<li><p><strong>matchType</strong> (<em>str</em>) – Match type ID of the battle.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Standardized battle results dataframe.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>dataframe</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="SplatStats.parsers.parseAwards">
 <span class="sig-name descname"><span class="pre">parseAwards</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">awardsList</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#SplatStats.parsers.parseAwards" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Converts the awards list from the JSON structure into a dataframe.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>awardsList</strong> (<em>list</em>) – List of awards from JSON format.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Dataframe structure with name, place and rank for awards.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>dataframe</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="SplatStats.parsers.parsePlayerHistoryFromBattles">
 <span class="sig-name descname"><span class="pre">parsePlayerHistoryFromBattles</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">battleRecords</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">category</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'player</span> <span class="pre">name'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">validOnly</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">timezone</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#SplatStats.parsers.parsePlayerHistoryFromBattles" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Gets the history dataframe for a player, given a list of battle records and the name of the player.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>battleRecords</strong> (<em>list</em>) – List of battle objects to process.</p></li>
+<li><p><strong>name</strong> (<em>str</em>) – Name of the player.</p></li>
+<li><p><strong>category</strong> (<em>str</em><em>, </em><em>optional</em>) – Could be used to filter player by ID in the future (unused). Defaults to ‘player name’.</p></li>
+<li><p><strong>validOnly</strong> (<em>bool</em><em>, </em><em>optional</em>) – Get only the matches that finished correctly (no disconnects or errors). Defaults to True.</p></li>
+<li><p><strong>timezone</strong> (<em>_type_</em><em>, </em><em>optional</em>) – Timezone in which the player played the matches. Defaults to None.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Full player history dataframe (check class’ docs).</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>dataframe</p>
+</dd>
+</dl>
+</dd></dl>
 
 </section>
 <section id="module-SplatStats.plots">

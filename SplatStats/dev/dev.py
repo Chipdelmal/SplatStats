@@ -45,6 +45,7 @@ bPaths
 
 bDetails = chip.battleRecords
 bDetail = chip.battleRecords[0]
+bDetail
 
 (allies, enemies) = ([], [])
 for bDetail in bDetails:
