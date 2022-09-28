@@ -75,6 +75,18 @@ def plotMatchTypeHistory(
         figAx, playerHistory,
         labelsize=5, alphaMultiplier=1, sizeMultiplier=1
     ):
+    """Plots the matches history strip in terms of match types, win/loss, KO, etc.
+
+    Args:
+        figAx (tuple): (fig, ax) tuple as initialized by matplotlib (plt.subplots)
+        playerHistory (dataframe): Player history dataframe with kills, deaths and assists categories.
+        labelsize (float, optional): Font size for the weapon id ticks labels (use "None" for no label). Defaults to 5.
+        alphaMultiplier (int, optional): Multiplier for alpha value of markers. Defaults to 1.
+        sizeMultiplier (int, optional): Multiplier for markers size. Defaults to 1.
+
+    Returns:
+        (fix, ax): Matplotlib's fig and ax objects.
+    """    
     (fig, ax) = figAx
     # Retreiving data ---------------------------------------------------------
     (AM, SM) = (alphaMultiplier, sizeMultiplier)
