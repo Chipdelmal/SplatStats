@@ -20,8 +20,8 @@ else:
 ###############################################################################
 # Create Player Objects
 ###############################################################################
-# historyFilepaths = splat.getDataFilepaths(iPath, filePat='results.json')
-# bPaths = splat.dumpBattlesFromJSONS(historyFilepaths, oPath)
+historyFilepaths = splat.getDataFilepaths(iPath, filePat='results.json')
+bPaths = splat.dumpBattlesFromJSONS(historyFilepaths, oPath)
 bPaths = splat.getBattleFilepaths(oPath)
 ###############################################################################
 # Create Player Objects
@@ -62,9 +62,9 @@ for i in range(mNum):
     color = splat.CLR_KILL_DEATH['kill'] if kill[i] >= death[i] else splat.CLR_KILL_DEATH['death']
     # colVal = splat.mapNumberToSaturation(abs(kill[i]-death[i]), color, satLims=(.5, 1, 1)) 
     colorMT = splat.CLR_MT[matchType[i]]
-    colorWL = splat.CLR_WIN_LOSE[win[i]]
+    colorWL = splat.CLR_WL[win[i]]
     shapeWL = "^" if win[i] == 'W' else "v"
-    shapeMT = splat.MRKR_MT[matchType[i]]
+    shapeMT = splat.MKR_MT[matchType[i]]
     xPos = hoursDiff[i] if timeScale else i
     # Plot kill to death range ------------------------------------------------
     ax.plot(xPos, kill[i], 'o', color=color, alpha=0.35, ms=4, zorder=1)

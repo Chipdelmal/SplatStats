@@ -12,9 +12,8 @@ import numpy as np
 import pandas as pd
 import seaborn as sns
 import matplotlib.pyplot as plt
+from scipy.stats import gaussian_kde
 from matplotlib.patches import Rectangle
-
-from SplatStats.plots import plotMatchTypeHistory
 
 
 if splat.isNotebook():
@@ -37,23 +36,18 @@ NAMES = (
     'čħîþ ウナギ', 'Yami ウナギ', 'Riché ウナギ',
     'Oswal　ウナギ', 'April ウナギ', 'Murazee'
 )
-plyr = splat.Player(NAMES[0], bPaths, timezone='America/Los_Angeles')
-playerHistory = plyr.battlesHistory
-###############################################################################
-# Plot Dev
-###############################################################################
-yRange = (0, 50)
-fig = plt.figure(figsize=(30, 15))
-gs = fig.add_gridspec(
-    2, 1,  
-    width_ratios=(1, ), height_ratios=(1, .05),
-    left=0.1, right=0.9, bottom=0.1, top=0.9,
-    wspace=0.05, hspace=0
-)
-(ax_top, ax_bottom) = (fig.add_subplot(gs[0]), fig.add_subplot(gs[1]))
-# Main panel ------------------------------------------------------------------
-# autoRange = (0, max(max(kill), max(death)))
-# (ymin, ymax) = (yRange if yRange else autoRange)
-# Bottom Panel ----------------------------------------------------------------
-(_, ax_top) = splat.plotMatchTypeHistory((fig, ax_top), playerHistory)
-(_, ax_bottom) = splat.plotMatchTypeHistory((fig, ax_bottom), playerHistory)
+for name in NAMES:
+    plyr = splat.Player(name, bPaths, timezone='America/Los_Angeles')
+    playerHistory = plyr.battlesHistory
+    ###########################################################################
+    # Histogram
+    ###########################################################################
+    (fig, ax) = plt.subplots(figsize=(30, 15))
+    (fig, ax) = splat.plotKillsAndDeathsHistogram(
+        (fig, ax), playerHistory, (0, 40), yRange=(-.25, .25), edgecolor='k',
+        normalized=True
+    )
+    plt.savefig(
+        path.join(oPath, (plyr.name)+' KDHistogram.png'), 
+        dpi=300, bbox_inches='tight', facecolor=fig.get_facecolor()
+    )
