@@ -4,13 +4,14 @@ import matplotlib.pyplot as plt
 from matplotlib.patches import Rectangle
 import SplatStats.constants as cst
 import SplatStats.stats as stats
+import SplatStats.plotsAux as paux
 
 
 def plotKillsAndDeathsHistogram(
         figAx, playerHistory, killRange, 
         binSize=1, assistsAdjustment=True, normalized=True,
         yRange=(-.25, .25), aspect=.25, alpha=.35, edgecolor='#000000',
-        kColor=cst.CLR_KD['kill'], dColor=cst.CLR_KD['death'],
+        kColor=cst.CLR_STATS['kill'], dColor=cst.CLR_STATS['death'],
         **kwargs
     ): 
     """Creates a paired histogram in which the top represents player kills, and the bottom the player deaths.
@@ -107,11 +108,52 @@ def plotMatchTypeHistory(
         ax.plot(xPos, 0.25, shapeKO, color=colorWL, alpha=0.25*AM, ms=5.00*SM)
         ax.plot(xPos, 0.15, shapeFT, color=colorFT, alpha=0.30*AM, ms=2.50*SM) 
     # Format ax
-    ax.set_xlim(-1, MNUM+1)
-    ax.set_ylim(0, .4)
+    ax.set_xlim(-0.5, MNUM)
+    ax.set_ylim(0, .5)
     ax.set_xticks(list(range(MNUM)))
     plt.xticks(rotation=90)
     ax.set_xticklabels(weapon)
     if labelsize:
         ax.tick_params(axis='x', which='major', labelsize=labelsize)
+    return (fig, ax)
+
+
+def plotMatchHistory(
+        figAx, playerHistory, yRange=(0, 50),
+        labelsize=5, alphaMultiplier=1, sizeMultiplier=1
+    ):
+    (fig, ax) = figAx
+    axR = ax.twinx()
+    # Retreiving data ---------------------------------------------------------
+    (AM, SM) = (alphaMultiplier, sizeMultiplier)
+    (PHIST, MNUM) = (playerHistory, playerHistory.shape[0])
+    CATS = ('kill', 'death', 'assist', 'special', 'paint')
+    (kill, death, assist, special, paint) = [np.array(PHIST[cat]) for cat in CATS]
+    CLR_KD = cst.CLR_STATS
+    # Main panel ------------------------------------------------------------------
+    autoRange = (0, max(max(kill), max(death)))
+    (ymin, ymax) = (yRange if yRange else autoRange)
+    for m in range(MNUM):
+        xPos = m
+        # Kill/Death
+        kd = (kill[m]-death[m])
+        clr_kd = (CLR_KD['kill'] if kd >= 0 else CLR_KD['death'])
+        if kill[m] > 0:
+         ax.plot(xPos, kill[m],  cst.MKR_STATS['kill'], color=clr_kd, alpha=0.35, ms=4, zorder=1)
+        if death[m] > 0:
+            ax.plot(xPos, death[m], cst.MKR_STATS['kill'], color=clr_kd, alpha=0.35, ms=4, zorder=1)
+        ax.vlines(xPos, kill[m], death[m], color=clr_kd, alpha=0.20, zorder=2)
+        # Special/Assist
+        ax.plot(xPos, special[m], cst.MKR_STATS['special'], color=CLR_KD['special'], alpha=0.1, zorder=0)
+        ax.plot(xPos, assist[m], cst.MKR_STATS['assist'], color=CLR_KD['assist'], alpha=0.1, zorder=0)
+        # Paint
+        axR.plot(xPos, paint[m], '-', color='#ffffff', alpha=0, zorder=0)
+        axR.add_patch(Rectangle(
+            (xPos-.5, 0), 1, paint[m], 
+            facecolor=cst.CLR_PAINT, alpha=.075, zorder=-5
+        ))
+    ax.set_ylim(ymin, ymax)
+    ax.set_xlim(-0.5, MNUM)
+    paux.align_yaxis(ax, 0, axR, 0)
+    plt.xticks(rotation=90)
     return (fig, ax)

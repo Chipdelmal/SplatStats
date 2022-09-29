@@ -51,3 +51,7 @@ for name in NAMES:
         path.join(oPath, (plyr.name)+' KDHistogram.png'), 
         dpi=300, bbox_inches='tight', facecolor=fig.get_facecolor()
     )
+plt.savefig(
+    path.join(oPath, (plyr.name)+' BHistory.png'), 
+    dpi=300, bbox_inches='tight', facecolor=fig.get_facecolor()
+)

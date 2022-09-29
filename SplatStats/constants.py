@@ -24,6 +24,12 @@ MKR_STATS = {
     'assist':   '.',
     'special':  '_'
 }
+CLR_STATS = {
+    'kill':  clr.LPINK_V_BLUE_S2[1],
+    'death': clr.LPINK_V_BLUE_S2[0],
+    'assist': clr.AUTOBOTS_V_DECEPTICONS[1],
+    'special': clr.AUTOBOTS_V_DECEPTICONS[1]
+}
 # Markers/Colors for match types
 MKR_MT = {
     'Turf War':             '-',
@@ -39,18 +45,10 @@ CLR_MT = {
     'Splat Zones':          clr.BLUE_V_GREEN_S2[2],
     'Clam Blitz':           clr.RPURPLE_V_GAPPLE_S2[0],
     'Tower Control':        clr.CHAOS_V_ORDER_S2[2],
-    'Tricolor Turf War':    clr.LPINK_V_BLUE_S2[0]  
+    'Tricolor Turf War':    clr.KID_V_GROWUP_S2[0]  
 }
 CLR_PAINT = clr.EATIT_V_SAVEIT_S2[0]
 # Colors for scatter elements
-CLR_KD = {
-    'kill':  clr.LPINK_V_BLUE_S2[1],
-    'death': clr.LPINK_V_BLUE_S2[0]
-}
-MKR_KD = {
-    'kill':  clr.LPINK_V_BLUE_S2[1],
-    'death': clr.LPINK_V_BLUE_S2[0]
-}
 CLR_WL = {
     'W': clr.SKY_V_GOLD_S2[0],
     'L': clr.LBLUE_V_FUCHSIA_S2[1]

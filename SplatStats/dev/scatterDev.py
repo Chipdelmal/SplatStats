@@ -31,7 +31,7 @@ NAMES = (
     'Oswal　ウナギ', 'April ウナギ', 'Murazee', 
     'DantoNnoob'
 )
-plyr = splat.Player(NAMES[6], bPaths, timezone='America/Los_Angeles')
+plyr = splat.Player(NAMES[0], bPaths, timezone='America/Los_Angeles')
 # (chip, yami, april, richie, memo, tomas) = [
 #     splat.Player(nme, bPaths, timezone='America/Los_Angeles')
 #     for nme in NAMES
@@ -59,7 +59,7 @@ mNum = len(matchType)
 for i in range(mNum):
     # Get shape and color for markers and lines -------------------------------
     shape = 'o' if matchType[i] != 'Turf War' else 'o'
-    color = splat.CLR_KILL_DEATH['kill'] if kill[i] >= death[i] else splat.CLR_KILL_DEATH['death']
+    color = splat.CLR_STATS['kill'] if kill[i] >= death[i] else splat.CLR_STATS['death']
     # colVal = splat.mapNumberToSaturation(abs(kill[i]-death[i]), color, satLims=(.5, 1, 1)) 
     colorMT = splat.CLR_MT[matchType[i]]
     colorWL = splat.CLR_WL[win[i]]
