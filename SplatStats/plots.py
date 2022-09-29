@@ -108,6 +108,12 @@ def plotMatchTypeHistory(
         ax.plot(xPos, 0.125, shapeMT, color=colorMT, alpha=0.30*AM, ms=5.00*SM)
         ax.plot(xPos, 0.125, shapeFT, color=colorFT, alpha=0.30*AM, ms=2.50*SM) 
     # Format ax
+    # for i in range(0, MNUM, 10):
+    #     ax.vlines(
+    #         i, 0, 1, 
+    #         color='k', ls='--', alpha=.125, lw=.5,
+    #         transform=ax.get_xaxis_transform(), zorder=-50
+    #     )
     ax.set_xlim(-0.5, MNUM-.5)
     ax.set_ylim(0, .5)
     ax.set_xticks(list(range(MNUM)))
@@ -119,7 +125,7 @@ def plotMatchTypeHistory(
 
 
 def plotMatchHistory(
-        figAx, playerHistory, yRange=(0, 50),
+        figAx, playerHistory, yRange=((0, 50), (0, 1750)),
         labelsize=5, alphaMultiplier=1, sizeMultiplier=1
     ):
     (fig, ax) = figAx
@@ -132,7 +138,8 @@ def plotMatchHistory(
     CLR_KD = cst.CLR_STATS
     # Main panel ------------------------------------------------------------------
     autoRange = (0, max(max(kill), max(death)))
-    (ymin, ymax) = (yRange if yRange else autoRange)
+    (ymin, ymax) = (yRange[0] if yRange else autoRange)
+    (yminR, ymaxR) = (yRange[1] if yRange else autoRange)
     for m in range(MNUM):
         xPos = m
         # Kill/Death
@@ -154,7 +161,20 @@ def plotMatchHistory(
             (xPos-.5, 0), 1, paint[m], 
             facecolor=cst.CLR_PAINT, alpha=.075, zorder=-5
         ))
+    for i in range(0, ymax, 10):
+        ax.hlines(
+            i, 0, 1, 
+            color='k', ls='--', alpha=.125, lw=.5,
+            transform=ax.get_yaxis_transform(), zorder=-50
+        )
+    for i in range(0, MNUM, 10):
+        ax.vlines(
+            i, 0, 1, 
+            color='k', ls='--', alpha=.125, lw=.5,
+            transform=ax.get_xaxis_transform(), zorder=-50
+        )
     ax.set_ylim(ymin, ymax)
+    axR.set_ylim(yminR, ymaxR)
     ax.set_xlim(-0.5, MNUM-.5)
     paux.align_yaxis(ax, 0, axR, 0)
     plt.xticks(rotation=90)

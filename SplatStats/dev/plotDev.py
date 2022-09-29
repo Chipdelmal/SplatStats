@@ -36,11 +36,13 @@ playerHistory = plyr.battlesHistory
 ###############################################################################
 # Plot Dev
 ###############################################################################
+name = NAMES[0]
 for name in NAMES:
     plyr = splat.Player(name, bPaths, timezone='America/Los_Angeles')
-    playerHistory = plyr.battlesHistory 
+    playerHistory = plyr.battlesHistory
+    # playerHistory = playerHistory[playerHistory['match type']=='Turf War']
     # Generate Plot
-    yRange = (0, 40)
+    yRange = ((0, 40), (0, 1600))
     fig = plt.figure(figsize=(30, 5))
     gs = fig.add_gridspec(
         2, 1,  
@@ -50,7 +52,9 @@ for name in NAMES:
     )
     ax_top    = fig.add_subplot(gs[0])
     ax_bottom = fig.add_subplot(gs[1], sharex=ax_top)
-    (_, ax_top) = splat.plotMatchHistory((fig, ax_top), playerHistory)
+    (_, ax_top) = splat.plotMatchHistory(
+        (fig, ax_top), playerHistory, yRange=yRange
+    )
     (_, ax_bottom) = splat.plotMatchTypeHistory((fig, ax_bottom), playerHistory)
     ax_top.tick_params(labelbottom=False)
     ax_bottom.set_yticks([])
