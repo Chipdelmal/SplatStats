@@ -22,9 +22,11 @@ def calcBattleHistoryStats(bHist):
     (kTot, dTot, aTot, sTot, pTot) = [
         sum(i) for i in (kCnt, dCnt, aCnt, sCnt, pCnt)
     ]
+    kaTot = kTot + (0.5*aTot)
     (kAvg, dAvg, aAvg, sAvg, pAvg) = [
         i/matchNum for i in (kTot, dTot, aTot, sTot, pTot)
     ]
+    kaAvg = (kaTot/matchNum)
     # Win/lose stats (NA are loss) ----------------------------------------
     win  = [True if i=='W' else False for i in bHist['win']]
     wins = sum(win)
@@ -32,29 +34,31 @@ def calcBattleHistoryStats(bHist):
     loss = len(win)-wins
     # Ratios --------------------------------------------------------------
     killRatio = kTot/dTot
+    kallRatio = kaTot/dTot
     (kpm, dpm, apm, spm, ppm) = [
         np.mean(bHist[i]/matchDuration) for i in cats
     ]
+    kallpm = np.mean((bHist['kill']+0.5*bHist['assist'])/matchDuration)
     # Stats dictionary ----------------------------------------------------
     pStats = {
         # W/L stats
         'general': {
             'total matches': matchNum,
-            'win': wins, 'loss': loss, 
-            'win ratio': winR, 'kill ratio': killRatio
+            'win': wins, 'loss': loss, 'win ratio': winR, 
+            'kill ratio': killRatio, 'kassists ratio': kallRatio
         },
         # KPADS stats
         'kpads': {
             'kills': kTot, 'deaths': dTot, 'assists': aTot, 
-            'special': sTot, 'paint': pTot 
+            'special': sTot, 'paint': pTot, 'kassists': kaTot
         },
         'kpads avg': {
             'kills': kAvg,  'deaths': dAvg, 'assist': aAvg,
-            'special': sAvg, 'paint': pAvg,
+            'special': sAvg, 'paint': pAvg, 'kassists': kaAvg
         },
         'kpads per min': {
             'kills': kpm, 'deaths': dpm, 'assist': apm,
-            'special': spm, 'paint': ppm
+            'special': spm, 'paint': ppm, 'kassist': kallpm
         }
     }
     return pStats

@@ -20,8 +20,8 @@ else:
 ###############################################################################
 # Create Player Objects
 ###############################################################################
-historyFilepaths = splat.getDataFilepaths(iPath, filePat='results.json')
-bPaths = splat.dumpBattlesFromJSONS(historyFilepaths, oPath)
+# historyFilepaths = splat.getDataFilepaths(iPath, filePat='results.json')
+# bPaths = splat.dumpBattlesFromJSONS(historyFilepaths, oPath)
 bPaths = splat.getBattleFilepaths(oPath)
 ###############################################################################
 # Create Player Objects
@@ -41,6 +41,7 @@ plyr = splat.Player(NAMES[0], bPaths, timezone='America/Los_Angeles')
 ###############################################################################
 bHist = plyr.battlesHistory
 plyr.playerStats
+
 
 plyr.getAlliesAndEnemiesCounts()['allies']
 bFiltered = bHist[bHist['main weapon'] == 'Splattershot']

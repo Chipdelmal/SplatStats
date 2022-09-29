@@ -1,11 +1,13 @@
 
+import math
 import numpy as np
 import matplotlib.pyplot as plt
 from matplotlib.patches import Rectangle
 import SplatStats.constants as cst
 import SplatStats.stats as stats
 import SplatStats.plotsAux as paux
-
+import matplotlib
+matplotlib.rcParams['font.family'] = ['monospace']
 
 def plotKillsAndDeathsHistogram(
         figAx, playerHistory, killRange, 
@@ -146,15 +148,27 @@ def plotMatchHistory(
         kd = (kill[m]-death[m])
         clr_kd = (CLR_KD['kill'] if kd >= 0 else CLR_KD['death'])
         if kill[m] > 0:
-         ax.plot(xPos, kill[m],  cst.MKR_STATS['kill'], color=clr_kd, alpha=0.35, ms=4, zorder=1)
+            ax.plot(
+                xPos, kill[m],  cst.MKR_STATS['kill'], 
+                color=clr_kd, alpha=0.35, ms=4, zorder=1
+            )
         if death[m] > 0:
-            ax.plot(xPos, death[m], cst.MKR_STATS['death'], color=clr_kd, alpha=0.35, ms=4, zorder=1)
+            ax.plot(
+                xPos, death[m], cst.MKR_STATS['death'], 
+                color=clr_kd, alpha=0.35, ms=4, zorder=1
+            )
         ax.vlines(xPos, kill[m], death[m], color=clr_kd, alpha=0.20, zorder=2)
         # Special/Assist
         if special[m] > 0:
-            ax.plot(xPos, special[m], cst.MKR_STATS['special'], color=CLR_KD['special'], alpha=0.1, zorder=0)
+            ax.plot(
+                xPos, special[m], cst.MKR_STATS['special'], 
+                color=CLR_KD['special'], alpha=0.1, zorder=0
+            )
         if assist[m] > 0:
-            ax.plot(xPos, assist[m], cst.MKR_STATS['assist'], color=CLR_KD['assist'], alpha=0.1, zorder=0)
+            ax.plot(
+                xPos, assist[m], cst.MKR_STATS['assist'], 
+                color=CLR_KD['assist'], alpha=0.1, zorder=0
+            )
         # Paint
         axR.plot(xPos, paint[m], '-', color='#ffffff', alpha=0, zorder=0)
         axR.add_patch(Rectangle(
@@ -175,16 +189,20 @@ def plotMatchHistory(
         )
     # Stats text --------------------------------------------------------------
     pStats = stats.calcBattleHistoryStats(playerHistory)
-    (mNum, wratio, kratio, win, loss) = [
+    (mNum, wratio, kratio, win, loss, aratio) = [
         pStats['general'][i] 
-        for i in ('total matches', 'win ratio', 'kill ratio', 'win', 'loss')
+        for i in (
+            'total matches', 'win ratio', 'kill ratio', 
+            'win', 'loss', 'kassists ratio'
+        )
     ]
     (kNum, dNum, aNum) = [
         pStats['kpads'][i] 
-        for i in ('kills', 'deaths', 'assists')
+        for i in ('kills', 'deaths', 'kassists')
     ]
-    sStr = f'''{wratio:.2f}\tW/L\t{win:04d}/{loss:04d} 
-               {kratio:.2f}\tK/D\t{kNum:04d}/{dNum:04d} 
+    sStr = f'''{wratio:.2f} W/L ({win:04d}/{loss:04d}) 
+               {kratio:.2f} K/D ({kNum:04d}/{dNum:04d}) 
+               {aratio:.2f} A/D ({int(aNum):04d}/{dNum:04d}) 
             '''.expandtabs()
     ax.text(
         1, .99, sStr,
@@ -192,7 +210,7 @@ def plotMatchHistory(
         horizontalalignment='right', verticalalignment='top',
         transform=ax.transAxes
     )
-    mStr = f' Matches: \t{mNum:03d}'.expandtabs()
+    mStr = f' Matches: {mNum:03d}'.expandtabs()
     ax.text(
         0, .99, mStr,
         fontsize=6,

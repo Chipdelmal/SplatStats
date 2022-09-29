@@ -5,12 +5,10 @@ from sys import argv
 from os import path
 import numpy as np
 import pandas as pd
-import seaborn as sns
 import SplatStats as splat
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
-import seaborn as sns
 import matplotlib.pyplot as plt
 from scipy.stats import gaussian_kde
 from matplotlib.patches import Rectangle
