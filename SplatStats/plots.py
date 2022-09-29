@@ -212,12 +212,12 @@ def plotMatchHistory(
                {kratio:.2f} K/D ({kNum:04d}/{dNum:04d}) 
                {aratio:.2f} A/D ({int(aNum):04d}/{dNum:04d}) 
             '''.expandtabs()
-    mStr = f''' Matches:  {mNum:03d}
- Paint:    {paint:05d} ({pAvg:.1f})
- Kills:    {kNum:05d}  ({kAvg:.3f})
- Deaths:   {dNum:05d}  ({dAvg:.3f})
- Assists:  {aNum:05d}  ({aAvg:.3f})
- KAssists: {int(kaNum):05d}  ({kaAvg:.3f})
+    mStr = f''' Matches:  {mNum:06d}
+ Paint:    {paint:05d}  ({pAvg:.1f})
+ Kills:    {kNum:06d}  ({kAvg:.3f})
+ Deaths:   {dNum:06d}  ({dAvg:.3f})
+ Assists:  {aNum:06d}  ({aAvg:.3f})
+ KAssists: {int(kaNum):06d}  ({kaAvg:.3f})
         '''.expandtabs()
     ax.text(
         1, .99, sStr, fontsize=6,
