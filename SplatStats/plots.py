@@ -8,6 +8,8 @@ import SplatStats.stats as stats
 import SplatStats.plotsAux as paux
 import matplotlib
 matplotlib.rcParams['font.family'] = ['monospace']
+# matplotlib.rcParams['font.stretch'] = ['condensed']
+
 
 def plotKillsAndDeathsHistogram(
         figAx, playerHistory, killRange, 
@@ -187,7 +189,7 @@ def plotMatchHistory(
             color='k', ls='--', alpha=.125, lw=.5,
             transform=ax.get_xaxis_transform(), zorder=-50
         )
-    # Stats text --------------------------------------------------------------
+    # Stats -------------------------------------------------------------------
     pStats = stats.calcBattleHistoryStats(playerHistory)
     (mNum, wratio, kratio, win, loss, aratio) = [
         pStats['general'][i] 
@@ -196,24 +198,34 @@ def plotMatchHistory(
             'win', 'loss', 'kassists ratio'
         )
     ]
-    (kNum, dNum, aNum) = [
+    (kNum, dNum, aNum, kaNum) = [
         pStats['kpads'][i] 
-        for i in ('kills', 'deaths', 'kassists')
+        for i in ('kills', 'deaths', 'assists', 'kassists')
     ]
+    (kAvg, dAvg, aAvg, kaAvg, pAvg) = [
+        pStats['kpads avg'][i] 
+        for i in ('kills', 'deaths', 'assists', 'kassists', 'paint')
+    ]
+    paint = pStats['general']['paint']
+    # Text
     sStr = f'''{wratio:.2f} W/L ({win:04d}/{loss:04d}) 
                {kratio:.2f} K/D ({kNum:04d}/{dNum:04d}) 
                {aratio:.2f} A/D ({int(aNum):04d}/{dNum:04d}) 
             '''.expandtabs()
+    mStr = f''' Matches:  {mNum:03d}
+ Paint:    {paint:05d} ({pAvg:.1f})
+ Kills:    {kNum:05d}  ({kAvg:.3f})
+ Deaths:   {dNum:05d}  ({dAvg:.3f})
+ Assists:  {aNum:05d}  ({aAvg:.3f})
+ KAssists: {int(kaNum):05d}  ({kaAvg:.3f})
+        '''.expandtabs()
     ax.text(
-        1, .99, sStr,
-        fontsize=6,
+        1, .99, sStr, fontsize=6,
         horizontalalignment='right', verticalalignment='top',
         transform=ax.transAxes
     )
-    mStr = f' Matches: {mNum:03d}'.expandtabs()
     ax.text(
-        0, .99, mStr,
-        fontsize=6,
+        0, .99, mStr, fontsize=6,
         horizontalalignment='left', verticalalignment='top',
         transform=ax.transAxes
     )

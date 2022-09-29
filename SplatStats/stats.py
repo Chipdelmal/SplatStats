@@ -43,7 +43,7 @@ def calcBattleHistoryStats(bHist):
     pStats = {
         # W/L stats
         'general': {
-            'total matches': matchNum,
+            'total matches': matchNum, 'paint': pTot,
             'win': wins, 'loss': loss, 'win ratio': winR, 
             'kill ratio': killRatio, 'kassists ratio': kallRatio
         },
@@ -53,11 +53,11 @@ def calcBattleHistoryStats(bHist):
             'special': sTot, 'paint': pTot, 'kassists': kaTot
         },
         'kpads avg': {
-            'kills': kAvg,  'deaths': dAvg, 'assist': aAvg,
+            'kills': kAvg,  'deaths': dAvg, 'assists': aAvg,
             'special': sAvg, 'paint': pAvg, 'kassists': kaAvg
         },
         'kpads per min': {
-            'kills': kpm, 'deaths': dpm, 'assist': apm,
+            'kills': kpm, 'deaths': dpm, 'assists': apm,
             'special': spm, 'paint': ppm, 'kassist': kallpm
         }
     }
