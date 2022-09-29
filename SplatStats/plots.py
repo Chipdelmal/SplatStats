@@ -103,12 +103,12 @@ def plotMatchTypeHistory(
         (shapeKO, colorKO) = (cst.MKR_KO[ko[m]], cst.CLR_WL[win[m]])
         (shapeFT, colorFT) = (cst.MKR_FEST[fest[m]], cst.CLR_FEST[fest[m]])
         # Plot the elements
-        ax.plot(xPos, 0.35, shapeWL, color=colorWL, alpha=0.30*AM, ms=5.00*SM)
-        ax.plot(xPos, 0.15, shapeMT, color=colorMT, alpha=0.30*AM, ms=5.00*SM)
-        ax.plot(xPos, 0.25, shapeKO, color=colorWL, alpha=0.25*AM, ms=5.00*SM)
-        ax.plot(xPos, 0.15, shapeFT, color=colorFT, alpha=0.30*AM, ms=2.50*SM) 
+        ax.plot(xPos, 0.400, shapeWL, color=colorWL, alpha=0.30*AM, ms=5.00*SM)
+        ax.plot(xPos, 0.250, shapeKO, color=colorWL, alpha=0.20*AM, ms=5.00*SM)
+        ax.plot(xPos, 0.125, shapeMT, color=colorMT, alpha=0.30*AM, ms=5.00*SM)
+        ax.plot(xPos, 0.125, shapeFT, color=colorFT, alpha=0.30*AM, ms=2.50*SM) 
     # Format ax
-    ax.set_xlim(-0.5, MNUM)
+    ax.set_xlim(-0.5, MNUM-.5)
     ax.set_ylim(0, .5)
     ax.set_xticks(list(range(MNUM)))
     plt.xticks(rotation=90)
@@ -141,11 +141,13 @@ def plotMatchHistory(
         if kill[m] > 0:
          ax.plot(xPos, kill[m],  cst.MKR_STATS['kill'], color=clr_kd, alpha=0.35, ms=4, zorder=1)
         if death[m] > 0:
-            ax.plot(xPos, death[m], cst.MKR_STATS['kill'], color=clr_kd, alpha=0.35, ms=4, zorder=1)
+            ax.plot(xPos, death[m], cst.MKR_STATS['death'], color=clr_kd, alpha=0.35, ms=4, zorder=1)
         ax.vlines(xPos, kill[m], death[m], color=clr_kd, alpha=0.20, zorder=2)
         # Special/Assist
-        ax.plot(xPos, special[m], cst.MKR_STATS['special'], color=CLR_KD['special'], alpha=0.1, zorder=0)
-        ax.plot(xPos, assist[m], cst.MKR_STATS['assist'], color=CLR_KD['assist'], alpha=0.1, zorder=0)
+        if special[m] > 0:
+            ax.plot(xPos, special[m], cst.MKR_STATS['special'], color=CLR_KD['special'], alpha=0.1, zorder=0)
+        if assist[m] > 0:
+            ax.plot(xPos, assist[m], cst.MKR_STATS['assist'], color=CLR_KD['assist'], alpha=0.1, zorder=0)
         # Paint
         axR.plot(xPos, paint[m], '-', color='#ffffff', alpha=0, zorder=0)
         axR.add_patch(Rectangle(
@@ -153,7 +155,7 @@ def plotMatchHistory(
             facecolor=cst.CLR_PAINT, alpha=.075, zorder=-5
         ))
     ax.set_ylim(ymin, ymax)
-    ax.set_xlim(-0.5, MNUM)
+    ax.set_xlim(-0.5, MNUM-.5)
     paux.align_yaxis(ax, 0, axR, 0)
     plt.xticks(rotation=90)
     return (fig, ax)

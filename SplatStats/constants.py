@@ -44,8 +44,8 @@ CLR_MT = {
     'Rainmaker':            clr.WINNERW_V_WOUTERW_S2[2],
     'Splat Zones':          clr.BLUE_V_GREEN_S2[2],
     'Clam Blitz':           clr.RPURPLE_V_GAPPLE_S2[0],
-    'Tower Control':        clr.CHAOS_V_ORDER_S2[2],
-    'Tricolor Turf War':    clr.KID_V_GROWUP_S2[0]  
+    'Tower Control':        clr.PINK_V_GREEN_S1 [0],
+    'Tricolor Turf War':    clr.PINK_V_GREEN_S1 [0]  
 }
 CLR_PAINT = clr.EATIT_V_SAVEIT_S2[0]
 # Colors for scatter elements
@@ -70,6 +70,6 @@ MKR_FEST = {
     False: '-'
 }
 CLR_FEST = {
-    True: clr.KID_V_GROWUP_S2[0],
-    False: clr.CHICKEN_V_EGG_S2[0]
+    True: clr.PINK_V_GREEN_S1 [0],
+    False: clr.PINK_V_GREEN_S1 [0]
 }
