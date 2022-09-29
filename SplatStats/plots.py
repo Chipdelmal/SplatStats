@@ -136,7 +136,7 @@ def plotMatchHistory(
     CATS = ('kill', 'death', 'assist', 'special', 'paint')
     (kill, death, assist, special, paint) = [np.array(PHIST[cat]) for cat in CATS]
     CLR_KD = cst.CLR_STATS
-    # Main panel ------------------------------------------------------------------
+    # Main panel --------------------------------------------------------------
     autoRange = (0, max(max(kill), max(death)))
     (ymin, ymax) = (yRange[0] if yRange else autoRange)
     (yminR, ymaxR) = (yRange[1] if yRange else autoRange)
@@ -159,7 +159,7 @@ def plotMatchHistory(
         axR.plot(xPos, paint[m], '-', color='#ffffff', alpha=0, zorder=0)
         axR.add_patch(Rectangle(
             (xPos-.5, 0), 1, paint[m], 
-            facecolor=cst.CLR_PAINT, alpha=.075, zorder=-5
+            facecolor=cst.CLR_PAINT, alpha=.05, zorder=-5
         ))
     for i in range(0, ymax, 10):
         ax.hlines(
@@ -173,6 +173,33 @@ def plotMatchHistory(
             color='k', ls='--', alpha=.125, lw=.5,
             transform=ax.get_xaxis_transform(), zorder=-50
         )
+    # Stats text --------------------------------------------------------------
+    pStats = stats.calcBattleHistoryStats(playerHistory)
+    (mNum, wratio, kratio, win, loss) = [
+        pStats['general'][i] 
+        for i in ('total matches', 'win ratio', 'kill ratio', 'win', 'loss')
+    ]
+    (kNum, dNum, aNum) = [
+        pStats['kpads'][i] 
+        for i in ('kills', 'deaths', 'assists')
+    ]
+    sStr = f'''{wratio:.2f}\tW/L\t{win:04d}/{loss:04d} 
+               {kratio:.2f}\tK/D\t{kNum:04d}/{dNum:04d} 
+            '''.expandtabs()
+    ax.text(
+        1, .99, sStr,
+        fontsize=6,
+        horizontalalignment='right', verticalalignment='top',
+        transform=ax.transAxes
+    )
+    mStr = f' Matches: \t{mNum:03d}'.expandtabs()
+    ax.text(
+        0, .99, mStr,
+        fontsize=6,
+        horizontalalignment='left', verticalalignment='top',
+        transform=ax.transAxes
+    )
+    # Axes --------------------------------------------------------------------
     ax.set_ylim(ymin, ymax)
     axR.set_ylim(yminR, ymaxR)
     ax.set_xlim(-0.5, MNUM-.5)

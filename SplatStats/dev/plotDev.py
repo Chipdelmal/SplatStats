@@ -13,8 +13,8 @@ from matplotlib.patches import Rectangle
 
 if splat.isNotebook():
     (iPath, oPath) = (
-        '/home/chipdelmal/Documents/GitHub/s3s/',
-        '/home/chipdelmal/Documents/GitHub/SplatStats/BattlesData'
+        path.expanduser('~/Documents/GitHub/s3s/'),
+        path.expanduser('~/Documents/GitHub/SplatStats/BattlesData')
     )
 else:
     (iPath, oPath) = argv[1:]

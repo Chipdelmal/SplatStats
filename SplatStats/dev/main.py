@@ -12,16 +12,16 @@ from collections import Counter
 
 if splat.isNotebook():
     (iPath, oPath) = (
-        '/home/chipdelmal/Documents/GitHub/s3s/',
-        '/home/chipdelmal/Documents/GitHub/SplatStats/BattlesData'
+        path.expanduser('~/Documents/GitHub/s3s/'),
+        path.expanduser('~/Documents/GitHub/SplatStats/BattlesData')
     )
 else:
     (iPath, oPath) = argv[1:]
 ###############################################################################
 # Create Player Objects
 ###############################################################################
-# historyFilepaths = splat.getDataFilepaths(iPath, filePat='results.json')
-# bPaths = splat.dumpBattlesFromJSONS(historyFilepaths, oPath)
+historyFilepaths = splat.getDataFilepaths(iPath, filePat='results.json')
+bPaths = splat.dumpBattlesFromJSONS(historyFilepaths, oPath)
 bPaths = splat.getBattleFilepaths(oPath)
 ###############################################################################
 # Create Player Objects
@@ -45,6 +45,4 @@ plyr.playerStats
 plyr.getAlliesAndEnemiesCounts()['allies']
 bFiltered = bHist[bHist['main weapon'] == 'Splattershot']
 splat.calcBattleHistoryStats(bFiltered)
-plyr.getAlliesAndEnemiesCounts()
-
 plyr.getPlayerHistoryByTypes()

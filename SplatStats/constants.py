@@ -47,7 +47,7 @@ CLR_MT = {
     'Tower Control':        clr.PINK_V_GREEN_S1 [0],
     'Tricolor Turf War':    clr.PINK_V_GREEN_S1 [0]  
 }
-CLR_PAINT = clr.EATIT_V_SAVEIT_S2[0]
+CLR_PAINT = clr.TURQUOISE_V_PUMPKIN_S2[-1]
 # Colors for scatter elements
 CLR_WL = {
     'W': clr.SKY_V_GOLD_S2[0],
