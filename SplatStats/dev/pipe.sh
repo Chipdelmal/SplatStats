@@ -7,4 +7,5 @@ BTL_PTH="/home/chipdelmal/Documents/GitHub/SplatStats/BattlesData"
 ###############################################################################
 bash "${DTA_PTH}downloadJSON.sh" -o
 # python main.py $DTA_PTH $BTL_PTH
-python scatterDev.py $DTA_PTH $BTL_PTH
+# python scatterDev.py $DTA_PTH $BTL_PTH
+python plotsMain.py $DTA_PTH $BTL_PTH

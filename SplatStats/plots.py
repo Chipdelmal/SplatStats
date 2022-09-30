@@ -130,7 +130,8 @@ def plotMatchTypeHistory(
 
 def plotMatchHistory(
         figAx, playerHistory, yRange=((0, 50), (0, 1750)),
-        labelsize=5, alphaMultiplier=1, sizeMultiplier=1
+        labelsize=5, alphaMultiplier=1, sizeMultiplier=1,
+        printStats=True
     ):
     (fig, ax) = figAx
     axR = ax.twinx()
@@ -206,29 +207,34 @@ def plotMatchHistory(
         pStats['kpads avg'][i] 
         for i in ('kills', 'deaths', 'assists', 'kassists', 'paint')
     ]
+    (kpm, dpm, apm, kapm, ppm) = [
+        pStats['kpads per min'][i] 
+        for i in ('kills', 'deaths', 'assists', 'kassists', 'paint')
+    ]
     paint = pStats['general']['paint']
     # Text
     sStr = f'''{wratio:.2f} W/L ({win:04d}/{loss:04d}) 
                {kratio:.2f} K/D ({kNum:04d}/{dNum:04d}) 
                {aratio:.2f} A/D ({int(aNum):04d}/{dNum:04d}) 
             '''.expandtabs()
-    mStr = f''' Matches:  {mNum:06d}
- Paint:    {paint:05d}  ({pAvg:.1f})
- Kills:    {kNum:06d}  ({kAvg:.3f})
- Deaths:   {dNum:06d}  ({dAvg:.3f})
- Assists:  {aNum:06d}  ({aAvg:.3f})
- KAssists: {int(kaNum):06d}  ({kaAvg:.3f})
+    mStr = f''' Matches:  {mNum:06d}  ( avg  &  pmin)
+ Paint:    {paint:05d}  ({pAvg:.1f} & {ppm:.1f})
+ Kills:    {kNum:06d}  ({kAvg:.3f} & {kpm:.3f})
+ Deaths:   {dNum:06d}  ({dAvg:.3f} & {dpm:.3f})
+ Assists:  {aNum:06d}  ({aAvg:.3f} & {apm:.3f})
+ KAssists: {int(kaNum):06d}  ({kaAvg:.3f} & {kapm:.3f})
         '''.expandtabs()
-    ax.text(
-        1, .99, sStr, fontsize=6,
-        horizontalalignment='right', verticalalignment='top',
-        transform=ax.transAxes
-    )
-    ax.text(
-        0, .99, mStr, fontsize=6,
-        horizontalalignment='left', verticalalignment='top',
-        transform=ax.transAxes
-    )
+    if printStats:
+        ax.text(
+            1, .99, sStr, fontsize=6,
+            horizontalalignment='right', verticalalignment='top',
+            transform=ax.transAxes
+        )
+        ax.text(
+            0, .99, mStr, fontsize=6,
+            horizontalalignment='left', verticalalignment='top',
+            transform=ax.transAxes
+        )
     # Axes --------------------------------------------------------------------
     ax.set_ylim(ymin, ymax)
     axR.set_ylim(yminR, ymaxR)

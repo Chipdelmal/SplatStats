@@ -58,7 +58,7 @@ def calcBattleHistoryStats(bHist):
         },
         'kpads per min': {
             'kills': kpm, 'deaths': dpm, 'assists': apm,
-            'special': spm, 'paint': ppm, 'kassist': kallpm
+            'special': spm, 'paint': ppm, 'kassists': kallpm
         }
     }
     return pStats
