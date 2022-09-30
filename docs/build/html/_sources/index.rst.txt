@@ -6,7 +6,7 @@ This python package was created to track personal `Splatoon 3 <https://en.wikipe
 
 Under development! Come back in a few weeks for more info!
 
-.. image:: ../img/bHistory.jpg
+.. image:: ../img/bHistory.png
   :width: 100%
 
 

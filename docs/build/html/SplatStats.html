@@ -994,13 +994,32 @@
 </dd></dl>
 
 <dl class="py function">
+<dt class="sig sig-object py" id="SplatStats.plots.plotMatchHistory">
+<span class="sig-name descname"><span class="pre">plotMatchHistory</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">figAx</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">playerHistory</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">yRange</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">((0,</span> <span class="pre">50),</span> <span class="pre">(0,</span> <span class="pre">1750))</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">labelsize</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">6</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">alphaMultiplier</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sizeMultiplier</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">printStats</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#SplatStats.plots.plotMatchHistory" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generates a scatter plot of all the matches, and provides information on kills, deaths, paint, assists, specials, etc. Please refer to our website for more information.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>figAx</strong> (<em>tuple</em>) – (fig, ax) tuple as initialized by matplotlib (plt.subplots).</p></li>
+<li><p><strong>playerHistory</strong> (<em>dataframe</em>) – Player history dataframe with kills, deaths and assists categories.</p></li>
+<li><p><strong>yRange</strong> (<em>tuple</em><em>, </em><em>optional</em>) – _description_. Defaults to ((0, 50), (0, 1750)).</p></li>
+<li><p><strong>labelsize</strong> (<em>float</em><em>, </em><em>optional</em>) – Font size for stats legend. Defaults to 5.</p></li>
+<li><p><strong>alphaMultiplier</strong> (<em>int</em><em>, </em><em>optional</em>) – Unused. Defaults to 1.</p></li>
+<li><p><strong>sizeMultiplier</strong> (<em>int</em><em>, </em><em>optional</em>) – Unused. Defaults to 1.</p></li>
+<li><p><strong>printStats</strong> (<em>bool</em><em>, </em><em>optional</em>) – If False, no stats legend boxes are added to the plot. Defaults to True.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
 <dt class="sig sig-object py" id="SplatStats.plots.plotMatchTypeHistory">
 <span class="sig-name descname"><span class="pre">plotMatchTypeHistory</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">figAx</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">playerHistory</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">labelsize</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">alphaMultiplier</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sizeMultiplier</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#SplatStats.plots.plotMatchTypeHistory" title="Permalink to this definition">¶</a></dt>
 <dd><p>Plots the matches history strip in terms of match types, win/loss, KO, etc.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>figAx</strong> (<em>tuple</em>) – (fig, ax) tuple as initialized by matplotlib (plt.subplots)</p></li>
+<li><p><strong>figAx</strong> (<em>tuple</em>) – (fig, ax) tuple as initialized by matplotlib (plt.subplots).</p></li>
 <li><p><strong>playerHistory</strong> (<em>dataframe</em>) – Player history dataframe with kills, deaths and assists categories.</p></li>
 <li><p><strong>labelsize</strong> (<em>float</em><em>, </em><em>optional</em>) – Font size for the weapon id ticks labels (use “None” for no label). Defaults to 5.</p></li>
 <li><p><strong>alphaMultiplier</strong> (<em>int</em><em>, </em><em>optional</em>) – Multiplier for alpha value of markers. Defaults to 1.</p></li>
@@ -1019,6 +1038,12 @@
 </section>
 <section id="module-SplatStats.plotsAux">
 <span id="splatstats-plotsaux-module"></span><h2>SplatStats.plotsAux module<a class="headerlink" href="#module-SplatStats.plotsAux" title="Permalink to this heading">¶</a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="SplatStats.plotsAux.align_yaxis">
+<span class="sig-name descname"><span class="pre">align_yaxis</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ax1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">v1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ax2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">v2</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#SplatStats.plotsAux.align_yaxis" title="Permalink to this definition">¶</a></dt>
+<dd><p>adjust ax2 ylimit so that v2 in ax2 is aligned to v1 in ax1</p>
+</dd></dl>
+
 <dl class="py function">
 <dt class="sig sig-object py" id="SplatStats.plotsAux.mapNumberToSaturation">
 <span class="sig-name descname"><span class="pre">mapNumberToSaturation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">num</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">colorHex</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">numLims</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">(0,</span> <span class="pre">15,</span> <span class="pre">50)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">satLims</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">(0,</span> <span class="pre">0.1,</span> <span class="pre">1)</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#SplatStats.plotsAux.mapNumberToSaturation" title="Permalink to this definition">¶</a></dt>

@@ -83,7 +83,7 @@ def plotMatchTypeHistory(
     """Plots the matches history strip in terms of match types, win/loss, KO, etc.
 
     Args:
-        figAx (tuple): (fig, ax) tuple as initialized by matplotlib (plt.subplots)
+        figAx (tuple): (fig, ax) tuple as initialized by matplotlib (plt.subplots).
         playerHistory (dataframe): Player history dataframe with kills, deaths and assists categories.
         labelsize (float, optional): Font size for the weapon id ticks labels (use "None" for no label). Defaults to 5.
         alphaMultiplier (int, optional): Multiplier for alpha value of markers. Defaults to 1.
@@ -130,9 +130,20 @@ def plotMatchTypeHistory(
 
 def plotMatchHistory(
         figAx, playerHistory, yRange=((0, 50), (0, 1750)),
-        labelsize=5, alphaMultiplier=1, sizeMultiplier=1,
+        labelsize=6, alphaMultiplier=1, sizeMultiplier=1,
         printStats=True
     ):
+    """Generates a scatter plot of all the matches, and provides information on kills, deaths, paint, assists, specials, etc. Please refer to our website for more information.
+
+    Args:
+        figAx (tuple): (fig, ax) tuple as initialized by matplotlib (plt.subplots).
+        playerHistory (dataframe): Player history dataframe with kills, deaths and assists categories.
+        yRange (tuple, optional): _description_. Defaults to ((0, 50), (0, 1750)).
+        labelsize (float, optional): Font size for stats legend. Defaults to 5.
+        alphaMultiplier (int, optional): Unused. Defaults to 1.
+        sizeMultiplier (int, optional): Unused. Defaults to 1.
+        printStats (bool, optional): If False, no stats legend boxes are added to the plot. Defaults to True.
+    """    
     (fig, ax) = figAx
     axR = ax.twinx()
     # Retreiving data ---------------------------------------------------------
@@ -226,12 +237,12 @@ def plotMatchHistory(
         '''.expandtabs()
     if printStats:
         ax.text(
-            1, .99, sStr, fontsize=6,
+            1, .99, sStr, fontsize=labelsize,
             horizontalalignment='right', verticalalignment='top',
             transform=ax.transAxes
         )
         ax.text(
-            0, .99, mStr, fontsize=6,
+            0, .99, mStr, fontsize=labelsize,
             horizontalalignment='left', verticalalignment='top',
             transform=ax.transAxes
         )
