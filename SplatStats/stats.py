@@ -44,8 +44,9 @@ def calcBattleHistoryStats(bHist):
         # W/L stats
         'general': {
             'total matches': matchNum, 'paint': pTot,
-            'win': wins, 'loss': loss, 'win ratio': winR, 
-            'kill ratio': killRatio, 'kassists ratio': kallRatio
+            'win': wins, 'loss': loss,
+            'win ratio': winR, 'kill ratio': killRatio, 
+            'kassists ratio': kallRatio
         },
         # KPADS stats
         'kpads': {

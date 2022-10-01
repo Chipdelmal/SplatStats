@@ -226,7 +226,7 @@ def plotMatchHistory(
     # Text
     sStr = f'''{wratio:.2f} W/L ({win:04d}/{loss:04d}) 
                {kratio:.2f} K/D ({kNum:04d}/{dNum:04d}) 
-               {aratio:.2f} A/D ({int(aNum):04d}/{dNum:04d}) 
+               {aratio:.2f} A/D ({int(kaNum):04d}/{dNum:04d}) 
             '''.expandtabs()
     mStr = f''' Matches:  {mNum:06d}  ( avg  &  pmin)
  Paint:    {paint:05d}  ({pAvg:.1f} & {ppm:.1f})

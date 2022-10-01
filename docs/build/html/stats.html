@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html  lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1"><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
+      <title>Stats</title>
+    
+          <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+          <link rel="stylesheet" href="_static/theme.css " type="text/css" />
+      
+      <!-- sphinx script_files -->
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+      
+      <!-- bundled in js (rollup iife) -->
+      <!-- <script src="_static/theme-vendors.js"></script> -->
+      <script src="_static/theme.js" defer></script>
+    
+  <link rel="index" title="Index" href="genindex.html" />
+  <link rel="search" title="Search" href="search.html" />
+  <link rel="next" title="Plots" href="plots.html" />
+  <link rel="prev" title="Quickstart" href="quickstart.html" /> 
+  </head>
+
+  <body>
+    <div id="app">
+    <div class="theme-container" :class="pageClasses"><navbar @toggle-sidebar="toggleSidebar">
+  <router-link to="index.html" class="home-link">
+    
+      <span class="site-name">SplatStats</span>
+    
+  </router-link>
+
+  <div class="links">
+    <navlinks class="can-hide">
+
+
+
+    </navlinks>
+  </div>
+</navbar>
+
+      
+      <div class="sidebar-mask" @click="toggleSidebar(false)">
+      </div>
+        <sidebar @toggle-sidebar="toggleSidebar">
+          
+          <navlinks>
+            
+
+
+
+            
+          </navlinks><div id="searchbox" class="searchbox" role="search">
+  <div class="caption"><span class="caption-text">Quick search</span>
+    <div class="searchformwrapper">
+      <form class="search" action="search.html" method="get">
+        <input type="text" name="q" />
+        <input type="submit" value="Search" />
+        <input type="hidden" name="check_keywords" value="yes" />
+        <input type="hidden" name="area" value="default" />
+      </form>
+    </div>
+  </div>
+</div><div class="sidebar-links" role="navigation" aria-label="main navigation">
+  
+    <div class="sidebar-group">
+      <p class="caption">
+        <span class="caption-text"><a href="index.html#splatstats-docs">Contents</a></span>
+      </p>
+      <ul class="current">
+        
+          <li class="toctree-l1 ">
+            
+              <a href="quickstart.html" class="reference internal ">Quickstart</a>
+            
+
+            
+          </li>
+
+        
+          <li class="toctree-l1 current">
+            
+              <a href="#" class="reference internal current">Stats</a>
+            
+
+            
+              <ul>
+                
+                  <li class="toctree-l2"><a href="#stats" class="reference internal">Stats</a></li>
+                
+              </ul>
+            
+          </li>
+
+        
+          <li class="toctree-l1 ">
+            
+              <a href="plots.html" class="reference internal ">Plots</a>
+            
+
+            
+          </li>
+
+        
+          <li class="toctree-l1 ">
+            
+              <a href="packageStructure.html" class="reference internal ">Code Structure</a>
+            
+
+            
+          </li>
+
+        
+      </ul>
+    </div>
+  
+</div>
+        </sidebar>
+
+      <page>
+          <div class="body-header" role="navigation" aria-label="navigation">
+  
+  <ul class="breadcrumbs">
+    <li><a href="index.html">Docs</a> &raquo;</li>
+    
+    <li>Stats</li>
+  </ul>
+  
+
+  <ul class="page-nav">
+  <li class="prev">
+    <a href="quickstart.html"
+       title="previous chapter">← Quickstart</a>
+  </li>
+  <li class="next">
+    <a href="plots.html"
+       title="next chapter">Plots →</a>
+  </li>
+</ul>
+  
+</div>
+<hr>
+          <div class="content" role="main" v-pre>
+            
+  <section id="stats">
+<h1>Stats<a class="headerlink" href="#stats" title="Permalink to this heading">¶</a></h1>
+<ul class="simple">
+<li><p><strong>K</strong> ills:</p></li>
+<li><p><strong>P</strong> aint:</p></li>
+<li><p><strong>A</strong> ssists:</p></li>
+<li><p><strong>D</strong> eaths:</p></li>
+<li><p><strong>S</strong> pecial:</p></li>
+</ul>
+<p>With an additional metric called “kassists”, that combines kills and assists in a single number following this equation:</p>
+<div class="math notranslate nohighlight">
+\[kassists = kills + (0.5 * assists)\]</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="s1">&#39;general&#39;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s1">&#39;total matches&#39;</span><span class="p">:</span>
+        <span class="s1">&#39;win&#39;</span><span class="p">:</span>
+        <span class="s1">&#39;loss&#39;</span><span class="p">:</span>
+        <span class="s1">&#39;paint&#39;</span><span class="p">:</span>
+        <span class="s1">&#39;win ratio&#39;</span><span class="p">:</span>
+        <span class="s1">&#39;kill ratio&#39;</span><span class="p">:</span>
+        <span class="s1">&#39;kassists ratio&#39;</span><span class="p">:</span>
+    <span class="p">},</span>
+    <span class="s1">&#39;kpads&#39;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s1">&#39;kills&#39;</span><span class="p">:</span>
+        <span class="s1">&#39;deaths&#39;</span><span class="p">:</span>
+        <span class="s1">&#39;assists&#39;</span><span class="p">:</span>
+        <span class="s1">&#39;kassists&#39;</span><span class="p">:</span>
+        <span class="s1">&#39;special&#39;</span><span class="p">:</span>
+        <span class="s1">&#39;paint&#39;</span><span class="p">:</span>
+    <span class="p">}</span>
+    <span class="s1">&#39;kpads avg&#39;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s1">&#39;kills&#39;</span><span class="p">:</span>
+        <span class="s1">&#39;deaths&#39;</span><span class="p">:</span>
+        <span class="s1">&#39;assists&#39;</span><span class="p">:</span>
+        <span class="s1">&#39;kassists&#39;</span><span class="p">:</span>
+        <span class="s1">&#39;special&#39;</span><span class="p">:</span>
+        <span class="s1">&#39;paint&#39;</span><span class="p">:</span>
+    <span class="p">}</span>
+    <span class="s1">&#39;kpads per min&#39;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s1">&#39;kills&#39;</span><span class="p">:</span>
+        <span class="s1">&#39;deaths&#39;</span><span class="p">:</span>
+        <span class="s1">&#39;assists&#39;</span><span class="p">:</span>
+        <span class="s1">&#39;kassists&#39;</span><span class="p">:</span>
+        <span class="s1">&#39;special&#39;</span><span class="p">:</span>
+        <span class="s1">&#39;paint&#39;</span><span class="p">:</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
+
+
+          </div>
+          <div class="page-nav">
+            <div class="inner"><ul class="page-nav">
+  <li class="prev">
+    <a href="quickstart.html"
+       title="previous chapter">← Quickstart</a>
+  </li>
+  <li class="next">
+    <a href="plots.html"
+       title="next chapter">Plots →</a>
+  </li>
+</ul><div class="footer" role="contentinfo">
+      &#169; Copyright 2022, chipdelmal.
+    <br>
+    Created using <a href="http://sphinx-doc.org/">Sphinx</a> 5.1.1 with <a href="https://github.com/schettino72/sphinx_press_theme">Press Theme</a> 0.8.0.
+</div>
+            </div>
+          </div>
+      </page>
+    </div></div>
+    
+    
+  </body>
+</html>

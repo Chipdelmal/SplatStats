@@ -15,6 +15,8 @@ Under development! Come back in a few weeks for more info!
    :caption: Contents
 
    quickstart
+   stats
+   plots
    packageStructure
 
 
