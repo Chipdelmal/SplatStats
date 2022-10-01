@@ -15,4 +15,4 @@ This codebase works in tandem with the [s3s package](https://github.com/frozenpa
 
 Have a look at our [documentation](https://chipdelmal.github.io/SplatStats/) for more information on how to install and use this package!
 
-![](./docs/img/bHistory.jpg)
+![](./docs/img/bHistory.png)
