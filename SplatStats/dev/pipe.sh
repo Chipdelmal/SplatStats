@@ -1,7 +1,7 @@
 #!/bin/bash
 
 DTA_PTH="/home/chipdelmal/Documents/GitHub/s3s/"
-BTL_PTH="/home/chipdelmal/Documents/GitHub/SplatStats/BattlesData"
+BTL_PTH="/home/chipdelmal/Documents/Sync/BattlesData/"
 ###############################################################################
 # Run scripts
 ###############################################################################
