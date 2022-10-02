@@ -32,7 +32,7 @@ CLR_STATS = {
 }
 # Markers/Colors for match types
 MKR_MT = {
-    'Turf War':             '-',
+    'Turf War':             ',',
     'Rainmaker':            '1',
     'Splat Zones':          '2',
     'Clam Blitz':           '3',
@@ -40,7 +40,7 @@ MKR_MT = {
     'Tricolor Turf War':    '.'
 }
 CLR_MT = {
-    'Turf War':             clr.BLUE_V_GREEN_S2[0],
+    'Turf War':             clr.LMODEL_V_PMODEL_S2[-1],
     'Rainmaker':            clr.WINNERW_V_WOUTERW_S2[2],
     'Splat Zones':          clr.BLUE_V_GREEN_S2[2],
     'Clam Blitz':           clr.RPURPLE_V_GAPPLE_S2[0],
@@ -59,17 +59,17 @@ MKR_WL = {
 }
 MKR_KO = {
     True: '.',
-    False: '-'    
+    False: ','    
 }
 CLR_KO = {
     True: clr.SKY_V_GOLD_S2[0],
-    False: clr.LBLUE_V_FUCHSIA_S2[1]
+    False: clr.LMODEL_V_PMODEL_S2[-1]
 }
 MKR_FEST = {
     True: '.',
-    False: '-'
+    False: ','
 }
 CLR_FEST = {
     True: clr.PINK_V_GREEN_S1 [0],
-    False: clr.PINK_V_GREEN_S1 [0]
+    False: clr.LMODEL_V_PMODEL_S2[-1]
 }

@@ -103,4 +103,3 @@ def calcBinnedFrequencies(array, xMin, xMax, binSize=1, normalized=False):
     if normalized:
         freqs = freqs/total
     return freqs
-

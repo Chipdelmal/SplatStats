@@ -143,6 +143,9 @@ def plotMatchHistory(
         alphaMultiplier (int, optional): Unused. Defaults to 1.
         sizeMultiplier (int, optional): Unused. Defaults to 1.
         printStats (bool, optional): If False, no stats legend boxes are added to the plot. Defaults to True.
+    
+    Returns:
+        (fix, ax): Matplotlib's fig and ax objects.
     """    
     (fig, ax) = figAx
     axR = ax.twinx()
@@ -252,4 +255,51 @@ def plotMatchHistory(
     ax.set_xlim(-0.5, MNUM-.5)
     paux.align_yaxis(ax, 0, axR, 0)
     plt.xticks(rotation=90)
+    return (fig, ax)
+
+
+def generateMatchHistoryLegend(figAx):
+    """Creates a legend with the breakdown of the Match History plots.
+
+    Args:
+        figAx (tuple): (fig, ax) tuple as initialized by matplotlib (plt.subplots).
+
+    Returns:
+        (fix, ax): Matplotlib's fig and ax objects.
+    """    
+    (fig, ax) = figAx
+    # Generate dummy figure for handles ---------------------------------------
+    (figD, axD) = plt.subplots(figsize=(1, .5))
+    for (ix, k) in enumerate(cst.MKR_STATS.keys()):
+        axD.plot(
+            0, 0, cst.MKR_STATS[k], 
+            color=cst.CLR_STATS[k], label=k, alpha=.5
+        )
+    for (ix, k) in enumerate(cst.MKR_WL.keys()):
+        axD.plot(
+            0, 0, cst.MKR_WL[k], 
+            color=cst.CLR_WL[k], label=k, alpha=.5
+        )
+    ko = ('KO Win', 'KO Loss')
+    for (ix, k) in enumerate(cst.MKR_KO.keys()):
+        axD.plot(
+            0, 0, cst.MKR_KO[True], 
+            color=list(cst.CLR_WL.values())[ix], label=ko[ix], alpha=.5
+        )
+    for (ix, k) in enumerate(cst.MKR_MT.keys()):
+        axD.plot(
+            0, 0, cst.MKR_MT[k], 
+            color=cst.CLR_MT[k], label=k, alpha=.5
+        )
+    for (ix, k) in enumerate((True, )):
+        axD.plot(
+            0, 0, cst.MKR_FEST[k], 
+            color=cst.CLR_FEST[k], label='Splatfest', alpha=.5, ms=2
+        )
+    # Add legend from dummy figure --------------------------------------------
+    # (figL, axL) = plt.subplots(figsize=(1, 5))
+    ax.legend(*axD.get_legend_handles_labels(), frameon=False)
+    ax.axis('off')
+    # Close dummy image and return legend -------------------------------------
+    plt.close(figD)
     return (fig, ax)

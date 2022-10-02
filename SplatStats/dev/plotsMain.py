@@ -3,15 +3,10 @@
 
 from sys import argv
 from os import path
-import numpy as np
-import pandas as pd
 import SplatStats as splat
 import matplotlib.pyplot as plt
-import numpy as np
-import pandas as pd
 import matplotlib.pyplot as plt
-from scipy.stats import gaussian_kde
-from matplotlib.patches import Rectangle
+from SplatStats.constants import MKR_STATS
 
 
 if splat.isNotebook():
@@ -24,8 +19,8 @@ else:
 ###############################################################################
 # Create Player Objects
 ###############################################################################
-historyFilepaths = splat.getDataFilepaths(iPath, filePat='results.json')
-bPaths = splat.dumpBattlesFromJSONS(historyFilepaths, oPath)
+# historyFilepaths = splat.getDataFilepaths(iPath, filePat='results.json')
+# bPaths = splat.dumpBattlesFromJSONS(historyFilepaths, oPath)
 bPaths = splat.getBattleFilepaths(oPath)
 ###############################################################################
 # Create Player Objects
@@ -34,6 +29,7 @@ NAMES = (
     'čħîþ ウナギ', 'Yami ウナギ', 'Riché ウナギ', 'DantoNnoob',
     'Oswal　ウナギ', 'April ウナギ', 'Murazee', 'Rei ウナギ'
 )
+name = 'čħîþ ウナギ'
 for name in NAMES:
     plyr = splat.Player(name, bPaths, timezone='America/Los_Angeles')
     playerHistory = plyr.battlesHistory
@@ -46,9 +42,10 @@ for name in NAMES:
         normalized=True
     )
     plt.savefig(
-        path.join(oPath, (plyr.name)+' KDHistogram.png'), 
+        path.join(oPath, (plyr.name)+' Histogram.png'), 
         dpi=300, bbox_inches='tight', facecolor=fig.get_facecolor()
     )
+    plt.close()
     ###########################################################################
     # Battle History
     ###########################################################################
@@ -73,3 +70,14 @@ for name in NAMES:
         path.join(oPath, (plyr.name)+' BHistory.png'), 
         dpi=300, bbox_inches='tight', facecolor=fig.get_facecolor()
     )
+    plt.close()
+###############################################################################
+# Legend
+###############################################################################
+(fig, ax) = plt.subplots(figsize=(1, 5))
+(fig, ax) = splat.generateMatchHistoryLegend((fig, ax))
+plt.savefig(
+    path.join(oPath, 'Legend.png'), 
+    dpi=300, bbox_inches='tight', facecolor=fig.get_facecolor()
+)
+plt.close()
