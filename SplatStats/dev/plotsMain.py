@@ -24,15 +24,15 @@ else:
 ###############################################################################
 # Create Player Objects
 ###############################################################################
-historyFilepaths = splat.getDataFilepaths(iPath, filePat='results.json')
-bPaths = splat.dumpBattlesFromJSONS(historyFilepaths, oPath)
+# historyFilepaths = splat.getDataFilepaths(iPath, filePat='results.json')
+# bPaths = splat.dumpBattlesFromJSONS(historyFilepaths, oPath)
 bPaths = splat.getBattleFilepaths(oPath)
 ###############################################################################
 # Create Player Objects
 ###############################################################################
 NAMES = (
-    'čħîþ ウナギ', 'Yami ウナギ', 'Riché ウナギ',
-    'Oswal　ウナギ', 'April ウナギ', 'Murazee'
+    'čħîþ ウナギ', 'Yami ウナギ', 'Riché ウナギ', 'DantoNnoob',
+    'Oswal　ウナギ', 'April ウナギ', 'Murazee', 'Rei ウナギ'
 )
 for name in NAMES:
     plyr = splat.Player(name, bPaths, timezone='America/Los_Angeles')
@@ -42,7 +42,7 @@ for name in NAMES:
     ###########################################################################
     (fig, ax) = plt.subplots(figsize=(30, 15))
     (fig, ax) = splat.plotKillsAndDeathsHistogram(
-        (fig, ax), playerHistory, (0, 40), yRange=(-.25, .25), edgecolor='k',
+        (fig, ax), playerHistory, (0, 40), yRange=(-.5, .5), edgecolor='k',
         normalized=True
     )
     plt.savefig(

@@ -229,7 +229,7 @@ def plotMatchHistory(
                {aratio:.2f} A/D ({int(kaNum):04d}/{dNum:04d}) 
             '''.expandtabs()
     mStr = f''' Matches:  {mNum:06d}  ( avg  &  pmin)
- Paint:    {paint:05d}  ({pAvg:.1f} & {ppm:.1f})
+ Paint:    {paint:06d}  ({pAvg:.1f} & {ppm:.1f})
  Kills:    {kNum:06d}  ({kAvg:.3f} & {kpm:.3f})
  Deaths:   {dNum:06d}  ({dAvg:.3f} & {dpm:.3f})
  Assists:  {aNum:06d}  ({aAvg:.3f} & {apm:.3f})

@@ -151,53 +151,57 @@
             
   <section id="stats">
 <h1>Stats<a class="headerlink" href="#stats" title="Permalink to this heading">¶</a></h1>
+<p>SplatStats can automatically calculate the some statistics from either a player object, or from the battles stored in a battle dataframe.
+In general, calculated stats revolve around the following numbers:</p>
 <ul class="simple">
-<li><p><strong>K</strong> ills:</p></li>
-<li><p><strong>P</strong> aint:</p></li>
-<li><p><strong>A</strong> ssists:</p></li>
-<li><p><strong>D</strong> eaths:</p></li>
-<li><p><strong>S</strong> pecial:</p></li>
+<li><p><strong>K</strong> ills: Times you’ve splatted an enemy.</p></li>
+<li><p><strong>P</strong> aint: Amount of terrain painted.</p></li>
+<li><p><strong>A</strong> ssists: Times you’ve helped someone else splat an enemy.</p></li>
+<li><p><strong>D</strong> eaths: Times an enemy has splatted you.</p></li>
+<li><p><strong>S</strong> pecial: Times you’ve used your special.</p></li>
 </ul>
 <p>With an additional metric called “kassists”, that combines kills and assists in a single number following this equation:</p>
 <div class="math notranslate nohighlight">
 \[kassists = kills + (0.5 * assists)\]</div>
+<p>The output data structure follows this shape (either for the player, or the dataframe object):</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
     <span class="s1">&#39;general&#39;</span><span class="p">:</span> <span class="p">{</span>
-        <span class="s1">&#39;total matches&#39;</span><span class="p">:</span>
-        <span class="s1">&#39;win&#39;</span><span class="p">:</span>
-        <span class="s1">&#39;loss&#39;</span><span class="p">:</span>
-        <span class="s1">&#39;paint&#39;</span><span class="p">:</span>
-        <span class="s1">&#39;win ratio&#39;</span><span class="p">:</span>
-        <span class="s1">&#39;kill ratio&#39;</span><span class="p">:</span>
-        <span class="s1">&#39;kassists ratio&#39;</span><span class="p">:</span>
+        <span class="s1">&#39;total matches&#39;</span><span class="p">:</span> <span class="n">Number</span> <span class="n">of</span> <span class="n">matches</span>
+        <span class="s1">&#39;win&#39;</span><span class="p">:</span> <span class="n">Wins</span> <span class="n">out</span> <span class="n">of</span> <span class="n">total</span> <span class="n">matches</span>
+        <span class="s1">&#39;loss&#39;</span><span class="p">:</span> <span class="n">Losses</span> <span class="n">out</span> <span class="n">of</span> <span class="n">total</span> <span class="n">matches</span>
+        <span class="s1">&#39;paint&#39;</span><span class="p">:</span> <span class="n">Total</span> <span class="n">painted</span> <span class="n">surface</span>
+        <span class="s1">&#39;win ratio&#39;</span><span class="p">:</span> <span class="n">Fraction</span> <span class="n">of</span> <span class="n">the</span> <span class="n">matches</span> <span class="n">that</span> <span class="n">resulted</span> <span class="ow">in</span> <span class="n">wins</span>
+        <span class="s1">&#39;kill ratio&#39;</span><span class="p">:</span> <span class="n">Number</span> <span class="n">of</span> <span class="n">kills</span> <span class="n">divided</span> <span class="n">by</span> <span class="n">deaths</span>
+        <span class="s1">&#39;kassists ratio&#39;</span><span class="p">:</span> <span class="n">Number</span> <span class="n">of</span> <span class="n">kassists</span> <span class="n">divided</span> <span class="n">by</span> <span class="n">deaths</span>
     <span class="p">},</span>
     <span class="s1">&#39;kpads&#39;</span><span class="p">:</span> <span class="p">{</span>
-        <span class="s1">&#39;kills&#39;</span><span class="p">:</span>
-        <span class="s1">&#39;deaths&#39;</span><span class="p">:</span>
-        <span class="s1">&#39;assists&#39;</span><span class="p">:</span>
-        <span class="s1">&#39;kassists&#39;</span><span class="p">:</span>
-        <span class="s1">&#39;special&#39;</span><span class="p">:</span>
-        <span class="s1">&#39;paint&#39;</span><span class="p">:</span>
+        <span class="s1">&#39;kills&#39;</span><span class="p">:</span> <span class="n">Total</span> <span class="n">kills</span>
+        <span class="s1">&#39;deaths&#39;</span><span class="p">:</span> <span class="n">Total</span> <span class="n">deaths</span>
+        <span class="s1">&#39;assists&#39;</span><span class="p">:</span> <span class="n">Total</span> <span class="n">assists</span>
+        <span class="s1">&#39;kassists&#39;</span><span class="p">:</span> <span class="n">Total</span> <span class="n">kassists</span>
+        <span class="s1">&#39;special&#39;</span><span class="p">:</span> <span class="n">Total</span> <span class="n">specials</span> <span class="n">used</span>
+        <span class="s1">&#39;paint&#39;</span><span class="p">:</span> <span class="n">Total</span> <span class="n">painted</span> <span class="n">surface</span>
     <span class="p">}</span>
     <span class="s1">&#39;kpads avg&#39;</span><span class="p">:</span> <span class="p">{</span>
-        <span class="s1">&#39;kills&#39;</span><span class="p">:</span>
-        <span class="s1">&#39;deaths&#39;</span><span class="p">:</span>
-        <span class="s1">&#39;assists&#39;</span><span class="p">:</span>
-        <span class="s1">&#39;kassists&#39;</span><span class="p">:</span>
-        <span class="s1">&#39;special&#39;</span><span class="p">:</span>
-        <span class="s1">&#39;paint&#39;</span><span class="p">:</span>
+        <span class="s1">&#39;kills&#39;</span><span class="p">:</span> <span class="n">Average</span> <span class="n">kills</span> <span class="n">per</span> <span class="n">match</span>
+        <span class="s1">&#39;deaths&#39;</span><span class="p">:</span> <span class="n">Average</span> <span class="n">deaths</span> <span class="n">per</span> <span class="n">match</span>
+        <span class="s1">&#39;assists&#39;</span><span class="p">:</span> <span class="n">Average</span> <span class="n">assists</span> <span class="n">per</span> <span class="n">match</span>
+        <span class="s1">&#39;kassists&#39;</span><span class="p">:</span> <span class="n">Average</span> <span class="n">kassists</span> <span class="n">per</span> <span class="n">match</span>
+        <span class="s1">&#39;special&#39;</span><span class="p">:</span> <span class="n">Average</span> <span class="n">specials</span> <span class="n">used</span> <span class="n">per</span> <span class="n">match</span>
+        <span class="s1">&#39;paint&#39;</span><span class="p">:</span> <span class="n">Average</span> <span class="n">painted</span> <span class="n">surface</span> <span class="n">per</span> <span class="n">match</span>
     <span class="p">}</span>
     <span class="s1">&#39;kpads per min&#39;</span><span class="p">:</span> <span class="p">{</span>
-        <span class="s1">&#39;kills&#39;</span><span class="p">:</span>
-        <span class="s1">&#39;deaths&#39;</span><span class="p">:</span>
-        <span class="s1">&#39;assists&#39;</span><span class="p">:</span>
-        <span class="s1">&#39;kassists&#39;</span><span class="p">:</span>
-        <span class="s1">&#39;special&#39;</span><span class="p">:</span>
-        <span class="s1">&#39;paint&#39;</span><span class="p">:</span>
+        <span class="s1">&#39;kills&#39;</span><span class="p">:</span> <span class="n">Kills</span> <span class="n">per</span> <span class="n">minute</span>
+        <span class="s1">&#39;deaths&#39;</span><span class="p">:</span> <span class="n">Deaths</span> <span class="n">per</span> <span class="n">minute</span>
+        <span class="s1">&#39;assists&#39;</span><span class="p">:</span> <span class="n">Assists</span> <span class="n">per</span> <span class="n">minute</span>
+        <span class="s1">&#39;kassists&#39;</span><span class="p">:</span> <span class="n">Kassists</span> <span class="n">per</span> <span class="n">minute</span>
+        <span class="s1">&#39;special&#39;</span><span class="p">:</span> <span class="n">Specials</span> <span class="n">used</span> <span class="n">per</span> <span class="n">minute</span>
+        <span class="s1">&#39;paint&#39;</span><span class="p">:</span> <span class="n">Painted</span> <span class="n">surface</span> <span class="n">per</span> <span class="n">minute</span>
     <span class="p">}</span>
 <span class="p">}</span>
 </pre></div>
 </div>
+<p>As stated in the structure’s entries descriptions, the average quantities are calculated on a “per match” basis; and the “per minute” stats are calculated by dividing the aggregate quantity over the total time spent in matches.</p>
 </section>
 
 
