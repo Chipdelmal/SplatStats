@@ -991,6 +991,23 @@
 <section id="module-SplatStats.plots">
 <span id="splatstats-plots-module"></span><h2>SplatStats.plots module<a class="headerlink" href="#module-SplatStats.plots" title="Permalink to this heading">¶</a></h2>
 <dl class="py function">
+<dt class="sig sig-object py" id="SplatStats.plots.generateMatchHistoryLegend">
+<span class="sig-name descname"><span class="pre">generateMatchHistoryLegend</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">figAx</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#SplatStats.plots.generateMatchHistoryLegend" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates a legend with the breakdown of the Match History plots.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>figAx</strong> (<em>tuple</em>) – (fig, ax) tuple as initialized by matplotlib (plt.subplots).</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Matplotlib’s fig and ax objects.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>(fix, ax)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
 <dt class="sig sig-object py" id="SplatStats.plots.plotKillsAndDeathsHistogram">
 <span class="sig-name descname"><span class="pre">plotKillsAndDeathsHistogram</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">figAx</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">playerHistory</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">killRange</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">binSize</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">assistsAdjustment</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">normalized</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">yRange</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">(-0.25,</span> <span class="pre">0.25)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">aspect</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.25</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">alpha</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.35</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">edgecolor</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'#000000'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">kColor</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'#311AA8'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dColor</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'#D60E6E'</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#SplatStats.plots.plotKillsAndDeathsHistogram" title="Permalink to this definition">¶</a></dt>
 <dd><p>Creates a paired histogram in which the top represents player kills, and the bottom the player deaths.</p>
@@ -1035,6 +1052,12 @@
 <li><p><strong>sizeMultiplier</strong> (<em>int</em><em>, </em><em>optional</em>) – Unused. Defaults to 1.</p></li>
 <li><p><strong>printStats</strong> (<em>bool</em><em>, </em><em>optional</em>) – If False, no stats legend boxes are added to the plot. Defaults to True.</p></li>
 </ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Matplotlib’s fig and ax objects.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>(fix, ax)</p>
 </dd>
 </dl>
 </dd></dl>

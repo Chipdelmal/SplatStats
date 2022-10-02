@@ -13,6 +13,8 @@ Have a look at our `quickstart guide <./quickstart.html>`_ for setup instruction
 
 Under development! Come back in a few weeks for more info!
 
+.. image:: ../img/kdHistogram.png
+  :width: 100%
 
 
 .. toctree::
@@ -25,4 +27,8 @@ Under development! Come back in a few weeks for more info!
   plots
   packageStructure
 
+
+------------
+
+:ref:`modindex`
 

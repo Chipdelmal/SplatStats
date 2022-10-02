@@ -163,11 +163,24 @@
 <h1>Plots<a class="headerlink" href="#plots" title="Permalink to this heading">¶</a></h1>
 <section id="matches-history-panel">
 <h2>Matches History Panel<a class="headerlink" href="#matches-history-panel" title="Permalink to this heading">¶</a></h2>
+<p>This panel is constructed as a panel composed of two different figures. The top one is a detailed breakdown of the statistics of each battle.
+Each column on the x axis represents a single battle; where the left y axis shows the number of kills, deaths, assists and specials; and the right y axis the turf painted over the match (bars on the plot).</p>
 <a class="reference internal image-reference" href="_images/bHistory.png"><img alt="_images/bHistory.png" src="_images/bHistory.png" style="width: 100%;" /></a>
+<p>Where the main vertical line between kills and deaths is colored blue for when the number of kills was equal or higher than deaths, and magenta for the other case.
+Kills, deaths, assists and specials are encoded with the following symbols:</p>
+<a class="reference internal image-reference" href="_images/LegendA.png"><img alt="_images/LegendA.png" src="_images/LegendA.png" style="width: 15%;" /></a>
+<p>The bottom panel of the figure is subdivided into three lines. The top one represents the win/lose status of the battle, with the second one showing if the battle resulted in a KO:</p>
+<a class="reference internal image-reference" href="_images/LegendB.png"><img alt="_images/LegendB.png" src="_images/LegendB.png" style="width: 15%;" /></a>
+<p>Finally, the bottom row shows the type of match played:</p>
+<a class="reference internal image-reference" href="_images/LegendC.png"><img alt="_images/LegendC.png" src="_images/LegendC.png" style="width: 15%;" /></a>
+<p>Have a look at the <a class="reference external" href="./SplatStats.html#module-SplatStats.plots">function’s documentation</a> for more information.</p>
 </section>
 <section id="kill-vs-deaths-distributions">
 <h2>Kill VS Deaths Distributions<a class="headerlink" href="#kill-vs-deaths-distributions" title="Permalink to this heading">¶</a></h2>
+<p>These paired histograms show the frequency distributions of the number of kills or kassists (top, blue), and the number of deaths (bottom, magenta) across matches.</p>
 <a class="reference internal image-reference" href="_images/kdHistogram.png"><img alt="_images/kdHistogram.png" src="_images/kdHistogram.png" style="width: 100%;" /></a>
+<p>The x-asis shows the number of kills/deaths per match, while the y axis is either the raw frequency or the density of the quantity in that bin (if the histogram is normalized).
+Have a look at the <a class="reference external" href="./SplatStats.html#module-SplatStats.plots">function’s documentation</a> for more information.</p>
 </section>
 </section>
 
