@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1"><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
 
-      <title>Code Structure</title>
+      <title>Data Structures</title>
     
           <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
           <link rel="stylesheet" href="_static/theme.css " type="text/css" />
@@ -15,6 +15,7 @@
         <script src="_static/underscore.js"></script>
         <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="_static/doctools.js"></script>
+        <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 
       
       <!-- bundled in js (rollup iife) -->
@@ -94,15 +95,6 @@
         
           <li class="toctree-l1 ">
             
-              <a href="stats.html" class="reference internal ">Stats</a>
-            
-
-            
-          </li>
-
-        
-          <li class="toctree-l1 ">
-            
               <a href="plots.html" class="reference internal ">Plots</a>
             
 
@@ -112,7 +104,7 @@
         
           <li class="toctree-l1 current">
             
-              <a href="#" class="reference internal current">Code Structure</a>
+              <a href="#" class="reference internal current">Data Structures</a>
             
 
             
@@ -122,7 +114,7 @@
                 
                   <li class="toctree-l2"><a href="#battle" class="reference internal">Battle</a></li>
                 
-                  <li class="toctree-l2"><a href="#auxiliary-routines" class="reference internal">Auxiliary Routines</a></li>
+                  <li class="toctree-l2"><a href="#stats" class="reference internal">Stats</a></li>
                 
               </ul>
             
@@ -141,7 +133,7 @@
   <ul class="breadcrumbs">
     <li><a href="index.html">Docs</a> &raquo;</li>
     
-    <li>Code Structure</li>
+    <li>Data Structures</li>
   </ul>
   
 
@@ -156,8 +148,8 @@
 <hr>
           <div class="content" role="main" v-pre>
             
-  <section id="code-structure">
-<h1>Code Structure<a class="headerlink" href="#code-structure" title="Permalink to this heading">¶</a></h1>
+  <section id="data-structures">
+<h1>Data Structures<a class="headerlink" href="#data-structures" title="Permalink to this heading">¶</a></h1>
 <section id="player">
 <h2>Player<a class="headerlink" href="#player" title="Permalink to this heading">¶</a></h2>
 <p>The uppermost level class is the <cite>Player</cite>.
@@ -165,43 +157,94 @@ Most of the time we will be dealing with this class, as it is the one that encap
 </section>
 <section id="battle">
 <h2>Battle<a class="headerlink" href="#battle" title="Permalink to this heading">¶</a></h2>
-<section id="team-dataframe">
-<h3>Team Dataframe<a class="headerlink" href="#team-dataframe" title="Permalink to this heading">¶</a></h3>
+<section id="team-enemy-dataframe">
+<h3>Team/Enemy Dataframe<a class="headerlink" href="#team-enemy-dataframe" title="Permalink to this heading">¶</a></h3>
 <p>The results of a team that was part of a battle are stored in a dataframe object.</p>
 <ul class="simple">
-<li><p><cite>player name:</cite> Player’s name used in the match</p></li>
-<li><p><cite>player name id:</cite> Player’s in-game id</p></li>
-<li><p><cite>main weapon:</cite> Main weapon used</p></li>
-<li><p><cite>sub weapon:</cite> Sub weapon used</p></li>
-<li><p><cite>special weapon:</cite> Special weapon used</p></li>
-<li><p><cite>kill:</cite> Kill count</p></li>
-<li><p><cite>death:</cite> Death count</p></li>
-<li><p><cite>assist:</cite> Number of assists</p></li>
-<li><p><cite>special:</cite> Number of specials</p></li>
-<li><p><cite>paint:</cite> Painted surface</p></li>
-<li><p><cite>head name:</cite> Headgear’s name</p></li>
-<li><p><cite>head main:</cite> Headgear’s main ability</p></li>
-<li><p><cite>head sub_0:</cite> Headgear’s sub ability &#64; slot 1</p></li>
-<li><p><cite>head sub_1:</cite> Headgear’s sub ability &#64; slot 2</p></li>
-<li><p><cite>head sub_2:</cite> Headgear’s sub ability &#64; slot 3</p></li>
-<li><p><cite>shirt name:</cite> Shirtgear’s name</p></li>
-<li><p><cite>shirt main:</cite> Shirtgear’s main ability</p></li>
-<li><p><cite>shirt sub_0:</cite> Shirtgear’s sub ability &#64; slot 1</p></li>
-<li><p><cite>shirt sub_1:</cite> Shirtgear’s sub ability &#64; slot 2</p></li>
-<li><p><cite>shirt sub_2:</cite> Shirtgear’s sub ability &#64; slot 3</p></li>
-<li><p><cite>shoes name:</cite> Shoesgear’s name</p></li>
-<li><p><cite>shoes main:</cite> Shoesgear’s main ability</p></li>
-<li><p><cite>shoes sub_0:</cite> Shoesgear’s sub ability &#64; slot 1</p></li>
-<li><p><cite>shoes sub_1:</cite> Shoesgear’s sub ability &#64; slot 2</p></li>
-<li><p><cite>shoes sub_2:</cite> Shoesgear’s sub ability &#64; slot 3</p></li>
-<li><p><cite>self:</cite> Is this player the one who generated the dataset?</p></li>
-<li><p><cite>win:</cite> Win (W), Lose (L) or not finished (NA)</p></li>
-<li><p><cite>score:</cite> Score obtained in the match (if “Turf War”, this stat is “paint”; and if the match did not finish correctly the variable takes a value of <cite>False</cite>)</p></li>
+<li><p><code class="code docutils literal notranslate"><span class="pre">player</span> <span class="pre">name</span></code> Player’s name used in the match</p></li>
+<li><p><code class="code docutils literal notranslate"><span class="pre">player</span> <span class="pre">name</span> <span class="pre">id</span></code> Player’s in-game id</p></li>
+<li><p><code class="code docutils literal notranslate"><span class="pre">main</span> <span class="pre">weapon</span></code> Main weapon used</p></li>
+<li><p><code class="code docutils literal notranslate"><span class="pre">sub</span> <span class="pre">weapon</span></code> Sub weapon used</p></li>
+<li><p><code class="code docutils literal notranslate"><span class="pre">special</span> <span class="pre">weapon</span></code> Special weapon used</p></li>
+<li><p><code class="code docutils literal notranslate"><span class="pre">kill</span></code> Kill count</p></li>
+<li><p><code class="code docutils literal notranslate"><span class="pre">death</span></code> Death count</p></li>
+<li><p><code class="code docutils literal notranslate"><span class="pre">assist</span></code> Number of assists</p></li>
+<li><p><code class="code docutils literal notranslate"><span class="pre">special</span></code> Number of specials</p></li>
+<li><p><code class="code docutils literal notranslate"><span class="pre">paint</span></code> Painted surface</p></li>
+<li><p><code class="code docutils literal notranslate"><span class="pre">head</span> <span class="pre">name</span></code> Headgear’s name</p></li>
+<li><p><code class="code docutils literal notranslate"><span class="pre">head</span> <span class="pre">main</span></code> Headgear’s main ability</p></li>
+<li><p><code class="code docutils literal notranslate"><span class="pre">head</span> <span class="pre">sub_0</span></code> Headgear’s sub ability &#64; slot 1</p></li>
+<li><p><code class="code docutils literal notranslate"><span class="pre">head</span> <span class="pre">sub_1</span></code> Headgear’s sub ability &#64; slot 2</p></li>
+<li><p><code class="code docutils literal notranslate"><span class="pre">head</span> <span class="pre">sub_2</span></code> Headgear’s sub ability &#64; slot 3</p></li>
+<li><p><code class="code docutils literal notranslate"><span class="pre">shirt</span> <span class="pre">name</span></code> Shirtgear’s name</p></li>
+<li><p><code class="code docutils literal notranslate"><span class="pre">shirt</span> <span class="pre">main</span></code> Shirtgear’s main ability</p></li>
+<li><p><code class="code docutils literal notranslate"><span class="pre">shirt</span> <span class="pre">sub_0</span></code> Shirtgear’s sub ability &#64; slot 1</p></li>
+<li><p><code class="code docutils literal notranslate"><span class="pre">shirt</span> <span class="pre">sub_1</span></code> Shirtgear’s sub ability &#64; slot 2</p></li>
+<li><p><code class="code docutils literal notranslate"><span class="pre">shirt</span> <span class="pre">sub_2</span></code> Shirtgear’s sub ability &#64; slot 3</p></li>
+<li><p><code class="code docutils literal notranslate"><span class="pre">shoes</span> <span class="pre">name</span></code> Shoesgear’s name</p></li>
+<li><p><code class="code docutils literal notranslate"><span class="pre">shoes</span> <span class="pre">main</span></code> Shoesgear’s main ability</p></li>
+<li><p><code class="code docutils literal notranslate"><span class="pre">shoes</span> <span class="pre">sub_0</span></code> Shoesgear’s sub ability &#64; slot 1</p></li>
+<li><p><code class="code docutils literal notranslate"><span class="pre">shoes</span> <span class="pre">sub_1</span></code> Shoesgear’s sub ability &#64; slot 2</p></li>
+<li><p><code class="code docutils literal notranslate"><span class="pre">shoes</span> <span class="pre">sub_2</span></code> Shoesgear’s sub ability &#64; slot 3</p></li>
+<li><p><code class="code docutils literal notranslate"><span class="pre">self</span></code> Is this player the one who generated the dataset?</p></li>
+<li><p><code class="code docutils literal notranslate"><span class="pre">win</span></code> Win (W), Lose (L) or not finished (NA)</p></li>
+<li><p><code class="code docutils literal notranslate"><span class="pre">score</span></code> Score obtained in the match (if “Turf War”, this stat is “paint”; and if the match did not finish correctly the variable takes a value of <cite>False</cite>)</p></li>
 </ul>
 </section>
 </section>
-<section id="auxiliary-routines">
-<h2>Auxiliary Routines<a class="headerlink" href="#auxiliary-routines" title="Permalink to this heading">¶</a></h2>
+<section id="stats">
+<h2>Stats<a class="headerlink" href="#stats" title="Permalink to this heading">¶</a></h2>
+<p>SplatStats can automatically calculate the some statistics from either a player object, or from the battles stored in a battle dataframe.
+In general, calculated stats revolve around the following numbers:</p>
+<ul class="simple">
+<li><p><strong>K</strong> ills: Times you’ve splatted an enemy.</p></li>
+<li><p><strong>P</strong> aint: Amount of terrain painted.</p></li>
+<li><p><strong>A</strong> ssists: Times you’ve helped someone else splat an enemy.</p></li>
+<li><p><strong>D</strong> eaths: Times an enemy has splatted you.</p></li>
+<li><p><strong>S</strong> pecial: Times you’ve used your special.</p></li>
+</ul>
+<p>With an additional metric called “kassists”, that combines kills and assists in a single number following this equation:</p>
+<div class="math notranslate nohighlight">
+\[kassists = kills + (0.5 * assists)\]</div>
+<p>The output data structure follows this shape (either for the player, or the dataframe object):</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="s1">&#39;general&#39;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s1">&#39;total matches&#39;</span><span class="p">:</span> <span class="n">Number</span> <span class="n">of</span> <span class="n">matches</span>
+        <span class="s1">&#39;win&#39;</span><span class="p">:</span> <span class="n">Wins</span> <span class="n">out</span> <span class="n">of</span> <span class="n">total</span> <span class="n">matches</span>
+        <span class="s1">&#39;loss&#39;</span><span class="p">:</span> <span class="n">Losses</span> <span class="n">out</span> <span class="n">of</span> <span class="n">total</span> <span class="n">matches</span>
+        <span class="s1">&#39;paint&#39;</span><span class="p">:</span> <span class="n">Total</span> <span class="n">painted</span> <span class="n">surface</span>
+        <span class="s1">&#39;win ratio&#39;</span><span class="p">:</span> <span class="n">Fraction</span> <span class="n">of</span> <span class="n">the</span> <span class="n">matches</span> <span class="n">that</span> <span class="n">resulted</span> <span class="ow">in</span> <span class="n">wins</span>
+        <span class="s1">&#39;kill ratio&#39;</span><span class="p">:</span> <span class="n">Number</span> <span class="n">of</span> <span class="n">kills</span> <span class="n">divided</span> <span class="n">by</span> <span class="n">deaths</span>
+        <span class="s1">&#39;kassists ratio&#39;</span><span class="p">:</span> <span class="n">Number</span> <span class="n">of</span> <span class="n">kassists</span> <span class="n">divided</span> <span class="n">by</span> <span class="n">deaths</span>
+    <span class="p">},</span>
+    <span class="s1">&#39;kpads&#39;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s1">&#39;kills&#39;</span><span class="p">:</span> <span class="n">Total</span> <span class="n">kills</span>
+        <span class="s1">&#39;deaths&#39;</span><span class="p">:</span> <span class="n">Total</span> <span class="n">deaths</span>
+        <span class="s1">&#39;assists&#39;</span><span class="p">:</span> <span class="n">Total</span> <span class="n">assists</span>
+        <span class="s1">&#39;kassists&#39;</span><span class="p">:</span> <span class="n">Total</span> <span class="n">kassists</span>
+        <span class="s1">&#39;special&#39;</span><span class="p">:</span> <span class="n">Total</span> <span class="n">specials</span> <span class="n">used</span>
+        <span class="s1">&#39;paint&#39;</span><span class="p">:</span> <span class="n">Total</span> <span class="n">painted</span> <span class="n">surface</span>
+    <span class="p">}</span>
+    <span class="s1">&#39;kpads avg&#39;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s1">&#39;kills&#39;</span><span class="p">:</span> <span class="n">Average</span> <span class="n">kills</span> <span class="n">per</span> <span class="n">match</span>
+        <span class="s1">&#39;deaths&#39;</span><span class="p">:</span> <span class="n">Average</span> <span class="n">deaths</span> <span class="n">per</span> <span class="n">match</span>
+        <span class="s1">&#39;assists&#39;</span><span class="p">:</span> <span class="n">Average</span> <span class="n">assists</span> <span class="n">per</span> <span class="n">match</span>
+        <span class="s1">&#39;kassists&#39;</span><span class="p">:</span> <span class="n">Average</span> <span class="n">kassists</span> <span class="n">per</span> <span class="n">match</span>
+        <span class="s1">&#39;special&#39;</span><span class="p">:</span> <span class="n">Average</span> <span class="n">specials</span> <span class="n">used</span> <span class="n">per</span> <span class="n">match</span>
+        <span class="s1">&#39;paint&#39;</span><span class="p">:</span> <span class="n">Average</span> <span class="n">painted</span> <span class="n">surface</span> <span class="n">per</span> <span class="n">match</span>
+    <span class="p">}</span>
+    <span class="s1">&#39;kpads per min&#39;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s1">&#39;kills&#39;</span><span class="p">:</span> <span class="n">Kills</span> <span class="n">per</span> <span class="n">minute</span>
+        <span class="s1">&#39;deaths&#39;</span><span class="p">:</span> <span class="n">Deaths</span> <span class="n">per</span> <span class="n">minute</span>
+        <span class="s1">&#39;assists&#39;</span><span class="p">:</span> <span class="n">Assists</span> <span class="n">per</span> <span class="n">minute</span>
+        <span class="s1">&#39;kassists&#39;</span><span class="p">:</span> <span class="n">Kassists</span> <span class="n">per</span> <span class="n">minute</span>
+        <span class="s1">&#39;special&#39;</span><span class="p">:</span> <span class="n">Specials</span> <span class="n">used</span> <span class="n">per</span> <span class="n">minute</span>
+        <span class="s1">&#39;paint&#39;</span><span class="p">:</span> <span class="n">Painted</span> <span class="n">surface</span> <span class="n">per</span> <span class="n">minute</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>As stated in the structure’s entries descriptions, the average quantities are calculated on a “per match” basis; and the “per minute” stats are calculated by dividing the aggregate quantity over the total time spent in matches.</p>
 </section>
 </section>
 

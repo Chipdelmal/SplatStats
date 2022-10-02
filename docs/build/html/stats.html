@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1"><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
 
-      <title>Stats</title>
+      <title>&lt;no title&gt;</title>
     
           <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
           <link rel="stylesheet" href="_static/theme.css " type="text/css" />
@@ -15,7 +15,6 @@
         <script src="_static/underscore.js"></script>
         <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="_static/doctools.js"></script>
-        <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 
       
       <!-- bundled in js (rollup iife) -->
@@ -23,9 +22,7 @@
       <script src="_static/theme.js" defer></script>
     
   <link rel="index" title="Index" href="genindex.html" />
-  <link rel="search" title="Search" href="search.html" />
-  <link rel="next" title="Plots" href="plots.html" />
-  <link rel="prev" title="Quickstart" href="quickstart.html" /> 
+  <link rel="search" title="Search" href="search.html" /> 
   </head>
 
   <body>
@@ -74,7 +71,7 @@
       <p class="caption">
         <span class="caption-text"><a href="index.html#splatstats-docs">Contents</a></span>
       </p>
-      <ul class="current">
+      <ul class="">
         
           <li class="toctree-l1 ">
             
@@ -94,21 +91,6 @@
           </li>
 
         
-          <li class="toctree-l1 current">
-            
-              <a href="#" class="reference internal current">Stats</a>
-            
-
-            
-              <ul>
-                
-                  <li class="toctree-l2"><a href="#stats" class="reference internal">Stats</a></li>
-                
-              </ul>
-            
-          </li>
-
-        
           <li class="toctree-l1 ">
             
               <a href="plots.html" class="reference internal ">Plots</a>
@@ -120,7 +102,7 @@
         
           <li class="toctree-l1 ">
             
-              <a href="packageStructure.html" class="reference internal ">Code Structure</a>
+              <a href="packageStructure.html" class="reference internal ">Data Structures</a>
             
 
             
@@ -139,92 +121,22 @@
   <ul class="breadcrumbs">
     <li><a href="index.html">Docs</a> &raquo;</li>
     
-    <li>Stats</li>
+    <li>&lt;no title&gt;</li>
   </ul>
   
 
   <ul class="page-nav">
-  <li class="prev">
-    <a href="quickstart.html"
-       title="previous chapter">← Quickstart</a>
-  </li>
-  <li class="next">
-    <a href="plots.html"
-       title="next chapter">Plots →</a>
-  </li>
 </ul>
   
 </div>
 <hr>
           <div class="content" role="main" v-pre>
             
-  <section id="stats">
-<h1>Stats<a class="headerlink" href="#stats" title="Permalink to this heading">¶</a></h1>
-<p>SplatStats can automatically calculate the some statistics from either a player object, or from the battles stored in a battle dataframe.
-In general, calculated stats revolve around the following numbers:</p>
-<ul class="simple">
-<li><p><strong>K</strong> ills: Times you’ve splatted an enemy.</p></li>
-<li><p><strong>P</strong> aint: Amount of terrain painted.</p></li>
-<li><p><strong>A</strong> ssists: Times you’ve helped someone else splat an enemy.</p></li>
-<li><p><strong>D</strong> eaths: Times an enemy has splatted you.</p></li>
-<li><p><strong>S</strong> pecial: Times you’ve used your special.</p></li>
-</ul>
-<p>With an additional metric called “kassists”, that combines kills and assists in a single number following this equation:</p>
-<div class="math notranslate nohighlight">
-\[kassists = kills + (0.5 * assists)\]</div>
-<p>The output data structure follows this shape (either for the player, or the dataframe object):</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
-    <span class="s1">&#39;general&#39;</span><span class="p">:</span> <span class="p">{</span>
-        <span class="s1">&#39;total matches&#39;</span><span class="p">:</span> <span class="n">Number</span> <span class="n">of</span> <span class="n">matches</span>
-        <span class="s1">&#39;win&#39;</span><span class="p">:</span> <span class="n">Wins</span> <span class="n">out</span> <span class="n">of</span> <span class="n">total</span> <span class="n">matches</span>
-        <span class="s1">&#39;loss&#39;</span><span class="p">:</span> <span class="n">Losses</span> <span class="n">out</span> <span class="n">of</span> <span class="n">total</span> <span class="n">matches</span>
-        <span class="s1">&#39;paint&#39;</span><span class="p">:</span> <span class="n">Total</span> <span class="n">painted</span> <span class="n">surface</span>
-        <span class="s1">&#39;win ratio&#39;</span><span class="p">:</span> <span class="n">Fraction</span> <span class="n">of</span> <span class="n">the</span> <span class="n">matches</span> <span class="n">that</span> <span class="n">resulted</span> <span class="ow">in</span> <span class="n">wins</span>
-        <span class="s1">&#39;kill ratio&#39;</span><span class="p">:</span> <span class="n">Number</span> <span class="n">of</span> <span class="n">kills</span> <span class="n">divided</span> <span class="n">by</span> <span class="n">deaths</span>
-        <span class="s1">&#39;kassists ratio&#39;</span><span class="p">:</span> <span class="n">Number</span> <span class="n">of</span> <span class="n">kassists</span> <span class="n">divided</span> <span class="n">by</span> <span class="n">deaths</span>
-    <span class="p">},</span>
-    <span class="s1">&#39;kpads&#39;</span><span class="p">:</span> <span class="p">{</span>
-        <span class="s1">&#39;kills&#39;</span><span class="p">:</span> <span class="n">Total</span> <span class="n">kills</span>
-        <span class="s1">&#39;deaths&#39;</span><span class="p">:</span> <span class="n">Total</span> <span class="n">deaths</span>
-        <span class="s1">&#39;assists&#39;</span><span class="p">:</span> <span class="n">Total</span> <span class="n">assists</span>
-        <span class="s1">&#39;kassists&#39;</span><span class="p">:</span> <span class="n">Total</span> <span class="n">kassists</span>
-        <span class="s1">&#39;special&#39;</span><span class="p">:</span> <span class="n">Total</span> <span class="n">specials</span> <span class="n">used</span>
-        <span class="s1">&#39;paint&#39;</span><span class="p">:</span> <span class="n">Total</span> <span class="n">painted</span> <span class="n">surface</span>
-    <span class="p">}</span>
-    <span class="s1">&#39;kpads avg&#39;</span><span class="p">:</span> <span class="p">{</span>
-        <span class="s1">&#39;kills&#39;</span><span class="p">:</span> <span class="n">Average</span> <span class="n">kills</span> <span class="n">per</span> <span class="n">match</span>
-        <span class="s1">&#39;deaths&#39;</span><span class="p">:</span> <span class="n">Average</span> <span class="n">deaths</span> <span class="n">per</span> <span class="n">match</span>
-        <span class="s1">&#39;assists&#39;</span><span class="p">:</span> <span class="n">Average</span> <span class="n">assists</span> <span class="n">per</span> <span class="n">match</span>
-        <span class="s1">&#39;kassists&#39;</span><span class="p">:</span> <span class="n">Average</span> <span class="n">kassists</span> <span class="n">per</span> <span class="n">match</span>
-        <span class="s1">&#39;special&#39;</span><span class="p">:</span> <span class="n">Average</span> <span class="n">specials</span> <span class="n">used</span> <span class="n">per</span> <span class="n">match</span>
-        <span class="s1">&#39;paint&#39;</span><span class="p">:</span> <span class="n">Average</span> <span class="n">painted</span> <span class="n">surface</span> <span class="n">per</span> <span class="n">match</span>
-    <span class="p">}</span>
-    <span class="s1">&#39;kpads per min&#39;</span><span class="p">:</span> <span class="p">{</span>
-        <span class="s1">&#39;kills&#39;</span><span class="p">:</span> <span class="n">Kills</span> <span class="n">per</span> <span class="n">minute</span>
-        <span class="s1">&#39;deaths&#39;</span><span class="p">:</span> <span class="n">Deaths</span> <span class="n">per</span> <span class="n">minute</span>
-        <span class="s1">&#39;assists&#39;</span><span class="p">:</span> <span class="n">Assists</span> <span class="n">per</span> <span class="n">minute</span>
-        <span class="s1">&#39;kassists&#39;</span><span class="p">:</span> <span class="n">Kassists</span> <span class="n">per</span> <span class="n">minute</span>
-        <span class="s1">&#39;special&#39;</span><span class="p">:</span> <span class="n">Specials</span> <span class="n">used</span> <span class="n">per</span> <span class="n">minute</span>
-        <span class="s1">&#39;paint&#39;</span><span class="p">:</span> <span class="n">Painted</span> <span class="n">surface</span> <span class="n">per</span> <span class="n">minute</span>
-    <span class="p">}</span>
-<span class="p">}</span>
-</pre></div>
-</div>
-<p>As stated in the structure’s entries descriptions, the average quantities are calculated on a “per match” basis; and the “per minute” stats are calculated by dividing the aggregate quantity over the total time spent in matches.</p>
-</section>
-
+  
 
           </div>
           <div class="page-nav">
             <div class="inner"><ul class="page-nav">
-  <li class="prev">
-    <a href="quickstart.html"
-       title="previous chapter">← Quickstart</a>
-  </li>
-  <li class="next">
-    <a href="plots.html"
-       title="next chapter">Plots →</a>
-  </li>
 </ul><div class="footer" role="contentinfo">
       &#169; Copyright 2022, chipdelmal.
     <br>
