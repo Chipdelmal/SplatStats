@@ -73,3 +73,17 @@ CLR_FEST = {
     True: clr.PINK_V_GREEN_S1 [0],
     False: clr.LMODEL_V_PMODEL_S2[-1]
 }
+CLR_STAGE = {
+    'Inkblot Art Academy': clr.LPINK_V_BLUE_S2[0],
+    'Hagglefish Market': clr.LPINK_V_BLUE_S2[1],
+    'MakoMart': clr.PINK_V_GREEN_S1[2],
+    'Eeltail Alley': clr.PINK_V_ORANGE_S1[1],
+    'Wahoo World': clr.PINK_V_ORANGE_S1[2],
+    'Undertow Spillway': clr.RASPBERRY_V_NYELLOW_S2[1],
+    'Mahi-Mahi Resort': clr.CHAOS_V_ORDER_S2[1],
+    'Hammerhead Bridge': clr.MAYO_V_KETCHUP_S2[1],
+    'Sturgeon Shipyard': clr.TSUBUAN_V_KOSHIAN_S2[0],
+    'Mincemeat Metalworks': clr.TSUBUAN_V_KOSHIAN_S2[1],
+    "Museum d'Alfonsino": clr.SALTY_V_SWEET_S2[0],
+    'Scorch Gorge': clr.UNICORN_V_NARWHAL_S2[0]
+}

@@ -23,6 +23,6 @@ Have a look at our [documentation](https://chipdelmal.github.io/SplatStats/) for
 
 # Author
 
-<img src="./docs/img/chip.jpg" height="160px" align="middle">
+<img src="./docs/img/chip.jpg" height="250px" align="middle">
 
 [Héctor M. Sánchez C.](chipdelmal.github.io)

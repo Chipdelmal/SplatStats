@@ -11,7 +11,7 @@ with open(version_path, 'wt') as fversion:
 REQUIRED_PACKAGES=[
     'dill', 'termcolor', 'colorutils',
     'numpy', 'scipy', 'pandas', 
-    'matplotlib', 'pywaffle'
+    'matplotlib', 'pywaffle', 'squarify'
 ]
 
 with open("README.md", "r") as fh:
