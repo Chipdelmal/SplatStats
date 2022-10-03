@@ -2,15 +2,36 @@
 Data Structures
 ======================================
 
+`SplatStats <https://pypi.org/project/SplatStats/>`_ is mainly built upon the backbone of two main classes: **Player** and **Battle**. 
+The **Player** one being a wrapper that contains information about battles for a single Splatoon id/name, whereas the **Battle** one contains the information of each match that has been extracted from a JSON file.
+
+
 Player
 ---------------------
 
-The uppermost level class is the `Player`. 
-Most of the time we will be dealing with this class, as it is the one that encapsulates the `Battle` objects and provides with the most interfaces to handle and analyze the data.
+Given a list of paths to serialized battle paths and a player name, this class extracts the information on the battles this player part in, and generates its structure automatically.
+
+The class' two main attributes are:
+
+* :code:`battlesRecords` This list of objects contains the whole information of all the battles for the player (this includes allies and enemies stats).
+* :code:`battlesHistory` This dataframe contains the player's information across all the battles he/she has been part of (an example screenshot follows).
+
+.. image:: ../img/playerDF.png
+  :width: 100%
+
+
+Additionally, this class can auto-generate `statistics <./packageStructure.html#stats>`_ for the player with the following methods:
+
+* :code:`calcPlayerStats()`
+* :code:`calcPlayerStatsByTypes()`
+
+For more information on attributes and methods for other analyses please have a look at its `documentation page <./SplatStats.html#module-SplatStats.Player>`_.
 
 
 Battle
 ---------------------
+
+
 
 
 Team/Enemy Dataframe 

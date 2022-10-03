@@ -18,9 +18,9 @@ else:
     (iPath, oPath) = argv[1:]
 ###############################################################################
 # Create Player Objects
-###############################################################################
-# historyFilepaths = splat.getDataFilepaths(iPath, filePat='results.json')
-# bPaths = splat.dumpBattlesFromJSONS(historyFilepaths, oPath)
+##############################################################################
+historyFilepaths = splat.getDataFilepaths(iPath, filePat='results.json')
+bPaths = splat.dumpBattlesFromJSONS(historyFilepaths, oPath)
 bPaths = splat.getBattleFilepaths(oPath)
 ###############################################################################
 # Create Player Objects
@@ -67,7 +67,7 @@ for name in NAMES:
     ax_bottom.set_yticks([])
     plt.setp(ax_bottom.get_xticklabels(), rotation=90, ha='right')
     plt.savefig(
-        path.join(oPath, (plyr.name)+' BHistory.png'), 
+        path.join(oPath, (plyr.name)+' History.png'), 
         dpi=300, bbox_inches='tight', facecolor=fig.get_facecolor()
     )
     plt.close()
