@@ -2,6 +2,8 @@
 Plots
 ======================================
 
+Being able to plot Splatoon data was the initial motivation on creating this package and I'll try to keep adding useful data visualizations as much as I can.
+
 
 Matches History Panel
 ____________________________________________
