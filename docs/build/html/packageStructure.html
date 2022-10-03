@@ -71,13 +71,13 @@
   
     <div class="sidebar-group">
       <p class="caption">
-        <span class="caption-text"><a href="index.html#splatstats-docs">Contents</a></span>
+        <span class="caption-text"><a href="index.html#">Contents</a></span>
       </p>
       <ul class="current">
         
           <li class="toctree-l1 ">
             
-              <a href="index.html" class="reference internal ">SplatStats’ docs!</a>
+              <a href="index.html" class="reference internal "><no title></a>
             
 
             
@@ -150,10 +150,23 @@
             
   <section id="data-structures">
 <h1>Data Structures<a class="headerlink" href="#data-structures" title="Permalink to this heading">¶</a></h1>
+<p><a class="reference external" href="https://pypi.org/project/SplatStats/">SplatStats</a> is mainly built upon the backbone of two main classes: <strong>Player</strong> and <strong>Battle</strong>.
+The <strong>Player</strong> one being a wrapper that contains information about battles for a single Splatoon id/name, whereas the <strong>Battle</strong> one contains the information of each match that has been extracted from a JSON file.</p>
 <section id="player">
 <h2>Player<a class="headerlink" href="#player" title="Permalink to this heading">¶</a></h2>
-<p>The uppermost level class is the <cite>Player</cite>.
-Most of the time we will be dealing with this class, as it is the one that encapsulates the <cite>Battle</cite> objects and provides with the most interfaces to handle and analyze the data.</p>
+<p>Given a list of paths to serialized battle paths and a player name, this class extracts the information on the battles this player part in, and generates its structure automatically.</p>
+<p>The class’ two main attributes are:</p>
+<ul class="simple">
+<li><p><code class="code docutils literal notranslate"><span class="pre">battlesRecords</span></code> This list of objects contains the whole information of all the battles for the player (this includes allies and enemies stats).</p></li>
+<li><p><code class="code docutils literal notranslate"><span class="pre">battlesHistory</span></code> This dataframe contains the player’s information across all the battles he/she has been part of (an example screenshot follows).</p></li>
+</ul>
+<a class="reference internal image-reference" href="_images/playerDF.png"><img alt="_images/playerDF.png" src="_images/playerDF.png" style="width: 100%;" /></a>
+<p>Additionally, this class can auto-generate <a class="reference external" href="./packageStructure.html#stats">statistics</a> for the player with the following methods:</p>
+<ul class="simple">
+<li><p><code class="code docutils literal notranslate"><span class="pre">calcPlayerStats()</span></code></p></li>
+<li><p><code class="code docutils literal notranslate"><span class="pre">calcPlayerStatsByTypes()</span></code></p></li>
+</ul>
+<p>For more information on attributes and methods for other analyses please have a look at its <a class="reference external" href="./SplatStats.html#module-SplatStats.Player">documentation page</a>.</p>
 </section>
 <section id="battle">
 <h2>Battle<a class="headerlink" href="#battle" title="Permalink to this heading">¶</a></h2>
