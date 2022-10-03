@@ -38,4 +38,9 @@ playerHistory = plyr.battlesHistory
 # Dev
 ###############################################################################
 stagesStats = splat.calcStagesStatsByType(playerHistory)
-stagesStats['Turf War']
+stagesStats['Rainmaker']
+
+
+splat.calcStagesStats(playerHistory)
+
+

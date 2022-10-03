@@ -107,34 +107,40 @@ def calcBinnedFrequencies(array, xMin, xMax, binSize=1, normalized=False):
     return freqs
 
 
+def calcStagesStats(bHist):
+    (statsByStage, stages) = ({}, list(set(bHist['stage'])))
+    for st in stages:
+        # Filter sub dataframe by stage -----------------------------------
+        df_fltrd = bHist[bHist['stage']==st]
+        stageDict = calcBattleHistoryStats(df_fltrd)
+        # Add key to main dictionary
+        statsByStage[st] = stageDict
+    # Flatten the dictionaries into a dataframe ---------------------------
+    dList = []
+    for st in stages:
+        # Flatten the dictionary
+        row = statsByStage[st]
+        (avg, xpm) = (
+            {k+' avg':row['kpads avg'][k] for k in row['kpads avg']},
+            {k+' prm':row['kpads per min'][k] for k in row['kpads per min']}
+        )
+        dictsCombo = (
+            {'stage': st} | row['general'] | row['kpads'] | avg | xpm
+        )
+        dList.append(dictsCombo)
+    df = pd.DataFrame(dList)
+    df.sort_values('win ratio', ascending=False, inplace=True)
+    return df
+
+
 def calcStagesStatsByType(bHist):
     (matchDFs, matchTypes) = ({}, list(set(bHist['match type'])))
     for mt in matchTypes:
         # Filter dataframe by match type --------------------------------------
         subDF = bHist[bHist['match type']==mt]
-        # Get stats dictionaries for all the stages 
-        (statsByStage, stages) = ({}, list(set(subDF['stage'])))
-        for st in stages:
-            # Filter sub dataframe by stage -----------------------------------
-            df_fltrd = subDF[subDF['stage']==st]
-            stageDict = calcBattleHistoryStats(df_fltrd)
-            # Add key to main dictionary
-            statsByStage[st] = stageDict
-        # Flatten the dictionaries into a dataframe ---------------------------
-        dList = []
-        for st in stages:
-            # Flatten the dictionary
-            row = statsByStage[st]
-            (avg, xpm) = (
-                {k+' avg':row['kpads avg'][k] for k in row['kpads avg']},
-                {k+' prm':row['kpads per min'][k] for k in row['kpads per min']}
-            )
-            dictsCombo = (
-                {'stage': st} | row['general'] | row['kpads'] | avg | xpm
-            )
-            dList.append(dictsCombo)
-        df = pd.DataFrame(dList)
-        df.sort_values('win ratio', ascending=False, inplace=True)
+        df = calcStagesStats(subDF)
         # Add the dataframe to the dictionary of match types ------------------
         matchDFs[mt] = df
     return matchDFs
+
+
