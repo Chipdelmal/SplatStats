@@ -82,7 +82,7 @@ CLR_STAGE = {
     'Undertow Spillway': clr.RASPBERRY_V_NYELLOW_S2[1],
     'Mahi-Mahi Resort': clr.CHAOS_V_ORDER_S2[1],
     'Hammerhead Bridge': clr.MAYO_V_KETCHUP_S2[1],
-    'Sturgeon Shipyard': clr.TSUBUAN_V_KOSHIAN_S2[0],
+    'Sturgeon Shipyard': clr.VAMPIRE_V_WEREWOLF_S2[2],
     'Mincemeat Metalworks': clr.TSUBUAN_V_KOSHIAN_S2[1],
     "Museum d'Alfonsino": clr.SALTY_V_SWEET_S2[0],
     'Scorch Gorge': clr.UNICORN_V_NARWHAL_S2[0]

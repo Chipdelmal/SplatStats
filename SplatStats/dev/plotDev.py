@@ -7,7 +7,6 @@ import numpy as np
 import pandas as pd
 import SplatStats as splat
 from pywaffle import Waffle
-import squarify
 import matplotlib.pyplot as plt
 from matplotlib.patches import Rectangle
 
@@ -39,20 +38,25 @@ playerHistory = plyr.battlesHistory
 ###############################################################################
 stagesStats = splat.calcStagesStatsByType(playerHistory)
 stagesStats['Rainmaker']
-stats = splat.calcStagesStats(playerHistory)
+stagesDF = splat.calcStagesStats(playerHistory)
 
-list(stats['stage'])
+(fig, ax) = plt.subplots(figsize=(5, 5))
+(fig, ax) = splat.plotTreemapByStages(
+    (fig, ax), stagesDF, metric='kills avg', fmt='{:.2f}'
+)
+
+
 
 fig = plt.figure(
     FigureClass=Waffle,
     rows=20, 
     columns=20,
-    values=stats['win ratio']*100,
-    labels=list(stats['stage']),
+    values=stagesDF['win ratio']*100,
+    labels=list(stagesDF['stage']),
     starting_location='NW',
     vertical=True,
     block_arranging_style='snake',
-    colors=[splat.CLR_STAGE[s] for s in list(stats['stage'])],
+    colors=[splat.CLR_STAGE[s] for s in list(stagesDF['stage'])],
     # labels=[f"{k} ({int(v / sum(data.values()) * 100)}%)" for k, v in data.items()],
     legend={
         'loc': 'upper left',
@@ -62,11 +66,3 @@ fig = plt.figure(
         'fontsize': 12
     }
 )
-
-squarify.plot(
-    sizes=stats['win'], 
-    label=stats['stage'], 
-    alpha=.8 
-)
-plt.axis('off')
-plt.show()

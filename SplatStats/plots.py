@@ -1,5 +1,6 @@
 
 import math
+import squarify
 import numpy as np
 import matplotlib.pyplot as plt
 from matplotlib.patches import Rectangle
@@ -302,4 +303,29 @@ def generateMatchHistoryLegend(figAx):
     ax.axis('off')
     # Close dummy image and return legend -------------------------------------
     plt.close(figD)
+    return (fig, ax)
+
+
+def plotTreemapByStages(
+        figAx, stagesDF, 
+        metric='win ratio', fmt='{:.2f}'
+    ):    
+    (fig, ax) = figAx
+    ax = squarify.plot(
+        sizes=stagesDF[metric], 
+        alpha=.75,
+        value=[fmt.format(s) for s in stagesDF[metric]],
+        color=[cst.CLR_STAGE[s] for s in list(stagesDF['stage'])]
+    )
+    plt.legend(
+        handles=ax.containers[0], 
+        labels=list(stagesDF['stage']),
+        loc='upper left',
+        bbox_to_anchor=(1, 1),
+        ncol=1,
+        framealpha=0,
+        fontsize=12
+    )
+    ax.set_aspect(1/ax.get_data_ratio())
+    plt.axis('off')
     return (fig, ax)
