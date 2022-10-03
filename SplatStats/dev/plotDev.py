@@ -6,8 +6,7 @@ from os import path
 import numpy as np
 import pandas as pd
 import SplatStats as splat
-import matplotlib.pyplot as plt
-import numpy as np
+from pywaffle import Waffle
 import matplotlib.pyplot as plt
 from matplotlib.patches import Rectangle
 
@@ -40,7 +39,12 @@ playerHistory = plyr.battlesHistory
 stagesStats = splat.calcStagesStatsByType(playerHistory)
 stagesStats['Rainmaker']
 
+stats = splat.calcStagesStats(playerHistory)
 
-splat.calcStagesStats(playerHistory)
 
-
+fig = plt.figure(
+   FigureClass=Waffle,
+   rows=5,
+   values=stats['win'],
+   labels=list(stats['stage'])
+)

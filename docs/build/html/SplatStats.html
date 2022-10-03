@@ -1151,6 +1151,40 @@
 </dd></dl>
 
 <dl class="py function">
+<dt class="sig sig-object py" id="SplatStats.stats.calcStagesStats">
+<span class="sig-name descname"><span class="pre">calcStagesStats</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">bHist</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#SplatStats.stats.calcStagesStats" title="Permalink to this definition">¶</a></dt>
+<dd><p>Given a battle history dataframe, this function calculates the stats broken down by stage and returns them as a dataframe.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>bHist</strong> (<em>dataframe</em>) – Battle history dataframe for a player.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Stats over stages (general, kpads, kpads avg, kpads per min)</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>dataframe</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="SplatStats.stats.calcStagesStatsByType">
+<span class="sig-name descname"><span class="pre">calcStagesStatsByType</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">bHist</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#SplatStats.stats.calcStagesStatsByType" title="Permalink to this definition">¶</a></dt>
+<dd><p>Given a battle history dataframe, this function calculates the stats broken down by match type and stage; and returns them as a dictionary of dataframes.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>bHist</strong> (<em>dataframe</em>) – Battle history dataframe for a player.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Dictionary of dataframes where the key is the match type, and the dataframe is calculated with ‘calcStagesStats’.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>dict</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
 <dt class="sig sig-object py" id="SplatStats.stats.frequencyInRange">
 <span class="sig-name descname"><span class="pre">frequencyInRange</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">array</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xMin</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xMax</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#SplatStats.stats.frequencyInRange" title="Permalink to this definition">¶</a></dt>
 <dd><p>Calculates the number of entries of an array that fall within the defined range.</p>
@@ -1170,11 +1204,6 @@
 </dd>
 </dl>
 </dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="SplatStats.stats.getStagesStatsByType">
-<span class="sig-name descname"><span class="pre">getStagesStatsByType</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">bHist</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#SplatStats.stats.getStagesStatsByType" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
 
 </section>
 <section id="module-SplatStats">

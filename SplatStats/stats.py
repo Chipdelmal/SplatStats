@@ -108,6 +108,14 @@ def calcBinnedFrequencies(array, xMin, xMax, binSize=1, normalized=False):
 
 
 def calcStagesStats(bHist):
+    """Given a battle history dataframe, this function calculates the stats broken down by stage and returns them as a dataframe.
+
+    Args:
+        bHist (dataframe): Battle history dataframe for a player.
+
+    Returns:
+        dataframe: Stats over stages (general, kpads, kpads avg, kpads per min)
+    """    
     (statsByStage, stages) = ({}, list(set(bHist['stage'])))
     for st in stages:
         # Filter sub dataframe by stage -----------------------------------
@@ -134,6 +142,14 @@ def calcStagesStats(bHist):
 
 
 def calcStagesStatsByType(bHist):
+    """Given a battle history dataframe, this function calculates the stats broken down by match type and stage; and returns them as a dictionary of dataframes.
+
+    Args:
+        bHist (dataframe): Battle history dataframe for a player.
+
+    Returns:
+        dict: Dictionary of dataframes where the key is the match type, and the dataframe is calculated with 'calcStagesStats'.
+    """    
     (matchDFs, matchTypes) = ({}, list(set(bHist['match type'])))
     for mt in matchTypes:
         # Filter dataframe by match type --------------------------------------
