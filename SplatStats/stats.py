@@ -2,6 +2,8 @@
 # -*- coding: utf-8 -*-
 
 import numpy as np
+import pandas as pd
+
 
 def calcBattleHistoryStats(bHist):
     """Calculates the basic player stats for a battle history dataframe.
@@ -103,3 +105,35 @@ def calcBinnedFrequencies(array, xMin, xMax, binSize=1, normalized=False):
     if normalized:
         freqs = freqs/total
     return freqs
+
+
+def calcStagesStatsByType(bHist):
+    matchTypes = list(set(bHist['match type']))
+    matchDFs = {}
+    for mt in matchTypes:
+        subDF = bHist[bHist['match type']==mt]
+        # Get stats dictionaries for all the stages 
+        stages = list(set(subDF['stage']))
+        statsByStage = {}
+        for st in stages:
+            # Filter the original dataframe
+            df_fltrd = subDF[subDF['stage']==st]
+            stageDict = calcBattleHistoryStats(df_fltrd)
+            # Add key to main dictionary
+            statsByStage[st] = stageDict
+        # Flatten the dictionaries into a dataframe
+        dList = []
+        for st in stages:
+            # Flatten the dictionary
+            row = statsByStage[st]
+            avg = {k+' avg':row['kpads avg'][k] for k in row['kpads avg']}
+            xpm = {k+' prm':row['kpads per min'][k] for k in row['kpads per min']}
+            dictsCombo = (
+                {'stage': st} | row['general'] | row['kpads'] | avg | xpm
+            )
+            dList.append(dictsCombo)
+        df = pd.DataFrame(dList)
+        df.sort_values('win ratio', ascending=False, inplace=True)
+        # Add the dataframe to the dictionary of match types
+        matchDFs[mt] = df
+    return matchDFs
