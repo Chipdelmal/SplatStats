@@ -6,6 +6,9 @@ Data Structures
 The **Player** one being a wrapper that contains information about battles for a single Splatoon id/name, whereas the **Battle** one contains the information of each match that has been extracted from a JSON file.
 
 
+For a quick rundown on how to create player objects and how to do some basic analyses, have a look at our `quickstart guide <./quickstart.html>`_.
+
+
 Player
 ---------------------
 
@@ -20,7 +23,10 @@ The class' two main attributes are:
   :width: 100%
 
 
-Additionally, this class can auto-generate `statistics <./packageStructure.html#stats>`_ for the player with the following methods:
+This :code:`battlesHistory` dataframe contains similar information to the one stored in the `AlliedTeam/EnemyTeams dataframes <./packageStructure.html#team-enemy-dataframe>`_ in the `Battle class <./packageStructure.html#battle>`_, but with some of the class' attributes added to the rows so that they can be analyzed easily (such as match type, date, score, etc).
+
+
+Additionally, this class can auto-generate `statistics <./packageStructure.html#stats>`_ for the player with the following functions:
 
 * :code:`calcPlayerStats()`
 * :code:`calcPlayerStatsByTypes()`
@@ -31,13 +37,41 @@ For more information on attributes and methods for other analyses please have a 
 Battle
 ---------------------
 
+Ideally, we would access our be accessing our battle objects from within the **Player** class. To do this, we would run:
+
+.. code-block:: bash
+
+    hPaths = splat.getDataFilepaths(IN_PATH, filePat='results.json')
+    bPaths = splat.dumpBattlesFromJSONS(OUT_PATH, oPath)
+    plyr = splat.Player(PLAYER_NAME, bPaths, timezone='America/Los_Angeles')
 
 
+This will parse all the JSON files in the :code:`IN_PATH` folder, convert them into Battle objects and serialize them to disk into the :code:`OUT_PATH` folder; and the battle objects would be stored in the :code:`battlesRecords` attribute of the **plyr** object.
 
-Team/Enemy Dataframe 
+Alternatively, individual battle files can be read with the following command: 
+
+
+.. code-block:: bash
+
+    battle = splat.loadBattle(filePath)
+
+
+Some important attributes in these objects include:
+
+.. code-block:: bash
+
+    datetime, duration, ko, matchType, matchMode, festMatch,
+    stage, awards, alliedTeam, enemyTeams
+
+
+Most of them are pretty self-explanatory, but more information on them can be found on the `class' docs <./SplatStats.html#module-SplatStats.Battle>`_. 
+In this guide, we will focus a bit more on the team dataframes.
+
+
+AlliedTeam/EnemyTeams Dataframes
 _________________________
 
-The results of a team that was part of a battle are stored in a dataframe object.
+The results of a team that was part of a battle are stored in a dataframe object which contains the following information:
 
 * :code:`player name` Player's name used in the match
 * :code:`player name id` Player's in-game id
@@ -67,6 +101,8 @@ The results of a team that was part of a battle are stored in a dataframe object
 * :code:`self` Is this player the one who generated the dataset?
 * :code:`win` Win (W), Lose (L) or not finished (NA)
 * :code:`score` Score obtained in the match (if "Turf War", this stat is "paint"; and if the match did not finish correctly the variable takes a value of `False`)
+
+Just as a note, the :code:`enemyTeams` object is returned as a list of dataframes to future-proof it for splatfest tri-turf battles.
 
 
 Stats

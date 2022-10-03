@@ -71,13 +71,13 @@
   
     <div class="sidebar-group">
       <p class="caption">
-        <span class="caption-text"><a href="index.html#">Contents</a></span>
+        <span class="caption-text"><a href="index.html#splatstats-docs">Contents</a></span>
       </p>
       <ul class="current">
         
           <li class="toctree-l1 ">
             
-              <a href="index.html" class="reference internal "><no title></a>
+              <a href="index.html" class="reference internal ">SplatStats’ docs!</a>
             
 
             
@@ -152,6 +152,7 @@
 <h1>Data Structures<a class="headerlink" href="#data-structures" title="Permalink to this heading">¶</a></h1>
 <p><a class="reference external" href="https://pypi.org/project/SplatStats/">SplatStats</a> is mainly built upon the backbone of two main classes: <strong>Player</strong> and <strong>Battle</strong>.
 The <strong>Player</strong> one being a wrapper that contains information about battles for a single Splatoon id/name, whereas the <strong>Battle</strong> one contains the information of each match that has been extracted from a JSON file.</p>
+<p>For a quick rundown on how to create player objects and how to do some basic analyses, have a look at our <a class="reference external" href="./quickstart.html">quickstart guide</a>.</p>
 <section id="player">
 <h2>Player<a class="headerlink" href="#player" title="Permalink to this heading">¶</a></h2>
 <p>Given a list of paths to serialized battle paths and a player name, this class extracts the information on the battles this player part in, and generates its structure automatically.</p>
@@ -161,7 +162,8 @@ The <strong>Player</strong> one being a wrapper that contains information about 
 <li><p><code class="code docutils literal notranslate"><span class="pre">battlesHistory</span></code> This dataframe contains the player’s information across all the battles he/she has been part of (an example screenshot follows).</p></li>
 </ul>
 <a class="reference internal image-reference" href="_images/playerDF.png"><img alt="_images/playerDF.png" src="_images/playerDF.png" style="width: 100%;" /></a>
-<p>Additionally, this class can auto-generate <a class="reference external" href="./packageStructure.html#stats">statistics</a> for the player with the following methods:</p>
+<p>This <code class="code docutils literal notranslate"><span class="pre">battlesHistory</span></code> dataframe contains similar information to the one stored in the <a class="reference external" href="./packageStructure.html#team-enemy-dataframe">AlliedTeam/EnemyTeams dataframes</a> in the <a class="reference external" href="./packageStructure.html#battle">Battle class</a>, but with some of the class’ attributes added to the rows so that they can be analyzed easily (such as match type, date, score, etc).</p>
+<p>Additionally, this class can auto-generate <a class="reference external" href="./packageStructure.html#stats">statistics</a> for the player with the following functions:</p>
 <ul class="simple">
 <li><p><code class="code docutils literal notranslate"><span class="pre">calcPlayerStats()</span></code></p></li>
 <li><p><code class="code docutils literal notranslate"><span class="pre">calcPlayerStatsByTypes()</span></code></p></li>
@@ -170,9 +172,27 @@ The <strong>Player</strong> one being a wrapper that contains information about 
 </section>
 <section id="battle">
 <h2>Battle<a class="headerlink" href="#battle" title="Permalink to this heading">¶</a></h2>
-<section id="team-enemy-dataframe">
-<h3>Team/Enemy Dataframe<a class="headerlink" href="#team-enemy-dataframe" title="Permalink to this heading">¶</a></h3>
-<p>The results of a team that was part of a battle are stored in a dataframe object.</p>
+<p>Ideally, we would access our be accessing our battle objects from within the <strong>Player</strong> class. To do this, we would run:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nv">hPaths</span> <span class="o">=</span> splat.getDataFilepaths<span class="o">(</span>IN_PATH, <span class="nv">filePat</span><span class="o">=</span><span class="s1">&#39;results.json&#39;</span><span class="o">)</span>
+<span class="nv">bPaths</span> <span class="o">=</span> splat.dumpBattlesFromJSONS<span class="o">(</span>OUT_PATH, oPath<span class="o">)</span>
+<span class="nv">plyr</span> <span class="o">=</span> splat.Player<span class="o">(</span>PLAYER_NAME, bPaths, <span class="nv">timezone</span><span class="o">=</span><span class="s1">&#39;America/Los_Angeles&#39;</span><span class="o">)</span>
+</pre></div>
+</div>
+<p>This will parse all the JSON files in the <code class="code docutils literal notranslate"><span class="pre">IN_PATH</span></code> folder, convert them into Battle objects and serialize them to disk into the <code class="code docutils literal notranslate"><span class="pre">OUT_PATH</span></code> folder; and the battle objects would be stored in the <code class="code docutils literal notranslate"><span class="pre">battlesRecords</span></code> attribute of the <strong>plyr</strong> object.</p>
+<p>Alternatively, individual battle files can be read with the following command:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nv">battle</span> <span class="o">=</span> splat.loadBattle<span class="o">(</span>filePath<span class="o">)</span>
+</pre></div>
+</div>
+<p>Some important attributes in these objects include:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>datetime, duration, ko, matchType, matchMode, festMatch,
+stage, awards, alliedTeam, enemyTeams
+</pre></div>
+</div>
+<p>Most of them are pretty self-explanatory, but more information on them can be found on the <a class="reference external" href="./SplatStats.html#module-SplatStats.Battle">class’ docs</a>.
+In this guide, we will focus a bit more on the team dataframes.</p>
+<section id="id1">
+<h3>AlliedTeam/EnemyTeams Dataframes<a class="headerlink" href="#id1" title="Permalink to this heading">¶</a></h3>
+<p>The results of a team that was part of a battle are stored in a dataframe object which contains the following information:</p>
 <ul class="simple">
 <li><p><code class="code docutils literal notranslate"><span class="pre">player</span> <span class="pre">name</span></code> Player’s name used in the match</p></li>
 <li><p><code class="code docutils literal notranslate"><span class="pre">player</span> <span class="pre">name</span> <span class="pre">id</span></code> Player’s in-game id</p></li>
@@ -203,6 +223,7 @@ The <strong>Player</strong> one being a wrapper that contains information about 
 <li><p><code class="code docutils literal notranslate"><span class="pre">win</span></code> Win (W), Lose (L) or not finished (NA)</p></li>
 <li><p><code class="code docutils literal notranslate"><span class="pre">score</span></code> Score obtained in the match (if “Turf War”, this stat is “paint”; and if the match did not finish correctly the variable takes a value of <cite>False</cite>)</p></li>
 </ul>
+<p>Just as a note, the <code class="code docutils literal notranslate"><span class="pre">enemyTeams</span></code> object is returned as a list of dataframes to future-proof it for splatfest tri-turf battles.</p>
 </section>
 </section>
 <section id="stats">
