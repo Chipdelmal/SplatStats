@@ -50,3 +50,18 @@ The x-asis shows the number of kills/deaths per match, while the y axis is eithe
 Have a look at the `function's documentation <./SplatStats.html#module-SplatStats.plots>`_ for more information.
 
 
+
+Stats Treemaps
+____________________________________________
+
+These plots are designed to show which stages are the ones in which the player performs best on any given stage with respect to a selected metric.
+Auxiliary provided functions generate the statistics dataframe required for these plots, which includes: kills, deaths, win ratio, paint, total matches; amongst many others.
+These statistics can be also generated for a specific match type (Rainmaker, Turf War, Tower Control, etc), or for a combination of them.
+
+.. image:: ../img/treemapA.png
+  :width: 50%
+
+.. image:: ../img/treemapB.png
+  :width: 50%
+
+Have a look at the `function's documentation <./SplatStats.html#module-SplatStats.plots>`_ for more information.

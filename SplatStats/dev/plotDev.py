@@ -39,12 +39,16 @@ playerHistory.shape
 ###############################################################################
 stagesStatsMatch = splat.calcStagesStatsByType(playerHistory)
 stagesDF = splat.calcStagesStats(playerHistory)
-# stagesDF = stagesStatsMatch['Rainmaker']
+stagesDF = stagesStatsMatch['Turf War']
 
 (fig, ax) = plt.subplots(figsize=(5, 5))
 (fig, ax) = splat.plotTreemapByStages(
-    (fig, ax), stagesDF, metric='win ratio', 
-    fmt='{:.2f}', pad=0.1
+    (fig, ax), stagesDF, metric='kill ratio', 
+    fmt='{:.2f}', pad=0.1, alpha=.5
+)
+fig.savefig(
+    path.join(oPath, (plyr.name)+' Treemap.png'), 
+    dpi=300, bbox_inches='tight', facecolor=fig.get_facecolor()
 )
 
 

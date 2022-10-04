@@ -307,7 +307,7 @@ def generateMatchHistoryLegend(figAx):
 def plotTreemapByStages(
         figAx, stagesDF, 
         metric='win ratio', fmt='{:.2f}', title=True,
-        pad=0, lw=2, ec='#00000055'
+        pad=0, lw=2, ec='#00000055', alpha=.35
     ):
     """_summary_
 
@@ -331,7 +331,7 @@ def plotTreemapByStages(
     (fig, ax) = figAx
     ax = squarify.plot(
         sizes=values, 
-        alpha=.75,
+        alpha=alpha,
         value=[fmt.format(s) for s in values],
         color=[cst.CLR_STAGE[s] for s in stages],
         pad=pad, bar_kwargs={

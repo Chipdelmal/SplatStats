@@ -31,5 +31,10 @@ Under development! Come back in a few weeks for more info!
 
 ------------
 
+API
+----------
+
+For more information on the functions and classes, have a look at our API.
+
 :ref:`modindex`
 
