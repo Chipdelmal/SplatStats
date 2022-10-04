@@ -1,6 +1,9 @@
 # Workspaces
 *.code-workspace
 
+# Serialized files
+*.pkl
+
 # Folders 
 BattlesData
 
