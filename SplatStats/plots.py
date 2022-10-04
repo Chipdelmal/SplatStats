@@ -308,7 +308,7 @@ def generateMatchHistoryLegend(figAx):
 
 def plotTreemapByStages(
         figAx, stagesDF, 
-        metric='win ratio', fmt='{:.2f}', 
+        metric='win ratio', fmt='{:.2f}', title=True,
         pad=0, lw=2, ec='#00000055'
     ):
     """_summary_
@@ -323,31 +323,36 @@ def plotTreemapByStages(
         ec (str, optional): _description_. Defaults to '#00000055'.
 
     Returns:
-        _type_: _description_
+        (fix, ax): Matplotlib's fig and ax objects.
     """    
     # Filter out rows that would have 0 area (error) --------------------------
     stagesDF = stagesDF[stagesDF[metric] > 0]
+    values = stagesDF[metric]
+    stages = list(stagesDF['stage'])
     # Generate treemap --------------------------------------------------------
     (fig, ax) = figAx
     ax = squarify.plot(
-        sizes=stagesDF[metric], 
+        sizes=values, 
         alpha=.75,
-        value=[fmt.format(s) for s in stagesDF[metric]],
-        color=[cst.CLR_STAGE[s] for s in list(stagesDF['stage'])],
+        value=[fmt.format(s) for s in values],
+        color=[cst.CLR_STAGE[s] for s in stages],
         pad=pad, bar_kwargs={
             'edgecolor': ec, 'linewidth': lw, 
             'capstyle': 'round', 'capsize': 2
         }
     )
+    labels = [f"{s} ("+(fmt.format(v))+")" for (s, v) in zip(stages, values)]
     plt.legend(
         handles=ax.containers[0], 
-        labels=list(stagesDF['stage']),
+        labels=labels,
         loc='upper left',
         bbox_to_anchor=(1, 1),
         ncol=1,
         framealpha=0,
         fontsize=12
     )
+    if title:
+        plt.title(metric)
     ax.set_aspect(1/ax.get_data_ratio())
     plt.axis('off')
     return (fig, ax)

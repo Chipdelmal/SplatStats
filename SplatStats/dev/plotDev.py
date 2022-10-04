@@ -21,8 +21,8 @@ else:
 ###############################################################################
 # Create Player Objects
 ###############################################################################
-historyFilepaths = splat.getDataFilepaths(iPath, filePat='results.json')
-bPaths = splat.dumpBattlesFromJSONS(historyFilepaths, oPath)
+# historyFilepaths = splat.getDataFilepaths(iPath, filePat='results.json')
+# bPaths = splat.dumpBattlesFromJSONS(historyFilepaths, oPath)
 bPaths = splat.getBattleFilepaths(oPath)
 ###############################################################################
 # Create Player Objects
@@ -38,12 +38,12 @@ playerHistory.shape
 # Dev
 ###############################################################################
 stagesStatsMatch = splat.calcStagesStatsByType(playerHistory)
-# stagesDF = splat.calcStagesStats(playerHistory)
-stagesDF = stagesStatsMatch['Rainmaker']
+stagesDF = splat.calcStagesStats(playerHistory)
+# stagesDF = stagesStatsMatch['Rainmaker']
 
 (fig, ax) = plt.subplots(figsize=(5, 5))
 (fig, ax) = splat.plotTreemapByStages(
-    (fig, ax), stagesDF, metric='kassists ratio', 
+    (fig, ax), stagesDF, metric='win ratio', 
     fmt='{:.2f}', pad=0.1
 )
 

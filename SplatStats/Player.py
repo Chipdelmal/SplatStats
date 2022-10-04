@@ -62,7 +62,7 @@ class Player:
         fNum = len(self.bPaths)
         battleRecords = []
         cpt = colored(
-            f'Reading battle object files from disk for {self.name}.', 
+            f'Reading battle object files from disk for {self.name}', 
             'red'
         )
         print(cpt, end='\r')
