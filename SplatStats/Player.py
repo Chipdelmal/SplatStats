@@ -161,6 +161,7 @@ class Player:
             allies.append(pDict['allies'])
             enemies.append(pDict['enemies'])
         (allies, enemies) = [aux.flattenList(i) for i in (allies, enemies)] 
-        (alliesC, enemiesC) = [Counter(i) for i in (allies, enemies)]
-        alliesC.pop(self.name)
+        (alliesC, enemiesC) = [
+            Counter(i).most_common() for i in (allies, enemies)
+        ]
         return {'allies': alliesC, 'enemies': enemiesC}

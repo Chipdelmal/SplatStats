@@ -10,8 +10,8 @@ from collections import Counter
 
 
 (iPath, oPath) = (
-    '/home/chipdelmal/Documents/GitHub/s3s/',
-    '/home/chipdelmal/Documents/GitHub/SplatStats/BattlesData'
+    path.expanduser('~/Documents/GitHub/s3s/'),
+    path.expanduser('~/Documents/Sync/BattlesData/')
 )
 ###############################################################################
 # Create Player Objects
@@ -19,6 +19,22 @@ from collections import Counter
 # historyFilepaths = splat.getDataFilepaths(iPath, filePat='results.json')
 # bPaths = splat.dumpBattlesFromJSONS(historyFilepaths, oPath)
 bPaths = splat.getBattleFilepaths(oPath)
+battles = splat.loadBattlesFromFiles(bPaths)
+splat.getPlayerCountsInBattles(battles)
+
+
+
+        
+
+def getPlayerCountsInBattles(battles):
+    playersNames = []
+    for battle in battles:
+        ae = battle.getAlliesAndEnemiesNames()
+        playersNames.extend(ae['allies'])
+        playersNames.extend(ae['enemies'])
+    pCount = Counter(playersNames).most_common()
+    return pCount
+
 ###############################################################################
 # Create Player Objects
 ###############################################################################

@@ -4,6 +4,7 @@
 import dill as pkl
 from os import path
 from glob import glob
+from collections import Counter
 
 
 def gearPrepend(gearType):
@@ -149,3 +150,20 @@ def isNotebook():
             return False  # Other type (?)
     except NameError:
         return False      # Probably standard Python interpreter
+
+
+
+def loadBattlesFromFiles(bPaths):
+    return [loadBattle(bPath) for bPath in bPaths]
+
+
+def getPlayerCountsInBattles(battles):
+    playersNames = []
+    for battle in battles:
+        ae = battle.getAlliesAndEnemiesNames()
+        playersNames.extend(ae['allies'])
+        playersNames.extend(ae['enemies'])
+    pCount = Counter(playersNames).most_common()
+    return pCount
+
+
