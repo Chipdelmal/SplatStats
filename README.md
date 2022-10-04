@@ -19,6 +19,8 @@ Have a look at our [documentation](https://chipdelmal.github.io/SplatStats/) for
 
 ![](./docs/img/kdHistogram.png)
 
+<img src="./docs/img/treemapA.png" width="50%" align="middle"><img src="./docs/img/treemapB.png" width="50%" align="middle">
+
 <hr>
 
 # Author

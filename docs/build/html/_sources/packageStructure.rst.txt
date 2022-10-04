@@ -68,9 +68,6 @@ Most of them are pretty self-explanatory, but more information on them can be fo
 In this guide, we will focus a bit more on the team dataframes.
 
 
-AlliedTeam/EnemyTeams Dataframes
-_________________________
-
 The results of a team that was part of a battle are stored in a dataframe object which contains the following information:
 
 * :code:`player name` Player's name used in the match

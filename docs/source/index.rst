@@ -26,6 +26,7 @@ Under development! Come back in a few weeks for more info!
   index
   quickstart
   plots
+  colors
   packageStructure
 
 

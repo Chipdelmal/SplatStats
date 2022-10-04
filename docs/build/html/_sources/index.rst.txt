@@ -27,6 +27,7 @@ Under development! Come back in a few weeks for more info!
   quickstart
   plots
   packageStructure
+  colors
 
 
 ------------
