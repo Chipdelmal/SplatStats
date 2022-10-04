@@ -19,7 +19,18 @@ plyrName = 'čħîþ ウナギ'
 plyr = splat.Player(plyrName, bFilepaths, timezone='America/Los_Angeles')
 playerHistory = plyr.battlesHistory
 ###############################################################################
-# Treemap
+# Inspecting and Filtering Dataframe
+###############################################################################
+filters = (
+    playerHistory['main weapon'] == 'Hero Shot Replica',
+    playerHistory['stage'] == 'Mincemeat Metalworks',
+    playerHistory['kill'] >= 10,
+    playerHistory['death'] <= 10,
+)
+fullFilter = [all(i) for i in zip(*filters)]
+playerHistory[fullFilter]
+###############################################################################
+# Treemap by Match Type
 ###############################################################################
 (matchType, metric) = ("Turf War", "kill ratio")
 stagesStatsMatch = splat.calcStagesStatsByType(playerHistory)

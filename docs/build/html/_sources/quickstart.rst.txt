@@ -98,7 +98,7 @@ If you're unsure of your in-game username (or if it contains strange characters)
 
 Your username is most likely the one on the top of the counts.
 
-With this ready, run the following line:
+With this ready, run the following lines:
     
 .. code-block:: python 
 
@@ -108,7 +108,7 @@ With this ready, run the following line:
     plyr.battlesHistory
 
 
-This should bring up a dataframe containing the full player's history (as available in the JSON files) like this one:
+This should bring up a dataframe containing the full player's history like this one:
 
 .. image:: ../img/playerDF.png
     :width: 100%
@@ -168,3 +168,5 @@ We could also get these stats broken down by match type:
 
 Which adds another upper level to the dictionary with they keys: `Turf War`, `Splat Zones`, `Clam Blitz`, `Tower Control`, and `Rainmaker`.
 
+
+Have a look at our `demo <https://github.com/Chipdelmal/SplatStats/tree/main/SplatStats/demos>`_ to see this in action!
