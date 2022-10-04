@@ -313,12 +313,12 @@ def plotTreemapByStages(
 
     Args:
         figAx (tuple): (fig, ax) tuple as initialized by matplotlib (plt.subplots).
-        stagesDF (_type_): _description_
-        metric (str, optional): _description_. Defaults to 'win ratio'.
-        fmt (str, optional): _description_. Defaults to '{:.2f}'.
-        pad (int, optional): _description_. Defaults to 0.
-        lw (int, optional): _description_. Defaults to 2.
-        ec (str, optional): _description_. Defaults to '#00000055'.
+        stagesDF (dataframe): Stage statistics dataframe (see "calcStagesStats" or "calcStagesStatsByType").
+        metric (str, optional): Metric of the dataframe that will be plotted (column). Defaults to 'win ratio'.
+        fmt (str, optional): Format string for the numbers labels. Defaults to '{:.2f}'.
+        pad (int, optional): Padding in-between rectangles. Defaults to 0.
+        lw (int, optional): Rectangle line width. Defaults to 2.
+        ec (str, optional): Rectangle line color. Defaults to '#00000055'.
 
     Returns:
         (fix, ax): Matplotlib's fig and ax objects.

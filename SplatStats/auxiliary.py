@@ -85,6 +85,38 @@ def loadBattle(fPath):
     return battle
 
 
+def loadBattlesFromFiles(bPaths):
+    """Loads battle objects from disk without the need to generate a Player object.
+
+    Args:
+        bPath (str): Path to the folder from where the battle files will be loaded.
+
+    Returns:
+        list: List of battle objects.
+    """    
+    bObjList = [loadBattle(bPath) for bPath in bPaths]
+    return bObjList
+
+
+def getPlayerCountsInBattles(battles):
+    """Gets the player appearance counts from a list of battle objects (ally and enemy combined).
+
+    Args:
+        battles (list): List of battle objects (see "loadBattlesFromFiles")
+
+    Returns:
+        list: Counter object list with player appearance counts sorted by value.
+    """    
+    playersNames = []
+    for battle in battles:
+        ae = battle.getAlliesAndEnemiesNames()
+        playersNames.extend(ae['allies'])
+        playersNames.extend(ae['enemies'])
+    pCount = Counter(playersNames).most_common()
+    return pCount
+
+
+
 def getHistoryFolders(histPath, fldrPat='export-*'):
     """Parses the folder paths for all instances matching a pattern (used to find JSON files folders).
 
@@ -151,19 +183,5 @@ def isNotebook():
     except NameError:
         return False      # Probably standard Python interpreter
 
-
-
-def loadBattlesFromFiles(bPaths):
-    return [loadBattle(bPath) for bPath in bPaths]
-
-
-def getPlayerCountsInBattles(battles):
-    playersNames = []
-    for battle in battles:
-        ae = battle.getAlliesAndEnemiesNames()
-        playersNames.extend(ae['allies'])
-        playersNames.extend(ae['enemies'])
-    pCount = Counter(playersNames).most_common()
-    return pCount
 
 
