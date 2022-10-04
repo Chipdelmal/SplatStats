@@ -79,7 +79,8 @@ def plotKillsAndDeathsHistogram(
 
 def plotMatchTypeHistory(
         figAx, playerHistory,
-        labelsize=5, alphaMultiplier=1, sizeMultiplier=1
+        labelsize=5, alphaMultiplier=1, sizeMultiplier=1,
+        ilocRange=(0, -1)
     ):
     """Plots the matches history strip in terms of match types, win/loss, KO, etc.
 
@@ -92,7 +93,9 @@ def plotMatchTypeHistory(
 
     Returns:
         (fix, ax): Matplotlib's fig and ax objects.
-    """    
+    """
+    playerHistory = playerHistory.iloc[ilocRange[0]:ilocRange[1]] 
+    # Generate figure ---------------------------------------------------------   
     (fig, ax) = figAx
     # Retreiving data ---------------------------------------------------------
     (AM, SM) = (alphaMultiplier, sizeMultiplier)
@@ -112,13 +115,6 @@ def plotMatchTypeHistory(
         ax.plot(xPos, 0.250, shapeKO, color=colorWL, alpha=0.20*AM, ms=5.00*SM)
         ax.plot(xPos, 0.125, shapeMT, color=colorMT, alpha=0.30*AM, ms=5.00*SM)
         ax.plot(xPos, 0.125, shapeFT, color=colorFT, alpha=0.30*AM, ms=2.50*SM) 
-    # Format ax
-    # for i in range(0, MNUM, 10):
-    #     ax.vlines(
-    #         i, 0, 1, 
-    #         color='k', ls='--', alpha=.125, lw=.5,
-    #         transform=ax.get_xaxis_transform(), zorder=-50
-    #     )
     ax.set_xlim(-0.5, MNUM-.5)
     ax.set_ylim(0, .5)
     ax.set_xticks(list(range(MNUM)))
@@ -132,7 +128,7 @@ def plotMatchTypeHistory(
 def plotMatchHistory(
         figAx, playerHistory, yRange=((0, 50), (0, 1750)),
         labelsize=6, alphaMultiplier=1, sizeMultiplier=1,
-        printStats=True
+        printStats=True, ilocRange=(0, -1)
     ):
     """Generates a scatter plot of all the matches, and provides information on kills, deaths, paint, assists, specials, etc. Please refer to our website for more information.
 
@@ -147,7 +143,10 @@ def plotMatchHistory(
     
     Returns:
         (fix, ax): Matplotlib's fig and ax objects.
-    """    
+    """
+    pStats = stats.calcBattleHistoryStats(playerHistory)
+    playerHistory = playerHistory.iloc[ilocRange[0]:ilocRange[1]]
+    # Generate figure ---------------------------------------------------------     
     (fig, ax) = figAx
     axR = ax.twinx()
     # Retreiving data ---------------------------------------------------------
@@ -206,7 +205,6 @@ def plotMatchHistory(
             transform=ax.get_xaxis_transform(), zorder=-50
         )
     # Stats -------------------------------------------------------------------
-    pStats = stats.calcBattleHistoryStats(playerHistory)
     (mNum, wratio, kratio, win, loss, aratio) = [
         pStats['general'][i] 
         for i in (

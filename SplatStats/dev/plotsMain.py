@@ -36,7 +36,9 @@ for name in NAMES:
     playerHistory = plyr.battlesHistory
     phLen = playerHistory.shape[0]
     if phLen > LEN_LIMIT:
-        playerHistory = playerHistory.iloc[-LEN_LIMIT:]
+        ilocRange = (-LEN_LIMIT, -1)
+    else:
+        ilocRange = (0, -1)
     ###########################################################################
     # Histogram
     ###########################################################################
@@ -64,10 +66,12 @@ for name in NAMES:
     ax_top    = fig.add_subplot(gs[0])
     ax_bottom = fig.add_subplot(gs[1], sharex=ax_top)
     (_, ax_top) = splat.plotMatchHistory(
-        (fig, ax_top), playerHistory, yRange=yRange, sizeMultiplier=.8
+        (fig, ax_top), playerHistory, 
+        yRange=yRange, sizeMultiplier=.8, ilocRange=ilocRange
     )
     (_, ax_bottom) = splat.plotMatchTypeHistory(
-        (fig, ax_bottom), playerHistory, sizeMultiplier=.7, labelsize=4
+        (fig, ax_bottom), playerHistory, 
+        sizeMultiplier=.7, labelsize=4, ilocRange=ilocRange
     )
     ax_top.tick_params(labelbottom=False)
     ax_bottom.set_yticks([])
