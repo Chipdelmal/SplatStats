@@ -1,7 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-
 import SplatStats as splat
 import matplotlib.pyplot as plt
 
@@ -18,6 +17,7 @@ bFilepaths = splat.getBattleFilepaths(oPath)
 plyrName = 'čħîþ ウナギ'
 plyr = splat.Player(plyrName, bFilepaths, timezone='America/Los_Angeles')
 playerHistory = plyr.battlesHistory
+playerHistory.columns
 ###############################################################################
 # Inspecting and Filtering Dataframe
 ###############################################################################

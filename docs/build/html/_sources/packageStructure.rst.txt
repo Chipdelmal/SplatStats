@@ -10,7 +10,7 @@ For a quick rundown on how to create player objects and how to do some basic ana
 
 
 Player
----------------------
+-------------------------
 
 Given a list of paths to serialized battle paths and a player name, this class extracts the information on the battles this player part in, and generates its structure automatically.
 
@@ -21,6 +21,18 @@ The class' two main attributes are:
 
 .. image:: ../img/playerDF.png
   :width: 100%
+
+The full list of current dataframe columns is:
+
+.. code-block:: bash
+
+    'main weapon', 'sub weapon', 'special weapon', 'kill', 'death',
+    'assist', 'special', 'paint', 'head name', 'head main', 'head sub_0',
+    'head sub_1', 'head sub_2', 'shirt name', 'shirt main', 'shirt sub_0',
+    'shirt sub_1', 'shirt sub_2', 'shoes name', 'shoes main', 'shoes sub_0',
+    'shoes sub_1', 'shoes sub_2', 'win', 'score', 'datetime', 'ko', 'stage',
+    'match type', 'duration', 'splatfest', 'award_0', 'award_1', 'award_2'
+
 
 
 This :code:`battlesHistory` dataframe contains similar information to the one stored in the `AlliedTeam/EnemyTeams dataframes <./packageStructure.html#team-enemy-dataframe>`_ in the `Battle class <./packageStructure.html#battle>`_, but with some of the class' attributes added to the rows so that they can be analyzed easily (such as match type, date, score, etc).
@@ -35,7 +47,7 @@ For more information on attributes and methods for other analyses please have a 
 
 
 Battle
----------------------
+-------------------------
 
 Ideally, we would access our be accessing our battle objects from within the **Player** class. To do this, we would run:
 
@@ -99,11 +111,14 @@ The results of a team that was part of a battle are stored in a dataframe object
 * :code:`win` Win (W), Lose (L) or not finished (NA)
 * :code:`score` Score obtained in the match (if "Turf War", this stat is "paint"; and if the match did not finish correctly the variable takes a value of `False`)
 
-Just as a note, the :code:`enemyTeams` object is returned as a list of dataframes to future-proof it for splatfest tri-turf battles.
+Just as a note, the :code:`enemyTeams` object is returned as a list of dataframes to future-proof it for splatfest tri-turf battles. Each dataframe in the list contains the same columns as the :code:`alliedTeams` one.
+
+Finally, it is worth reiterating that even though the columns of the Battle object's dataframe are fairly similar to the ones in the Player's :code:`battleHistory` one, the latter contains some additional columns like the datetime, ko, score, etc; that are originally attributes in the Battle object.
+This is by design to avoid repeated information in the Battle object, but that is needed in analyzing a Player's record.
 
 
 Stats
----------------------
+-------------------------
 
 SplatStats can automatically calculate the some statistics from either a player object, or from the battles stored in a battle dataframe. 
 In general, calculated stats revolve around the following numbers:
@@ -163,6 +178,27 @@ The output data structure follows this shape (either for the player, or the data
     }
 
 As stated in the structure's entries descriptions, the average quantities are calculated on a "per match" basis; and the "per minute" stats are calculated by dividing the aggregate quantity over the total time spent in matches.
+
+
+Stages Stats Dataframe
+-------------------------
+
+This structure is by calculating the stages stats from a battleHistory dataframe, which can be achieved by using either the :code:`splat.calcStagesStatsByType(battleHistory)` or :code:`splat.calcStagesStats(battleHistory)` functions.
+Once done this, we can get the following information:
+
+.. code-block:: bash
+
+    'stage', 'total matches', 'paint', 'win', 'loss', 'win ratio',
+    'kill ratio', 'kassists ratio', 'kills', 'deaths', 'assists', 'special',
+    'kassists', 'kills avg', 'deaths avg', 'assists avg', 'special avg',
+    'paint avg', 'kassists avg', 'kills prm', 'deaths prm', 'assists prm',
+    'special prm', 'paint prm', 'kassists prm'
+
+
+Where each row will be a different stage (sorted by "win ratio" by default).
+
+.. image:: ../img/stagesDF.png
+  :width: 100%
 
 
 .. Awards Dataframe

@@ -125,6 +125,8 @@
                 
                   <li class="toctree-l2"><a href="#stats" class="reference internal">Stats</a></li>
                 
+                  <li class="toctree-l2"><a href="#stages-stats-dataframe" class="reference internal">Stages Stats Dataframe</a></li>
+                
               </ul>
             
           </li>
@@ -171,6 +173,15 @@ The <strong>Player</strong> one being a wrapper that contains information about 
 <li><p><code class="code docutils literal notranslate"><span class="pre">battlesHistory</span></code> This dataframe contains the player’s information across all the battles he/she has been part of (an example screenshot follows).</p></li>
 </ul>
 <a class="reference internal image-reference" href="_images/playerDF.png"><img alt="_images/playerDF.png" src="_images/playerDF.png" style="width: 100%;" /></a>
+<p>The full list of current dataframe columns is:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="s1">&#39;main weapon&#39;</span>, <span class="s1">&#39;sub weapon&#39;</span>, <span class="s1">&#39;special weapon&#39;</span>, <span class="s1">&#39;kill&#39;</span>, <span class="s1">&#39;death&#39;</span>,
+<span class="s1">&#39;assist&#39;</span>, <span class="s1">&#39;special&#39;</span>, <span class="s1">&#39;paint&#39;</span>, <span class="s1">&#39;head name&#39;</span>, <span class="s1">&#39;head main&#39;</span>, <span class="s1">&#39;head sub_0&#39;</span>,
+<span class="s1">&#39;head sub_1&#39;</span>, <span class="s1">&#39;head sub_2&#39;</span>, <span class="s1">&#39;shirt name&#39;</span>, <span class="s1">&#39;shirt main&#39;</span>, <span class="s1">&#39;shirt sub_0&#39;</span>,
+<span class="s1">&#39;shirt sub_1&#39;</span>, <span class="s1">&#39;shirt sub_2&#39;</span>, <span class="s1">&#39;shoes name&#39;</span>, <span class="s1">&#39;shoes main&#39;</span>, <span class="s1">&#39;shoes sub_0&#39;</span>,
+<span class="s1">&#39;shoes sub_1&#39;</span>, <span class="s1">&#39;shoes sub_2&#39;</span>, <span class="s1">&#39;win&#39;</span>, <span class="s1">&#39;score&#39;</span>, <span class="s1">&#39;datetime&#39;</span>, <span class="s1">&#39;ko&#39;</span>, <span class="s1">&#39;stage&#39;</span>,
+<span class="s1">&#39;match type&#39;</span>, <span class="s1">&#39;duration&#39;</span>, <span class="s1">&#39;splatfest&#39;</span>, <span class="s1">&#39;award_0&#39;</span>, <span class="s1">&#39;award_1&#39;</span>, <span class="s1">&#39;award_2&#39;</span>
+</pre></div>
+</div>
 <p>This <code class="code docutils literal notranslate"><span class="pre">battlesHistory</span></code> dataframe contains similar information to the one stored in the <a class="reference external" href="./packageStructure.html#team-enemy-dataframe">AlliedTeam/EnemyTeams dataframes</a> in the <a class="reference external" href="./packageStructure.html#battle">Battle class</a>, but with some of the class’ attributes added to the rows so that they can be analyzed easily (such as match type, date, score, etc).</p>
 <p>Additionally, this class can auto-generate <a class="reference external" href="./packageStructure.html#stats">statistics</a> for the player with the following functions:</p>
 <ul class="simple">
@@ -230,7 +241,9 @@ In this guide, we will focus a bit more on the team dataframes.</p>
 <li><p><code class="code docutils literal notranslate"><span class="pre">win</span></code> Win (W), Lose (L) or not finished (NA)</p></li>
 <li><p><code class="code docutils literal notranslate"><span class="pre">score</span></code> Score obtained in the match (if “Turf War”, this stat is “paint”; and if the match did not finish correctly the variable takes a value of <cite>False</cite>)</p></li>
 </ul>
-<p>Just as a note, the <code class="code docutils literal notranslate"><span class="pre">enemyTeams</span></code> object is returned as a list of dataframes to future-proof it for splatfest tri-turf battles.</p>
+<p>Just as a note, the <code class="code docutils literal notranslate"><span class="pre">enemyTeams</span></code> object is returned as a list of dataframes to future-proof it for splatfest tri-turf battles. Each dataframe in the list contains the same columns as the <code class="code docutils literal notranslate"><span class="pre">alliedTeams</span></code> one.</p>
+<p>Finally, it is worth reiterating that even though the columns of the Battle object’s dataframe are fairly similar to the ones in the Player’s <code class="code docutils literal notranslate"><span class="pre">battleHistory</span></code> one, the latter contains some additional columns like the datetime, ko, score, etc; that are originally attributes in the Battle object.
+This is by design to avoid repeated information in the Battle object, but that is needed in analyzing a Player’s record.</p>
 </section>
 <section id="stats">
 <h2>Stats<a class="headerlink" href="#stats" title="Permalink to this heading">¶</a></h2>
@@ -285,6 +298,20 @@ In general, calculated stats revolve around the following numbers:</p>
 </pre></div>
 </div>
 <p>As stated in the structure’s entries descriptions, the average quantities are calculated on a “per match” basis; and the “per minute” stats are calculated by dividing the aggregate quantity over the total time spent in matches.</p>
+</section>
+<section id="stages-stats-dataframe">
+<h2>Stages Stats Dataframe<a class="headerlink" href="#stages-stats-dataframe" title="Permalink to this heading">¶</a></h2>
+<p>This structure is by calculating the stages stats from a battleHistory dataframe, which can be achieved by using either the <code class="code docutils literal notranslate"><span class="pre">splat.calcStagesStatsByType(battleHistory)</span></code> or <code class="code docutils literal notranslate"><span class="pre">splat.calcStagesStats(battleHistory)</span></code> functions.
+Once done this, we can get the following information:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="s1">&#39;stage&#39;</span>, <span class="s1">&#39;total matches&#39;</span>, <span class="s1">&#39;paint&#39;</span>, <span class="s1">&#39;win&#39;</span>, <span class="s1">&#39;loss&#39;</span>, <span class="s1">&#39;win ratio&#39;</span>,
+<span class="s1">&#39;kill ratio&#39;</span>, <span class="s1">&#39;kassists ratio&#39;</span>, <span class="s1">&#39;kills&#39;</span>, <span class="s1">&#39;deaths&#39;</span>, <span class="s1">&#39;assists&#39;</span>, <span class="s1">&#39;special&#39;</span>,
+<span class="s1">&#39;kassists&#39;</span>, <span class="s1">&#39;kills avg&#39;</span>, <span class="s1">&#39;deaths avg&#39;</span>, <span class="s1">&#39;assists avg&#39;</span>, <span class="s1">&#39;special avg&#39;</span>,
+<span class="s1">&#39;paint avg&#39;</span>, <span class="s1">&#39;kassists avg&#39;</span>, <span class="s1">&#39;kills prm&#39;</span>, <span class="s1">&#39;deaths prm&#39;</span>, <span class="s1">&#39;assists prm&#39;</span>,
+<span class="s1">&#39;special prm&#39;</span>, <span class="s1">&#39;paint prm&#39;</span>, <span class="s1">&#39;kassists prm&#39;</span>
+</pre></div>
+</div>
+<p>Where each row will be a different stage (sorted by “win ratio” by default).</p>
+<a class="reference internal image-reference" href="_images/stagesDF.png"><img alt="_images/stagesDF.png" src="_images/stagesDF.png" style="width: 100%;" /></a>
 </section>
 </section>
 
