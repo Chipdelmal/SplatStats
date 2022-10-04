@@ -16,11 +16,12 @@ if splat.isNotebook():
     )
 else:
     (iPath, oPath) = argv[1:]
+LEN_LIMIT = 400
 ###############################################################################
 # Create Player Objects
 ##############################################################################
-historyFilepaths = splat.getDataFilepaths(iPath, filePat='results.json')
-bPaths = splat.dumpBattlesFromJSONS(historyFilepaths, oPath)
+# historyFilepaths = splat.getDataFilepaths(iPath, filePat='results.json')
+# bPaths = splat.dumpBattlesFromJSONS(historyFilepaths, oPath)
 bPaths = splat.getBattleFilepaths(oPath)
 ###############################################################################
 # Create Player Objects
@@ -33,6 +34,9 @@ name = 'čħîþ ウナギ'
 for name in NAMES:
     plyr = splat.Player(name, bPaths, timezone='America/Los_Angeles')
     playerHistory = plyr.battlesHistory
+    phLen = playerHistory.shape[0]
+    if phLen > LEN_LIMIT:
+        playerHistory = playerHistory.iloc[-LEN_LIMIT:]
     ###########################################################################
     # Histogram
     ###########################################################################
@@ -60,9 +64,11 @@ for name in NAMES:
     ax_top    = fig.add_subplot(gs[0])
     ax_bottom = fig.add_subplot(gs[1], sharex=ax_top)
     (_, ax_top) = splat.plotMatchHistory(
-        (fig, ax_top), playerHistory, yRange=yRange
+        (fig, ax_top), playerHistory, yRange=yRange, sizeMultiplier=.8
     )
-    (_, ax_bottom) = splat.plotMatchTypeHistory((fig, ax_bottom), playerHistory)
+    (_, ax_bottom) = splat.plotMatchTypeHistory(
+        (fig, ax_bottom), playerHistory, sizeMultiplier=.7, labelsize=4
+    )
     ax_top.tick_params(labelbottom=False)
     ax_bottom.set_yticks([])
     plt.setp(ax_bottom.get_xticklabels(), rotation=90, ha='right')

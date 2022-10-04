@@ -168,24 +168,24 @@ def plotMatchHistory(
         if kill[m] > 0:
             ax.plot(
                 xPos, kill[m],  cst.MKR_STATS['kill'], 
-                color=clr_kd, alpha=0.35, ms=4, zorder=1
+                color=clr_kd, alpha=0.35, ms=4*SM, zorder=1
             )
         if death[m] > 0:
             ax.plot(
                 xPos, death[m], cst.MKR_STATS['death'], 
-                color=clr_kd, alpha=0.35, ms=4, zorder=1
+                color=clr_kd, alpha=0.35, ms=4*SM, zorder=1
             )
         ax.vlines(xPos, kill[m], death[m], color=clr_kd, alpha=0.20, zorder=2)
         # Special/Assist
         if special[m] > 0:
             ax.plot(
                 xPos, special[m], cst.MKR_STATS['special'], 
-                color=CLR_KD['special'], alpha=0.1, zorder=0
+                color=CLR_KD['special'], ms=3*SM, alpha=0.1, zorder=0
             )
         if assist[m] > 0:
             ax.plot(
                 xPos, assist[m], cst.MKR_STATS['assist'], 
-                color=CLR_KD['assist'], alpha=0.1, zorder=0
+                color=CLR_KD['assist'], ms=3*SM, alpha=0.1, zorder=0
             )
         # Paint
         axR.plot(xPos, paint[m], '-', color='#ffffff', alpha=0, zorder=0)
@@ -308,14 +308,36 @@ def generateMatchHistoryLegend(figAx):
 
 def plotTreemapByStages(
         figAx, stagesDF, 
-        metric='win ratio', fmt='{:.2f}'
-    ):    
+        metric='win ratio', fmt='{:.2f}', 
+        pad=0, lw=2, ec='#00000055'
+    ):
+    """_summary_
+
+    Args:
+        figAx (tuple): (fig, ax) tuple as initialized by matplotlib (plt.subplots).
+        stagesDF (_type_): _description_
+        metric (str, optional): _description_. Defaults to 'win ratio'.
+        fmt (str, optional): _description_. Defaults to '{:.2f}'.
+        pad (int, optional): _description_. Defaults to 0.
+        lw (int, optional): _description_. Defaults to 2.
+        ec (str, optional): _description_. Defaults to '#00000055'.
+
+    Returns:
+        _type_: _description_
+    """    
+    # Filter out rows that would have 0 area (error) --------------------------
+    stagesDF = stagesDF[stagesDF[metric] > 0]
+    # Generate treemap --------------------------------------------------------
     (fig, ax) = figAx
     ax = squarify.plot(
         sizes=stagesDF[metric], 
         alpha=.75,
         value=[fmt.format(s) for s in stagesDF[metric]],
-        color=[cst.CLR_STAGE[s] for s in list(stagesDF['stage'])]
+        color=[cst.CLR_STAGE[s] for s in list(stagesDF['stage'])],
+        pad=pad, bar_kwargs={
+            'edgecolor': ec, 'linewidth': lw, 
+            'capstyle': 'round', 'capsize': 2
+        }
     )
     plt.legend(
         handles=ax.containers[0], 

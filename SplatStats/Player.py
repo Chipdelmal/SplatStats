@@ -1,6 +1,8 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
+from tqdm import tqdm
+from termcolor import colored
 from collections import Counter
 import SplatStats.stats as stt
 import SplatStats.Battle as bat
@@ -58,10 +60,15 @@ class Player:
             list: All battle objects loaded from files (see class' docs).
         """        
         fNum = len(self.bPaths)
-        battleRecords = [None]*fNum
-        for (ix, batFile) in enumerate(self.bPaths):
+        battleRecords = []
+        cpt = colored(
+            f'Reading battle object files from disk for {self.name}.', 
+            'red'
+        )
+        print(cpt, end='\r')
+        for batFile in tqdm(self.bPaths):
             battle = aux.loadBattle(batFile)
-            battleRecords[ix] = battle
+            battleRecords.append(battle)
         return battleRecords
 
        

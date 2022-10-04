@@ -3,6 +3,7 @@ import json
 import warnings
 from os import path
 from glob import glob
+from tqdm import tqdm
 from termcolor import colored
 import SplatStats.Battle as bat
 import SplatStats.auxiliary as aux
@@ -23,10 +24,9 @@ def dumpBattlesFromJSONS(historyFilepaths, oPath):
     """    
     (hFiles, fNum) = (historyFilepaths, len(historyFilepaths))
     bPaths = []
-    for (ix, fName) in enumerate(hFiles):
-        # Print progress --------------------------------------------------
-        cpt = colored(f'* Parsing JSONs {ix+1:05d}/{fNum:05d}', 'red')
-        print(cpt, end='\r')
+    cpt = colored(f'Parsing JSONs to battle object files (pkl)', 'red')
+    print(cpt, end='\r')
+    for fName in tqdm(hFiles):
         # Load JSON -------------------------------------------------------
         with open(fName, 'r') as file:
             data = json.load(file)
