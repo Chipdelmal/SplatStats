@@ -33,7 +33,22 @@ NAMES = (
 )
 plyr = splat.Player(NAMES[0], bPaths, timezone='America/Los_Angeles')
 playerHistory = plyr.battlesHistory
-playerHistory.shape
+###############################################################################
+# Windowed average
+###############################################################################
+playerHistory['matches'] = [1]*playerHistory.shape[0]
+playerHistory['win bool'] = np.asarray([i=='W' for i in playerHistory['win']])
+
+dailyHistory = playerHistory.groupby(playerHistory['datetime'].dt.floor('h')).sum()
+winsArray = np.asarray(dailyHistory['kill']/dailyHistory['matches'])
+
+kernel_size = 10
+kernel = np.ones(kernel_size)/kernel_size
+data_convolved = np.convolve(winsArray, kernel, mode='valid')
+
+plt.plot(winsArray)
+plt.plot([i+kernel_size/2 for i in range(len(data_convolved))], data_convolved)
+
 ###############################################################################
 # Dev
 ###############################################################################
