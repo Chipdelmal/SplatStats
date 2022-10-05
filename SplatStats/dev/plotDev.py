@@ -10,6 +10,8 @@ from pywaffle import Waffle
 import matplotlib.pyplot as plt
 from matplotlib.patches import Rectangle
 
+from SplatStats.plots import plotTreemapByKey
+
 
 if splat.isNotebook():
     (iPath, oPath) = (
@@ -68,26 +70,32 @@ fig.savefig(
 # Dev
 ###############################################################################
 df = splat.calcStatsByKey(
-    playerHistory, 
-    key='main weapon', sortBy='win ratio', ascending=False
+    playerHistory, 'main weapon', 
+    sortBy='win ratio', ascending=False
 )
-
+(fig, ax) = plt.subplots(figsize=(5, 5))
+splat.plotTreemapByKey(
+    (fig, ax), df, 
+    'main weapon', metric='kill ratio',
+    alpha=0.5
+)
+###############################################################################
+# Dev
+###############################################################################
 alpha = .45
 colors = [
     i+splat.alphaToHex(alpha) for i in splat.CLR_CLS_LONG[:len(df['main weapon'])]
 ]
-
 fig = plt.figure(
     FigureClass=Waffle,
-    rows=18, 
-    # columns=20,
-    values=df['total matches'],
+    # rows=25, 
+    columns=50,
+    values=df['kills'],
     labels=list(df['main weapon']),
     starting_location='NW',
-    vertical=False,
+    vertical=True,
     block_arranging_style='snake',
     colors=colors,
-    alpha=.35,
     # labels=[f"{k} ({int(v / sum(data.values()) * 100)}%)" for k, v in data.items()],
     legend={
         'loc': 'upper left',
@@ -97,15 +105,6 @@ fig = plt.figure(
         'fontsize': 12
     }
 )
-plt.title('total matches')
+plt.title('kills')
 
 
-
-
-xInter = np.interp(1, (0, 1), (0, 255))
-hex(round(xInter))[2:]
-
-def alphaToHex(alphaFloat):
-    xInter = np.interp(alphaFloat, (0, 1), (0, 255))
-    xHex = hex(round(xInter))
-    return xHex[2:]

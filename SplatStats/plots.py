@@ -307,7 +307,7 @@ def generateMatchHistoryLegend(figAx):
 def plotTreemapByStages(
         figAx, stagesDF, 
         metric='win ratio', fmt='{:.2f}', title=True,
-        pad=0, lw=2, ec='#00000055', alpha=.35
+        pad=0, lw=2, ec='#00000055', alpha=.5
     ):
     """_summary_
 
@@ -322,18 +322,49 @@ def plotTreemapByStages(
 
     Returns:
         (fix, ax): Matplotlib's fig and ax objects.
+    """
+    stages = stagesDF['stage']
+    colors = [cst.CLR_STAGE[s] for s in stages]
+    (fig, ax) = plotTreemapByKey(
+        figAx, stagesDF, key='stage',
+        metric=metric, fmt=fmt, title=title,
+        pad=pad, lw=lw, ec=ec, alpha=alpha, colors=colors
+    )
+    return (fig, ax)
+
+
+def plotTreemapByKey(
+        figAx, keyedDF, key,
+        metric='win ratio', fmt='{:.2f}', title=True,
+        pad=0, lw=2, ec='#00000055', alpha=.5,
+        colors=cst.CLR_CLS_LONG
+    ):
+    """_summary_
+
+    Args:
+        figAx (tuple): (fig, ax) tuple as initialized by matplotlib (plt.subplots).
+        keyedDF (dataframe): Key-statistics dataframe (see "calcStagesStatsByType").
+        metric (str, optional): Metric of the dataframe that will be plotted (column). Defaults to 'win ratio'.
+        fmt (str, optional): Format string for the numbers labels. Defaults to '{:.2f}'.
+        pad (int, optional): Padding in-between rectangles. Defaults to 0.
+        lw (int, optional): Rectangle line width. Defaults to 2.
+        ec (str, optional): Rectangle line color. Defaults to '#00000055'.
+        colors (lst, optional): List of colors in order of appearance. Defailts to cst.CLR_CLS_LONG.
+
+    Returns:
+        (fix, ax): Matplotlib's fig and ax objects.
     """    
     # Filter out rows that would have 0 area (error) --------------------------
-    stagesDF = stagesDF[stagesDF[metric] > 0]
-    values = stagesDF[metric]
-    stages = list(stagesDF['stage'])
+    keyedDF = keyedDF[keyedDF[metric] > 0]
+    values = keyedDF[metric]
+    stages = list(keyedDF[key])
     # Generate treemap --------------------------------------------------------
     (fig, ax) = figAx
     ax = squarify.plot(
         sizes=values, 
         alpha=alpha,
         value=[fmt.format(s) for s in values],
-        color=[cst.CLR_STAGE[s] for s in stages],
+        color=colors,
         pad=pad, bar_kwargs={
             'edgecolor': ec, 'linewidth': lw, 
             'capstyle': 'round', 'capsize': 2

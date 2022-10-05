@@ -583,6 +583,11 @@
 <section id="module-SplatStats.auxiliary">
 <span id="splatstats-auxiliary-module"></span><h2>SplatStats.auxiliary module<a class="headerlink" href="#module-SplatStats.auxiliary" title="Permalink to this heading">¶</a></h2>
 <dl class="py function">
+<dt class="sig sig-object py" id="SplatStats.auxiliary.alphaToHex">
+<span class="sig-name descname"><span class="pre">alphaToHex</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">alphaFloat</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#SplatStats.auxiliary.alphaToHex" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
 <dt class="sig sig-object py" id="SplatStats.auxiliary.awardsToStrings">
 <span class="sig-name descname"><span class="pre">awardsToStrings</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">awardsDF</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sep</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'&#64;'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#SplatStats.auxiliary.awardsToStrings" title="Permalink to this definition">¶</a></dt>
 <dd><p>Condenses an awards dataframe into a list of strings for easier handling in player’s history.</p>
@@ -1120,8 +1125,34 @@
 </dd></dl>
 
 <dl class="py function">
+<dt class="sig sig-object py" id="SplatStats.plots.plotTreemapByKey">
+<span class="sig-name descname"><span class="pre">plotTreemapByKey</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">figAx</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">keyedDF</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">key</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">metric</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'win</span> <span class="pre">ratio'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fmt</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'{:.2f}'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">title</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pad</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lw</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ec</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'#00000055'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">alpha</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">colors</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">['#D60E6E',</span> <span class="pre">'#311AA8',</span> <span class="pre">'#17A80D',</span> <span class="pre">'#BFD002',</span> <span class="pre">'#FF7536',</span> <span class="pre">'#9090BA',</span> <span class="pre">'#DC1C1E',</span> <span class="pre">'#88214D',</span> <span class="pre">'#82878F',</span> <span class="pre">'#5F0FB4',</span> <span class="pre">'#08B672']</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#SplatStats.plots.plotTreemapByKey" title="Permalink to this definition">¶</a></dt>
+<dd><p>_summary_</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>figAx</strong> (<em>tuple</em>) – (fig, ax) tuple as initialized by matplotlib (plt.subplots).</p></li>
+<li><p><strong>keyedDF</strong> (<em>dataframe</em>) – Key-statistics dataframe (see “calcStagesStatsByType”).</p></li>
+<li><p><strong>metric</strong> (<em>str</em><em>, </em><em>optional</em>) – Metric of the dataframe that will be plotted (column). Defaults to ‘win ratio’.</p></li>
+<li><p><strong>fmt</strong> (<em>str</em><em>, </em><em>optional</em>) – Format string for the numbers labels. Defaults to ‘{:.2f}’.</p></li>
+<li><p><strong>pad</strong> (<em>int</em><em>, </em><em>optional</em>) – Padding in-between rectangles. Defaults to 0.</p></li>
+<li><p><strong>lw</strong> (<em>int</em><em>, </em><em>optional</em>) – Rectangle line width. Defaults to 2.</p></li>
+<li><p><strong>ec</strong> (<em>str</em><em>, </em><em>optional</em>) – Rectangle line color. Defaults to ‘#00000055’.</p></li>
+<li><p><strong>colors</strong> (<em>lst</em><em>, </em><em>optional</em>) – List of colors in order of appearance. Defailts to cst.CLR_CLS_LONG.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Matplotlib’s fig and ax objects.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>(fix, ax)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
 <dt class="sig sig-object py" id="SplatStats.plots.plotTreemapByStages">
-<span class="sig-name descname"><span class="pre">plotTreemapByStages</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">figAx</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stagesDF</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">metric</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'win</span> <span class="pre">ratio'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fmt</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'{:.2f}'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">title</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pad</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lw</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ec</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'#00000055'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">alpha</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.35</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#SplatStats.plots.plotTreemapByStages" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">plotTreemapByStages</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">figAx</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stagesDF</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">metric</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'win</span> <span class="pre">ratio'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fmt</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'{:.2f}'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">title</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pad</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lw</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ec</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'#00000055'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">alpha</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.5</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#SplatStats.plots.plotTreemapByStages" title="Permalink to this definition">¶</a></dt>
 <dd><p>_summary_</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -1220,11 +1251,16 @@
 
 <dl class="py function">
 <dt class="sig sig-object py" id="SplatStats.stats.calcStagesStats">
-<span class="sig-name descname"><span class="pre">calcStagesStats</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">bHist</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#SplatStats.stats.calcStagesStats" title="Permalink to this definition">¶</a></dt>
-<dd><p>Given a battle history dataframe, this function calculates the stats broken down by stage and returns them as a dataframe.</p>
+<span class="sig-name descname"><span class="pre">calcStagesStats</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">bHist</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sortBy</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'win</span> <span class="pre">ratio'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ascending</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#SplatStats.stats.calcStagesStats" title="Permalink to this definition">¶</a></dt>
+<dd><p>Given a battle history dataframe, this function calculates the stats broken down by stage and returns them as a dataframe (legacy wrapper for ‘calcStatsByKey’).</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>bHist</strong> (<em>dataframe</em>) – Battle history dataframe for a player.</p>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>bHist</strong> (<em>dataframe</em>) – Battle history dataframe for a player.</p></li>
+<li><p><strong>key</strong> (<em>str</em><em>, </em><em>optional</em>) – Column name on the dataframe upon that will work as the grouping element for stats. Defaults to ‘stage’.</p></li>
+<li><p><strong>sortBy</strong> (<em>str</em><em>, </em><em>optional</em>) – Sorting key for the output dataframe (no sorting if False). Defaults to ‘win ratio’.</p></li>
+<li><p><strong>ascending</strong> (<em>bool</em><em>, </em><em>optional</em>) – Ascending or descending order for sorting. Defaults to False.</p></li>
+</ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>Stats over stages (general, kpads, kpads avg, kpads per min)</p>
@@ -1248,6 +1284,28 @@
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>dict</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="SplatStats.stats.calcStatsByKey">
+<span class="sig-name descname"><span class="pre">calcStatsByKey</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">bHist</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">key</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sortBy</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'win</span> <span class="pre">ratio'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ascending</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#SplatStats.stats.calcStatsByKey" title="Permalink to this definition">¶</a></dt>
+<dd><p>Given a battle history dataframe, this function calculates stats broken down by the supplied key (column).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>bHist</strong> (<em>dataframe</em>) – Battle history dataframe for a player.</p></li>
+<li><p><strong>key</strong> (<em>str</em><em>, </em><em>optional</em>) – Column name on the dataframe upon that will work as the grouping element for stats. Defaults to ‘stage’.</p></li>
+<li><p><strong>sortBy</strong> (<em>str</em><em>, </em><em>optional</em>) – Sorting key for the output dataframe (no sorting if False). Defaults to ‘win ratio’.</p></li>
+<li><p><strong>ascending</strong> (<em>bool</em><em>, </em><em>optional</em>) – Ascending or descending order for sorting. Defaults to False.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Stats over provided key (general, kpads, kpads avg, kpads per min)</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>dataframe</p>
 </dd>
 </dl>
 </dd></dl>

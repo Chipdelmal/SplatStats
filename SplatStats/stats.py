@@ -107,7 +107,7 @@ def calcBinnedFrequencies(array, xMin, xMax, binSize=1, normalized=False):
     return freqs
 
 
-def calcStatsByKey(bHist, key='stage', sortBy='win ratio', ascending=False):
+def calcStatsByKey(bHist, key, sortBy='win ratio', ascending=False):
     """Given a battle history dataframe, this function calculates stats broken down by the supplied key (column).
 
     Args:
