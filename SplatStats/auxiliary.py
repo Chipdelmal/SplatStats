@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
+import numpy as np
 import dill as pkl
 from os import path
 from glob import glob
@@ -184,4 +185,7 @@ def isNotebook():
         return False      # Probably standard Python interpreter
 
 
-
+def alphaToHex(alphaFloat):
+    xInter = np.interp(alphaFloat, (0, 1), (0, 255))
+    xHex = hex(int(xInter))
+    return xHex[2:]

@@ -72,6 +72,11 @@ df = splat.calcStatsByKey(
     key='main weapon', sortBy='win ratio', ascending=False
 )
 
+alpha = .45
+colors = [
+    i+splat.alphaToHex(alpha) for i in splat.CLR_CLS_LONG[:len(df['main weapon'])]
+]
+
 fig = plt.figure(
     FigureClass=Waffle,
     rows=18, 
@@ -81,7 +86,7 @@ fig = plt.figure(
     starting_location='NW',
     vertical=False,
     block_arranging_style='snake',
-    colors=splat.CLR_CLS_LONG[:len(df['main weapon'])],
+    colors=colors,
     alpha=.35,
     # labels=[f"{k} ({int(v / sum(data.values()) * 100)}%)" for k, v in data.items()],
     legend={
@@ -92,4 +97,15 @@ fig = plt.figure(
         'fontsize': 12
     }
 )
-plt.title('win ratio')
+plt.title('total matches')
+
+
+
+
+xInter = np.interp(1, (0, 1), (0, 255))
+hex(round(xInter))[2:]
+
+def alphaToHex(alphaFloat):
+    xInter = np.interp(alphaFloat, (0, 1), (0, 255))
+    xHex = hex(round(xInter))
+    return xHex[2:]
