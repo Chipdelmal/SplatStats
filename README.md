@@ -15,9 +15,15 @@ This codebase works in tandem with the [s3s package](https://github.com/frozenpa
 
 Have a look at our [documentation](https://chipdelmal.github.io/SplatStats/) for more information on how to install and use this package!
 
+## [Matches History Panel](https://chipdelmal.github.io/SplatStats/build/html/plots.html#matches-history-panel)
+
 ![](./docs/img/bHistory.png)
 
+## [Kills VS Deaths Distributions](https://chipdelmal.github.io/SplatStats/build/html/plots.html#matches-history-panel)
+
 ![](./docs/img/kdHistogram.png)
+
+## [Stage Stats Treemaps](https://chipdelmal.github.io/SplatStats/build/html/plots.html#stats-treemaps)
 
 <img src="./docs/img/treemapA.png" width="50%" align="middle"><img src="./docs/img/treemapB.png" width="50%" align="middle">
 

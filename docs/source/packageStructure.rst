@@ -1,5 +1,5 @@
 
-Data Structures
+Pkg and Data Structures
 ======================================
 
 `SplatStats <https://pypi.org/project/SplatStats/>`_ is mainly built upon the backbone of two main classes: **Player** and **Battle**. 

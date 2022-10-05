@@ -34,7 +34,7 @@ Finally, the bottom row shows the type of match played:
   :width: 15%
 
 
-Have a look at the `function's documentation <./SplatStats.html#module-SplatStats.plots>`_ for more information.
+Have a look at the `function's documentation <./SplatStats.html#module-SplatStats.plots>`_ for more information, and our `demo <https://github.com/Chipdelmal/SplatStats/tree/main/SplatStats/demos>`_  for an example on how to generate it.
 
 
 
@@ -46,12 +46,11 @@ These paired histograms show the frequency distributions of the number of kills 
 .. image:: ../img/kdHistogram.png
   :width: 100%
 
-The x-asis shows the number of kills/deaths per match, while the y axis is either the raw frequency or the density of the quantity in that bin (if the histogram is normalized). 
-Have a look at the `function's documentation <./SplatStats.html#module-SplatStats.plots>`_ for more information.
+The x-asis shows the number of kills/deaths per match, while the y axis is either the raw frequency or the density of the quantity in that bin (if the histogram is normalized).  Have a look at the `function's documentation <./SplatStats.html#module-SplatStats.plots>`_ for more information, and our `demo <https://github.com/Chipdelmal/SplatStats/tree/main/SplatStats/demos>`_  for an example on how to generate these histograms.
 
 
 
-Stats Treemaps
+Stage Stats Treemaps
 ____________________________________________
 
 These plots are designed to show which stages are the ones in which the player performs best on any given stage with respect to a selected metric.
@@ -64,4 +63,4 @@ These statistics can be also generated for a specific match type (Rainmaker, Tur
 .. image:: ../img/treemapB.png
   :width: 50%
 
-Have a look at the `function's documentation <./SplatStats.html#module-SplatStats.plots>`_ for more information.
+Have a look at the `function's documentation <./SplatStats.html#module-SplatStats.plots>`_ for more information, and our `demo <https://github.com/Chipdelmal/SplatStats/tree/main/SplatStats/demos>`_  for an example on how to generate these plots.

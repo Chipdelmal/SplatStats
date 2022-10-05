@@ -19,7 +19,7 @@ plyr = splat.Player(plyrName, bFilepaths, timezone='America/Los_Angeles')
 playerHistory = plyr.battlesHistory
 playerHistory.columns
 ###############################################################################
-# Inspecting and Filtering Dataframe
+# Example of Inspecting and Filtering Dataframe
 ###############################################################################
 filters = (
     playerHistory['main weapon'] == 'Hero Shot Replica',

@@ -1,5 +1,5 @@
 
-Data Structures
+Pkg and Data Structures
 ======================================
 
 `SplatStats <https://pypi.org/project/SplatStats/>`_ is mainly built upon the backbone of two main classes: **Player** and **Battle**. 
@@ -199,6 +199,9 @@ Where each row will be a different stage (sorted by "win ratio" by default).
 
 .. image:: ../img/stagesDF.png
   :width: 100%
+
+
+Our `demo file <https://github.com/Chipdelmal/SplatStats/tree/main/SplatStats/demos>`_ contains some examples and provides with an easy way to examine these structures!
 
 
 .. Awards Dataframe

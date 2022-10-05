@@ -45,6 +45,11 @@ To install the latest `SplatStats <https://chipdelmal.github.io/SplatStats/>`_ v
 The use of virtual environments is highly recommended, and we do provide our `requirements.yml <https://github.com/Chipdelmal/SplatStats/blob/main/requirements.yml>`_ file to install all the required dependencies to run both `SplatStats <https://chipdelmal.github.io/SplatStats/>`_ and `s3s <https://github.com/frozenpandaman/s3s/>`_ in an `anaconda <https://www.anaconda.com/>`_ virtual environment. 
 
 
+Demo Code and Files (for the impatient)
+____________________________________________
+
+If you just want to run some code and get some stats right away, run `our demo <https://github.com/Chipdelmal/SplatStats/tree/main/SplatStats/demos>`_ to see the package in action!
+
 
 Getting a player's history dataframe
 ____________________________________________
@@ -168,5 +173,3 @@ We could also get these stats broken down by match type:
 
 Which adds another upper level to the dictionary with they keys: `Turf War`, `Splat Zones`, `Clam Blitz`, `Tower Control`, and `Rainmaker`.
 
-
-Have a look at our `demo <https://github.com/Chipdelmal/SplatStats/tree/main/SplatStats/demos>`_ to see this in action!

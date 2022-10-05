@@ -71,7 +71,7 @@
   
     <div class="sidebar-group">
       <p class="caption">
-        <span class="caption-text"><a href="index.html#splatstats-docs">Contents</a></span>
+        <span class="caption-text"><a href="index.html#contents">contents</a></span>
       </p>
       <ul class="current">
         
@@ -105,7 +105,7 @@
                 
                   <li class="toctree-l2"><a href="#kill-vs-deaths-distributions" class="reference internal">Kill VS Deaths Distributions</a></li>
                 
-                  <li class="toctree-l2"><a href="#stats-treemaps" class="reference internal">Stats Treemaps</a></li>
+                  <li class="toctree-l2"><a href="#stage-stats-treemaps" class="reference internal">Stage Stats Treemaps</a></li>
                 
               </ul>
             
@@ -123,7 +123,7 @@
         
           <li class="toctree-l1 ">
             
-              <a href="packageStructure.html" class="reference internal ">Data Structures</a>
+              <a href="packageStructure.html" class="reference internal ">Pkg and Data Structures</a>
             
 
             
@@ -176,23 +176,22 @@ Kills, deaths, assists and specials are encoded with the following symbols:</p>
 <a class="reference internal image-reference" href="_images/LegendB.png"><img alt="_images/LegendB.png" src="_images/LegendB.png" style="width: 15%;" /></a>
 <p>Finally, the bottom row shows the type of match played:</p>
 <a class="reference internal image-reference" href="_images/LegendC.png"><img alt="_images/LegendC.png" src="_images/LegendC.png" style="width: 15%;" /></a>
-<p>Have a look at the <a class="reference external" href="./SplatStats.html#module-SplatStats.plots">function’s documentation</a> for more information.</p>
+<p>Have a look at the <a class="reference external" href="./SplatStats.html#module-SplatStats.plots">function’s documentation</a> for more information, and our <a class="reference external" href="https://github.com/Chipdelmal/SplatStats/tree/main/SplatStats/demos">demo</a>  for an example on how to generate it.</p>
 </section>
 <section id="kill-vs-deaths-distributions">
 <h2>Kill VS Deaths Distributions<a class="headerlink" href="#kill-vs-deaths-distributions" title="Permalink to this heading">¶</a></h2>
 <p>These paired histograms show the frequency distributions of the number of kills or kassists (top, blue), and the number of deaths (bottom, magenta) across matches.</p>
 <a class="reference internal image-reference" href="_images/kdHistogram.png"><img alt="_images/kdHistogram.png" src="_images/kdHistogram.png" style="width: 100%;" /></a>
-<p>The x-asis shows the number of kills/deaths per match, while the y axis is either the raw frequency or the density of the quantity in that bin (if the histogram is normalized).
-Have a look at the <a class="reference external" href="./SplatStats.html#module-SplatStats.plots">function’s documentation</a> for more information.</p>
+<p>The x-asis shows the number of kills/deaths per match, while the y axis is either the raw frequency or the density of the quantity in that bin (if the histogram is normalized).  Have a look at the <a class="reference external" href="./SplatStats.html#module-SplatStats.plots">function’s documentation</a> for more information, and our <a class="reference external" href="https://github.com/Chipdelmal/SplatStats/tree/main/SplatStats/demos">demo</a>  for an example on how to generate these histograms.</p>
 </section>
-<section id="stats-treemaps">
-<h2>Stats Treemaps<a class="headerlink" href="#stats-treemaps" title="Permalink to this heading">¶</a></h2>
+<section id="stage-stats-treemaps">
+<h2>Stage Stats Treemaps<a class="headerlink" href="#stage-stats-treemaps" title="Permalink to this heading">¶</a></h2>
 <p>These plots are designed to show which stages are the ones in which the player performs best on any given stage with respect to a selected metric.
 Auxiliary provided functions generate the statistics dataframe required for these plots, which includes: kills, deaths, win ratio, paint, total matches; amongst many others.
 These statistics can be also generated for a specific match type (Rainmaker, Turf War, Tower Control, etc), or for a combination of them.</p>
 <a class="reference internal image-reference" href="_images/treemapA.png"><img alt="_images/treemapA.png" src="_images/treemapA.png" style="width: 50%;" /></a>
 <a class="reference internal image-reference" href="_images/treemapB.png"><img alt="_images/treemapB.png" src="_images/treemapB.png" style="width: 50%;" /></a>
-<p>Have a look at the <a class="reference external" href="./SplatStats.html#module-SplatStats.plots">function’s documentation</a> for more information.</p>
+<p>Have a look at the <a class="reference external" href="./SplatStats.html#module-SplatStats.plots">function’s documentation</a> for more information, and our <a class="reference external" href="https://github.com/Chipdelmal/SplatStats/tree/main/SplatStats/demos">demo</a>  for an example on how to generate these plots.</p>
 </section>
 </section>
 
