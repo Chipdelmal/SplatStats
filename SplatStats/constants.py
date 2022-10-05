@@ -87,3 +87,12 @@ CLR_STAGE = {
     "Museum d'Alfonsino": clr.SALTY_V_SWEET_S2[0],
     'Scorch Gorge': clr.UNICORN_V_NARWHAL_S2[0]
 }
+CLR_CLS_LONG = [
+    clr.LPINK_V_BLUE_S2[0], clr.LPINK_V_BLUE_S2[1],
+    clr.NPINK_V_NGREEN_S2[1], 
+    clr.RASPBERRY_V_NYELLOW_S2[1],
+    clr.WINNERW_V_WOUTERW_S2[0], clr.WINNERW_V_WOUTERW_S2[1], clr.WINNERW_V_WOUTERW_S2[2],
+    clr.TSUBUAN_V_KOSHIAN_S2[1],
+    clr.FAM_V_FRIEND_S2[1],
+    clr.GRAPE_V_TURQUOISE_S2[0], clr.GRAPE_V_TURQUOISE_S2[1]
+]

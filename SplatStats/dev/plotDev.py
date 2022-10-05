@@ -48,9 +48,8 @@ data_convolved = np.convolve(winsArray, kernel, mode='valid')
 
 plt.plot(winsArray)
 plt.plot([i+kernel_size/2 for i in range(len(data_convolved))], data_convolved)
-
 ###############################################################################
-# Dev
+# Stages Treemap
 ###############################################################################
 stagesStatsMatch = splat.calcStagesStatsByType(playerHistory)
 stagesDF = splat.calcStagesStats(playerHistory)
@@ -65,18 +64,25 @@ fig.savefig(
     path.join(oPath, (plyr.name)+' Treemap.png'), 
     dpi=300, bbox_inches='tight', facecolor=fig.get_facecolor()
 )
-
+###############################################################################
+# Dev
+###############################################################################
+df = splat.calcStatsByKey(
+    playerHistory, 
+    key='main weapon', sortBy='win ratio', ascending=False
+)
 
 fig = plt.figure(
     FigureClass=Waffle,
-    rows=20, 
-    columns=20,
-    values=stagesDF['win ratio']*100,
-    labels=list(stagesDF['stage']),
+    rows=18, 
+    # columns=20,
+    values=df['total matches'],
+    labels=list(df['main weapon']),
     starting_location='NW',
-    vertical=True,
+    vertical=False,
     block_arranging_style='snake',
-    colors=[splat.CLR_STAGE[s] for s in list(stagesDF['stage'])],
+    colors=splat.CLR_CLS_LONG[:len(df['main weapon'])],
+    alpha=.35,
     # labels=[f"{k} ({int(v / sum(data.values()) * 100)}%)" for k, v in data.items()],
     legend={
         'loc': 'upper left',
@@ -86,3 +92,4 @@ fig = plt.figure(
         'fontsize': 12
     }
 )
+plt.title('win ratio')

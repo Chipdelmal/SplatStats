@@ -107,19 +107,22 @@ def calcBinnedFrequencies(array, xMin, xMax, binSize=1, normalized=False):
     return freqs
 
 
-def calcStagesStats(bHist):
-    """Given a battle history dataframe, this function calculates the stats broken down by stage and returns them as a dataframe.
+def calcStatsByKey(bHist, key='stage', sortBy='win ratio', ascending=False):
+    """Given a battle history dataframe, this function calculates stats broken down by the supplied key (column).
 
     Args:
         bHist (dataframe): Battle history dataframe for a player.
+        key (str, optional): Column name on the dataframe upon that will work as the grouping element for stats. Defaults to 'stage'.
+        sortBy (str, optional): Sorting key for the output dataframe (no sorting if False). Defaults to 'win ratio'.
+        ascending (bool, optional): Ascending or descending order for sorting. Defaults to False.
 
     Returns:
-        dataframe: Stats over stages (general, kpads, kpads avg, kpads per min)
-    """    
-    (statsByStage, stages) = ({}, list(set(bHist['stage'])))
+        dataframe: Stats over provided key (general, kpads, kpads avg, kpads per min)
+    """
+    (statsByStage, stages) = ({}, list(set(bHist[key])))
     for st in stages:
         # Filter sub dataframe by stage -----------------------------------
-        df_fltrd = bHist[bHist['stage']==st]
+        df_fltrd = bHist[bHist[key]==st]
         stageDict = calcBattleHistoryStats(df_fltrd)
         # Add key to main dictionary
         statsByStage[st] = stageDict
@@ -133,11 +136,30 @@ def calcStagesStats(bHist):
             {k+' prm':row['kpads per min'][k] for k in row['kpads per min']}
         )
         dictsCombo = (
-            {'stage': st} | row['general'] | row['kpads'] | avg | xpm
+            {key: st} | row['general'] | row['kpads'] | avg | xpm
         )
         dList.append(dictsCombo)
     df = pd.DataFrame(dList)
-    df.sort_values('win ratio', ascending=False, inplace=True)
+    if sortBy:
+        df.sort_values(sortBy, ascending=ascending, inplace=True)
+    return df
+
+
+def calcStagesStats(bHist, sortBy='win ratio', ascending=False):
+    """Given a battle history dataframe, this function calculates the stats broken down by stage and returns them as a dataframe (legacy wrapper for 'calcStatsByKey').
+
+    Args:
+        bHist (dataframe): Battle history dataframe for a player.
+        key (str, optional): Column name on the dataframe upon that will work as the grouping element for stats. Defaults to 'stage'.
+        sortBy (str, optional): Sorting key for the output dataframe (no sorting if False). Defaults to 'win ratio'.
+        ascending (bool, optional): Ascending or descending order for sorting. Defaults to False.
+
+    Returns:
+        dataframe: Stats over stages (general, kpads, kpads avg, kpads per min)
+    """    
+    df = calcStatsByKey(
+        bHist, key='stage', sortBy=sortBy, ascending=ascending
+    )
     return df
 
 
