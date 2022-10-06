@@ -15,6 +15,7 @@
         <script src="_static/underscore.js"></script>
         <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="_static/doctools.js"></script>
+        <script src="_static/sphinx_highlight.js"></script>
 
       
       <!-- bundled in js (rollup iife) -->
@@ -93,6 +94,15 @@
         
           <li class="toctree-l1 ">
             
+              <a href="packageStructure.html" class="reference internal ">Pkg and Data Structures</a>
+            
+
+            
+          </li>
+
+        
+          <li class="toctree-l1 ">
+            
               <a href="plots.html" class="reference internal ">Plots</a>
             
 
@@ -103,15 +113,6 @@
           <li class="toctree-l1 ">
             
               <a href="colors.html" class="reference internal ">Colors</a>
-            
-
-            
-          </li>
-
-        
-          <li class="toctree-l1 ">
-            
-              <a href="packageStructure.html" class="reference internal ">Pkg and Data Structures</a>
             
 
             
@@ -147,16 +148,109 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="SplatStats.html">SplatStats package</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="SplatStats.html#submodules">Submodules</a></li>
-<li class="toctree-l2"><a class="reference internal" href="SplatStats.html#module-SplatStats.Battle">SplatStats.Battle module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="SplatStats.html#module-SplatStats.Player">SplatStats.Player module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="SplatStats.html#module-SplatStats.auxiliary">SplatStats.auxiliary module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="SplatStats.html#module-SplatStats.Battle">SplatStats.Battle module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="SplatStats.html#SplatStats.Battle.Battle"><code class="docutils literal notranslate"><span class="pre">Battle</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="SplatStats.html#SplatStats.Battle.Battle.id"><code class="docutils literal notranslate"><span class="pre">Battle.id</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="SplatStats.html#SplatStats.Battle.Battle.datetime"><code class="docutils literal notranslate"><span class="pre">Battle.datetime</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="SplatStats.html#SplatStats.Battle.Battle.duration"><code class="docutils literal notranslate"><span class="pre">Battle.duration</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="SplatStats.html#SplatStats.Battle.Battle.ko"><code class="docutils literal notranslate"><span class="pre">Battle.ko</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="SplatStats.html#SplatStats.Battle.Battle.matchType"><code class="docutils literal notranslate"><span class="pre">Battle.matchType</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="SplatStats.html#SplatStats.Battle.Battle.matchMode"><code class="docutils literal notranslate"><span class="pre">Battle.matchMode</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="SplatStats.html#SplatStats.Battle.Battle.festMatch"><code class="docutils literal notranslate"><span class="pre">Battle.festMatch</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="SplatStats.html#SplatStats.Battle.Battle.stage"><code class="docutils literal notranslate"><span class="pre">Battle.stage</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="SplatStats.html#SplatStats.Battle.Battle.alliedTeam"><code class="docutils literal notranslate"><span class="pre">Battle.alliedTeam</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="SplatStats.html#SplatStats.Battle.Battle.enemyTeams"><code class="docutils literal notranslate"><span class="pre">Battle.enemyTeams</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="SplatStats.html#SplatStats.Battle.Battle.awards"><code class="docutils literal notranslate"><span class="pre">Battle.awards</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="SplatStats.html#SplatStats.Battle.Battle.dumpBattle"><code class="docutils literal notranslate"><span class="pre">Battle.dumpBattle()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="SplatStats.html#SplatStats.Battle.Battle.getAlliesAndEnemiesNames"><code class="docutils literal notranslate"><span class="pre">Battle.getAlliesAndEnemiesNames()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="SplatStats.html#SplatStats.Battle.Battle.getAllyByCategory"><code class="docutils literal notranslate"><span class="pre">Battle.getAllyByCategory()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="SplatStats.html#SplatStats.Battle.Battle.getEnemyByCategory"><code class="docutils literal notranslate"><span class="pre">Battle.getEnemyByCategory()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="SplatStats.html#SplatStats.Battle.Battle.getPlayerByCategory"><code class="docutils literal notranslate"><span class="pre">Battle.getPlayerByCategory()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="SplatStats.html#module-SplatStats.Player">SplatStats.Player module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="SplatStats.html#SplatStats.Player.Player"><code class="docutils literal notranslate"><span class="pre">Player</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="SplatStats.html#SplatStats.Player.Player.name"><code class="docutils literal notranslate"><span class="pre">Player.name</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="SplatStats.html#SplatStats.Player.Player.id"><code class="docutils literal notranslate"><span class="pre">Player.id</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="SplatStats.html#SplatStats.Player.Player.bPaths"><code class="docutils literal notranslate"><span class="pre">Player.bPaths</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="SplatStats.html#SplatStats.Player.Player.timezone"><code class="docutils literal notranslate"><span class="pre">Player.timezone</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="SplatStats.html#SplatStats.Player.Player.battlesRecords"><code class="docutils literal notranslate"><span class="pre">Player.battlesRecords</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="SplatStats.html#SplatStats.Player.Player.battlesHistory"><code class="docutils literal notranslate"><span class="pre">Player.battlesHistory</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="SplatStats.html#SplatStats.Player.Player.battlesHistoryByType"><code class="docutils literal notranslate"><span class="pre">Player.battlesHistoryByType</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="SplatStats.html#SplatStats.Player.Player.playerStats"><code class="docutils literal notranslate"><span class="pre">Player.playerStats</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="SplatStats.html#SplatStats.Player.Player.playerStatsByType"><code class="docutils literal notranslate"><span class="pre">Player.playerStatsByType</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="SplatStats.html#SplatStats.Player.Player.calcPlayerStats"><code class="docutils literal notranslate"><span class="pre">Player.calcPlayerStats()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="SplatStats.html#SplatStats.Player.Player.calcPlayerStatsByTypes"><code class="docutils literal notranslate"><span class="pre">Player.calcPlayerStatsByTypes()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="SplatStats.html#SplatStats.Player.Player.filterBattleHistoryWithType"><code class="docutils literal notranslate"><span class="pre">Player.filterBattleHistoryWithType()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="SplatStats.html#SplatStats.Player.Player.getAlliesAndEnemiesCounts"><code class="docutils literal notranslate"><span class="pre">Player.getAlliesAndEnemiesCounts()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="SplatStats.html#SplatStats.Player.Player.getBattleRecords"><code class="docutils literal notranslate"><span class="pre">Player.getBattleRecords()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="SplatStats.html#SplatStats.Player.Player.getPlayerHistoryByTypes"><code class="docutils literal notranslate"><span class="pre">Player.getPlayerHistoryByTypes()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="SplatStats.html#SplatStats.Player.Player.parsePlayerHistoryFromBattles"><code class="docutils literal notranslate"><span class="pre">Player.parsePlayerHistoryFromBattles()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="SplatStats.html#module-SplatStats.auxiliary">SplatStats.auxiliary module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="SplatStats.html#SplatStats.auxiliary.alphaToHex"><code class="docutils literal notranslate"><span class="pre">alphaToHex()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="SplatStats.html#SplatStats.auxiliary.awardsToStrings"><code class="docutils literal notranslate"><span class="pre">awardsToStrings()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="SplatStats.html#SplatStats.auxiliary.boolKO"><code class="docutils literal notranslate"><span class="pre">boolKO()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="SplatStats.html#SplatStats.auxiliary.boolWinLose"><code class="docutils literal notranslate"><span class="pre">boolWinLose()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="SplatStats.html#SplatStats.auxiliary.datetimeToString"><code class="docutils literal notranslate"><span class="pre">datetimeToString()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="SplatStats.html#SplatStats.auxiliary.flattenList"><code class="docutils literal notranslate"><span class="pre">flattenList()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="SplatStats.html#SplatStats.auxiliary.gearPrepend"><code class="docutils literal notranslate"><span class="pre">gearPrepend()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="SplatStats.html#SplatStats.auxiliary.getHistoryFiles"><code class="docutils literal notranslate"><span class="pre">getHistoryFiles()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="SplatStats.html#SplatStats.auxiliary.getHistoryFolders"><code class="docutils literal notranslate"><span class="pre">getHistoryFolders()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="SplatStats.html#SplatStats.auxiliary.getPlayerCountsInBattles"><code class="docutils literal notranslate"><span class="pre">getPlayerCountsInBattles()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="SplatStats.html#SplatStats.auxiliary.isNotebook"><code class="docutils literal notranslate"><span class="pre">isNotebook()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="SplatStats.html#SplatStats.auxiliary.loadBattle"><code class="docutils literal notranslate"><span class="pre">loadBattle()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="SplatStats.html#SplatStats.auxiliary.loadBattlesFromFiles"><code class="docutils literal notranslate"><span class="pre">loadBattlesFromFiles()</span></code></a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="SplatStats.html#module-SplatStats.colors">SplatStats.colors module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="SplatStats.html#module-SplatStats.constants">SplatStats.constants module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="SplatStats.html#module-SplatStats.files">SplatStats.files module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="SplatStats.html#module-SplatStats.parsers">SplatStats.parsers module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="SplatStats.html#module-SplatStats.plots">SplatStats.plots module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="SplatStats.html#module-SplatStats.plotsAux">SplatStats.plotsAux module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="SplatStats.html#module-SplatStats.stats">SplatStats.stats module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="SplatStats.html#module-SplatStats.files">SplatStats.files module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="SplatStats.html#SplatStats.files.dumpBattlesFromJSONS"><code class="docutils literal notranslate"><span class="pre">dumpBattlesFromJSONS()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="SplatStats.html#SplatStats.files.getBattleFilepaths"><code class="docutils literal notranslate"><span class="pre">getBattleFilepaths()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="SplatStats.html#SplatStats.files.getDataFilepaths"><code class="docutils literal notranslate"><span class="pre">getDataFilepaths()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="SplatStats.html#module-SplatStats.parsers">SplatStats.parsers module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="SplatStats.html#SplatStats.parsers.getGear"><code class="docutils literal notranslate"><span class="pre">getGear()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="SplatStats.html#SplatStats.parsers.getGearUnit"><code class="docutils literal notranslate"><span class="pre">getGearUnit()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="SplatStats.html#SplatStats.parsers.getMatchScore"><code class="docutils literal notranslate"><span class="pre">getMatchScore()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="SplatStats.html#SplatStats.parsers.getPlayerResults"><code class="docutils literal notranslate"><span class="pre">getPlayerResults()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="SplatStats.html#SplatStats.parsers.getPlayerWeapon"><code class="docutils literal notranslate"><span class="pre">getPlayerWeapon()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="SplatStats.html#SplatStats.parsers.getPlayersBattleInfo"><code class="docutils literal notranslate"><span class="pre">getPlayersBattleInfo()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="SplatStats.html#SplatStats.parsers.getTeamDataframe"><code class="docutils literal notranslate"><span class="pre">getTeamDataframe()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="SplatStats.html#SplatStats.parsers.parseAwards"><code class="docutils literal notranslate"><span class="pre">parseAwards()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="SplatStats.html#SplatStats.parsers.parsePlayerHistoryFromBattles"><code class="docutils literal notranslate"><span class="pre">parsePlayerHistoryFromBattles()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="SplatStats.html#module-SplatStats.plots">SplatStats.plots module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="SplatStats.html#SplatStats.plots.generateMatchHistoryLegend"><code class="docutils literal notranslate"><span class="pre">generateMatchHistoryLegend()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="SplatStats.html#SplatStats.plots.plotKillsAndDeathsHistogram"><code class="docutils literal notranslate"><span class="pre">plotKillsAndDeathsHistogram()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="SplatStats.html#SplatStats.plots.plotMatchHistory"><code class="docutils literal notranslate"><span class="pre">plotMatchHistory()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="SplatStats.html#SplatStats.plots.plotMatchTypeHistory"><code class="docutils literal notranslate"><span class="pre">plotMatchTypeHistory()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="SplatStats.html#SplatStats.plots.plotTreemapByKey"><code class="docutils literal notranslate"><span class="pre">plotTreemapByKey()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="SplatStats.html#SplatStats.plots.plotTreemapByStages"><code class="docutils literal notranslate"><span class="pre">plotTreemapByStages()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="SplatStats.html#module-SplatStats.plotsAux">SplatStats.plotsAux module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="SplatStats.html#SplatStats.plotsAux.align_yaxis"><code class="docutils literal notranslate"><span class="pre">align_yaxis()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="SplatStats.html#SplatStats.plotsAux.mapNumberToSaturation"><code class="docutils literal notranslate"><span class="pre">mapNumberToSaturation()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="SplatStats.html#module-SplatStats.stats">SplatStats.stats module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="SplatStats.html#SplatStats.stats.calcBattleHistoryStats"><code class="docutils literal notranslate"><span class="pre">calcBattleHistoryStats()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="SplatStats.html#SplatStats.stats.calcBinnedFrequencies"><code class="docutils literal notranslate"><span class="pre">calcBinnedFrequencies()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="SplatStats.html#SplatStats.stats.calcStagesStats"><code class="docutils literal notranslate"><span class="pre">calcStagesStats()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="SplatStats.html#SplatStats.stats.calcStagesStatsByType"><code class="docutils literal notranslate"><span class="pre">calcStagesStatsByType()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="SplatStats.html#SplatStats.stats.calcStatsByKey"><code class="docutils literal notranslate"><span class="pre">calcStatsByKey()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="SplatStats.html#SplatStats.stats.frequencyInRange"><code class="docutils literal notranslate"><span class="pre">frequencyInRange()</span></code></a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="SplatStats.html#module-SplatStats">Module contents</a></li>
 </ul>
 </li>
@@ -171,7 +265,7 @@
 </ul><div class="footer" role="contentinfo">
       &#169; Copyright 2022, chipdelmal.
     <br>
-    Created using <a href="http://sphinx-doc.org/">Sphinx</a> 5.1.1 with <a href="https://github.com/schettino72/sphinx_press_theme">Press Theme</a> 0.8.0.
+    Created using <a href="http://sphinx-doc.org/">Sphinx</a> 5.2.3 with <a href="https://github.com/schettino72/sphinx_press_theme">Press Theme</a> 0.8.0.
 </div>
             </div>
           </div>

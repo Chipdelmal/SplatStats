@@ -15,6 +15,7 @@
         <script src="_static/underscore.js"></script>
         <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="_static/doctools.js"></script>
+        <script src="_static/sphinx_highlight.js"></script>
         <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 
       
@@ -24,7 +25,8 @@
     
   <link rel="index" title="Index" href="genindex.html" />
   <link rel="search" title="Search" href="search.html" />
-  <link rel="prev" title="Colors" href="colors.html" /> 
+  <link rel="next" title="Plots" href="plots.html" />
+  <link rel="prev" title="Quickstart" href="quickstart.html" /> 
   </head>
 
   <body>
@@ -93,24 +95,6 @@
           </li>
 
         
-          <li class="toctree-l1 ">
-            
-              <a href="plots.html" class="reference internal ">Plots</a>
-            
-
-            
-          </li>
-
-        
-          <li class="toctree-l1 ">
-            
-              <a href="colors.html" class="reference internal ">Colors</a>
-            
-
-            
-          </li>
-
-        
           <li class="toctree-l1 current">
             
               <a href="#" class="reference internal current">Pkg and Data Structures</a>
@@ -127,7 +111,27 @@
                 
                   <li class="toctree-l2"><a href="#stages-stats-dataframe" class="reference internal">Stages Stats Dataframe</a></li>
                 
+                  <li class="toctree-l2"><a href="#weapons-stats-dataframe" class="reference internal">Weapons Stats Dataframe</a></li>
+                
               </ul>
+            
+          </li>
+
+        
+          <li class="toctree-l1 ">
+            
+              <a href="plots.html" class="reference internal ">Plots</a>
+            
+
+            
+          </li>
+
+        
+          <li class="toctree-l1 ">
+            
+              <a href="colors.html" class="reference internal ">Colors</a>
+            
+
             
           </li>
 
@@ -150,8 +154,12 @@
 
   <ul class="page-nav">
   <li class="prev">
-    <a href="colors.html"
-       title="previous chapter">← Colors</a>
+    <a href="quickstart.html"
+       title="previous chapter">← Quickstart</a>
+  </li>
+  <li class="next">
+    <a href="plots.html"
+       title="next chapter">Plots →</a>
   </li>
 </ul>
   
@@ -314,6 +322,14 @@ Once done this, we can get the following information:</p>
 <a class="reference internal image-reference" href="_images/stagesDF.png"><img alt="_images/stagesDF.png" src="_images/stagesDF.png" style="width: 100%;" /></a>
 <p>Our <a class="reference external" href="https://github.com/Chipdelmal/SplatStats/tree/main/SplatStats/demos">demo file</a> contains some examples and provides with an easy way to examine these structures!</p>
 </section>
+<section id="weapons-stats-dataframe">
+<h2>Weapons Stats Dataframe<a class="headerlink" href="#weapons-stats-dataframe" title="Permalink to this heading">¶</a></h2>
+<p>Finally, the same dataframe can be calculated for any arbitrary key in the dataframe by running:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>splat.calcStatsByKey<span class="o">(</span>playerHistory, <span class="s1">&#39;main weapon&#39;</span><span class="o">)</span>
+</pre></div>
+</div>
+<p>Which results in an equivalent dataframe for the selected key.</p>
+</section>
 </section>
 
 
@@ -321,13 +337,17 @@ Once done this, we can get the following information:</p>
           <div class="page-nav">
             <div class="inner"><ul class="page-nav">
   <li class="prev">
-    <a href="colors.html"
-       title="previous chapter">← Colors</a>
+    <a href="quickstart.html"
+       title="previous chapter">← Quickstart</a>
+  </li>
+  <li class="next">
+    <a href="plots.html"
+       title="next chapter">Plots →</a>
   </li>
 </ul><div class="footer" role="contentinfo">
       &#169; Copyright 2022, chipdelmal.
     <br>
-    Created using <a href="http://sphinx-doc.org/">Sphinx</a> 5.1.1 with <a href="https://github.com/schettino72/sphinx_press_theme">Press Theme</a> 0.8.0.
+    Created using <a href="http://sphinx-doc.org/">Sphinx</a> 5.2.3 with <a href="https://github.com/schettino72/sphinx_press_theme">Press Theme</a> 0.8.0.
 </div>
             </div>
           </div>
