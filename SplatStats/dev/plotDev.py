@@ -41,7 +41,9 @@ playerHistory = plyr.battlesHistory
 playerHistory['matches'] = [1]*playerHistory.shape[0]
 playerHistory['win bool'] = np.asarray([i=='W' for i in playerHistory['win']])
 
-dailyHistory = playerHistory.groupby(playerHistory['datetime'].dt.floor('h')).sum()
+dailyHistory = playerHistory.groupby(
+    playerHistory['datetime'].dt.floor('h')
+).sum()
 winsArray = np.asarray(dailyHistory['kill']/dailyHistory['matches'])
 
 kernel_size = 10
@@ -69,14 +71,11 @@ fig.savefig(
 ###############################################################################
 # Dev
 ###############################################################################
-df = splat.calcStatsByKey(
-    playerHistory, 'main weapon', 
-    sortBy='win ratio', ascending=False
-)
+df = splat.calcStatsByKey(playerHistory, 'main weapon')
 (fig, ax) = plt.subplots(figsize=(5, 5))
 splat.plotTreemapByKey(
     (fig, ax), df, 
-    'main weapon', metric='kill ratio',
+    'main weapon', metric='deaths avg',
     alpha=0.5
 )
 ###############################################################################

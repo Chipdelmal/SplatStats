@@ -20,8 +20,8 @@ LEN_LIMIT = 400
 ###############################################################################
 # Create Player Objects
 ##############################################################################
-historyFilepaths = splat.getDataFilepaths(iPath, filePat='results.json')
-bPaths = splat.dumpBattlesFromJSONS(historyFilepaths, oPath)
+# historyFilepaths = splat.getDataFilepaths(iPath, filePat='results.json')
+# bPaths = splat.dumpBattlesFromJSONS(historyFilepaths, oPath)
 bPaths = splat.getBattleFilepaths(oPath)
 ###############################################################################
 # Create Player Objects
@@ -36,7 +36,7 @@ for name in NAMES:
     playerHistory = plyr.battlesHistory
     phLen = playerHistory.shape[0]
     if phLen > LEN_LIMIT:
-        ilocRange = (-LEN_LIMIT, -1)
+        ilocRange = (-LEN_LIMIT, phLen)
     else:
         ilocRange = (0, -1)
     ###########################################################################
