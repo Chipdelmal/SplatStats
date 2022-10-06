@@ -2,7 +2,6 @@
 
 [![PyPI - Python Version](https://img.shields.io/pypi/pyversions/SplatStats)](https://pypi.org/project/SplatStats)
 [![PyPI version](https://badge.fury.io/py/SplatStats.svg)](https://badge.fury.io/py/SplatStats)
-[![Conda](https://github.com/chipdelmal/MGSurvE/actions/workflows/Anaconda.yml/badge.svg)](https://github.com/Chipdelmal/MGSurvE/blob/main/.github/workflows/Anaconda.yml)
 [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
 [![Open Source? Yes!](https://badgen.net/badge/Open%20Source%20%3F/Yes%21/blue?icon=github)](https://github.com/Chipdelmal/MGSurvE)
 
