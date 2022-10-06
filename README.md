@@ -40,7 +40,6 @@ These plots are designed to show which stages are the ones in which the player p
 Moreover, these plots can be generated for any arbitrary key in the dataframe: main weapon, sub weapon, head gear, etc.
 
 
-<hr>
 
 # Author
 
