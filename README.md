@@ -43,7 +43,7 @@ Moreover, these plots can be generated for any arbitrary key in the dataframe: m
 
 # Author
 
-I'll be writing a [blogpost on my website](http://chipdelmal.github.io) with more information about the development, planned, and some analyses on my own Splatoon matches data!
+I'll be writing a [blogpost on my website](http://chipdelmal.github.io) with more information about the development, planned features, and some analyses on my own Splatoon matches data!
 
 <img src="./docs/img/chip.jpg" height="250px" align="middle">
 
