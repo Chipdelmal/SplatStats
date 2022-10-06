@@ -10,13 +10,11 @@ from pywaffle import Waffle
 import matplotlib.pyplot as plt
 from matplotlib.patches import Rectangle
 
-from SplatStats.plots import plotTreemapByKey
-
 
 if splat.isNotebook():
     (iPath, oPath) = (
         path.expanduser('~/Documents/GitHub/s3s/'),
-        path.expanduser('~/Documents/Sync/BattlesData/')
+        path.expanduser('/Users/sanchez.hmsc/Documents/SyncMega/BattlesData/')
     )
 else:
     (iPath, oPath) = argv[1:]
@@ -85,21 +83,25 @@ alpha = .45
 colors = [
     i+splat.alphaToHex(alpha) for i in splat.CLR_CLS_LONG[:len(df['main weapon'])]
 ]
-fig = plt.figure(
-    FigureClass=Waffle,
-    # rows=25, 
-    columns=50,
+(fig, ax) = plt.subplots(figsize=(15, 7.5))
+ax.set_aspect(aspect="equal")
+Waffle.make_waffle(
+    ax=ax,
+    rows=25, 
+    # columns=50,
     values=df['kills'],
     labels=list(df['main weapon']),
     starting_location='NW',
-    vertical=True,
+    vertical=False,
     block_arranging_style='snake',
     colors=colors,
+    interval_ratio_x=.5,
+    interval_ratio_y=.5,
     # labels=[f"{k} ({int(v / sum(data.values()) * 100)}%)" for k, v in data.items()],
     legend={
-        'loc': 'upper left',
-        'bbox_to_anchor': (1, 1),
-        'ncol': 1,
+        'loc': 'lower left',
+        'bbox_to_anchor': (0, -.5),
+        'ncol': 5,
         'framealpha': 0,
         'fontsize': 12
     }
