@@ -29,7 +29,7 @@ This panel is constructed as a panel composed of two different figures. The top 
 
 These paired histograms show the frequency distributions of the number of kills or kassists (top, blue), and the number of deaths (bottom, magenta) across matches.
 
-## [Stage Stats Treemaps](https://chipdelmal.github.io/SplatStats/build/html/plots.html#stats-treemaps)
+## [Stage/Weapons Stats Treemaps](https://chipdelmal.github.io/SplatStats/build/html/plots.html#stats-treemaps)
 
 <img src="./docs/img/treemapA.png" width="50%" align="middle"><img src="./docs/img/treemapB.png" width="50%" align="middle">
 
@@ -44,6 +44,8 @@ Moreover, these plots can be generated for any arbitrary key in the dataframe: m
 
 # Author
 
+I'll be writing a [blogpost on my website](http://chipdelmal.github.io) with more information about the development and planned features for the future, along with some analyses on my own data!
+
 <img src="./docs/img/chip.jpg" height="250px" align="middle">
 
-[Héctor M. Sánchez C.](chipdelmal.github.io)
+[Héctor M. Sánchez C.](http://chipdelmal.github.io)

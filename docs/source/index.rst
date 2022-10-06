@@ -38,10 +38,9 @@ Contents
 
   index
   quickstart
+  packageStructure
   plots
   colors
-  packageStructure
-
 
 
 
