@@ -9,6 +9,7 @@ dependencies:
   - alsa-lib
   - asttokens
   - attr
+  - autopep8
   - babel
   - backcall
   - backports
@@ -137,7 +138,8 @@ dependencies:
   - packaging
   - pandas
   - parso
-  - pcre
+  - patsy
+  - pcre2
   - pexpect
   - pickleshare
   - pillow
@@ -151,6 +153,7 @@ dependencies:
   - ptyprocess
   - pulseaudio
   - pure_eval
+  - pycodestyle
   - pycparser
   - pygments
   - pyopenssl
@@ -170,6 +173,9 @@ dependencies:
   - requests-toolbelt
   - rfc3986
   - rich
+  - scipy
+  - seaborn
+  - seaborn-base
   - secretstorage
   - setuptools
   - sip
@@ -185,10 +191,12 @@ dependencies:
   - sphinxcontrib-serializinghtml
   - sqlite
   - stack_data
+  - statsmodels
   - termcolor
   - tk
   - toml
   - tornado
+  - tqdm
   - traitlets
   - twine
   - typing_extensions
@@ -210,10 +218,14 @@ dependencies:
   - zipp
   - zstd
   - pip:
+    - colorutils
+    - fontawesomefree
     - karma-sphinx-theme
     - msgpack
     - piccolo-theme
+    - pywaffle
     - sphinx-bootstrap-theme
     - sphinx-press-theme
     - splatstats
+    - squarify
     - zerovm-sphinx-theme
