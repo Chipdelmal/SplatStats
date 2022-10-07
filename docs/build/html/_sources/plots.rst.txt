@@ -50,7 +50,7 @@ The x-asis shows the number of kills/deaths per match, while the y axis is eithe
 
 
 
-Stage Stats Treemaps
+Stage/Weapon Stats Treemaps
 ____________________________________________
 
 These plots are designed to show which stages are the ones in which the player performs best on any given stage with respect to a selected metric.
@@ -62,5 +62,15 @@ These statistics can be also generated for a specific match type (Rainmaker, Tur
 
 .. image:: ../img/treemapB.png
   :width: 50%
+
+
+The functions to generate these treemaps were ultimately extended, so it is also possible to aggregate the stats by other keys such as weapons:
+
+.. image:: ../img/treemapC.png
+  :width: 50%
+
+.. image:: ../img/treemapD.png
+  :width: 50%
+
 
 Have a look at the `function's documentation <./SplatStats.html#module-SplatStats.plots>`_ for more information, and our `demo <https://github.com/Chipdelmal/SplatStats/tree/main/SplatStats/demos>`_  for an example on how to generate these plots.

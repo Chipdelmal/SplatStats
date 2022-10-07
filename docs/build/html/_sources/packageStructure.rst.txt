@@ -204,6 +204,18 @@ Where each row will be a different stage (sorted by "win ratio" by default).
 Our `demo file <https://github.com/Chipdelmal/SplatStats/tree/main/SplatStats/demos>`_ contains some examples and provides with an easy way to examine these structures!
 
 
+Weapons Stats Dataframe
+-------------------------
+
+Finally, the same dataframe can be calculated for any arbitrary key in the dataframe by running:
+
+.. code-block:: bash
+    
+    splat.calcStatsByKey(playerHistory, 'main weapon')
+
+
+Which results in an equivalent dataframe for the selected key.
+
 .. Awards Dataframe
 
 .. https://www.gamepur.com/guides/all-multiplayer-medals-in-splatoon-3-and-what-they-mean
