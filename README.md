@@ -34,10 +34,15 @@ These paired histograms show the frequency distributions of the number of kills 
 
 These plots are designed to show which stages are the ones in which the player performs best on any given stage with respect to a selected metric. Auxiliary provided functions generate the statistics dataframe required for these plots, which includes: kills, deaths, win ratio, paint, total matches; amongst many others. These statistics can be also generated for a specific match type (Rainmaker, Turf War, Tower Control, etc), or for a combination of them.
 
-<img src="./docs/img/treemapD.png" width="50%" align="middle"><img src="./docs/img/treemapC.png" width="50%" align="middle">
+<!-- <img src="./docs/img/treemapD.png" width="50%" align="middle"><img src="./docs/img/treemapC.png" width="50%" align="middle"> -->
 
 Moreover, these plots can be generated for any arbitrary key in the dataframe: main weapon, sub weapon, head gear, etc.
 
+## Coming Soon!
+
+<img src="./docs/img/waffle.png" width="99%" align="middle"><br>
+
+<img src="./docs/img/irisA.png" width="33%" align="middle"><img src="./docs/img/irisB.png" width="33%" align="middle"><img src="./docs/img/irisC.png" width="33%" align="middle">
 
 
 # Author

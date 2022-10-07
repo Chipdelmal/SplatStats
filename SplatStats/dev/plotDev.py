@@ -31,8 +31,45 @@ NAMES = (
     'čħîþ ウナギ', 'Yami ウナギ', 'Riché ウナギ',
     'Oswal　ウナギ', 'April ウナギ', 'Murazee'
 )
-plyr = splat.Player(NAMES[0], bPaths, timezone='America/Los_Angeles')
+plyr = splat.Player(NAMES[3], bPaths, timezone='America/Los_Angeles')
 playerHistory = plyr.battlesHistory
+###############################################################################
+#  Waffle Dev
+###############################################################################
+bHist = playerHistory
+PLUS = 10
+nEntry = bHist.shape[0]
+(RMIN, RMAX) = (0, 30)
+(PMIN, PMAX) = (0, 2000)
+(ANGLES, BOTTOM, TOP, PAINT) = (
+    np.linspace(0, 2*np.pi, bHist.shape[0], endpoint=False),
+    np.array(bHist['death']),
+    np.array(bHist['kill']),
+    np.array(bHist['paint'])
+)
+PAINT = np.array([np.interp(i, (PMIN, PMAX), (RMIN, RMAX)) for i in PAINT])
+
+CLRS = [
+    splat.CLR_STATS['kill'] if i>=0 else splat.CLR_STATS['death'] 
+    for i in (TOP-BOTTOM)
+]
+(fig, ax) = plt.subplots(figsize=(8, 8), subplot_kw={"projection": "polar"})
+ax.set_theta_offset(np.pi/2)
+ax.vlines(ANGLES, PLUS, PLUS+PAINT,  lw=1, colors=splat.CLR_PAINT, alpha=.1)
+ax.vlines(ANGLES, PLUS+BOTTOM, PLUS+TOP, lw=0.5, colors=CLRS, alpha=.7)
+ax.set_yticks(np.arange(RMIN+PLUS, RMAX+PLUS, 10))
+ax.set_yticklabels([])
+xlab = [bHist['datetime'].iloc[int(dt)] for dt in np.arange(0,nEntry, nEntry/10)]
+ax.set_xticks([])
+# ax.set_xticks(np.arange(0, 2*np.pi, 2*np.pi/10), lw=0)
+# ax.set_xticklabels([f"{i.day:02d}/{i.month:02d}" for i in xlab])
+ax.set_ylim(RMIN, RMAX+PLUS)
+fig.savefig(
+    path.join(oPath, (plyr.name)+' Iris.png'), 
+    dpi=200, bbox_inches='tight', facecolor=fig.get_facecolor()
+)
+
+
 ###############################################################################
 # Windowed average
 ###############################################################################
@@ -77,7 +114,7 @@ splat.plotTreemapByKey(
     alpha=0.6
 )
 ###############################################################################
-# Dev
+#  Waffle Dev
 ###############################################################################
 alpha = .45
 colors = [
@@ -107,5 +144,8 @@ Waffle.make_waffle(
     }
 )
 plt.title('kills')
-
+fig.savefig(
+    path.join(oPath, (plyr.name)+' Waffle.png'), 
+    dpi=300, bbox_inches='tight', facecolor=fig.get_facecolor()
+)
 

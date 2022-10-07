@@ -20,8 +20,8 @@ LEN_LIMIT = 400
 ###############################################################################
 # Create Player Objects
 ##############################################################################
-historyFilepaths = splat.getDataFilepaths(iPath, filePat='results.json')
-bPaths = splat.dumpBattlesFromJSONS(historyFilepaths, oPath)
+# historyFilepaths = splat.getDataFilepaths(iPath, filePat='results.json')
+# bPaths = splat.dumpBattlesFromJSONS(historyFilepaths, oPath)
 bPaths = splat.getBattleFilepaths(oPath)
 ###############################################################################
 # Create Player Objects
@@ -55,7 +55,7 @@ for name in NAMES:
     ###########################################################################
     # Battle History
     ###########################################################################
-    yRange = ((0, 40), (0, 1600))
+    yRange = ((0, 40), (0, 2000))
     fig = plt.figure(figsize=(30, 5))
     gs = fig.add_gridspec(
         2, 1,  
