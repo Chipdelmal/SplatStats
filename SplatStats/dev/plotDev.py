@@ -14,7 +14,7 @@ from matplotlib.patches import Rectangle
 if splat.isNotebook():
     (iPath, oPath) = (
         path.expanduser('~/Documents/GitHub/s3s/'),
-        path.expanduser('/Users/sanchez.hmsc/Documents/SyncMega/BattlesData/')
+        path.expanduser('~/Documents/Sync/BattlesData/')
     )
 else:
     (iPath, oPath) = argv[1:]
@@ -73,8 +73,8 @@ df = splat.calcStatsByKey(playerHistory, 'main weapon')
 (fig, ax) = plt.subplots(figsize=(5, 5))
 splat.plotTreemapByKey(
     (fig, ax), df, 
-    'main weapon', metric='deaths avg',
-    alpha=0.5
+    'main weapon', metric='kill ratio',
+    alpha=0.6
 )
 ###############################################################################
 # Dev

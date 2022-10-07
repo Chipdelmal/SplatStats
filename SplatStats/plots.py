@@ -307,7 +307,7 @@ def generateMatchHistoryLegend(figAx):
 def plotTreemapByStages(
         figAx, stagesDF, 
         metric='win ratio', fmt='{:.2f}', title=True,
-        pad=0, lw=2, ec='#00000055', alpha=.5
+        pad=0.1, lw=2, ec='#00000055', alpha=.5
     ):
     """_summary_
 
@@ -336,7 +336,7 @@ def plotTreemapByStages(
 def plotTreemapByKey(
         figAx, keyedDF, key,
         metric='win ratio', fmt='{:.2f}', title=True,
-        pad=0, lw=2, ec='#00000055', alpha=.5,
+        pad=0.1, lw=2, ec='#00000055', alpha=.5,
         colors=cst.CLR_CLS_LONG
     ):
     """_summary_
