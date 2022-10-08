@@ -21,10 +21,10 @@ Additionally, we have the hex codes for all the Splatoon `colors <./colors.html>
 
 
 .. image:: ../img/treemapA.png
-  :width: 50%
+  :height: 250px
 
-.. image:: ../img/treemapB.png
-  :width: 50%
+.. image:: ../img/IrisA.png
+  :height: 250px
 
 Under development! Come back in a few weeks for more info!
 
