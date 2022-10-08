@@ -80,7 +80,7 @@ pywaffle==1.1.0
 pyzmq @ file:///home/conda/feedstock_root/build_artifacts/pyzmq_1663830499178/work
 readme-renderer @ file:///home/conda/feedstock_root/build_artifacts/readme_renderer_1664177521215/work
 requests @ file:///home/conda/feedstock_root/build_artifacts/requests_1661872987712/work
-requests-toolbelt==0.9.1
+requests-toolbelt @ file:///home/conda/feedstock_root/build_artifacts/requests-toolbelt_1665143043499/work
 rfc3986 @ file:///home/conda/feedstock_root/build_artifacts/rfc3986_1641825045899/work
 rich @ file:///home/conda/feedstock_root/build_artifacts/rich_1664752510089/work
 scipy==1.9.1
@@ -109,7 +109,7 @@ tornado @ file:///home/conda/feedstock_root/build_artifacts/tornado_165693783024
 tqdm @ file:///home/conda/feedstock_root/build_artifacts/tqdm_1662214488106/work
 traitlets @ file:///home/conda/feedstock_root/build_artifacts/traitlets_1663005918942/work
 twine @ file:///home/conda/feedstock_root/build_artifacts/twine_1654781028653/work
-typing_extensions @ file:///home/conda/feedstock_root/build_artifacts/typing_extensions_1656706066251/work
+typing_extensions @ file:///home/conda/feedstock_root/build_artifacts/typing_extensions_1665144421445/work
 unicodedata2 @ file:///home/conda/feedstock_root/build_artifacts/unicodedata2_1649111910890/work
 urllib3 @ file:///home/conda/feedstock_root/build_artifacts/urllib3_1658789158161/work
 wcwidth @ file:///home/conda/feedstock_root/build_artifacts/wcwidth_1600965781394/work
