@@ -40,7 +40,7 @@ Moreover, these plots can be generated for any arbitrary key in the dataframe: m
 
 ## [Kill/Death Iris](https://chipdelmal.github.io/SplatStats/build/html/plots.html#kill-to-deaths-iris)
 
-<img src="./docs/img/irisA.png" width="33%" align="middle"><img src="./docs/img/irisC.png" width="33%" align="middle"><img src="./docs/img/irisB.png" width="33%" align="middle">
+<img src="./docs/img/IrisA.png" width="33%" align="middle"><img src="./docs/img/IrisC.png" width="33%" align="middle"><img src="./docs/img/IrisB.png" width="33%" align="middle">
 
 Similar to the [matches history panel](https://chipdelmal.github.io/SplatStats/build/html/plots.html#matches-history-panel), these plots show the kill to death ratios as bars but this time they are arranged in a circular pattern to keep it more compact. The radial axis is log-scaled by default with the kill+assist to deaths ratio highlighted at the center of the plot.
 

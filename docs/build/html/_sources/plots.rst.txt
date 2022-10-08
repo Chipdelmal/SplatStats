@@ -81,13 +81,13 @@ ____________________________________________
 
 Similar to the `matches history panel <./plots.html#matches-history-panel>`_, these plots show the kill to death ratios as bars but this time they are arranged in a circular pattern to keep it more compact.
 
-.. image:: ../img/irisA.png
+.. image:: ../img/IrisA.png
   :width: 33%
 
-.. image:: ../img/irisC.png
+.. image:: ../img/IrisC.png
   :width: 33%
 
-.. image:: ../img/irisB.png
+.. image:: ../img/IrisB.png
   :width: 33%
 
 The radial axis is log-scaled by default with the kill+assist to deaths ratio highlighted at the center of the plot. 
