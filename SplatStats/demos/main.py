@@ -72,3 +72,11 @@ ax_bottom = fig.add_subplot(gs[1], sharex=ax_top)
 ax_top.tick_params(labelbottom=False)
 ax_bottom.set_yticks([])
 plt.setp(ax_bottom.get_xticklabels(), rotation=90, ha='right')
+###############################################################################
+# Iris Plot
+###############################################################################
+(fig, ax) = plt.subplots(figsize=(8, 8), subplot_kw={"projection": "polar"})
+(fig, ax) = splat.plotkillDeathIris(
+    (fig, ax), playerHistory,
+    innerGuides=(0, 6, 1), outerGuides=(10, 50, 10)
+)
