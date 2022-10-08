@@ -385,3 +385,103 @@ def plotTreemapByKey(
     ax.set_aspect(1/ax.get_data_ratio())
     plt.axis('off')
     return (fig, ax)
+
+
+def plotIris(
+        figAx, 
+        topArray, bottomArray=None, barArray=None, 
+        kRange=(0, 50), pRange=(0, 2000),
+        rScale='symlog', innerOffset=0.75, clockwise=True,
+        colorsTop=(cst.CLR_STATS['kill'], cst.CLR_STATS['death']),
+        colorBars=cst.CLR_PAINT,
+        innerText=None, fontSize=20, fontColor='#00000066',
+        innerGuides=(0, 6, 1), innerGuidesColor="#00000066",
+        outerGuides=(0, 50, 5), outerGuidesColor="#00000088",
+        frameColor="#00000011"
+    ):
+    (fig, ax) = figAx
+    ax.set_theta_offset(np.pi/2)
+    ax.set_rscale(rScale)
+    # Calculate angles for marker lines ---------------------------------------
+    DLEN = topArray.shape[0]
+    (astart, aend) = ((2*np.pi, 0) if clockwise else (0, 2*np.pi))
+    ANGLES = np.linspace(astart, aend, DLEN, endpoint=False)
+    # Draw top-bottom ---------------------------------------------------------
+    if bottomArray is None:
+        bottomArray = np.zeros(topArray.shape)
+    heights = topArray-bottomArray
+    colors = [colorsTop[0] if (h>=0) else colorsTop[1] for h in heights]
+    ax.vlines(
+        ANGLES, innerOffset+bottomArray, innerOffset+topArray, 
+        lw=0.5, colors=colors, alpha=.7
+    )
+    # Draw bar ----------------------------------------------------------------
+    if barArray is None:
+        barScaled = np.zeros(topArray.shape)
+    else:
+        barScaled = np.interp(barArray, pRange, kRange)
+    ax.vlines(
+        ANGLES, innerOffset, innerOffset+barScaled,  
+        lw=1, colors=colorBars, alpha=.1
+    )
+    # Add inner text ----------------------------------------------------------
+    if innerText:
+        ax.text(
+            x=0.5, y=0.5, 
+            s=innerText, fontsize=fontSize,
+            va="center", ha="center",  ma="center", 
+            color=fontColor, transform=ax.transAxes
+        )
+    # Cleaning up axes --------------------------------------------------------
+    circleAngles = np.linspace(0, 2*np.pi, 200)
+    for r in range(*innerGuides):
+        ax.plot(
+            circleAngles, np.repeat(r+innerOffset, 200), 
+            color=innerGuidesColor, lw=0.1, ls='-.', zorder=-10
+        )
+    ax.set_xticks([])
+    ax.set_ylim(kRange[0], kRange[1]+innerOffset)
+    ax.set_yticklabels([])
+    yTicks = [0+innerOffset] + list(np.arange(
+        outerGuides[0]+innerOffset, outerGuides[1]+innerOffset, outerGuides[2]
+    ))
+    ax.set_yticks(yTicks)
+    ax.yaxis.grid(True, color=frameColor, ls='-', lw=0.125, zorder=-10)
+    ax.spines["start"].set_color("none")
+    ax.spines["polar"].set_color(outerGuidesColor)
+    # Return figure -----------------------------------------------------------
+    return (fig, ax)
+
+
+def plotkillDeathIris(
+        figAx, playerHistory, kassist=True, paint=True,
+        kRange=(0, 50), pRange=(0, 2000),
+        rScale='symlog', innerOffset=0.75, clockwise=True,
+        colorsTop=(cst.CLR_STATS['kill'], cst.CLR_STATS['death']),
+        colorBars=cst.CLR_PAINT,
+        innerText=True, innerTextFmt='{:.2f}',
+        fontSize=20, fontColor='#00000066',
+        innerGuides=(0, 6, 1), innerGuidesColor="#00000066",
+        outerGuides=(0, 50, 10), outerGuidesColor="#00000088",
+        frameColor="#00000011"
+    ):
+    (outer, inner) = (
+        np.array(playerHistory['kill']), 
+        np.array(playerHistory['death'])
+    )
+    if kassist:
+        outer = outer + (.5 * np.array(playerHistory['assist']))
+    bar = (np.array(playerHistory['paint']) if paint else None)
+    if innerText:
+        text = np.sum(outer)/np.sum(inner)
+    (fig, ax) = plotIris(
+        figAx, outer, inner, barArray=bar,
+        kRange=kRange, pRange=pRange, rScale=rScale, innerOffset=innerOffset,
+        clockwise=clockwise, colorsTop=colorsTop, colorBars=colorBars,
+        innerText=innerTextFmt.format(text), 
+        fontSize=fontSize, fontColor=fontColor,
+        innerGuides=innerGuides, innerGuidesColor=innerGuidesColor,
+        outerGuides=outerGuides, outerGuidesColor=outerGuidesColor,
+        frameColor=frameColor
+    )
+    return (fig, ax)

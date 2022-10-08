@@ -20,8 +20,8 @@ LEN_LIMIT = 400
 ###############################################################################
 # Create Player Objects
 ##############################################################################
-historyFilepaths = splat.getDataFilepaths(iPath, filePat='results.json')
-bPaths = splat.dumpBattlesFromJSONS(historyFilepaths, oPath)
+# historyFilepaths = splat.getDataFilepaths(iPath, filePat='results.json')
+# bPaths = splat.dumpBattlesFromJSONS(historyFilepaths, oPath)
 bPaths = splat.getBattleFilepaths(oPath)
 ###############################################################################
 # Create Player Objects
@@ -48,7 +48,7 @@ for name in NAMES:
         normalized=True
     )
     plt.savefig(
-        path.join(oPath, (plyr.name)+' Histogram.png'), 
+        path.join(oPath, f'Histogram - {plyr.name}.png'), 
         dpi=300, bbox_inches='tight', facecolor=fig.get_facecolor()
     )
     plt.close()
@@ -77,8 +77,21 @@ for name in NAMES:
     ax_bottom.set_yticks([])
     plt.setp(ax_bottom.get_xticklabels(), rotation=90, ha='right')
     plt.savefig(
-        path.join(oPath, (plyr.name)+' History.png'), 
+        path.join(oPath, f'History - {plyr.name}.png'), 
         dpi=300, bbox_inches='tight', facecolor=fig.get_facecolor()
+    )
+    plt.close()
+    ###########################################################################
+    # Iris
+    ###########################################################################
+    (fig, ax) = plt.subplots(figsize=(8, 8), subplot_kw={"projection": "polar"})
+    (fig, ax) = splat.plotkillDeathIris(
+        (fig, ax), playerHistory,
+        innerGuides=(0, 6, 1), outerGuides=(10, 50, 10)
+    )
+    fig.savefig(
+        path.join(oPath, f'Iris - {plyr.name}.png'), 
+        dpi=200, bbox_inches='tight', facecolor=fig.get_facecolor()
     )
     plt.close()
 ###############################################################################
