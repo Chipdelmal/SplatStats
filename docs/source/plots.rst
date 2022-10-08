@@ -74,3 +74,21 @@ The functions to generate these treemaps were ultimately extended, so it is also
 
 
 Have a look at the `function's documentation <./SplatStats.html#module-SplatStats.plots>`_ for more information, and our `demo <https://github.com/Chipdelmal/SplatStats/tree/main/SplatStats/demos>`_  for an example on how to generate these plots.
+
+
+Kill to Deaths Iris
+____________________________________________
+
+Similar to the `matches history panel <./plots.html#matches-history-panel>`_, these plots show the kill to death ratios as bars but this time they are arranged in a circular pattern to keep it more compact.
+
+.. image:: ../img/irisA.png
+  :width: 33%
+
+.. image:: ../img/irisC.png
+  :width: 33%
+
+.. image:: ../img/irisB.png
+  :width: 33%
+
+The radial axis is log-scaled by default with the kill+assist to deaths ratio highlighted at the center of the plot. 
+The first 5 circles in the radial axis are spaced in increments of 1, while the latter ones are spaced in intervals of 10 by default.

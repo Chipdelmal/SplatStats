@@ -390,7 +390,7 @@ def plotTreemapByKey(
 def plotIris(
         figAx, 
         topArray, bottomArray=None, barArray=None, 
-        kRange=(0, 50), pRange=(0, 2000),
+        tbRange=(0, 50), bRange=(0, 2000),
         rScale='symlog', innerOffset=0.75, clockwise=True,
         colorsTop=(cst.CLR_STATS['kill'], cst.CLR_STATS['death']),
         colorBars=cst.CLR_PAINT,
@@ -399,6 +399,33 @@ def plotIris(
         outerGuides=(0, 50, 5), outerGuidesColor="#00000088",
         frameColor="#00000011"
     ):
+    """Creates a barchart-style plot in a radial axis. The lines go from bottomArray to topArray, while the barArray is plotted as is from the origin.
+
+    Args:
+        figAx (tuple): (fig, ax) tuple as initialized by matplotlib (plt.subplots).
+        topArray (array):
+        bottomArray (array, optional):
+        barArray (array, optional):
+        tbRange (tuple, optional): y-range for the top-bottom radii. Defaults to (0, 50).
+        bRange (tuple, optional): y-range for the bar statistic. Defaults to (0, 2000).
+        rScale (str, optional): Way the circular axis will be scaled. Defaults to 'symlog'.
+        innerOffset (float, optional): Radius of the innermost circle to create a clear area at the centar of the plot. Defaults to 0.75.
+        clockwise (bool, optional): Sorting of the battles starts at 12 o'clock and goes clockwise. Defaults to True.
+        colorsTop (tuple, optional): Color of the line if kills are larger than deaths, and if they are not. Defaults to (cst.CLR_STATS['kill'], cst.CLR_STATS['death']).
+        colorBars (color, optional): Color of the bars assigned to the paint statistic. Defaults to cst.CLR_PAINT.
+        innerText (bool, optional): Add the inner label as the ratio of kills or kassists to deaths. Defaults to True.
+        innerTextFmt (str, optional): Formatting string for the inner label. Defaults to '{:.2f}'.
+        fontSize (int, optional): Font size for the inner label. Defaults to 20.
+        fontColor (str, optional): Font color for the inner label. Defaults to '#00000066'.
+        innerGuides (tuple, optional): Start, stop, increment values for the innermost guides on the radial axis. Defaults to (0, 6, 1).
+        innerGuidesColor (str, optional): Color for the innermost guides. Defaults to "#00000066".
+        outerGuides (tuple, optional): Start stop, increment values for the outermost guides on the radial axis. Defaults to (0, 50, 10).
+        outerGuidesColor (str, optional): Color for the outer guides. Defaults to "#00000088".
+        frameColor (str, optional): Color for the outermost radial frame. Defaults to "#00000011".
+
+    Returns:
+        (fix, ax): Matplotlib's fig and ax objects.
+    """    
     (fig, ax) = figAx
     ax.set_theta_offset(np.pi/2)
     ax.set_rscale(rScale)
@@ -419,7 +446,7 @@ def plotIris(
     if barArray is None:
         barScaled = np.zeros(topArray.shape)
     else:
-        barScaled = np.interp(barArray, pRange, kRange)
+        barScaled = np.interp(barArray, bRange, tbRange)
     ax.vlines(
         ANGLES, innerOffset, innerOffset+barScaled,  
         lw=1, colors=colorBars, alpha=.1
@@ -440,7 +467,7 @@ def plotIris(
             color=innerGuidesColor, lw=0.1, ls='-.', zorder=-10
         )
     ax.set_xticks([])
-    ax.set_ylim(kRange[0], kRange[1]+innerOffset)
+    ax.set_ylim(tbRange[0], tbRange[1]+innerOffset)
     ax.set_yticklabels([])
     yTicks = [0+innerOffset] + list(np.arange(
         outerGuides[0]+innerOffset, outerGuides[1]+innerOffset, outerGuides[2]
@@ -465,6 +492,34 @@ def plotkillDeathIris(
         outerGuides=(0, 50, 10), outerGuidesColor="#00000088",
         frameColor="#00000011"
     ):
+    """These plots show the kill to death ratios as bars arranged in a circular pattern.
+
+    Args:
+        figAx (tuple): (fig, ax) tuple as initialized by matplotlib (plt.subplots).
+        playerHistory (dataframe): Player history dataframe with kills, deaths and assists categories.
+        kassist (bool, optional): Combine the kill and assist statistics as kassist=kill+0.5*assist. Defaults to True.
+        paint (bool, optional): Use paint stat to plot it as a bar behind the main stats. Defaults to True.
+        kRange (tuple, optional): y-range for the kill+death ratios. Defaults to (0, 50).
+        pRange (tuple, optional): y-range for the paint statistic. Defaults to (0, 2000).
+        rScale (str, optional): Way the circular axis will be scaled. Defaults to 'symlog'.
+        innerOffset (float, optional): Radius of the innermost circle to create a clear area at the centar of the plot. Defaults to 0.75.
+        clockwise (bool, optional): Sorting of the battles starts at 12 o'clock and goes clockwise. Defaults to True.
+        colorsTop (tuple, optional): Color of the line if kills are larger than deaths, and if they are not. Defaults to (cst.CLR_STATS['kill'], cst.CLR_STATS['death']).
+        colorBars (color, optional): Color of the bars assigned to the paint statistic. Defaults to cst.CLR_PAINT.
+        innerText (bool, optional): Add the inner label as the ratio of kills or kassists to deaths. Defaults to True.
+        innerTextFmt (str, optional): Formatting string for the inner label. Defaults to '{:.2f}'.
+        fontSize (int, optional): Font size for the inner label. Defaults to 20.
+        fontColor (str, optional): Font color for the inner label. Defaults to '#00000066'.
+        innerGuides (tuple, optional): Start, stop, increment values for the innermost guides on the radial axis. Defaults to (0, 6, 1).
+        innerGuidesColor (str, optional): Color for the innermost guides. Defaults to "#00000066".
+        outerGuides (tuple, optional): Start stop, increment values for the outermost guides on the radial axis. Defaults to (0, 50, 10).
+        outerGuidesColor (str, optional): Color for the outer guides. Defaults to "#00000088".
+        frameColor (str, optional): Color for the outermost radial frame. Defaults to "#00000011".
+
+    Returns:
+        (fix, ax): Matplotlib's fig and ax objects.
+    """    
+    # Get variables -----------------------------------------------------------
     (outer, inner) = (
         np.array(playerHistory['kill']), 
         np.array(playerHistory['death'])
@@ -474,9 +529,10 @@ def plotkillDeathIris(
     bar = (np.array(playerHistory['paint']) if paint else None)
     if innerText:
         text = np.sum(outer)/np.sum(inner)
+    # Generate plot -----------------------------------------------------------
     (fig, ax) = plotIris(
         figAx, outer, inner, barArray=bar,
-        kRange=kRange, pRange=pRange, rScale=rScale, innerOffset=innerOffset,
+        tbRange=kRange, bRange=pRange, rScale=rScale, innerOffset=innerOffset,
         clockwise=clockwise, colorsTop=colorsTop, colorBars=colorBars,
         innerText=innerTextFmt.format(text), 
         fontSize=fontSize, fontColor=fontColor,
