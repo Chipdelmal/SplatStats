@@ -20,8 +20,8 @@ LEN_LIMIT = 400
 ###############################################################################
 # Create Player Objects
 ##############################################################################
-# historyFilepaths = splat.getDataFilepaths(iPath, filePat='results.json')
-# bPaths = splat.dumpBattlesFromJSONS(historyFilepaths, oPath)
+historyFilepaths = splat.getDataFilepaths(iPath, filePat='results.json')
+bPaths = splat.dumpBattlesFromJSONS(historyFilepaths, oPath)
 bPaths = splat.getBattleFilepaths(oPath)
 ###############################################################################
 # Create Player Objects
@@ -87,8 +87,15 @@ for name in NAMES:
     (fig, ax) = plt.subplots(figsize=(8, 8), subplot_kw={"projection": "polar"})
     (fig, ax) = splat.plotkillDeathIris(
         (fig, ax), playerHistory,
-        innerGuides=(0, 6, 1), outerGuides=(10, 50, 10)
+        # colorsTop=('#4F55ED', '#CB0856'),
+        # colorBars='#4F55ED',
+        innerGuides=(0, 6, 1), outerGuides=(10, 50, 10),
+        fontColor='#00000066',
+        innerGuidesColor="#00000033",
+        outerGuidesColor="#00000011",
+        frameColor="#000000AA"
     )
+    ax.set_facecolor("w")
     fig.savefig(
         path.join(oPath, f'Iris - {plyr.name}.png'), 
         dpi=200, bbox_inches='tight', facecolor=fig.get_facecolor()

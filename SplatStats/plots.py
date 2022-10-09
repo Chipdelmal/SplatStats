@@ -440,7 +440,7 @@ def plotIris(
     colors = [colorsTop[0] if (h>=0) else colorsTop[1] for h in heights]
     ax.vlines(
         ANGLES, innerOffset+bottomArray, innerOffset+topArray, 
-        lw=0.5, colors=colors, alpha=.7
+        lw=0.5, colors=colors, alpha=.85
     )
     # Draw bar ----------------------------------------------------------------
     if barArray is None:
