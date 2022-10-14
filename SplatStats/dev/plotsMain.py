@@ -111,3 +111,33 @@ plt.savefig(
     dpi=300, bbox_inches='tight', facecolor=fig.get_facecolor()
 )
 plt.close()
+
+###############################################################################
+# Dev
+###############################################################################
+btlRecords = plyr.battleRecords
+rnks = []
+for btl in btlRecords:
+    df = btl.getAlliedRanks()
+    fltr = df[df['player name'] == plyr.name]
+    rnks.append(fltr)
+df = pd.concat(rnks, axis=0).drop(columns=['player name', 'player name id'])
+df.reset_index(drop=True)
+
+df = df.iloc[list(playerHistory.index)]
+
+playerHistory
+
+plyr.getPlayerFullRanking(validOnly=True)
+
+
+import pandas as pd
+
+battle = btlRecords[0]
+(alliedDF, enemyDF) = (
+    battle.alliedTeam,
+    pd.concat(battle.enemyTeams, axis=0)
+)
+pd.concat([alliedDF, enemyDF], axis=0).reset_index(drop=True)
+
+

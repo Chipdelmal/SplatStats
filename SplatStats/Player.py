@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
+import pandas as pd
 from tqdm import tqdm
 from termcolor import colored
 from collections import Counter
@@ -165,3 +166,46 @@ class Player:
             Counter(i).most_common() for i in (allies, enemies)
         ]
         return {'allies': alliesC, 'enemies': enemiesC}
+    
+    ###########################################################################
+    # Get player rankings
+    ########################################################################### 
+    def getPlayerAlliedRanking(
+            self,
+            cats=['kill', 'death', 'assist', 'special', 'paint'],
+            validOnly=True
+        ):
+        (btlRecords, rnks) = (self.battleRecords, [])
+        for btl in btlRecords:
+            df = btl.getAlliedRanks(cats=cats)
+            fltr = df[df['player name'] == self.name]
+            rnks.append(fltr)
+        df = pd.concat(rnks, axis=0).drop(columns=['player name', 'player name id'])
+        # Filter invalid battles and make indexes match -----------------------
+        if validOnly:
+            vIx = list(self.battlesHistory.index)
+            df = df.iloc[vIx]
+            df = df.set_index(pd.Series(vIx))
+        else:
+            df = df.reset_index(drop=True)
+        return  df
+    
+    def getPlayerFullRanking(
+            self,
+            cats=['kill', 'death', 'assist', 'special', 'paint'],
+            validOnly=True
+        ):
+        (btlRecords, rnks) = (self.battleRecords, [])
+        for btl in btlRecords:
+            df = btl.getFullRanks(cats=cats)
+            fltr = df[df['player name'] == self.name]
+            rnks.append(fltr)
+        df = pd.concat(rnks, axis=0).drop(columns=['player name', 'player name id'])
+        # Filter invalid battles and make indexes match -----------------------
+        if validOnly:
+            vIx = list(self.battlesHistory.index)
+            df = df.iloc[vIx]
+            df = df.set_index(pd.Series(vIx))
+        else:
+            df = df.reset_index(drop=True)
+        return  df.reset_index(drop=True)
