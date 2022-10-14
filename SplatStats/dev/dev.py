@@ -24,17 +24,6 @@ splat.getPlayerCountsInBattles(battles)
 
 
 
-        
-
-def getPlayerCountsInBattles(battles):
-    playersNames = []
-    for battle in battles:
-        ae = battle.getAlliesAndEnemiesNames()
-        playersNames.extend(ae['allies'])
-        playersNames.extend(ae['enemies'])
-    pCount = Counter(playersNames).most_common()
-    return pCount
-
 ###############################################################################
 # Create Player Objects
 ###############################################################################
@@ -74,6 +63,16 @@ for bDetail in bDetails:
 
 bDetail.getAlliesAndEnemies()
 
+
+###############################################################################
+# Player ranking
+###############################################################################
+df = chip.getPlayerFullRanking()
+dct = Counter(df['kill'])
+sorted(dct.items(), key=lambda x: x[1])[::-1]
+
+(fig, ax) = plt.subplots()
+df['kill'].value_counts().plot(ax=ax, kind='bar')
 ###############################################################################
 # Get filepaths
 ###############################################################################

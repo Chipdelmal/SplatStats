@@ -112,14 +112,3 @@ plt.savefig(
 )
 plt.close()
 
-###############################################################################
-# Dev
-###############################################################################
-from collections import Counter
-
-df = plyr.getPlayerFullRanking()
-dct = Counter(df['kill'])
-sorted(dct.items(), key=lambda x: x[1])[::-1]
-
-(fig, ax) = plt.subplots()
-df['death'].value_counts().plot(ax=ax, kind='bar')
