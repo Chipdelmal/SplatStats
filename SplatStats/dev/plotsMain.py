@@ -115,29 +115,11 @@ plt.close()
 ###############################################################################
 # Dev
 ###############################################################################
-btlRecords = plyr.battleRecords
-rnks = []
-for btl in btlRecords:
-    df = btl.getAlliedRanks()
-    fltr = df[df['player name'] == plyr.name]
-    rnks.append(fltr)
-df = pd.concat(rnks, axis=0).drop(columns=['player name', 'player name id'])
-df.reset_index(drop=True)
+from collections import Counter
 
-df = df.iloc[list(playerHistory.index)]
+df = plyr.getPlayerFullRanking()
+dct = Counter(df['kill'])
+sorted(dct.items(), key=lambda x: x[1])[::-1]
 
-playerHistory
-
-plyr.getPlayerFullRanking(validOnly=True)
-
-
-import pandas as pd
-
-battle = btlRecords[0]
-(alliedDF, enemyDF) = (
-    battle.alliedTeam,
-    pd.concat(battle.enemyTeams, axis=0)
-)
-pd.concat([alliedDF, enemyDF], axis=0).reset_index(drop=True)
-
-
+(fig, ax) = plt.subplots()
+df['death'].value_counts().plot(ax=ax, kind='bar')

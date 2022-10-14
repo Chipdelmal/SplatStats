@@ -172,8 +172,7 @@ class Player:
     ########################################################################### 
     def getPlayerAlliedRanking(
             self,
-            cats=['kill', 'death', 'assist', 'special', 'paint'],
-            validOnly=True
+            cats=['kill', 'death', 'assist', 'special', 'paint']
         ):
         (btlRecords, rnks) = (self.battleRecords, [])
         for btl in btlRecords:
@@ -182,18 +181,16 @@ class Player:
             rnks.append(fltr)
         df = pd.concat(rnks, axis=0).drop(columns=['player name', 'player name id'])
         # Filter invalid battles and make indexes match -----------------------
-        if validOnly:
-            vIx = list(self.battlesHistory.index)
-            df = df.iloc[vIx]
-            df = df.set_index(pd.Series(vIx))
-        else:
-            df = df.reset_index(drop=True)
+        bHist = self.battlesHistory
+        vIx = list(bHist.index)
+        df = df.iloc[vIx]
+        df = df.set_index(pd.Series(vIx))
+        df['datetime'] = bHist['datetime']
         return  df
     
     def getPlayerFullRanking(
             self,
-            cats=['kill', 'death', 'assist', 'special', 'paint'],
-            validOnly=True
+            cats=['kill', 'death', 'assist', 'special', 'paint']
         ):
         (btlRecords, rnks) = (self.battleRecords, [])
         for btl in btlRecords:
@@ -202,10 +199,9 @@ class Player:
             rnks.append(fltr)
         df = pd.concat(rnks, axis=0).drop(columns=['player name', 'player name id'])
         # Filter invalid battles and make indexes match -----------------------
-        if validOnly:
-            vIx = list(self.battlesHistory.index)
-            df = df.iloc[vIx]
-            df = df.set_index(pd.Series(vIx))
-        else:
-            df = df.reset_index(drop=True)
-        return  df.reset_index(drop=True)
+        bHist = self.battlesHistory
+        vIx = list(bHist.index)
+        df = df.iloc[vIx]
+        df = df.set_index(pd.Series(vIx))
+        df['datetime'] = bHist['datetime']
+        return  df
