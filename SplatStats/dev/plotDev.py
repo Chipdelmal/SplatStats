@@ -23,8 +23,8 @@ else:
 ###############################################################################
 # Create Player Objects
 ###############################################################################
-# historyFilepaths = splat.getDataFilepaths(iPath, filePat='results.json')
-# bPaths = splat.dumpBattlesFromJSONS(historyFilepaths, oPath)
+historyFilepaths = splat.getDataFilepaths(iPath, filePat='results.json')
+bPaths = splat.dumpBattlesFromJSONS(historyFilepaths, oPath)
 bPaths = splat.getBattleFilepaths(oPath)
 ###############################################################################
 # Create Player Objects
@@ -35,11 +35,6 @@ NAMES = (
 )
 plyr = splat.Player(NAMES[0], bPaths, timezone='America/Los_Angeles')
 playerHistory = plyr.battlesHistory
-###############################################################################
-# Iris Dev 
-###############################################################################
-
-
 ###############################################################################
 # Windowed average
 ###############################################################################

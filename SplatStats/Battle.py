@@ -134,6 +134,49 @@ class Battle:
         pDict = {'allies': aPlayers, 'enemies': aux.flattenList(ePlayers)}
         return pDict
     
+    def getAlliedTotal(
+            self, 
+            cats=['kill', 'death', 'assist', 'special', 'paint']
+        ):
+        dfSum = self.alliedTeam[cats].sum()
+        dfSumDict = dict(dfSum)
+        return dfSumDict
+    
+    def getEnemiesTotals(
+            self, 
+            cats=['kill', 'death', 'assist', 'special', 'paint']
+        ):
+        teams = self.enemyTeams
+        dfSum = [team[cats].sum() for team in teams]
+        dfSumDict = [dict(team) for team in dfSum]
+        return dfSumDict
+    
+    def getAlliedRanks(
+            self,
+            cats=['kill', 'death', 'assist', 'special', 'paint']
+        ):
+        team = self.alliedTeam
+        (names, ranks) = (
+            team[['player name', 'player name id']],
+            team[cats].rank(ascending=False).astype(int)
+        )
+        dfRank = pd.concat([names, ranks], axis=1)
+        return dfRank
+    
+    def getEnemiesRanks(
+            self,
+            cats=['kill', 'death', 'assist', 'special', 'paint']
+        ):
+        dfRanks = []
+        for team in self.enemyTeams:
+            (names, ranks) = (
+                team[['player name', 'player name id']],
+                team[cats].rank(ascending=False).astype(int)
+            )
+            dfRank = pd.concat([names, ranks], axis=1)
+            dfRanks.append(dfRank)
+        return dfRanks
+    
     ###########################################################################
     # Export Methods
     ###########################################################################
