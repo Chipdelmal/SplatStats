@@ -182,3 +182,19 @@ def calcStagesStatsByType(bHist):
     return matchDFs
 
 
+def getTeamTotals(
+        teamDF, 
+        cats=['kill', 'death', 'assist', 'special', 'paint']
+    ):
+    """Get the team total over the selected categories.
+
+    Args:
+        teamDF (dataframe): Team battle dataframe.
+        cats (list, optional): Categories over which the data will be totaled. Defaults to ['kill', 'death', 'assist', 'special', 'paint'].
+
+    Returns:
+        dict: Team totals over the categories.
+    """    
+    dfSum = teamDF[cats].sum()
+    dfSumDict = dict(dfSum)
+    return dfSumDict

@@ -5,6 +5,7 @@ import dill as pkl
 from os import path
 import pandas as pd
 from dateutil.parser import parse
+import SplatStats.stats as stat
 import SplatStats.parsers as par
 import SplatStats.auxiliary as aux
 pd.options.mode.chained_assignment = None
@@ -135,10 +136,17 @@ class Battle:
         return pDict
     
     def getFullRoster(self):
+        """Generates the dataframe of all players involved in the battle.
+
+        Returns:
+            dataframe: Battle history dataframe with added team column.
+        """        
         (alliedDF, enemyDF) = (
             self.alliedTeam,
             pd.concat(self.enemyTeams, axis=0)
         )
+        alliedDF['Team'] = ['A']*alliedDF.shape[0]
+        enemyDF['Team'] = ['E']*enemyDF.shape[0]
         df = pd.concat([alliedDF, enemyDF], axis=0).reset_index(drop=True)
         return df    
     
@@ -146,18 +154,32 @@ class Battle:
             self, 
             cats=['kill', 'death', 'assist', 'special', 'paint']
         ):
-        dfSum = self.alliedTeam[cats].sum()
-        dfSumDict = dict(dfSum)
-        return dfSumDict
+        """Get allied team total over selected categories.
+
+        Args:
+            cats (list, optional): Categories over which the data will be totaled. Defaults to ['kill', 'death', 'assist', 'special', 'paint'].
+
+        Returns:
+            dict: Allied team totals over the categories.
+        """        
+        tTotal = stat.getTeamTotals(self.alliedTeam, cats=cats)
+        return tTotal
     
     def getEnemiesTotals(
             self, 
             cats=['kill', 'death', 'assist', 'special', 'paint']
         ):
+        """Get enemy teams total over selected categories.
+
+        Args:
+            cats (list, optional): Categories over which the data will be totaled. Defaults to ['kill', 'death', 'assist', 'special', 'paint'].
+
+        Returns:
+            list: Enemy team totals over the categories.
+        """         
         teams = self.enemyTeams
-        dfSum = [team[cats].sum() for team in teams]
-        dfSumDict = [dict(team) for team in dfSum]
-        return dfSumDict
+        tTotals = [stat.getTeamTotals(team, cats=cats) for team in teams]
+        return tTotals
     
     def getAlliedRanks(
             self,
