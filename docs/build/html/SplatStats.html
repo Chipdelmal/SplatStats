@@ -292,6 +292,43 @@
 </dd></dl>
 
 <dl class="py method">
+<dt class="sig sig-object py" id="SplatStats.Battle.Battle.getAlliedRanks">
+<span class="sig-name descname"><span class="pre">getAlliedRanks</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cats</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">['kill',</span> <span class="pre">'death',</span> <span class="pre">'assist',</span> <span class="pre">'special',</span> <span class="pre">'paint']</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">inverted</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">['death']</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#SplatStats.Battle.Battle.getAlliedRanks" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a dataframe with the rankings of the allied players across categories (higher numbers being better unless in inverted list).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>cats</strong> (<em>list</em><em>, </em><em>optional</em>) – Categories over which the data will be totaled. Defaults to [‘kill’, ‘death’, ‘assist’, ‘special’, ‘paint’].</p></li>
+<li><p><strong>inverted</strong> (<em>list</em><em>, </em><em>optional</em>) – In the original rankings more is considered better, this list should contain the categories that should be inverted. Defaults to [‘death’].</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Allied team ranking dataframe over categories.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>dataframe</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="SplatStats.Battle.Battle.getAlliedTotal">
+<span class="sig-name descname"><span class="pre">getAlliedTotal</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cats</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">['kill',</span> <span class="pre">'death',</span> <span class="pre">'assist',</span> <span class="pre">'special',</span> <span class="pre">'paint']</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#SplatStats.Battle.Battle.getAlliedTotal" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get allied team total over selected categories.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>cats</strong> (<em>list</em><em>, </em><em>optional</em>) – Categories over which the data will be totaled. Defaults to [‘kill’, ‘death’, ‘assist’, ‘special’, ‘paint’].</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Allied team totals over the categories.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>dict</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
 <dt class="sig sig-object py" id="SplatStats.Battle.Battle.getAlliesAndEnemiesNames">
 <span class="sig-name descname"><span class="pre">getAlliesAndEnemiesNames</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#SplatStats.Battle.Battle.getAlliesAndEnemiesNames" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns a dictionary containing the names of allies and enemies.</p>
@@ -326,6 +363,43 @@
 </dd></dl>
 
 <dl class="py method">
+<dt class="sig sig-object py" id="SplatStats.Battle.Battle.getEnemiesRanks">
+<span class="sig-name descname"><span class="pre">getEnemiesRanks</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cats</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">['kill',</span> <span class="pre">'death',</span> <span class="pre">'assist',</span> <span class="pre">'special',</span> <span class="pre">'paint']</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">inverted</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">['death']</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#SplatStats.Battle.Battle.getEnemiesRanks" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a list of dataframes with the rankings of the enemies players across categories (higher numbers being better unless in inverted list).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>cats</strong> (<em>list</em><em>, </em><em>optional</em>) – Categories over which the data will be totaled. Defaults to [‘kill’, ‘death’, ‘assist’, ‘special’, ‘paint’].</p></li>
+<li><p><strong>inverted</strong> (<em>list</em><em>, </em><em>optional</em>) – In the original rankings more is considered better, this list should contain the categories that should be inverted. Defaults to [‘death’].</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Enemy teams ranking dataframe over categories.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>list of dataframes</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="SplatStats.Battle.Battle.getEnemiesTotals">
+<span class="sig-name descname"><span class="pre">getEnemiesTotals</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cats</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">['kill',</span> <span class="pre">'death',</span> <span class="pre">'assist',</span> <span class="pre">'special',</span> <span class="pre">'paint']</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#SplatStats.Battle.Battle.getEnemiesTotals" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get enemy teams total over selected categories.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>cats</strong> (<em>list</em><em>, </em><em>optional</em>) – Categories over which the data will be totaled. Defaults to [‘kill’, ‘death’, ‘assist’, ‘special’, ‘paint’].</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Enemy team totals over the categories.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>list of dataframes</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
 <dt class="sig sig-object py" id="SplatStats.Battle.Battle.getEnemyByCategory">
 <span class="sig-name descname"><span class="pre">getEnemyByCategory</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">category</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'player</span> <span class="pre">name'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#SplatStats.Battle.Battle.getEnemyByCategory" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns an enemy dataframe row filtering by a given category (usually ‘name’).</p>
@@ -341,6 +415,40 @@
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>dataframe</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="SplatStats.Battle.Battle.getFullRanks">
+<span class="sig-name descname"><span class="pre">getFullRanks</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cats</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">['kill',</span> <span class="pre">'death',</span> <span class="pre">'assist',</span> <span class="pre">'special',</span> <span class="pre">'paint']</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">inverted</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">['death']</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#SplatStats.Battle.Battle.getFullRanks" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a dataframe with the rankings of the full roster of players across categories (higher numbers being better unless in inverted list).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>cats</strong> (<em>list</em><em>, </em><em>optional</em>) – Categories over which the data will be totaled. Defaults to [‘kill’, ‘death’, ‘assist’, ‘special’, ‘paint’].</p></li>
+<li><p><strong>inverted</strong> (<em>list</em><em>, </em><em>optional</em>) – In the original rankings more is considered better, this list should contain the categories that should be inverted. Defaults to [‘death’].</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Full roster ranking dataframe over categories.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>dataframe</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="SplatStats.Battle.Battle.getFullRoster">
+<span class="sig-name descname"><span class="pre">getFullRoster</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#SplatStats.Battle.Battle.getFullRoster" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generates the dataframe of all players involved in the battle.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Battle history dataframe with added team column.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>dataframe</p>
 </dd>
 </dl>
 </dd></dl>
@@ -546,6 +654,16 @@
 </dd>
 </dl>
 </dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="SplatStats.Player.Player.getPlayerAlliedRanking">
+<span class="sig-name descname"><span class="pre">getPlayerAlliedRanking</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cats</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">['kill',</span> <span class="pre">'death',</span> <span class="pre">'assist',</span> <span class="pre">'special',</span> <span class="pre">'paint']</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#SplatStats.Player.Player.getPlayerAlliedRanking" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="SplatStats.Player.Player.getPlayerFullRanking">
+<span class="sig-name descname"><span class="pre">getPlayerFullRanking</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cats</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">['kill',</span> <span class="pre">'death',</span> <span class="pre">'assist',</span> <span class="pre">'special',</span> <span class="pre">'paint']</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#SplatStats.Player.Player.getPlayerFullRanking" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="SplatStats.Player.Player.getPlayerHistoryByTypes">
@@ -1404,6 +1522,47 @@
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="SplatStats.stats.getTeamRanks">
+<span class="sig-name descname"><span class="pre">getTeamRanks</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">teamDF</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cats</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">['kill',</span> <span class="pre">'death',</span> <span class="pre">'assist',</span> <span class="pre">'special',</span> <span class="pre">'paint']</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">inverted</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">['death']</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#SplatStats.stats.getTeamRanks" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a dataframe with the rankings of the players in the dataframe across categories (higher numbers being better unless in inverted list).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>teamDF</strong> (<em>dataframe</em>) – Team battle dataframe.</p></li>
+<li><p><strong>cats</strong> (<em>list</em><em>, </em><em>optional</em>) – Categories over which the data will be totaled. Defaults to [‘kill’, ‘death’, ‘assist’, ‘special’, ‘paint’].</p></li>
+<li><p><strong>inverted</strong> (<em>list</em><em>, </em><em>optional</em>) – In the original rankings more is considered better, this list should contain the categories that should be inverted. Defaults to [‘death’].</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Team ranking dataframe over categories.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>dataframe</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="SplatStats.stats.getTeamTotals">
+<span class="sig-name descname"><span class="pre">getTeamTotals</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">teamDF</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cats</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">['kill',</span> <span class="pre">'death',</span> <span class="pre">'assist',</span> <span class="pre">'special',</span> <span class="pre">'paint']</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#SplatStats.stats.getTeamTotals" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the team total over the selected categories.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>teamDF</strong> (<em>dataframe</em>) – Team battle dataframe.</p></li>
+<li><p><strong>cats</strong> (<em>list</em><em>, </em><em>optional</em>) – Categories over which the data will be totaled. Defaults to [‘kill’, ‘death’, ‘assist’, ‘special’, ‘paint’].</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Team totals over the categories.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>dict</p>
 </dd>
 </dl>
 </dd></dl>
