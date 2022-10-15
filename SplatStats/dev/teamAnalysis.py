@@ -45,3 +45,25 @@ dailyHistory.sum()
 # Date-sorted -----------------------------------------------------------------
 datesSet = [set(plyrs[nme].battlesHistory['datetime']) for nme in NAMES]
 dates = sorted(list(set.union(*datesSet)))
+###############################################################################
+# Streamchart
+###############################################################################
+dfs = []
+for nme in NAMES:
+    dfTemp = plyrs[nme].battlesHistory
+    dfTemp['player'] = [nme]*(dfTemp.shape[0])
+    dfTemp['matches'] = [1]*(dfTemp.shape[0])
+    dfs.append(dfTemp)
+dfTeam = pd.concat(dfs, axis=0)
+# Grouping --------------------------------------------------------------------
+cats = ['kill', 'death', 'assist', 'special', 'paint', 'matches']
+catsDF = ['player', 'datetime'] + cats
+dfGrp = dfTeam[catsDF].groupby(['datetime', 'player']).sum()
+(dates, names) = (
+    sorted(list(df['datetime'].unique())),
+    list(dfTeam['player'].unique())
+)
+dfPadded = dfGrp.unstack(fill_value=0).stack()
+# Generate series -------------------------------------------------------------
+date = dates[1]
+dfPadded.loc[date]
