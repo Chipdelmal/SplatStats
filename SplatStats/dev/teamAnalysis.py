@@ -6,6 +6,7 @@ import pandas as pd
 from sys import argv
 from os import path
 import SplatStats as splat
+from scipy import stats
 import matplotlib.pyplot as plt
 from SplatStats.Player import Player
 from SplatStats.constants import MKR_STATS
@@ -33,7 +34,9 @@ NAMES = (
 )
 tz = 'America/Los_Angeles'
 plyrs = {name: splat.Player(name, bPaths, timezone=tz) for name in NAMES}
-# Players aggregate -----------------------------------------------------------
+###############################################################################
+# Initial Tests
+###############################################################################
 df = pd.concat([plyrs[nme].battlesHistory for nme in NAMES], axis=0)
 playerHistory = df # plyrs[NAMES[0]].battlesHistory
 playerHistory['matches'] = [1]*playerHistory.shape[0]
@@ -48,6 +51,7 @@ dates = sorted(list(set.union(*datesSet)))
 ###############################################################################
 # Streamchart
 ###############################################################################
+df = pd.concat([plyrs[nme].battlesHistory for nme in NAMES], axis=0)
 dfs = []
 for nme in NAMES:
     dfTemp = plyrs[nme].battlesHistory
@@ -65,5 +69,32 @@ dfGrp = dfTeam[catsDF].groupby(['datetime', 'player']).sum()
 )
 dfPadded = dfGrp.unstack(fill_value=0).stack()
 # Generate series -------------------------------------------------------------
-date = dates[1]
-dfPadded.loc[date]
+dfByHour = dfPadded.unstack().resample('H').sum().stack()
+dfByPlayer = dfByHour.reorder_levels(["player", "datetime"])
+# Final array -----------------------------------------------------------------
+entryNum = dfByPlayer.loc[names[0]].shape[0]
+stream = np.zeros((len(names), entryNum))
+for (ix, name) in enumerate(names):
+    stream[ix]  = np.array(dfByPlayer.loc[name]['kill'])
+# Plot ------------------------------------------------------------------------
+streamFiltered = stream[:,np.any(stream > 0, axis=0)]
+x = range(streamFiltered.shape[1])
+
+grid = np.linspace(0, streamFiltered.shape[1], num=500)
+y_smoothed = [gaussian_smooth(x, y_, grid, 1) for y_ in streamFiltered]
+
+fig, ax = plt.subplots(figsize=(10, 7))
+ax.stackplot(grid, y_smoothed, baseline="sym")
+ax.legend(names)
+
+
+fig, ax = plt.subplots(figsize=(10, 7))
+ax.stackplot(x, streamFiltered, baseline="sym")
+ax.legend(names)
+
+
+
+def gaussian_smooth(x, y, grid, sd):
+    weights = np.transpose([stats.norm.pdf(grid, m, sd) for m in x])
+    weights = weights / weights.sum(0)
+    return (weights * y).sum(1)
