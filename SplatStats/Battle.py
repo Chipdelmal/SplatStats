@@ -175,7 +175,7 @@ class Battle:
             cats (list, optional): Categories over which the data will be totaled. Defaults to ['kill', 'death', 'assist', 'special', 'paint'].
 
         Returns:
-            list: Enemy team totals over the categories.
+            list of dataframes: Enemy team totals over the categories.
         """         
         teams = self.enemyTeams
         tTotals = [stat.getTeamTotals(team, cats=cats) for team in teams]
@@ -183,40 +183,61 @@ class Battle:
     
     def getAlliedRanks(
             self,
-            cats=['kill', 'death', 'assist', 'special', 'paint']
+            cats=['kill', 'death', 'assist', 'special', 'paint'],
+            inverted=['death']
         ):
+        """Returns a dataframe with the rankings of the allied players across categories (higher numbers being better unless in inverted list).
+
+
+        Args:
+            cats (list, optional): Categories over which the data will be totaled. Defaults to ['kill', 'death', 'assist', 'special', 'paint'].
+            inverted (list, optional): In the original rankings more is considered better, this list should contain the categories that should be inverted. Defaults to ['death'].
+
+
+        Returns:
+            dataframe: Allied team ranking dataframe over categories.
+        """        
         team = self.alliedTeam
-        (names, ranks) = (
-            team[['player name', 'player name id']],
-            team[cats].rank(ascending=False).astype(int)
-        )
-        dfRank = pd.concat([names, ranks], axis=1)
-        return dfRank
+        ranks = stat.getTeamRanks(team, cats=cats, inverted=inverted)
+        return ranks
     
     def getEnemiesRanks(
             self,
-            cats=['kill', 'death', 'assist', 'special', 'paint']
+            cats=['kill', 'death', 'assist', 'special', 'paint'],
+            inverted=['death']
         ):
+        """Returns a list of dataframes with the rankings of the enemies players across categories (higher numbers being better unless in inverted list).
+
+        Args:
+            cats (list, optional): Categories over which the data will be totaled. Defaults to ['kill', 'death', 'assist', 'special', 'paint'].
+            inverted (list, optional): In the original rankings more is considered better, this list should contain the categories that should be inverted. Defaults to ['death'].
+
+        Returns:
+            list of dataframes: Enemy teams ranking dataframe over categories.
+        """        
         dfRanks = []
         for team in self.enemyTeams:
-            (names, ranks) = (
-                team[['player name', 'player name id']],
-                team[cats].rank(ascending=False).astype(int)
-            )
-            dfRank = pd.concat([names, ranks], axis=1)
+            dfRank = stat.getTeamRanks(team, cats=cats, inverted=inverted)
             dfRanks.append(dfRank)
         return dfRanks
 
     def getFullRanks(
             self,
-            cats=['kill', 'death', 'assist', 'special', 'paint']
+            cats=['kill', 'death', 'assist', 'special', 'paint'],
+            inverted=['death']
         ):
+        """Returns a dataframe with the rankings of the full roster of players across categories (higher numbers being better unless in inverted list).
+
+
+        Args:
+            cats (list, optional): Categories over which the data will be totaled. Defaults to ['kill', 'death', 'assist', 'special', 'paint'].
+            inverted (list, optional): In the original rankings more is considered better, this list should contain the categories that should be inverted. Defaults to ['death'].
+
+        Returns:
+            dataframe: Full roster ranking dataframe over categories.
+        """        
         df = self.getFullRoster()
-        (names, ranks) = (
-            df[['player name', 'player name id']],
-            df[cats].rank(ascending=False).astype(int)
-        )
-        dfRank = pd.concat([names, ranks], axis=1)
+        dfRank = stat.getTeamRanks(df, cats=cats, inverted=inverted)
         return dfRank
         
     

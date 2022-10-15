@@ -198,3 +198,32 @@ def getTeamTotals(
     dfSum = teamDF[cats].sum()
     dfSumDict = dict(dfSum)
     return dfSumDict
+
+
+def getTeamRanks(
+        teamDF,
+        cats=['kill', 'death', 'assist', 'special', 'paint'],
+        inverted=['death']
+    ):
+    """Returns a dataframe with the rankings of the players in the dataframe across categories (higher numbers being better unless in inverted list).
+
+    Args:
+        teamDF (dataframe): Team battle dataframe.
+        cats (list, optional): Categories over which the data will be totaled. Defaults to ['kill', 'death', 'assist', 'special', 'paint'].
+        inverted (list, optional): In the original rankings more is considered better, this list should contain the categories that should be inverted. Defaults to ['death'].
+
+    Returns:
+        dataframe: Team ranking dataframe over categories.
+    """    
+    team = teamDF
+    # Get names and ranks of the players --------------------------------------
+    (names, ranks) = (
+        team[['player name', 'player name id']],
+        team[cats].rank(ascending=False).astype(int)
+    )
+    dfRank = pd.concat([names, ranks], axis=1)
+    # Invert the rankings of needed columns -----------------------------------
+    pNums = dfRank.shape[0]+1
+    for cat in inverted:
+        dfRank[cat] = pNums-dfRank[cat]
+    return dfRank

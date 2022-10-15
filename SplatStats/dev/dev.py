@@ -39,6 +39,9 @@ chip = splat.Player('čħîþ ウナギ', bPaths, id=7293)
 
 
 chip.getAlliesAndEnemiesCounts()
+bDetail = chip.battleRecords[0]
+splat.getTeamRanks(bDetail.alliedTeam)
+
 
 chip.battleRecords[1].datetime
 chip.battleRecords[1].matchMode
@@ -50,8 +53,7 @@ bPaths
 
 
 bDetails = chip.battleRecords
-bDetail = chip.battleRecords[0]
-bDetail
+
 
 (allies, enemies) = ([], [])
 for bDetail in bDetails:
@@ -62,7 +64,7 @@ for bDetail in bDetails:
 (alliesC, enemiesC) = [Counter(i) for i in (allies, enemies)]
 
 
-bDetail.getAlliesAndEnemies()
+bDetail.getFullRoster()
 
 
 ###############################################################################
