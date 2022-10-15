@@ -5,6 +5,7 @@ import json
 import pandas as pd
 from os import path
 import SplatStats as splat
+import seaborn as sns
 import matplotlib.pyplot as plt
 from collections import Counter
 
@@ -70,9 +71,18 @@ bDetail.getAlliesAndEnemies()
 df = chip.getPlayerFullRanking()
 dct = Counter(df['kill'])
 sorted(dct.items(), key=lambda x: x[1])[::-1]
+cats = ['kill', 'death', 'assist', 'special', 'paint']
+pd.DataFrame.from_dict({
+    i: df[i].value_counts() for i in cats
+})
+
+
+dfA = df.drop('datetime', axis=1)
+sns.countplot(dfA.melt(value_vars=dfA.columns), x='value', hue='variable')
 
 (fig, ax) = plt.subplots()
 df['kill'].value_counts().plot(ax=ax, kind='bar')
+df['death'].value_counts().plot(ax=ax, kind='bar')
 ###############################################################################
 # Get filepaths
 ###############################################################################

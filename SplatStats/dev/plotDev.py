@@ -57,11 +57,11 @@ plt.plot([i+kernel_size/2 for i in range(len(data_convolved))], data_convolved)
 ###############################################################################
 stagesStatsMatch = splat.calcStagesStatsByType(playerHistory)
 stagesDF = splat.calcStagesStats(playerHistory)
-stagesDF = stagesStatsMatch['Turf War']
+stagesDF = stagesStatsMatch['Splat Zones']
 
 (fig, ax) = plt.subplots(figsize=(5, 5))
 (fig, ax) = splat.plotTreemapByStages(
-    (fig, ax), stagesDF, metric='kill ratio', 
+    (fig, ax), stagesDF, metric='win ratio', 
     fmt='{:.2f}', pad=0.1, alpha=.5
 )
 fig.savefig(
@@ -71,13 +71,10 @@ fig.savefig(
 ###############################################################################
 # Dev
 ###############################################################################
-df = splat.calcStatsByKey(playerHistory, 'main weapon')
+(dfKey, metric) = ('sub weapon', 'kills avg')
+df = splat.calcStatsByKey(playerHistory, dfKey)
 (fig, ax) = plt.subplots(figsize=(5, 5))
-splat.plotTreemapByKey(
-    (fig, ax), df, 
-    'main weapon', metric='kill ratio',
-    alpha=0.6
-)
+splat.plotTreemapByKey((fig, ax), df, dfKey, metric=metric, alpha=0.6)
 ###############################################################################
 #  Waffle Dev
 ###############################################################################
