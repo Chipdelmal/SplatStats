@@ -76,7 +76,7 @@ dfByPlayer = dfByHour.reorder_levels(["player", "datetime"])
 entryNum = dfByPlayer.loc[names[0]].shape[0]
 stream = np.zeros((len(names), entryNum))
 for (ix, name) in enumerate(names):
-    stream[ix]  = np.array(dfByPlayer.loc[name]['assist'])
+    stream[ix]  = np.array(dfByPlayer.loc[name]['kill'])
 # Plot ------------------------------------------------------------------------
 streamFiltered = stream[:,np.any(stream > 0, axis=0)]
 cSum = np.sum(streamFiltered, axis=0)
@@ -84,26 +84,26 @@ streamNormalized = np.array([r/cSum for r in streamFiltered])
 
 x = range(streamFiltered.shape[1])
 
-grid = np.linspace(0, streamFiltered.shape[1], num=1000)
-y_smoothed = [gaussian_smooth(x, y_, grid, 1.5) for y_ in streamNormalized]
+grid = np.linspace(0, streamFiltered.shape[1], num=500)
+y_smoothed = [gaussian_smooth(x, y_, grid, 1) for y_ in streamFiltered]
 
 
 COLORS = [
     "#0D40DE", "#EC0B68", "#6ABF0B", "#9090BA",
-    "#A577FF", "#A6BDDB", "#E4E567", "#E6E6E6"
+    "#A577FF", "#A6BDDB", "#E4E567", "#CFD1C7"
 ]
 
 fig, ax = plt.subplots(figsize=(10, 7))
 ax.stackplot(grid, y_smoothed, baseline="zero", colors=COLORS)
 ax.set_xlim(0, max(x))
-ax.set_ylim(0, .0865)
+# ax.set_ylim(0, 5)
 # ax.legend(names)
 
 
 fig, ax = plt.subplots(figsize=(10, 7))
-ax.stackplot(x, streamNormalized, baseline="zero")
+ax.stackplot(x, streamFiltered, baseline="zero", colors=COLORS)
 ax.set_xlim(0, max(x))
-ax.set_ylim(0, 1)
+# ax.set_ylim(0, 1)
 
 
 def gaussian_smooth(x, y, grid, sd):

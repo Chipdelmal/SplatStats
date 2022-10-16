@@ -186,6 +186,14 @@ def isNotebook():
 
 
 def alphaToHex(alphaFloat):
+    """Transform an alpha value (0 to 1) to hex (00 to FF).
+
+    Args:
+        alphaFloat (float): Alpha value in float form.
+
+    Returns:
+        str: Two character hex value to append to the end of a hex color string.
+    """    
     xInter = np.interp(alphaFloat, (0, 1), (0, 255))
     xHex = hex(int(xInter))
     return xHex[2:]
