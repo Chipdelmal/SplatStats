@@ -7,6 +7,7 @@ from sys import argv
 from os import path
 import SplatStats as splat
 from scipy import stats
+from sklearn.preprocessing import normalize
 import matplotlib.pyplot as plt
 from SplatStats.Player import Player
 from SplatStats.constants import MKR_STATS
@@ -75,23 +76,34 @@ dfByPlayer = dfByHour.reorder_levels(["player", "datetime"])
 entryNum = dfByPlayer.loc[names[0]].shape[0]
 stream = np.zeros((len(names), entryNum))
 for (ix, name) in enumerate(names):
-    stream[ix]  = np.array(dfByPlayer.loc[name]['kill'])
+    stream[ix]  = np.array(dfByPlayer.loc[name]['assist'])
 # Plot ------------------------------------------------------------------------
 streamFiltered = stream[:,np.any(stream > 0, axis=0)]
+cSum = np.sum(streamFiltered, axis=0)
+streamNormalized = np.array([r/cSum for r in streamFiltered])
+
 x = range(streamFiltered.shape[1])
 
-grid = np.linspace(0, streamFiltered.shape[1], num=500)
-y_smoothed = [gaussian_smooth(x, y_, grid, 1) for y_ in streamFiltered]
+grid = np.linspace(0, streamFiltered.shape[1], num=1000)
+y_smoothed = [gaussian_smooth(x, y_, grid, 1.5) for y_ in streamNormalized]
+
+
+COLORS = [
+    "#0D40DE", "#EC0B68", "#6ABF0B", "#9090BA",
+    "#A577FF", "#A6BDDB", "#E4E567", "#E6E6E6"
+]
 
 fig, ax = plt.subplots(figsize=(10, 7))
-ax.stackplot(grid, y_smoothed, baseline="sym")
-ax.legend(names)
+ax.stackplot(grid, y_smoothed, baseline="zero", colors=COLORS)
+ax.set_xlim(0, max(x))
+ax.set_ylim(0, .0865)
+# ax.legend(names)
 
 
 fig, ax = plt.subplots(figsize=(10, 7))
-ax.stackplot(x, streamFiltered, baseline="sym")
-ax.legend(names)
-
+ax.stackplot(x, streamNormalized, baseline="zero")
+ax.set_xlim(0, max(x))
+ax.set_ylim(0, 1)
 
 
 def gaussian_smooth(x, y, grid, sd):
