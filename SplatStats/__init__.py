@@ -13,3 +13,4 @@ from .plotsAux import *
 # from .History import *
 from .Battle import *
 from .Player import *
+from .Team import *

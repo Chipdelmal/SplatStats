@@ -13,6 +13,12 @@ from SplatStats.Player import Player
 from SplatStats.constants import MKR_STATS
 
 
+def gaussian_smooth(x, y, grid, sd):
+    weights = np.transpose([stats.norm.pdf(grid, m, sd) for m in x])
+    weights = weights / weights.sum(0)
+    return (weights * y).sum(1)
+
+
 if splat.isNotebook():
     (iPath, oPath) = (
         path.expanduser('~/Documents/GitHub/s3s/'),
@@ -24,14 +30,14 @@ else:
 # Create Player Objects
 ##############################################################################
 historyFilepaths = splat.getDataFilepaths(iPath, filePat='results.json')
-bPaths = splat.dumpBattlesFromJSONS(historyFilepaths, oPath)
+# bPaths = splat.dumpBattlesFromJSONS(historyFilepaths, oPath)
 bPaths = splat.getBattleFilepaths(oPath)
 ###############################################################################
 # Create Player Objects
 ###############################################################################
 NAMES = (
     'čħîþ ウナギ', 'Yami ウナギ', 'Riché ウナギ', 'Oswal　ウナギ', 
-    'April ウナギ', 'Rei ウナギ', 'DantoNnoob', 'Murazee'
+    'April ウナギ', 'Rei ウナギ', 'DantoNnoob'# , 'Murazee'
 )
 tz = 'America/Los_Angeles'
 plyrs = {name: splat.Player(name, bPaths, timezone=tz) for name in NAMES}
@@ -106,7 +112,3 @@ ax.set_xlim(0, max(x))
 # ax.set_ylim(0, 1)
 
 
-def gaussian_smooth(x, y, grid, sd):
-    weights = np.transpose([stats.norm.pdf(grid, m, sd) for m in x])
-    weights = weights / weights.sum(0)
-    return (weights * y).sum(1)
