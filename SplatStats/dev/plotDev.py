@@ -74,7 +74,7 @@ fig.savefig(
 (dfKey, metric) = ('sub weapon', 'kills avg')
 df = splat.calcStatsByKey(playerHistory, dfKey)
 (fig, ax) = plt.subplots(figsize=(5, 5))
-splat.plotTreemapByKey((fig, ax), df, dfKey, metric=metric, alpha=0.6)
+splat.plotTreemapByKey((fig, ax), df, dfKey, metric=metric, alpha=0.75)
 ###############################################################################
 #  Waffle Dev
 ###############################################################################
