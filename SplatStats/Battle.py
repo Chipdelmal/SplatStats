@@ -89,7 +89,7 @@ class Battle:
         # Add awards info -----------------------------------------------------
         if (rowMatch.shape[0]>0) and int(rowMatch['self']):
             awards = aux.awardsToStrings(self.awards)
-            for i in range(len(awards)):
+            for i in range(len(awards)): 
                 rowMatch[f'award_{i}'] = awards[i]
         # Return filtered row -------------------------------------------------
         return rowMatch

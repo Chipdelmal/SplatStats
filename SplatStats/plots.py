@@ -15,7 +15,7 @@ matplotlib.rcParams['font.family'] = ['monospace']
 def plotKillsAndDeathsHistogram(
         figAx, playerHistory, killRange, 
         binSize=1, assistsAdjustment=True, normalized=True,
-        yRange=(-.25, .25), aspect=.25, alpha=.35, edgecolor='#000000',
+        yRange=(-.25, .25), aspect=.25, alpha=.75, edgecolor='#000000',
         kColor=cst.CLR_STATS['kill'], dColor=cst.CLR_STATS['death'],
         **kwargs
     ): 
@@ -307,7 +307,7 @@ def generateMatchHistoryLegend(figAx):
 def plotTreemapByStages(
         figAx, stagesDF, 
         metric='win ratio', fmt='{:.2f}', title=True,
-        pad=0.1, lw=2, ec='#00000055', alpha=.5
+        pad=0.1, lw=2, ec='#00000055', alpha=.65
     ):
     """_summary_
 
@@ -336,7 +336,7 @@ def plotTreemapByStages(
 def plotTreemapByKey(
         figAx, keyedDF, key,
         metric='win ratio', fmt='{:.2f}', title=True,
-        pad=0.1, lw=2, ec='#00000055', alpha=.5,
+        pad=0.1, lw=2, ec='#00000055', alpha=.65,
         colors=cst.CLR_CLS_LONG
     ):
     """_summary_

@@ -5,9 +5,6 @@ from sys import argv
 from os import path
 import SplatStats as splat
 import matplotlib.pyplot as plt
-import matplotlib.pyplot as plt
-from SplatStats.constants import MKR_STATS
-
 
 if splat.isNotebook():
     (iPath, oPath) = (
@@ -20,7 +17,7 @@ LEN_LIMIT = 400
 ###############################################################################
 # Create Player Objects
 ##############################################################################
-historyFilepaths = splat.getDataFilepaths(iPath, filePat='results.json')
+historyFilepaths = splat.getDataFilepaths(iPath)
 bPaths = splat.dumpBattlesFromJSONS(historyFilepaths, oPath)
 bPaths = splat.getBattleFilepaths(oPath)
 ###############################################################################
@@ -93,7 +90,8 @@ for name in NAMES:
         fontColor='#00000066',
         innerGuidesColor="#00000033",
         outerGuidesColor="#00000011",
-        frameColor="#000000AA"
+        frameColor="#000000AA",
+        innerTextFmt='{:.2f}'
     )
     ax.set_facecolor("w")
     fig.savefig(
