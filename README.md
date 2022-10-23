@@ -53,6 +53,7 @@ Similar to the [matches history panel](https://chipdelmal.github.io/SplatStats/b
 
 I'll be writing a [blogpost on my website](https://chipdelmal.github.io/dataViz/2022-09-26-SplatStats.html) with more information about the development, planned features, and some analyses on my own Splatoon matches data!
 
-<img src="https://chipdelmal.github.io/media/splatstats/splatstats.png" height="250px" align="middle">
 
 [Héctor M. Sánchez C.](http://chipdelmal.github.io)
+
+<img src="https://chipdelmal.github.io/media/splatstats/splatstats.png" width="100%" align="middle">
