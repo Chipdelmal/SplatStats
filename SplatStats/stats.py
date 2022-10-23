@@ -227,3 +227,17 @@ def getTeamRanks(
     for cat in inverted:
         dfRank[cat] = pNums-dfRank[cat]
     return dfRank
+
+
+def aggregateStatsByPeriod(playerHistory, period='h'):
+    # Add the number of matches and wins
+    playerHistory['matches'] = [1]*playerHistory.shape[0]
+    playerHistory['win bool'] = np.asarray(
+        [i=='W' for i in playerHistory['win']]
+    )
+    # Re-shape to new period
+    periodHistory = playerHistory.groupby(
+        playerHistory['datetime'].dt.floor(period)
+    ).sum()
+    return periodHistory
+    
