@@ -473,7 +473,7 @@ def plotIris(
         outerGuides[0]+innerOffset, outerGuides[1]+innerOffset, outerGuides[2]
     ))
     ax.set_yticks(yTicks)
-    ax.yaxis.grid(True, color=frameColor, ls='-', lw=0.125, zorder=-10)
+    ax.yaxis.grid(True, color=frameColor, ls='-', lw=0.2, zorder=-10)
     ax.spines["start"].set_color("none")
     ax.spines["polar"].set_color(outerGuidesColor)
     # Return figure -----------------------------------------------------------
