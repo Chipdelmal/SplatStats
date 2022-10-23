@@ -56,4 +56,4 @@ I'll be writing a [blogpost on my website](https://chipdelmal.github.io/dataViz/
 
 [Héctor M. Sánchez C.](http://chipdelmal.github.io)
 
-<img src="https://chipdelmal.github.io/media/splatstats/splatstats.png" width="60%" align="middle">
+<img src="https://github.com/Chipdelmal/SplatStats/blob/main/docs/img/chip.jpg?raw=true" height="250px" align="middle">
