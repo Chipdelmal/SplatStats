@@ -99,14 +99,14 @@ COLORS = [
     "#A577FF", "#A6BDDB", "#E4E567", "#CFD1C7"
 ]
 
-fig, ax = plt.subplots(figsize=(10, 7))
+fig, ax = plt.subplots(figsize=(10, 2))
 ax.stackplot(grid, y_smoothed, baseline="zero", colors=COLORS)
 ax.set_xlim(0, max(x))
 # ax.set_ylim(0, 5)
 # ax.legend(names)
 
 
-fig, ax = plt.subplots(figsize=(10, 7))
+fig, ax = plt.subplots(figsize=(10, 2))
 ax.stackplot(x, streamFiltered, baseline="zero", colors=COLORS)
 ax.set_xlim(0, max(x))
 # ax.set_ylim(0, 1)

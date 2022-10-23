@@ -44,14 +44,20 @@ playerHistory['win bool'] = np.asarray([i=='W' for i in playerHistory['win']])
 dailyHistory = playerHistory.groupby(
     playerHistory['datetime'].dt.floor('h')
 ).sum()
-winsArray = np.asarray(dailyHistory['kill']/dailyHistory['matches'])
+winsArray = np.asarray((dailyHistory['kill']+.5*dailyHistory['assist'])/dailyHistory['matches'])
 
 kernel_size = 10
 kernel = np.ones(kernel_size)/kernel_size
 data_convolved = np.convolve(winsArray, kernel, mode='valid')
 
-plt.plot(winsArray)
-plt.plot([i+kernel_size/2 for i in range(len(data_convolved))], data_convolved)
+(fig, ax) = plt.subplots(figsize=(10, 4))
+ax.plot(winsArray, lw=5, color=splat.LUMIGREEN_V_DFUCHSIA_S1[-1], alpha=.25)
+ax.plot(
+    [i+kernel_size/2 for i in range(len(data_convolved))], data_convolved,
+    lw=2.5, color=splat.PINK_V_GREEN_S1[0], alpha=.85
+)
+ax.autoscale(enable=True, axis='x', tight=True)
+ax.set_ylim(0, 25)
 ###############################################################################
 # Stages Treemap
 ###############################################################################
