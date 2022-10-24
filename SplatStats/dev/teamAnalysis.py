@@ -37,7 +37,7 @@ bPaths = splat.getBattleFilepaths(oPath)
 ###############################################################################
 NAMES = (
     'čħîþ ウナギ', 'Yami ウナギ', 'Riché ウナギ', 'Oswal　ウナギ', 
-    'April ウナギ', 'Rei ウナギ', 'DantoNnoob'# , 'Murazee'
+    'April ウナギ', 'Rei ウナギ', 'DantoNnoob', 'Murazee'
 )
 tz = 'America/Los_Angeles'
 plyrs = {name: splat.Player(name, bPaths, timezone=tz) for name in NAMES}
@@ -103,8 +103,10 @@ fig, ax = plt.subplots(figsize=(10, 2))
 ax.stackplot(grid, y_smoothed, baseline="zero", colors=COLORS)
 ax.set_xlim(0, max(x))
 # ax.set_ylim(0, 5)
-# ax.legend(names)
-
+ax.legend(
+    names, loc='upper left', frameon=False,
+    bbox_to_anchor=(1, 1), ncol=2
+)
 
 fig, ax = plt.subplots(figsize=(10, 2))
 ax.stackplot(x, streamFiltered, baseline="zero", colors=COLORS)

@@ -3,6 +3,7 @@
 
 import numpy as np
 import pandas as pd
+import scipy.stats as sts
 
 
 def calcBattleHistoryStats(bHist):
@@ -241,3 +242,8 @@ def aggregateStatsByPeriod(playerHistory, period='h'):
     ).sum()
     return periodHistory
     
+    
+def gaussianSmooth(x, y, grid, sd):
+    weights = np.transpose([sts.norm.pdf(grid, m, sd) for m in x])
+    weights = weights / weights.sum(0)
+    return (weights*y).sum(1)

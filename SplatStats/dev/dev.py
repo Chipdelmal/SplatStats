@@ -144,3 +144,4 @@ sum(validMatches['kill'])/sum(validMatches['death'])
 
 playerHistory.to_csv(path.join(oPath, 'chipHistory.csv'))
 battleFiles = history.battleFilepaths
+

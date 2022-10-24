@@ -63,14 +63,7 @@ playerHistory = plyr.battlesHistory
 ###############################################################################
 # Windowed average
 ###############################################################################
-# playerHistory['matches'] = [1]*playerHistory.shape[0]
-# playerHistory['win bool'] = np.asarray([i=='W' for i in playerHistory['win']])
-
-# dailyHistory = playerHistory.groupby(
-#     playerHistory['datetime'].dt.floor('h')
-# ).sum()
-
-dHist =splat.aggregateStatsByPeriod(playerHistory)
+dHist = splat.aggregateStatsByPeriod(playerHistory, period='1H')
 winsArray = np.asarray((dHist['kill']+.5*dHist['assist'])/dHist['matches'])
 
 kernel_size = 10
