@@ -32,3 +32,17 @@ class Team:
             dfs.append(dfTemp)
         dfTeam = pd.concat(dfs, axis=0)
         return dfTeam
+    ###########################################################################
+    # Reshape team battle dataframe by period
+    ###########################################################################
+    def reshapeTeamHistoryByPeriod(
+            self, 
+            cats=['kill', 'death', 'assist', 'special', 'paint', 'matches'],
+            period='H'
+        ):
+        catsDF = ['player', 'datetime'] + cats
+        dfGrp = self.battleHistory[catsDF].groupby(['datetime', 'player']).sum()
+        dfPadded = dfGrp.unstack(fill_value=0).stack()
+        # Generate series
+        dfByHour = dfPadded.unstack().resample(period).sum().stack()
+        return dfByHour

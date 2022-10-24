@@ -33,14 +33,4 @@ NAMES = (
 )
 TZ = 'America/Los_Angeles'
 team = splat.Team(NAMES, bPaths, TZ)
-
-players = team.players
-
-
-dfs = []
-for nme in NAMES:
-    dfTemp = players[nme].battlesHistory
-    dfTemp['player'] = [nme]*(dfTemp.shape[0])
-    dfTemp['matches'] = [1]*(dfTemp.shape[0])
-    dfs.append(dfTemp)
-dfTeam = pd.concat(dfs, axis=0)
+team.reshapeTeamHistoryByPeriod(period='2H')
