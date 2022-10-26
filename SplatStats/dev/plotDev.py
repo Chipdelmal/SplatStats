@@ -12,31 +12,8 @@ import matplotlib.pyplot as plt
 from matplotlib.colors import Normalize
 from matplotlib.collections import PatchCollection
 from matplotlib.patches import Rectangle
-
-from SplatStats.plots import plotKillsAndDeathsHistogram
 # plt.rcParams["font.family"]="Roboto Mono"
 
-def nested_circles(data, labels=None, c=None, ax=None, 
-                   cmap=None, norm=None, textkw={}):
-    ax = ax or plt.gca()
-    data = np.array(data)
-    R = np.sqrt(data/data.max())
-    p = [plt.Circle((0,r), radius=r) for r in R[::-1]]
-    arr = data[::-1] if c is None else np.array(c[::-1])
-    col = PatchCollection(p, cmap=cmap, norm=norm, array=arr)
-
-    ax.add_collection(col)
-    ax.axis("off")
-    ax.set_aspect("equal")
-    ax.autoscale()
-
-    if labels is not None:
-        kw = dict(color="white", va="center", ha="center")
-        kw.update(textkw)
-        ax.text(0, R[0], labels[0], **kw)
-        for i in range(1, len(R)):
-            ax.text(0, R[i]+R[i-1], labels[i], **kw)
-    return col
 
 if splat.isNotebook():
     (iPath, oPath) = (
@@ -63,21 +40,19 @@ playerHistory = plyr.battlesHistory
 ###############################################################################
 # Windowed average
 ###############################################################################
+kSize = 10
 dHist = splat.aggregateStatsByPeriod(playerHistory, period='1H')
-winsArray = np.asarray((dHist['kill']+.5*dHist['assist'])/dHist['matches'])
-
-kernel_size = 10
-kernel = np.ones(kernel_size)/kernel_size
-data_convolved = np.convolve(winsArray, kernel, mode='valid')
+winsArray = np.asarray((dHist['kassist'])/dHist['matches'])
+windowAvg = splat.windowAverage(winsArray, kernelSize=kSize, mode='valid')
 
 (fig, ax) = plt.subplots(figsize=(10, 4))
 ax.plot(winsArray, lw=5, color=splat.LUMIGREEN_V_DFUCHSIA_S1[-1], alpha=.15)
 ax.plot(
-    [i+kernel_size/2 for i in range(len(data_convolved))], data_convolved,
+    [i+kSize/2 for i in range(len(windowAvg))], windowAvg,
     lw=4, color=splat.PINK_V_GREEN_S1[0], alpha=.85
 )
 ax.autoscale(enable=True, axis='x', tight=True)
-ax.set_ylim(0, 25)
+ax.set_ylim(0, max(winsArray))
 ###############################################################################
 # Circle Areas
 ###############################################################################

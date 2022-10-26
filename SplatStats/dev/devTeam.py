@@ -33,4 +33,5 @@ NAMES = (
 )
 TZ = 'America/Los_Angeles'
 team = splat.Team(NAMES, bPaths, TZ)
-team.reshapeTeamHistoryByPeriod(period='2H')
+tHistByTime = team.reshapeTeamHistoryByPeriod(period='1H')
+dfByPlayer = tHistByTime.reorder_levels(["player", "datetime"])

@@ -178,7 +178,7 @@ def parseAwards(awardsList):
 
 def parsePlayerHistoryFromBattles(
         battleRecords, name, category='player name', 
-        validOnly=True, timezone=None
+        validOnly=True, timezone=None, kassistWeight=0.5
     ):
     """Gets the history dataframe for a player, given a list of battle records and the name of the player.
 
@@ -210,6 +210,8 @@ def parsePlayerHistoryFromBattles(
             playerDFs.append(rowE)
     playerDF = pd.concat(playerDFs, axis=0)
     playerDF.astype(cst.BATTLE_DTYPES)
+    # Add kassist column ------------------------------------------------------
+    playerDF['kassist'] = playerDF['kill'] + kassistWeight*playerDF['assist']
     # Re-arrange dataframe ----------------------------------------------------
     playerDF.sort_values(by='datetime', inplace=True)
     playerDF.reset_index(drop=True, inplace=True)

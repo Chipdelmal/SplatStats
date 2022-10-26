@@ -6,7 +6,7 @@ import pandas as pd
 import scipy.stats as sts
 
 
-def calcBattleHistoryStats(bHist):
+def calcBattleHistoryStats(bHist, kassistWeight=0.5):
     """Calculates the basic player stats for a battle history dataframe.
 
     Args:
@@ -25,7 +25,7 @@ def calcBattleHistoryStats(bHist):
     (kTot, dTot, aTot, sTot, pTot) = [
         sum(i) for i in (kCnt, dCnt, aCnt, sCnt, pCnt)
     ]
-    kaTot = kTot + (0.5*aTot)
+    kaTot = kTot + (kassistWeight*aTot)
     (kAvg, dAvg, aAvg, sAvg, pAvg) = [
         i/matchNum for i in (kTot, dTot, aTot, sTot, pTot)
     ]
@@ -41,7 +41,9 @@ def calcBattleHistoryStats(bHist):
     (kpm, dpm, apm, spm, ppm) = [
         np.mean(bHist[i]/matchDuration) for i in cats
     ]
-    kallpm = np.mean((bHist['kill']+0.5*bHist['assist'])/matchDuration)
+    kallpm = np.mean(
+        (bHist['kill']+kassistWeight*bHist['assist'])/matchDuration
+    )
     # Stats dictionary ----------------------------------------------------
     pStats = {
         # W/L stats
@@ -231,6 +233,15 @@ def getTeamRanks(
 
 
 def aggregateStatsByPeriod(playerHistory, period='h'):
+    """Sums the stats over a given period of time.
+
+    Args:
+        playerHistory (dataframe): Player history dataframe.
+        period (str, optional): Time period over which the stats will be aggregated. Defaults to 'h'.
+
+    Returns:
+        dataframe: Dataframe of states where the rows are the beginning of the periods.
+    """    
     # Add the number of matches and wins
     playerHistory['matches'] = [1]*playerHistory.shape[0]
     playerHistory['win bool'] = np.asarray(
@@ -240,10 +251,40 @@ def aggregateStatsByPeriod(playerHistory, period='h'):
     periodHistory = playerHistory.groupby(
         playerHistory['datetime'].dt.floor(period)
     ).sum()
+    periodHistory.rename(columns={'win bool': 'win'}, inplace=True)
     return periodHistory
     
     
-def gaussianSmooth(x, y, grid, sd):
+def gaussianSmooth(y, gridSize=500, sd=1):
+    """Performs a gaussian smoothing process upon the provided data.
+
+    Args:
+        y (np array): Values of the signal to be smoothed.
+        gridSize (int, optional): Number of samples in the x range. Defaults to 500.
+        sd (int, optional): Standard deviation for the smoothing process. Defaults to 1.
+
+    Returns:
+        list of np arrays: Smoothed values over the provided X range.
+    """
+    x = range(y.shape[0])
+    grid = np.linspace(min(x), max(x), num=gridSize)
     weights = np.transpose([sts.norm.pdf(grid, m, sd) for m in x])
     weights = weights / weights.sum(0)
-    return (weights*y).sum(1)
+    smoothed = (weights*y).sum(1)
+    return (grid, smoothed)
+
+
+def windowAverage(data, kernelSize=5, mode='valid'):
+    """Calculates the window average on the data array.
+
+    Args:
+        data (np array): Data on which the window average will be calculated.
+        kernelSize (int, optional): . Defaults to 5.
+        mode (str, optional): Size of the output array as accepted by np.convolve {'full', 'valid', 'same'}. Defaults to 'valid'.
+
+    Returns:
+        np array: Window-averaged data array.
+    """    
+    kernel = np.ones(kernelSize)/kernelSize
+    dataConvolved = np.convolve(data, kernel, mode=mode)
+    return dataConvolved

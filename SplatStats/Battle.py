@@ -240,7 +240,6 @@ class Battle:
         dfRank = stat.getTeamRanks(df, cats=cats, inverted=inverted)
         return dfRank
         
-    
     ###########################################################################
     # Export Methods
     ###########################################################################
