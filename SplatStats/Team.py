@@ -14,10 +14,16 @@ class Team:
         self.bPaths = bPaths
         self.timezone = timezone
         # Generate player objects ---------------------------------------------
-        self.players = {
-            name: Player(name, bPaths, timezone=timezone)
-            for name in names
-        }
+        if (type(bPaths[0]) is type('dummy')):
+            self.players = {
+                name: Player(name, bPaths, timezone=timezone)
+                for name in names
+            }
+        else:
+            self.players = {
+                name: Player(name, bPth, timezone=timezone)
+                for (bPth, name) in zip(bPaths, names)
+            }
         # Assemble battle team dataframe --------------------------------------
         self.battleHistory = self.assembleTeamHistoryFromBattles()
     ###########################################################################
