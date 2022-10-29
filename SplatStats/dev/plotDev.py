@@ -38,6 +38,25 @@ NAMES = (
 plyr = splat.Player(NAMES[0], bPaths, timezone='America/Los_Angeles')
 playerHistory = plyr.battlesHistory
 ###############################################################################
+# Award BarChart
+###############################################################################
+awds = plyr.getAwardFrequencies()
+# Counter data, counter is your counter object
+keys = [i[0] for i in awds]
+y_pos = np.arange(len(keys), 0, -1)
+# get the counts for each key, assuming the values are numerical
+performance = [i[1] for i in awds]
+# not sure if you want this :S
+error = np.random.rand(len(keys))
+
+plt.barh(
+    y_pos, performance, 
+    align='center', alpha=0.4, color=splat.SMUSHROOM_V_SSTAR_S2[-1]
+)
+plt.yticks(y_pos, keys)
+plt.show()
+
+###############################################################################
 # Windowed average
 ###############################################################################
 kSize = 10
@@ -60,22 +79,6 @@ cts = playerHistory['stage']
 counts = Counter(cts)
 (labels, values) = (list(counts.keys()), list(counts.values()))
 nested_circles(values, labels, cmap="plasma", norm=Normalize(0, 100))
-###############################################################################
-# Stages Treemap
-###############################################################################
-stagesStatsMatch = splat.calcStagesStatsByType(playerHistory)
-stagesDF = splat.calcStagesStats(playerHistory)
-stagesDF = stagesStatsMatch['Splat Zones']
-
-(fig, ax) = plt.subplots(figsize=(5, 5))
-(fig, ax) = splat.plotTreemapByStages(
-    (fig, ax), stagesDF, metric='win ratio', 
-    fmt='{:.2f}', pad=0.1, alpha=.5
-)
-fig.savefig(
-    path.join(oPath, (plyr.name)+' Treemap.png'), 
-    dpi=300, bbox_inches='tight', facecolor=fig.get_facecolor()
-)
 ###############################################################################
 # Dev
 ###############################################################################

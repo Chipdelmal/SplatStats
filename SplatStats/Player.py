@@ -72,7 +72,6 @@ class Player:
             battleRecords.append(battle)
         return battleRecords
 
-       
     ###########################################################################
     # Get player history dataframe
     ###########################################################################
@@ -166,6 +165,27 @@ class Player:
             Counter(i).most_common() for i in (allies, enemies)
         ]
         return {'allies': alliesC, 'enemies': enemiesC}
+    
+    ###########################################################################
+    # Get award frequencies
+    ###########################################################################
+    def getAwardFrequencies(self):
+        """_summary_
+
+        Returns:
+            _type_: _description_
+        """        
+        awdsRaw = [
+            list(self.battlesHistory['award_{}'.format(i)].dropna()) 
+            for i in range(3)
+        ]
+        # Compile counter object 
+        awds = []
+        for awdRaw in awdsRaw:
+            awd = [i.split('@')[0] for i in awdRaw]
+            awds.extend(awd)
+        awdsCount = Counter(awds).most_common()
+        return awdsCount
     
     ###########################################################################
     # Get player rankings
