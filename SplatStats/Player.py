@@ -170,10 +170,10 @@ class Player:
     # Get award frequencies
     ###########################################################################
     def getAwardFrequencies(self):
-        """_summary_
+        """Returns the frequencies of the awards obtained by the player.
 
         Returns:
-            _type_: _description_
+            tuples: Sorted (award, frequency) tuples.
         """        
         awdsRaw = [
             list(self.battlesHistory['award_{}'.format(i)].dropna()) 
@@ -194,6 +194,14 @@ class Player:
             self,
             cats=['kill', 'death', 'assist', 'special', 'paint']
         ):
+        """Calculates the ranking dataframe of the player with regards of allies on given categories.
+
+        Args:
+            cats (list, optional): Categories on the battleHistory upon which the ranking will be calculated. Defaults to ['kill', 'death', 'assist', 'special', 'paint'].
+
+        Returns:
+            dataframe: Ranks dataframe by category.
+        """        
         (btlRecords, rnks) = (self.battleRecords, [])
         for btl in btlRecords:
             df = btl.getAlliedRanks(cats=cats)
@@ -212,6 +220,14 @@ class Player:
             self,
             cats=['kill', 'death', 'assist', 'special', 'paint']
         ):
+        """Calculates the ranking dataframe of the player with regards of all the players on given categories.
+
+        Args:
+            cats (list, optional): Categories on the battleHistory upon which the ranking will be calculated. Defaults to ['kill', 'death', 'assist', 'special', 'paint'].
+
+        Returns:
+            dataframe: Ranks dataframe by category.
+        """     
         (btlRecords, rnks) = (self.battleRecords, [])
         for btl in btlRecords:
             df = btl.getFullRanks(cats=cats)
