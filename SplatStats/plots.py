@@ -541,3 +541,34 @@ def plotkillDeathIris(
         frameColor=frameColor
     )
     return (fig, ax)
+
+
+def plotAwardFrequencies(
+        figAx, awardFrequencies,
+        alpha=0.4, color=cst.CLR_BAR, **kwargs
+    ):
+    """Plots player's award frequencies as a barchart.
+
+    Args:
+        figAx (tuple): (fig, ax) tuple as initialized by matplotlib (plt.subplots).
+        awardFrequencies (tuples): Award frequency tuples from getAwardFrequencies function.
+        alpha (float, optional): Alpha value for the chart. Defaults to 0.4.
+        color (hexString, optional): Color for the bars. Defaults to cst.CLR_BAR.
+
+    Returns:
+        (fix, ax): Matplotlib's fig and ax objects.
+    """    
+    (labels, values) = (
+        [i[0] for i in awardFrequencies],
+        [i[1] for i in awardFrequencies]
+    )
+    yPos = np.arange(len(labels), 0, -1)
+    # Generate figure ---------------------------------------------------------
+    (fig, ax) = figAx
+    ax.barh(
+        yPos, values, 
+        align='center', alpha=alpha, color=color,
+        **kwargs        
+    )
+    ax.set_yticks(yPos, labels)
+    return (fig, ax)

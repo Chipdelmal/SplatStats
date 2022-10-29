@@ -41,21 +41,8 @@ playerHistory = plyr.battlesHistory
 # Award BarChart
 ###############################################################################
 awds = plyr.getAwardFrequencies()
-# Counter data, counter is your counter object
-keys = [i[0] for i in awds]
-y_pos = np.arange(len(keys), 0, -1)
-# get the counts for each key, assuming the values are numerical
-performance = [i[1] for i in awds]
-# not sure if you want this :S
-error = np.random.rand(len(keys))
-
-plt.barh(
-    y_pos, performance, 
-    align='center', alpha=0.4, color=splat.SMUSHROOM_V_SSTAR_S2[-1]
-)
-plt.yticks(y_pos, keys)
-plt.show()
-
+(fig, ax) = plt.subplots(figsize=(10, 4))
+splat.plotAwardFrequencies((fig, ax), awds)
 ###############################################################################
 # Windowed average
 ###############################################################################
