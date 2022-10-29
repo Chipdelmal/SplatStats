@@ -545,7 +545,7 @@ def plotkillDeathIris(
 
 def plotAwardFrequencies(
         figAx, awardFrequencies,
-        alpha=0.4, color=cst.CLR_BAR, **kwargs
+        alpha=0.4, color=cst.CLR_BAR, textSize=8, **kwargs
     ):
     """Plots player's award frequencies as a barchart.
 
@@ -569,5 +569,5 @@ def plotAwardFrequencies(
         align='center', alpha=alpha, color=color,
         **kwargs        
     )
-    ax.set_yticks(yPos, labels)
+    ax.set_yticks(yPos, labels, fontsize=textSize)
     return (fig, ax)

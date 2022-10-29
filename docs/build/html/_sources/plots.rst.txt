@@ -92,3 +92,12 @@ Similar to the `matches history panel <./plots.html#matches-history-panel>`_, th
 
 The radial axis is log-scaled by default with the kill+assist to deaths ratio highlighted at the center of the plot. 
 The first 5 circles in the radial axis are spaced in increments of 1, while the latter ones are spaced in intervals of 10 by default.
+
+
+Awards BarChart
+____________________________________________
+
+A simple bar chart of the times awards have been given to the player.
+
+.. image:: ../img/awards.png
+  :width: 100%

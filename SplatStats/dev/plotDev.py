@@ -42,7 +42,11 @@ playerHistory = plyr.battlesHistory
 ###############################################################################
 awds = plyr.getAwardFrequencies()
 (fig, ax) = plt.subplots(figsize=(10, 4))
-splat.plotAwardFrequencies((fig, ax), awds)
+(fig, ax) = splat.plotAwardFrequencies((fig, ax), awds)
+fig.savefig(
+    path.join(oPath, (plyr.name)+' awards.png'), 
+    dpi=300, bbox_inches='tight', facecolor=fig.get_facecolor()
+)
 ###############################################################################
 # Windowed average
 ###############################################################################
