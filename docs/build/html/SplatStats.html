@@ -642,6 +642,20 @@
 </dd></dl>
 
 <dl class="py method">
+<dt class="sig sig-object py" id="SplatStats.Player.Player.getAwardFrequencies">
+<span class="sig-name descname"><span class="pre">getAwardFrequencies</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#SplatStats.Player.Player.getAwardFrequencies" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the frequencies of the awards obtained by the player.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Sorted (award, frequency) tuples.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>tuples</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
 <dt class="sig sig-object py" id="SplatStats.Player.Player.getBattleRecords">
 <span class="sig-name descname"><span class="pre">getBattleRecords</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#SplatStats.Player.Player.getBattleRecords" title="Permalink to this definition">¶</a></dt>
 <dd><p>Loads all the battle files belonging to the player (bPaths) and assigns it to battleRecords.</p>
@@ -658,12 +672,36 @@
 <dl class="py method">
 <dt class="sig sig-object py" id="SplatStats.Player.Player.getPlayerAlliedRanking">
 <span class="sig-name descname"><span class="pre">getPlayerAlliedRanking</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cats</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">['kill',</span> <span class="pre">'death',</span> <span class="pre">'assist',</span> <span class="pre">'special',</span> <span class="pre">'paint']</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#SplatStats.Player.Player.getPlayerAlliedRanking" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Calculates the ranking dataframe of the player with regards of allies on given categories.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>cats</strong> (<em>list</em><em>, </em><em>optional</em>) – Categories on the battleHistory upon which the ranking will be calculated. Defaults to [‘kill’, ‘death’, ‘assist’, ‘special’, ‘paint’].</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Ranks dataframe by category.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>dataframe</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="SplatStats.Player.Player.getPlayerFullRanking">
 <span class="sig-name descname"><span class="pre">getPlayerFullRanking</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cats</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">['kill',</span> <span class="pre">'death',</span> <span class="pre">'assist',</span> <span class="pre">'special',</span> <span class="pre">'paint']</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#SplatStats.Player.Player.getPlayerFullRanking" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Calculates the ranking dataframe of the player with regards of all the players on given categories.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>cats</strong> (<em>list</em><em>, </em><em>optional</em>) – Categories on the battleHistory upon which the ranking will be calculated. Defaults to [‘kill’, ‘death’, ‘assist’, ‘special’, ‘paint’].</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Ranks dataframe by category.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>dataframe</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="SplatStats.Player.Player.getPlayerHistoryByTypes">
@@ -695,6 +733,25 @@
 </dd>
 </dl>
 </dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-SplatStats.Team">
+<span id="splatstats-team-module"></span><h2>SplatStats.Team module<a class="headerlink" href="#module-SplatStats.Team" title="Permalink to this heading">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="SplatStats.Team.Team">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">Team</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">names</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bPaths</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ids</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">timezone</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#SplatStats.Team.Team" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="SplatStats.Team.Team.assembleTeamHistoryFromBattles">
+<span class="sig-name descname"><span class="pre">assembleTeamHistoryFromBattles</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#SplatStats.Team.Team.assembleTeamHistoryFromBattles" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="SplatStats.Team.Team.reshapeTeamHistoryByPeriod">
+<span class="sig-name descname"><span class="pre">reshapeTeamHistoryByPeriod</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cats</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">['kill',</span> <span class="pre">'death',</span> <span class="pre">'assist',</span> <span class="pre">'special',</span> <span class="pre">'paint',</span> <span class="pre">'matches']</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">period</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'H'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#SplatStats.Team.Team.reshapeTeamHistoryByPeriod" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
 
 </dd></dl>
 
@@ -1136,7 +1193,7 @@
 
 <dl class="py function">
 <dt class="sig sig-object py" id="SplatStats.parsers.parsePlayerHistoryFromBattles">
-<span class="sig-name descname"><span class="pre">parsePlayerHistoryFromBattles</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">battleRecords</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">category</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'player</span> <span class="pre">name'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">validOnly</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">timezone</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#SplatStats.parsers.parsePlayerHistoryFromBattles" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">parsePlayerHistoryFromBattles</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">battleRecords</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">category</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'player</span> <span class="pre">name'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">validOnly</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">timezone</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">kassistWeight</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.5</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#SplatStats.parsers.parsePlayerHistoryFromBattles" title="Permalink to this definition">¶</a></dt>
 <dd><p>Gets the history dataframe for a player, given a list of battle records and the name of the player.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -1167,6 +1224,28 @@
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>figAx</strong> (<em>tuple</em>) – (fig, ax) tuple as initialized by matplotlib (plt.subplots).</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Matplotlib’s fig and ax objects.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>(fix, ax)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="SplatStats.plots.plotAwardFrequencies">
+<span class="sig-name descname"><span class="pre">plotAwardFrequencies</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">figAx</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">awardFrequencies</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">alpha</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.4</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">color</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'#0D40DE'</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#SplatStats.plots.plotAwardFrequencies" title="Permalink to this definition">¶</a></dt>
+<dd><p>Plots player’s award frequencies as a barchart.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>figAx</strong> (<em>tuple</em>) – (fig, ax) tuple as initialized by matplotlib (plt.subplots).</p></li>
+<li><p><strong>awardFrequencies</strong> (<em>tuples</em>) – Award frequency tuples from getAwardFrequencies function.</p></li>
+<li><p><strong>alpha</strong> (<em>float</em><em>, </em><em>optional</em>) – Alpha value for the chart. Defaults to 0.4.</p></li>
+<li><p><strong>color</strong> (<em>hexString</em><em>, </em><em>optional</em>) – Color for the bars. Defaults to cst.CLR_BAR.</p></li>
+</ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>Matplotlib’s fig and ax objects.</p>
@@ -1217,7 +1296,7 @@
 
 <dl class="py function">
 <dt class="sig sig-object py" id="SplatStats.plots.plotKillsAndDeathsHistogram">
-<span class="sig-name descname"><span class="pre">plotKillsAndDeathsHistogram</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">figAx</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">playerHistory</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">killRange</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">binSize</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">assistsAdjustment</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">normalized</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">yRange</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">(-0.25,</span> <span class="pre">0.25)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">aspect</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.25</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">alpha</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.35</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">edgecolor</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'#000000'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">kColor</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'#311AA8'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dColor</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'#D60E6E'</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#SplatStats.plots.plotKillsAndDeathsHistogram" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">plotKillsAndDeathsHistogram</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">figAx</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">playerHistory</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">killRange</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">binSize</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">assistsAdjustment</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">normalized</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">yRange</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">(-0.25,</span> <span class="pre">0.25)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">aspect</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.25</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">alpha</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.75</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">edgecolor</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'#000000'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">kColor</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'#311AA8'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dColor</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'#D60E6E'</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#SplatStats.plots.plotKillsAndDeathsHistogram" title="Permalink to this definition">¶</a></dt>
 <dd><p>Creates a paired histogram in which the top represents player kills, and the bottom the player deaths.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -1295,7 +1374,7 @@
 
 <dl class="py function">
 <dt class="sig sig-object py" id="SplatStats.plots.plotTreemapByKey">
-<span class="sig-name descname"><span class="pre">plotTreemapByKey</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">figAx</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">keyedDF</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">key</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">metric</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'win</span> <span class="pre">ratio'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fmt</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'{:.2f}'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">title</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pad</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lw</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ec</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'#00000055'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">alpha</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">colors</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">['#D60E6E',</span> <span class="pre">'#311AA8',</span> <span class="pre">'#17A80D',</span> <span class="pre">'#BFD002',</span> <span class="pre">'#FF7536',</span> <span class="pre">'#9090BA',</span> <span class="pre">'#DC1C1E',</span> <span class="pre">'#88214D',</span> <span class="pre">'#82878F',</span> <span class="pre">'#5F0FB4',</span> <span class="pre">'#08B672']</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#SplatStats.plots.plotTreemapByKey" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">plotTreemapByKey</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">figAx</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">keyedDF</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">key</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">metric</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'win</span> <span class="pre">ratio'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fmt</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'{:.2f}'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">title</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pad</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lw</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ec</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'#00000055'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">alpha</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.65</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">colors</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">['#D60E6E',</span> <span class="pre">'#311AA8',</span> <span class="pre">'#17A80D',</span> <span class="pre">'#BFD002',</span> <span class="pre">'#FF7536',</span> <span class="pre">'#9090BA',</span> <span class="pre">'#DC1C1E',</span> <span class="pre">'#88214D',</span> <span class="pre">'#82878F',</span> <span class="pre">'#5F0FB4',</span> <span class="pre">'#08B672']</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#SplatStats.plots.plotTreemapByKey" title="Permalink to this definition">¶</a></dt>
 <dd><p>_summary_</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -1321,7 +1400,7 @@
 
 <dl class="py function">
 <dt class="sig sig-object py" id="SplatStats.plots.plotTreemapByStages">
-<span class="sig-name descname"><span class="pre">plotTreemapByStages</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">figAx</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stagesDF</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">metric</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'win</span> <span class="pre">ratio'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fmt</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'{:.2f}'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">title</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pad</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lw</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ec</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'#00000055'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">alpha</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.5</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#SplatStats.plots.plotTreemapByStages" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">plotTreemapByStages</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">figAx</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stagesDF</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">metric</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'win</span> <span class="pre">ratio'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fmt</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'{:.2f}'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">title</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pad</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lw</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ec</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'#00000055'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">alpha</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.65</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#SplatStats.plots.plotTreemapByStages" title="Permalink to this definition">¶</a></dt>
 <dd><p>_summary_</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -1417,8 +1496,28 @@
 <section id="module-SplatStats.stats">
 <span id="splatstats-stats-module"></span><h2>SplatStats.stats module<a class="headerlink" href="#module-SplatStats.stats" title="Permalink to this heading">¶</a></h2>
 <dl class="py function">
+<dt class="sig sig-object py" id="SplatStats.stats.aggregateStatsByPeriod">
+<span class="sig-name descname"><span class="pre">aggregateStatsByPeriod</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">playerHistory</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">period</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'h'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#SplatStats.stats.aggregateStatsByPeriod" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sums the stats over a given period of time.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>playerHistory</strong> (<em>dataframe</em>) – Player history dataframe.</p></li>
+<li><p><strong>period</strong> (<em>str</em><em>, </em><em>optional</em>) – Time period over which the stats will be aggregated. Defaults to ‘h’.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Dataframe of states where the rows are the beginning of the periods.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>dataframe</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
 <dt class="sig sig-object py" id="SplatStats.stats.calcBattleHistoryStats">
-<span class="sig-name descname"><span class="pre">calcBattleHistoryStats</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">bHist</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#SplatStats.stats.calcBattleHistoryStats" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">calcBattleHistoryStats</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">bHist</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">kassistWeight</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.5</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#SplatStats.stats.calcBattleHistoryStats" title="Permalink to this definition">¶</a></dt>
 <dd><p>Calculates the basic player stats for a battle history dataframe.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -1539,6 +1638,27 @@
 </dd></dl>
 
 <dl class="py function">
+<dt class="sig sig-object py" id="SplatStats.stats.gaussianSmooth">
+<span class="sig-name descname"><span class="pre">gaussianSmooth</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gridSize</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">500</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sd</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#SplatStats.stats.gaussianSmooth" title="Permalink to this definition">¶</a></dt>
+<dd><p>Performs a gaussian smoothing process upon the provided data.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>y</strong> (<em>np array</em>) – Values of the signal to be smoothed.</p></li>
+<li><p><strong>gridSize</strong> (<em>int</em><em>, </em><em>optional</em>) – Number of samples in the x range. Defaults to 500.</p></li>
+<li><p><strong>sd</strong> (<em>int</em><em>, </em><em>optional</em>) – Standard deviation for the smoothing process. Defaults to 1.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Smoothed values over the provided X range.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>list of np arrays</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
 <dt class="sig sig-object py" id="SplatStats.stats.getTeamRanks">
 <span class="sig-name descname"><span class="pre">getTeamRanks</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">teamDF</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cats</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">['kill',</span> <span class="pre">'death',</span> <span class="pre">'assist',</span> <span class="pre">'special',</span> <span class="pre">'paint']</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">inverted</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">['death']</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#SplatStats.stats.getTeamRanks" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns a dataframe with the rankings of the players in the dataframe across categories (higher numbers being better unless in inverted list).</p>
@@ -1575,6 +1695,27 @@
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>dict</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="SplatStats.stats.windowAverage">
+<span class="sig-name descname"><span class="pre">windowAverage</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">kernelSize</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mode</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'valid'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#SplatStats.stats.windowAverage" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculates the window average on the data array.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>data</strong> (<em>np array</em>) – Data on which the window average will be calculated.</p></li>
+<li><p><strong>kernelSize</strong> (<em>int</em><em>, </em><em>optional</em>) – . Defaults to 5.</p></li>
+<li><p><strong>mode</strong> (<em>str</em><em>, </em><em>optional</em>) – Size of the output array as accepted by np.convolve {‘full’, ‘valid’, ‘same’}. Defaults to ‘valid’.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Window-averaged data array.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>np array</p>
 </dd>
 </dl>
 </dd></dl>

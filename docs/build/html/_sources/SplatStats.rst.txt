@@ -20,6 +20,14 @@ SplatStats.Player module
    :undoc-members:
    :show-inheritance:
 
+SplatStats.Team module
+----------------------
+
+.. automodule:: SplatStats.Team
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 SplatStats.auxiliary module
 ---------------------------
 

@@ -559,8 +559,7 @@ def plotAwardFrequencies(
         (fix, ax): Matplotlib's fig and ax objects.
     """    
     (labels, values) = (
-        [i[0] for i in awardFrequencies],
-        [i[1] for i in awardFrequencies]
+        [i[0] for i in awardFrequencies], [i[1] for i in awardFrequencies]
     )
     yPos = np.arange(len(labels), 0, -1)
     # Generate figure ---------------------------------------------------------
