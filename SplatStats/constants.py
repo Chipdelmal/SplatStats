@@ -74,18 +74,18 @@ CLR_FEST = {
     False: clr.LMODEL_V_PMODEL_S2[-1]
 }
 CLR_STAGE = {
-    'Inkblot Art Academy': clr.LPINK_V_BLUE_S2[0],
-    'Hagglefish Market': clr.LPINK_V_BLUE_S2[1],
-    'MakoMart': clr.PINK_V_GREEN_S1[2],
     'Eeltail Alley': clr.PINK_V_ORANGE_S1[1],
-    'Wahoo World': clr.PINK_V_ORANGE_S1[2],
-    'Undertow Spillway': clr.RASPBERRY_V_NYELLOW_S2[1],
-    'Mahi-Mahi Resort': clr.CHAOS_V_ORDER_S2[1],
+    'Hagglefish Market': clr.LPINK_V_BLUE_S2[1],
     'Hammerhead Bridge': clr.MAYO_V_KETCHUP_S2[1],
-    'Sturgeon Shipyard': clr.VAMPIRE_V_WEREWOLF_S2[2],
+    'Inkblot Art Academy': clr.LPINK_V_BLUE_S2[0],
+    'Mahi-Mahi Resort': clr.CHAOS_V_ORDER_S2[1],
+    'MakoMart': clr.PINK_V_GREEN_S1[2],
     'Mincemeat Metalworks': clr.TSUBUAN_V_KOSHIAN_S2[1],
     "Museum d'Alfonsino": clr.SALTY_V_SWEET_S2[0],
-    'Scorch Gorge': clr.UNICORN_V_NARWHAL_S2[0]
+    'Scorch Gorge': clr.UNICORN_V_NARWHAL_S2[0],
+    'Sturgeon Shipyard': clr.VAMPIRE_V_WEREWOLF_S2[2],
+    'Undertow Spillway': clr.RASPBERRY_V_NYELLOW_S2[1],
+    'Wahoo World': clr.PINK_V_ORANGE_S1[2]
 }
 CLR_CLS_LONG = [
     clr.LPINK_V_BLUE_S2[0], clr.LPINK_V_BLUE_S2[1],
