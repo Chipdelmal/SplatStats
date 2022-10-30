@@ -243,7 +243,7 @@ class Battle:
     ###########################################################################
     # Export Methods
     ###########################################################################
-    def dumpBattle(self, fPath='./'):
+    def dumpBattle(self, fPath='./', overwrite=True):
         """Serializes battle to disk with datetime as name.
 
         Args:
@@ -254,6 +254,7 @@ class Battle:
         """        
         fName = aux.datetimeToString(self.datetime)
         bPath = path.join(fPath, f'{fName}.pkl')
-        with open(bPath, 'wb') as f:
-            pkl.dump(self, f)
+        if (not path.isfile(bPath)) or overwrite:
+            with open(bPath, 'wb') as f:
+                pkl.dump(self, f)
         return bPath

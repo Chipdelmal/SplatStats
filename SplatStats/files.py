@@ -12,7 +12,7 @@ warnings.simplefilter(action='ignore', category=FutureWarning)
 ###########################################################################
 # Dump all battles
 ###########################################################################
-def dumpBattlesFromJSONS(historyFilepaths, oPath):
+def dumpBattlesFromJSONS(historyFilepaths, oPath, overwrite=True):
     """Takes a list of s3s "results.json" filepaths, converts them into batle objects and serializes them to disk.
     
     Args:
@@ -37,10 +37,10 @@ def dumpBattlesFromJSONS(historyFilepaths, oPath):
             # Process battle history --------------------------------------
             battle = bat.Battle(bDetail)
             # Export battle history ---------------------------------------
-            bPath = battle.dumpBattle(oPath)
+            bPath = battle.dumpBattle(oPath, overwrite=overwrite)
             bPaths.append(bPath)
     return bPaths
-        
+
 ###########################################################################
 # Get filepaths
 ###########################################################################
