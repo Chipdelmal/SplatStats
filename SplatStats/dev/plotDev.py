@@ -47,13 +47,14 @@ df = splat.calcStagesStatsByType(playerHistory)
 (gModes, yRange) = (5, (0, 1))
 cDict = splat.CLR_STAGE
 
-(fig, ax) = (plt.figure(figsize=(30, 30)), [None]*gModes)
-gs = fig.add_gridspec(
-    gModes, 1,  
-    width_ratios=(1, ), height_ratios=[1/gModes]*gModes,
-    left=0.1, right=0.9, bottom=0.1, top=0.9,
-    wspace=0.05, hspace=0
-)
+
+def barStage(df, **kwargs):
+    ax = sns.barplot(
+        df, metric, dfKey, 
+        palette=[cDict[k] for k in allStages], alpha=.75
+    )
+    ax.set_title('')
+
 
 dfAmmend = []
 cats = ('Tower Control', 'Rainmaker', 'Splat Zones', 'Clam Blitz', 'Turf War')
@@ -71,23 +72,16 @@ for cat in cats:
     dfAmmend.append(dfIn)
 dfOut = pd.concat(dfAmmend)
 
-g = sns.FacetGrid(dfOut, row="match type", aspect=4)
-g.map(sns.barplot, metric, dfKey, palette=[cDict[k] for k in allStages])
-g.figure.subplots_adjust(wspace=.02, hspace=.5)
-
-
-ax[0] = fig.add_subplot(gs[0])
-ax[0].set_xticks([])
-ax[0].set_yticks([])
-sns.barplot(
-    ax=ax[0], 
-    data=dfIn, x=metric, y=dfKey,
-    capsize=.4, errcolor=".5",
-    linewidth=0, edgecolor=".5", 
-    palette=[cDict[k] for k in allStages]
+g = sns.FacetGrid(dfOut, col="match type", aspect=.75)
+g.map(
+    sns.barplot, dfKey, metric, 
+    palette=[cDict[k] for k in allStages], alpha=.75
 )
+g.figure.subplots_adjust(wspace=.1, hspace=0)
+g.set_xticklabels(allStages, rotation=90)
+g.set_axis_labels('', metric)
+g.set_titles('{col_name}')
 
-fig
 
 ###############################################################################
 # Windowed average
