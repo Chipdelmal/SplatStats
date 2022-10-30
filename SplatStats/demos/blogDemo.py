@@ -80,7 +80,7 @@ ax.set_yticklabels(
 )
 ax.set_rlabel_position(0)
 plt.savefig(
-    path.join(oPath, f'KD_Iris.png'), 
+    path.join(oPath, 'KD_Iris.png'), 
     dpi=200, bbox_inches='tight', facecolor=fig.get_facecolor()
 )
 ###############################################################################
@@ -107,6 +107,16 @@ ax_top.tick_params(labelbottom=False)
 ax_bottom.set_yticks([])
 plt.setp(ax_bottom.get_xticklabels(), rotation=90, ha='right')
 plt.savefig(
-    path.join(oPath, f'History.png'), 
+    path.join(oPath, 'History.png'), 
     dpi=200, bbox_inches='tight', facecolor=fig.get_facecolor()
+)
+###############################################################################
+# Award BarChart
+###############################################################################
+awds = plyr.getAwardFrequencies()
+(fig, ax) = plt.subplots(figsize=(10, 4))
+(fig, ax) = splat.plotAwardFrequencies((fig, ax), awds)
+fig.savefig(
+    path.join(oPath, 'Awards.png'), 
+    dpi=300, bbox_inches='tight', facecolor=fig.get_facecolor()
 )

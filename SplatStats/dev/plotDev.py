@@ -38,16 +38,6 @@ NAMES = (
 plyr = splat.Player(NAMES[0], bPaths, timezone='America/Los_Angeles')
 playerHistory = plyr.battlesHistory
 ###############################################################################
-# Award BarChart
-###############################################################################
-awds = plyr.getAwardFrequencies()
-(fig, ax) = plt.subplots(figsize=(10, 4))
-(fig, ax) = splat.plotAwardFrequencies((fig, ax), awds)
-fig.savefig(
-    path.join(oPath, (plyr.name)+' awards.png'), 
-    dpi=300, bbox_inches='tight', facecolor=fig.get_facecolor()
-)
-###############################################################################
 # Windowed average
 ###############################################################################
 kSize = 10

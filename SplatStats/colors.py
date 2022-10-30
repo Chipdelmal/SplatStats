@@ -147,3 +147,47 @@ BLUE_V_ORANGE_S2            = ('#2E0CB5', '#F86300')
 PINK_V_TURQUOISE_S2         = ('#CB0856', '#08B672', '#D9C100')
 PEACH_V_TURQUOISE_S2        = ('#FF8787', '#08B672', '#D9C100')
 GRAPE_V_TURQUOISE_S2        = ('#5F0FB4', '#08B672', '#D9C100')
+###############################################################################
+# Splatoon 3
+###############################################################################
+# Regular Battle --------------------------------------------------------------
+PINK_V_GREEN_S3             = ('#C12D74', '#2CB721', '#3A28C4')
+ORANGE_V_PURPLE_S3          = ('#CD510A', '#6E04B6', '#94C921')
+ORANGE_V_BLUE_S3            = ('#DE6624', '#343BC4', '#CDCD34')
+YELLOW_V_PURPLE_S3          = ('#CEB121', '#9025C6', '#5DAB21')
+YELLOW_V_BLUE_S3            = ('#D0BE08', '#3A0CCD', '#B62EA7')
+LIMEGREEN_V_PURPLE_S3       = ('#BECD41', '#6325CD', '#31C4A9')
+TURQUOISE_V_PINK_S3         = ('#1BBEAB', '#C43A6E', '#4E4EDD')
+TURQUOISE_V_RED_S3          = ('#1BBEAB', '#D74B31', '#0D0DDC')
+BLUE_V_YELLOW_S3            = ('#1A1AAE', '#E38D24', '#CD43A6')
+# Splatfest -------------------------------------------------------------------
+ROCK_PAPER_SCISSORS_S3      = ('#413BBA', '#BEB013', '#C03E3E', '#35BA49')
+GEAR_GRUB_FUN_S3            = ('#8A19F7', '#BE7118', '#28C05E', '#3F2CD2')
+GRASS_FIRE_WATER_S3         = ('#1BA974', '#DA4514', '#002AFF', '#FFFF00')
+# Return of the Mammalians ----------------------------------------------------
+ORANGE_V_BLUE_S3            = ('#EE8711', '#0943F0', '#81DE17')
+YELLOW_V_INDIGO_S3          = ('#DEC109', '#531BBA', '#C920B7')
+GREEN_V_BLUE_S3             = ('#51C71B', '#2120CC', '#C920B7')
+SODA_V_MAGENTA_S3           = ('#AEF4F0', '#DD0DD3', '#C6D314')
+LBLUE_V_BLUE_S3             = ('#14BBE7', '#285EEA', '#C920B7')
+BLUE_V_MAGENTA_S3           = ('#1B18D7', '#DD0DD3', '#C6D314')
+# Deep Cut --------------------------------------------------------------------
+BLUE_FRYE_S3                = ('#373DBB', '#CECE28', '#C920B7')
+LIME_SHIVER_S3              = ('#BAD421', '#1021BE', '#A714D4')
+ORANGE_BMAN_S3              = ('#E1772B', '#2DD9B6', '#2E14D4')
+# Salmon Run ------------------------------------------------------------------
+YELLOW_V_DGREEN_S3          = ('#B4D933', '#098A71', '#D611E0')
+SYELLOW_V_DGREEN_S3         = ('#DDA024', '#098264', '#E114C3')
+ORANGE_V_DGREEN_S3          = ('#C44B21', '#098264', '#DCE317')
+PINK_V_DTEAL_S3             = ('#C64184', '#0D6E74', '#E3D704')
+PURPLE_V_DGREEN_S3          = ('#9361EA', '#0A7A5E', '#D3DD1E')
+BLUE_V_DGREEN_S3            = ('#435BF3', '#067E63', '#E9DD14')
+# Color Lock ------------------------------------------------------------------
+YELLOW_V_BLUE_LK_S3         = ('#CABA21', '#502EBA', '#B62AA7')
+YELLOW_V_DTEAL_LK_S3        = ('#DDD112', '#047B8B', '#ED12E4')
+YELLOW_V_BLUE_LK_S3         = ('#D6CD25', '#531BBA', '#C920B7')
+YELLOW_V_LBLU_V_DBLU_LK_S3  = ('#BDBA14', '#4E85C1', '#4828AB', '#B0C444')
+# Other -----------------------------------------------------------------------
+WYELLOW_V_WBLUE_WP_S3       = ('#DACD12', '#4B25C9', '#B62EA7')
+ORANGE_V_DGREEN_SR_S3       = ('#C95431', '#03644B', '#E7E710')
+TEAL_PURPLE_ORANGE_S3       = ('#04B97D', '#98039B', '#C75304', '#C70864')
