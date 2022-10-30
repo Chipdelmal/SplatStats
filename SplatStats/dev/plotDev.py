@@ -3,6 +3,7 @@
 
 from sys import argv
 from os import path
+from tkinter.font import _FontDict
 import numpy as np
 import pandas as pd
 from collections import Counter
@@ -47,15 +48,7 @@ df = splat.calcStagesStatsByType(playerHistory)
 (gModes, yRange) = (5, (0, 1))
 cDict = splat.CLR_STAGE
 
-
-def barStage(df, **kwargs):
-    ax = sns.barplot(
-        df, metric, dfKey, 
-        palette=[cDict[k] for k in allStages], alpha=.75
-    )
-    ax.set_title('')
-
-
+# Re-shape DF -----------------------------------------------------------------
 dfAmmend = []
 cats = ('Tower Control', 'Rainmaker', 'Splat Zones', 'Clam Blitz', 'Turf War')
 for cat in cats:
@@ -72,17 +65,28 @@ for cat in cats:
     dfAmmend.append(dfIn)
 dfOut = pd.concat(dfAmmend)
 
+# Plot ------------------------------------------------------------------------
 g = sns.FacetGrid(dfOut, col="match type", aspect=.75)
 g.map(
     sns.barplot, dfKey, metric, 
-    palette=[cDict[k] for k in allStages], alpha=.75
+    palette=[cDict[k] for k in allStages], alpha=.75, order=allStages
 )
 g.figure.subplots_adjust(wspace=.1, hspace=0)
 g.set_xticklabels(allStages, rotation=90)
 g.set_axis_labels('', metric)
 g.set_titles('{col_name}')
-
-
+for ax in g.axes.flatten(): # Loop directly on the flattened axes 
+    for _, spine in ax.spines.items():
+        spine.set_visible(True) # You have to first turn them on
+        spine.set_color('black')
+        spine.set_linewidth(1)
+    ax.set_box_aspect(1)
+    ax.set_ylim(0, 1)
+    ax.set_xticklabels(allStages, fontdict={'fontsize': 8})
+    ax.set_yticklabels(
+        [f'{i:.1f}' for i in ax.get_yticks()], 
+        fontdict={'fontsize': 8}
+    )
 ###############################################################################
 # Windowed average
 ###############################################################################
