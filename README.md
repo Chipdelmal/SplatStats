@@ -46,7 +46,7 @@ Similar to the [matches history panel](https://chipdelmal.github.io/SplatStats/b
 
 ## Coming Soon!
 
-<img src="./docs/img/waffle.png" width="99%" align="middle"><br>
+<img src="https://raw.githubusercontent.com/Chipdelmal/SplatStats/main/docs/img/waffle.png" width="99%" align="middle"><br>
 
 
 # Author
