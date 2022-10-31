@@ -2,6 +2,7 @@
 import math
 import squarify
 import numpy as np
+import seaborn as sns
 import matplotlib.pyplot as plt
 from matplotlib.patches import Rectangle
 import SplatStats.constants as cst
@@ -571,3 +572,37 @@ def plotAwardFrequencies(
     )
     ax.set_yticks(yPos, labels, fontsize=textSize)
     return (fig, ax)
+
+
+def plotMatchTypeBars(
+        stagesByTypeFlat, metric,
+        yRange=(0, 1), cDict=cst.CLR_STAGE, alpha=0.75,
+        wspace=0.05, hspace=0, aspect=1, fontsize=8
+    ):
+    allStages = sorted(stagesByTypeFlat['stage'].unique())
+    sns.set(rc={'figure.figsize':(15, 15)})
+    # Plot --------------------------------------------------------------------
+    g = sns.FacetGrid(stagesByTypeFlat, col="match type", aspect=.75)
+    g.map(
+        sns.barplot, 'stage', metric, 
+        palette=[cDict[k] for k in allStages], 
+        alpha=alpha, order=allStages
+    )
+    g.figure.subplots_adjust(wspace=wspace, hspace=hspace)
+    g.set_xticklabels(allStages, rotation=90)
+    g.set_axis_labels('', metric)
+    g.set_titles('{col_name}')
+    # Modify axes -------------------------------------------------------------
+    for ax in g.axes.flatten():
+        for _, spine in ax.spines.items():
+            spine.set_visible(True)
+            spine.set_color('black')
+            spine.set_linewidth(1)
+        ax.set_box_aspect(aspect)
+        ax.set_ylim(*yRange)
+        ax.set_xticklabels(allStages, fontdict={'fontsize': fontsize})
+        ax.set_yticklabels(
+            [f'{i:.1f}' for i in ax.get_yticks()], 
+            fontdict={'fontsize': fontsize}
+        )
+    return g

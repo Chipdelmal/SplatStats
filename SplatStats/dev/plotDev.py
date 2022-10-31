@@ -3,7 +3,6 @@
 
 from sys import argv
 from os import path
-from tkinter.font import _FontDict
 import numpy as np
 import pandas as pd
 from collections import Counter
@@ -42,50 +41,43 @@ playerHistory = plyr.battlesHistory
 ###############################################################################
 # Dev
 ###############################################################################
-(dfKey, metric) = ('stage', 'win ratio')
+metric = 'win ratio'
 df = splat.calcStagesStatsByType(playerHistory)
+dfFlat = splat.ammendStagesStatsByType(df)
 
-(gModes, yRange) = (5, (0, 1))
+yRange = (0, 1)
 cDict = splat.CLR_STAGE
+wspace=0.05
+hspace=0
+aspect=1
+fontsize=8
+alpha=0.75
 
-# Re-shape DF -----------------------------------------------------------------
-dfAmmend = []
-cats = ('Tower Control', 'Rainmaker', 'Splat Zones', 'Clam Blitz', 'Turf War')
-for cat in cats:
-    dfIn = df[cat]
-    # Amend for same stages shape ---------------------------------------------
-    (stgs, allStages) = (list(dfIn[dfKey]), list(cDict.keys()))
-    for stg in list(cDict.keys()):
-        if not (stg in set(allStages)):
-            print(1)
-            dfIn.loc[len(dfIn)] = [stg]+[0]*(dfIn.shape[1]-1)
-    dfIn.sort_values(dfKey, inplace=True)
-    # Add match type ----------------------------------------------------------
-    dfIn['match type'] = [cat]*dfIn.shape[0]
-    dfAmmend.append(dfIn)
-dfOut = pd.concat(dfAmmend)
 
+allStages = sorted(dfFlat['stage'].unique())
 # Plot ------------------------------------------------------------------------
-g = sns.FacetGrid(dfOut, col="match type", aspect=.75)
+sns.set(rc={'figure.figsize':(15, 15)})
+g = sns.FacetGrid(dfFlat, col="match type", aspect=.75)
 g.map(
-    sns.barplot, dfKey, metric, 
-    palette=[cDict[k] for k in allStages], alpha=.75, order=allStages
+    sns.barplot, 'stage', metric, 
+    palette=[cDict[k] for k in allStages], 
+    alpha=.75, order=allStages
 )
-g.figure.subplots_adjust(wspace=.1, hspace=0)
+g.figure.subplots_adjust(wspace=.05, hspace=0)
 g.set_xticklabels(allStages, rotation=90)
 g.set_axis_labels('', metric)
 g.set_titles('{col_name}')
-for ax in g.axes.flatten(): # Loop directly on the flattened axes 
+for ax in g.axes.flatten():
     for _, spine in ax.spines.items():
-        spine.set_visible(True) # You have to first turn them on
+        spine.set_visible(True)
         spine.set_color('black')
         spine.set_linewidth(1)
     ax.set_box_aspect(1)
-    ax.set_ylim(0, 1)
-    ax.set_xticklabels(allStages, fontdict={'fontsize': 8})
+    ax.set_ylim(*yRange)
+    ax.set_xticklabels(allStages, fontdict={'fontsize': fontsize})
     ax.set_yticklabels(
         [f'{i:.1f}' for i in ax.get_yticks()], 
-        fontdict={'fontsize': 8}
+        fontdict={'fontsize': fontsize}
     )
 ###############################################################################
 # Windowed average

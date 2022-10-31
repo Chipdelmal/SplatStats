@@ -288,3 +288,40 @@ def windowAverage(data, kernelSize=5, mode='valid'):
     kernel = np.ones(kernelSize)/kernelSize
     dataConvolved = np.convolve(data, kernel, mode=mode)
     return dataConvolved
+
+
+def ammendStagesStatsByType(
+        dfList, 
+        stagesList=[
+            'Inkblot Art Academy', 'Hagglefish Market', 'MakoMart', 
+            'Eeltail Alley', 'Wahoo World', 'Undertow Spillway', 
+            'Mahi-Mahi Resort', 'Hammerhead Bridge', 'Sturgeon Shipyard', 
+            'Mincemeat Metalworks', "Museum d'Alfonsino", 'Scorch Gorge'
+        ],
+        matchModes=('Turf War', 'Tower Control', 'Rainmaker', 'Splat Zones', 'Clam Blitz')
+    ):
+    """Flattens the dictionary obtained from calcStageStatsByType into a single object adding a stages column.
+
+    Args:
+        dfList (list of dataframes): Dataframes list as obtained by calcStageStatsByType.
+        stagesList (list, optional): List of all stages to be used in the analysis. Defaults to [ 'Inkblot Art Academy', 'Hagglefish Market', 'MakoMart', 'Eeltail Alley', 'Wahoo World', 'Undertow Spillway', 'Mahi-Mahi Resort', 'Hammerhead Bridge', 'Sturgeon Shipyard', 'Mincemeat Metalworks', "Museum d'Alfonsino", 'Scorch Gorge' ].
+        matchModes (tuple, optional): Match types in order to be processed. Defaults to ('Turf War', 'Tower Control', 'Rainmaker', 'Splat Zones', 'Clam Blitz').
+
+    Returns:
+        dataframe: Flattened dataframe.
+    """    
+    # Re-shape DF -------------------------------------------------------------
+    dfAmmend = []
+    for cat in matchModes:
+        dfIn = dfList[cat]
+        stgs = list(dfIn['stage'])
+        # Amend for same stages shape -----------------------------------------
+        for stg in stagesList:
+            if not (stg in stgs):
+                dfIn.loc[len(dfIn)] = [stg]+[0]*(dfIn.shape[1]-1)
+        dfIn.sort_values('stage', inplace=True)
+        # Add match type ------------------------------------------------------
+        dfIn['match type'] = [cat]*dfIn.shape[0]
+        dfAmmend.append(dfIn)
+    dfOut = pd.concat(dfAmmend)
+    return dfOut

@@ -12,7 +12,7 @@ REQUIRED_PACKAGES=[
     'dill', 'termcolor', 'colorutils', 'tqdm',
     'numpy', 'scipy', 'pandas', 
     'DateTimeRange',
-    'matplotlib', 'pywaffle', 'squarify'
+    'matplotlib', 'pywaffle', 'squarify', 'seaborn'
 ]
 
 with open("README.md", "r") as fh:
