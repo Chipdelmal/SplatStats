@@ -298,7 +298,10 @@ def ammendStagesStatsByType(
             'Mahi-Mahi Resort', 'Hammerhead Bridge', 'Sturgeon Shipyard', 
             'Mincemeat Metalworks', "Museum d'Alfonsino", 'Scorch Gorge'
         ],
-        matchModes=('Turf War', 'Tower Control', 'Rainmaker', 'Splat Zones', 'Clam Blitz')
+        matchModes=(
+            'Turf War', 'Tower Control', 'Rainmaker', 
+            'Splat Zones', 'Clam Blitz'
+        )
     ):
     """Flattens the dictionary obtained from calcStageStatsByType into a single object adding a stages column.
 

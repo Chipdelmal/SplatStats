@@ -105,11 +105,26 @@ for name in NAMES:
     metric = 'win ratio'
     df = splat.calcStagesStatsByType(playerHistory)
     dfFlat = splat.ammendStagesStatsByType(df, matchModes=list(df.keys()))
+    dfFlat = dfFlat[dfFlat['match type']!='Tricolor Turf War']
+    dfFlat.sort_values('match type', inplace=True)
     g = splat.plotMatchTypeBars(dfFlat, metric)
     g.savefig(
         path.join(oPath, f'MatchesBar - {plyr.name}.png'), 
         dpi=300, bbox_inches='tight'
     )
+    ###########################################################################
+    # Win Ratio
+    ###########################################################################
+    try:
+        awds = plyr.getAwardFrequencies()
+        (fig, ax) = plt.subplots(figsize=(10, 4))
+        (fig, ax) = splat.plotAwardFrequencies((fig, ax), awds)
+        fig.savefig(
+            path.join(oPath, f'Awards - {plyr.name}.png'), 
+            dpi=300, bbox_inches='tight', facecolor=fig.get_facecolor()
+        )
+    except:
+        continue
 ###############################################################################
 # Legend
 ###############################################################################

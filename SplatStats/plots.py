@@ -579,12 +579,19 @@ def plotAwardFrequencies(
 def plotMatchTypeBars(
         stagesByTypeFlat, metric,
         yRange=(0, 1), cDict=cst.CLR_STAGE, alpha=0.75,
-        wspace=0.05, hspace=0, aspect=1, fontsize=8
+        wspace=0.05, hspace=0, aspect=1, fontsize=8,
+        sorting=[
+            'Turf War', 'Tower Control', 'Rainmaker', 
+            'Splat Zones', 'Clam Blitz'
+        ]
     ):
     allStages = sorted(stagesByTypeFlat['stage'].unique())
     sns.set(rc={'figure.figsize':(15, 15)})
     # Plot --------------------------------------------------------------------
-    g = sns.FacetGrid(stagesByTypeFlat, col="match type", aspect=.75)
+    g = sns.FacetGrid(
+        stagesByTypeFlat, col="match type", aspect=.75,
+        row_order=sorting
+    )
     g.map(
         sns.barplot, 'stage', metric, 
         palette=[cDict[k] for k in allStages], 
