@@ -99,6 +99,17 @@ for name in NAMES:
         dpi=200, bbox_inches='tight', facecolor=fig.get_facecolor()
     )
     plt.close()
+    ###########################################################################
+    # Win Ratio
+    ###########################################################################
+    metric = 'win ratio'
+    df = splat.calcStagesStatsByType(playerHistory)
+    dfFlat = splat.ammendStagesStatsByType(df, matchModes=list(df.keys()))
+    g = splat.plotMatchTypeBars(dfFlat, metric)
+    g.savefig(
+        path.join(oPath, f'MatchesBar - {plyr.name}.png'), 
+        dpi=300, bbox_inches='tight'
+    )
 ###############################################################################
 # Legend
 ###############################################################################

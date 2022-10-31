@@ -11,6 +11,8 @@ import SplatStats.plotsAux as paux
 import matplotlib
 matplotlib.rcParams['font.family'] = ['monospace']
 # matplotlib.rcParams['font.stretch'] = ['condensed']
+import warnings
+warnings.filterwarnings("ignore")
 
 
 def plotKillsAndDeathsHistogram(
@@ -589,7 +591,7 @@ def plotMatchTypeBars(
         alpha=alpha, order=allStages
     )
     g.figure.subplots_adjust(wspace=wspace, hspace=hspace)
-    g.set_xticklabels(allStages, rotation=90)
+    # g.set_xticklabels(allStages, rotation=90)
     g.set_axis_labels('', metric)
     g.set_titles('{col_name}')
     # Modify axes -------------------------------------------------------------
@@ -601,6 +603,7 @@ def plotMatchTypeBars(
         ax.set_box_aspect(aspect)
         ax.set_ylim(*yRange)
         ax.set_xticklabels(allStages, fontdict={'fontsize': fontsize})
+        ax.tick_params(axis='x', labelrotation=90)
         ax.set_yticklabels(
             [f'{i:.1f}' for i in ax.get_yticks()], 
             fontdict={'fontsize': fontsize}

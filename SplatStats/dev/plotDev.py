@@ -41,44 +41,13 @@ playerHistory = plyr.battlesHistory
 ###############################################################################
 # Dev
 ###############################################################################
-metric = 'win ratio'
+metric = 'kassists ratio'
 df = splat.calcStagesStatsByType(playerHistory)
 dfFlat = splat.ammendStagesStatsByType(df)
-
-yRange = (0, 1)
-cDict = splat.CLR_STAGE
-wspace=0.05
-hspace=0
-aspect=1
-fontsize=8
-alpha=0.75
-
-
-allStages = sorted(dfFlat['stage'].unique())
-# Plot ------------------------------------------------------------------------
-sns.set(rc={'figure.figsize':(15, 15)})
-g = sns.FacetGrid(dfFlat, col="match type", aspect=.75)
-g.map(
-    sns.barplot, 'stage', metric, 
-    palette=[cDict[k] for k in allStages], 
-    alpha=.75, order=allStages
+splat.plotMatchTypeBars(
+    dfFlat, metric, 
+    yRange=(0, max(dfFlat['kassists ratio']))
 )
-g.figure.subplots_adjust(wspace=.05, hspace=0)
-g.set_xticklabels(allStages, rotation=90)
-g.set_axis_labels('', metric)
-g.set_titles('{col_name}')
-for ax in g.axes.flatten():
-    for _, spine in ax.spines.items():
-        spine.set_visible(True)
-        spine.set_color('black')
-        spine.set_linewidth(1)
-    ax.set_box_aspect(1)
-    ax.set_ylim(*yRange)
-    ax.set_xticklabels(allStages, fontdict={'fontsize': fontsize})
-    ax.set_yticklabels(
-        [f'{i:.1f}' for i in ax.get_yticks()], 
-        fontdict={'fontsize': fontsize}
-    )
 ###############################################################################
 # Windowed average
 ###############################################################################
