@@ -28,10 +28,14 @@ bPaths = splat.getBattleFilepaths(oPath)
 # Create Team Objects
 ###############################################################################
 NAMES = (
-    'čħîþ ウナギ', 'Yami ウナギ', 'Riché ウナギ', 'Oswal　ウナギ', 
+    'čħîþ ウナギ', 'Yami ウナギ', 'Riché ウナギ', 'Oswal　ウナギ',
     'April ウナギ', 'Rei ウナギ', 'DantoNnoob', 'Murazee'
 )
 TZ = 'America/Los_Angeles'
 team = splat.Team(NAMES, bPaths, TZ)
-tHistByTime = team.reshapeTeamHistoryByPeriod(period='1H')
-dfByPlayer = tHistByTime.reorder_levels(["player", "datetime"])
+teamHist = team.battleHistory
+teamHistBT = team.reshapeTeamHistoryByPeriod(
+    period='24H'
+)
+teamHistBT.iloc[-100:-50]
+dfByPlayer = teamHistBT.reorder_levels(["player", "datetime"])

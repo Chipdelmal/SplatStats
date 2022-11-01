@@ -76,7 +76,7 @@ dfGrp = dfTeam[catsDF].groupby(['datetime', 'player']).sum()
 )
 dfPadded = dfGrp.unstack(fill_value=0).stack()
 # Generate series -------------------------------------------------------------
-dfByHour = dfPadded.unstack().resample('H').sum().stack()
+dfByHour = dfPadded.unstack().resample('24H').sum().stack()
 dfByPlayer = dfByHour.reorder_levels(["player", "datetime"])
 # Final array -----------------------------------------------------------------
 entryNum = dfByPlayer.loc[names[0]].shape[0]

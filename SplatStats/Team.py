@@ -43,11 +43,17 @@ class Team:
     ###########################################################################
     def reshapeTeamHistoryByPeriod(
             self, 
-            cats=['kill', 'death', 'assist', 'special', 'paint', 'matches'],
+            cats=[
+                'kill', 'death', 'assist', 'special', 'paint', 
+                'matches', 'win'
+            ],
             period='H'
         ):
         catsDF = ['player', 'datetime'] + cats
-        dfGrp = self.battleHistory[catsDF].groupby(['datetime', 'player']).sum()
+        dfBat = self.battleHistory.copy()
+        if 'win' in set(cats):
+            dfBat['win'] = self.battleHistory['win'].apply(lambda x: 1 if x=='W' else 0)
+        dfGrp = dfBat[catsDF].groupby(['datetime', 'player']).sum()
         dfPadded = dfGrp.unstack(fill_value=0).stack()
         # Generate series
         dfByHour = dfPadded.unstack().resample(period).sum().stack()
