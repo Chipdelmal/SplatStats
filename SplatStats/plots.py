@@ -583,14 +583,15 @@ def plotMatchTypeBars(
         sorting=[
             'Turf War', 'Tower Control', 'Rainmaker', 
             'Splat Zones', 'Clam Blitz'
-        ]
+        ],
+        percentLegend={'color': '#00000020', 'fontsize': 50}
     ):
     allStages = sorted(stagesByTypeFlat['stage'].unique())
-    sns.set(rc={'figure.figsize':(15, 15)})
+    # sns.set(rc={'figure.figsize':(15, 15)})
     # Plot --------------------------------------------------------------------
     g = sns.FacetGrid(
         stagesByTypeFlat, col="match type", aspect=.75,
-        row_order=sorting
+        col_order=sorting
     )
     g.map(
         sns.barplot, 'stage', metric, 
@@ -614,5 +615,19 @@ def plotMatchTypeBars(
         ax.set_yticklabels(
             [f'{i:.1f}' for i in ax.get_yticks()], 
             fontdict={'fontsize': fontsize}
+        )
+        mType = ax.get_title()
+        fltr = (stagesByTypeFlat['match type'] == mType)
+        tmatch = sum(stagesByTypeFlat[fltr]['total matches'])
+        if (tmatch > 0):
+            ratio = sum(stagesByTypeFlat[fltr]['win'])/tmatch
+        else:
+            ratio = 0
+        ax.text(
+            0.525, 0.5, 
+            '{}%'.format(round(ratio*100)), 
+            ha='center', va='center',
+            transform=ax.transAxes,
+            **percentLegend
         )
     return g

@@ -90,13 +90,13 @@ for name in NAMES:
         fontColor='#00000066',
         innerGuidesColor="#00000033",
         outerGuidesColor="#00000011",
-        frameColor="#000000AA",
+        frameColor="#000000FF",
         innerTextFmt='{:.2f}'
     )
     ax.set_facecolor("w")
     fig.savefig(
         path.join(oPath, f'Iris - {plyr.name}.png'), 
-        dpi=200, bbox_inches='tight', facecolor=fig.get_facecolor()
+        dpi=300, bbox_inches='tight', facecolor=fig.get_facecolor()
     )
     plt.close()
     ###########################################################################
@@ -112,6 +112,7 @@ for name in NAMES:
         path.join(oPath, f'MatchesBar - {plyr.name}.png'), 
         dpi=300, bbox_inches='tight'
     )
+    plt.close()
     ###########################################################################
     # Win Ratio
     ###########################################################################
@@ -123,6 +124,7 @@ for name in NAMES:
             path.join(oPath, f'Awards - {plyr.name}.png'), 
             dpi=300, bbox_inches='tight', facecolor=fig.get_facecolor()
         )
+        plt.close()
     except:
         continue
 ###############################################################################
