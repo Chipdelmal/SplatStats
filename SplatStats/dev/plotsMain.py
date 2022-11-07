@@ -107,12 +107,12 @@ for name in NAMES:
     dfFlat = splat.ammendStagesStatsByType(df, matchModes=list(df.keys()))
     dfFlat = dfFlat[dfFlat['match type']!='Tricolor Turf War']
     dfFlat.sort_values('match type', inplace=True)
-    g = splat.plotMatchTypeBars(dfFlat, metric)
+    g = splat.plotMatchTypeBars(dfFlat, metric, yRange=(0, 1))
     g.savefig(
         path.join(oPath, f'MatchesBar - {plyr.name}.png'), 
         dpi=300, bbox_inches='tight'
     )
-    plt.close()
+    plt.close(g.fig)
     ###########################################################################
     # Win Ratio
     ###########################################################################

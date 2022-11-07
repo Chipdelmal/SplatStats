@@ -39,20 +39,10 @@ NAMES = (
 plyr = splat.Player(NAMES[0], bPaths, timezone='America/Los_Angeles')
 playerHistory = plyr.battlesHistory
 ###############################################################################
-# Dev
-###############################################################################
-metric = 'kassists ratio'
-df = splat.calcStagesStatsByType(playerHistory)
-dfFlat = splat.ammendStagesStatsByType(df)
-splat.plotMatchTypeBars(
-    dfFlat, metric, 
-    yRange=(0, max(dfFlat['kassists ratio']))
-)
-###############################################################################
 # Windowed average
 ###############################################################################
 kSize = 10
-dHist = splat.aggregateStatsByPeriod(playerHistory, period='1H')
+dHist = splat.aggregateStatsByPeriod(playerHistory, period='2H')
 winsArray = np.asarray((dHist['kassist'])/dHist['matches'])
 windowAvg = splat.windowAverage(winsArray, kernelSize=kSize, mode='valid')
 

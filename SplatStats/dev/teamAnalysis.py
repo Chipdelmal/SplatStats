@@ -91,7 +91,7 @@ streamNormalized = np.array([r/cSum for r in streamFiltered])
 x = range(streamFiltered.shape[1])
 
 grid = np.linspace(0, streamFiltered.shape[1], num=500)
-y_smoothed = [gaussian_smooth(x, y_, grid, 1) for y_ in streamFiltered]
+y_smoothed = [gaussian_smooth(x, y_, grid, .65) for y_ in streamFiltered]
 
 
 COLORS = [
@@ -100,12 +100,17 @@ COLORS = [
 ]
 
 fig, ax = plt.subplots(figsize=(10, 2))
-ax.stackplot(grid, y_smoothed, baseline="zero", colors=COLORS)
+ax.stackplot(grid, y_smoothed, baseline="sym", colors=COLORS)
 ax.set_xlim(0, max(x))
+ax.set_yticklabels([])
 # ax.set_ylim(0, 5)
 ax.legend(
     names, loc='upper left', frameon=False,
     bbox_to_anchor=(1, 1), ncol=2
+)
+fig.savefig(
+    path.join(oPath, f'Wave.png'), 
+    dpi=300, bbox_inches='tight', facecolor=fig.get_facecolor()
 )
 
 fig, ax = plt.subplots(figsize=(10, 2))
