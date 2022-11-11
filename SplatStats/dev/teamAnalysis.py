@@ -96,14 +96,15 @@ y_smoothed = [gaussian_smooth(x, y_, grid, .65) for y_ in streamFiltered]
 
 COLORS = [
     "#0D40DE", "#EC0B68", "#6ABF0B", "#9090BA",
-    "#A577FF", "#A6BDDB", "#E4E567", "#CFD1C7"
+    "#A577FF", "#941A88", "#CFD1C7", "#E4E567" 
 ]
 
-fig, ax = plt.subplots(figsize=(10, 2))
-ax.stackplot(grid, y_smoothed, baseline="sym", colors=COLORS)
+(fig, ax) = plt.subplots(figsize=(10, 2))
+ax.stackplot(grid, y_smoothed, baseline="sym", colors=COLORS, alpha=.9)
 ax.set_xlim(0, max(x))
-ax.set_yticklabels([])
-# ax.set_ylim(0, 5)
+ax.set_xticks([])
+ax.set_yticks([])
+# ax.axis('off')
 ax.legend(
     names, loc='upper left', frameon=False,
     bbox_to_anchor=(1, 1), ncol=2

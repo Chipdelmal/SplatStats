@@ -18,7 +18,7 @@ LEN_LIMIT = 400
 # Create Player Objects
 ##############################################################################
 historyFilepaths = splat.getDataFilepaths(iPath)
-bPaths = splat.dumpBattlesFromJSONS(historyFilepaths, oPath, overwrite=False)
+# bPaths = splat.dumpBattlesFromJSONS(historyFilepaths, oPath, overwrite=False)
 bPaths = splat.getBattleFilepaths(oPath)
 ###############################################################################
 # Create Player Objects
@@ -86,14 +86,20 @@ for name in NAMES:
         (fig, ax), playerHistory,
         # colorsTop=('#4F55ED', '#CB0856'),
         # colorBars='#4F55ED',
-        innerGuides=(0, 6, 1), outerGuides=(10, 50, 10),
+        innerGuides=(0, 10, 1), 
+        outerGuides=(10, 50, 10),
         fontColor='#00000066',
         innerGuidesColor="#00000033",
         outerGuidesColor="#00000011",
-        frameColor="#000000FF",
+        frameColor="#000000AA",
         innerTextFmt='{:.2f}'
     )
     ax.set_facecolor("w")
+    ax.set_yticklabels(
+        ["", 10, 20, 30, 40], 
+        fontdict={'fontsize': 8.5, 'color': '#00000022'}
+    )
+    ax.set_rlabel_position(0)
     fig.savefig(
         path.join(oPath, f'Iris - {plyr.name}.png'), 
         dpi=300, bbox_inches='tight', facecolor=fig.get_facecolor()
@@ -102,14 +108,27 @@ for name in NAMES:
     ###########################################################################
     # Win Ratio
     ###########################################################################
-    metric = 'win ratio'
+    (metric, aggMetrics) = ('win ratio', ('win', 'total matches'))
     df = splat.calcStagesStatsByType(playerHistory)
     dfFlat = splat.ammendStagesStatsByType(df, matchModes=list(df.keys()))
     dfFlat = dfFlat[dfFlat['match type']!='Tricolor Turf War']
     dfFlat.sort_values('match type', inplace=True)
-    g = splat.plotMatchTypeBars(dfFlat, metric, yRange=(0, 1))
+    g = splat.plotMatchTypeBars(dfFlat, metric, aggMetrics, yRange=(0, 1))
     g.savefig(
-        path.join(oPath, f'MatchesBar - {plyr.name}.png'), 
+        path.join(oPath, f'MatchesWin - {plyr.name}.png'), 
+        dpi=300, bbox_inches='tight'
+    )
+    plt.close(g.fig)
+    ###########################################################################
+    # Kill Ratio
+    ###########################################################################
+    (metric, aggMetrics) = ('kassists ratio', ('kassists', 'deaths'))
+    g = splat.plotMatchTypeBars(
+        dfFlat, metric, aggMetrics, yRange=(0, 4),
+        percentage=False
+    )
+    g.savefig(
+        path.join(oPath, f'MatchesKill - {plyr.name}.png'), 
         dpi=300, bbox_inches='tight'
     )
     plt.close(g.fig)

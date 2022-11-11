@@ -393,7 +393,7 @@ def plotTreemapByKey(
 def plotIris(
         figAx, 
         topArray, bottomArray=None, barArray=None, 
-        tbRange=(0, 50), bRange=(0, 2000),
+        tbRange=(0, 50), bRange=(0, 2000), lw=0.35, alpha=.75,
         rScale='symlog', innerOffset=0.75, clockwise=True,
         colorsTop=(cst.CLR_STATS['kill'], cst.CLR_STATS['death']),
         colorBars=cst.CLR_PAINT,
@@ -443,7 +443,7 @@ def plotIris(
     colors = [colorsTop[0] if (h>=0) else colorsTop[1] for h in heights]
     ax.vlines(
         ANGLES, innerOffset+bottomArray, innerOffset+topArray, 
-        lw=0.5, colors=colors, alpha=.85
+        lw=lw, colors=colors, alpha=alpha
     )
     # Draw bar ----------------------------------------------------------------
     if barArray is None:
@@ -476,9 +476,9 @@ def plotIris(
         outerGuides[0]+innerOffset, outerGuides[1]+innerOffset, outerGuides[2]
     ))
     ax.set_yticks(yTicks)
-    ax.yaxis.grid(True, color=frameColor, ls='-', lw=0.2, zorder=-10)
+    ax.yaxis.grid(True, color=outerGuidesColor, ls='-', lw=0.2, zorder=-10)
     ax.spines["start"].set_color("none")
-    ax.spines["polar"].set_color(outerGuidesColor)
+    ax.spines["polar"].set_color(frameColor)
     # Return figure -----------------------------------------------------------
     return (fig, ax)
 
@@ -491,7 +491,7 @@ def plotkillDeathIris(
         colorBars=cst.CLR_PAINT,
         innerText=True, innerTextFmt='{:.2f}',
         fontSize=20, fontColor='#00000066',
-        innerGuides=(0, 6, 1), innerGuidesColor="#00000066",
+        innerGuides=(0, 10, 1), innerGuidesColor="#00000066",
         outerGuides=(0, 50, 10), outerGuidesColor="#00000088",
         frameColor="#00000011"
     ):
@@ -577,18 +577,20 @@ def plotAwardFrequencies(
 
 
 def plotMatchTypeBars(
-        stagesByTypeFlat, metric,
+        stagesByTypeFlat, metric, aggMetrics,
         yRange=(0, 1), cDict=cst.CLR_STAGE, alpha=0.75,
         wspace=0.05, hspace=0, aspect=1, fontsize=8,
         sorting=[
             'Turf War', 'Tower Control', 'Rainmaker', 
             'Splat Zones', 'Clam Blitz'
         ],
-        percentLegend={'color': '#00000020', 'fontsize': 50}
+        percentLegend={'color': '#00000020', 'fontsize': 50},
+        countsLegend={'color': '#00000044', 'fontsize': 8},
+        digs=3,
+        percentage=True,
+        fmt='{:.2f}'
     ):
     allStages = sorted(stagesByTypeFlat['stage'].unique())
-    # sns.set(rc={'figure.figsize':(15, 15)})
-    # Plot --------------------------------------------------------------------
     g = sns.FacetGrid(
         stagesByTypeFlat, col="match type", aspect=.75,
         col_order=sorting
@@ -618,16 +620,62 @@ def plotMatchTypeBars(
         )
         mType = ax.get_title()
         fltr = (stagesByTypeFlat['match type'] == mType)
-        tmatch = sum(stagesByTypeFlat[fltr]['total matches'])
+        dataMatchType = stagesByTypeFlat[fltr]
+        tmatch = sum(dataMatchType[aggMetrics[1]])
         if (tmatch > 0):
-            ratio = sum(stagesByTypeFlat[fltr]['win'])/tmatch
+            ratio = sum(dataMatchType[aggMetrics[0]])/tmatch
         else:
             ratio = 0
+        if percentage:
+            ax.text(
+                0.525, 0.5, 
+                '{}%'.format(round(ratio*100)), 
+                ha='center', va='center',
+                transform=ax.transAxes,
+                **percentLegend
+            )
+        else:
+            ax.text(
+                0.525, 0.5, 
+                fmt.format(ratio), 
+                ha='center', va='center',
+                transform=ax.transAxes,
+                **percentLegend
+            )
+        # Matches counts -------------------------------------------------------
+        x_min, x_max = ax.get_xlim()
+        ticks = [(tick - x_min)/(x_max - x_min) for tick in ax.get_xticks()]
+        for (ix, st) in enumerate(allStages):
+            fltrStage = (dataMatchType['stage'] == st)
+            stageData = dataMatchType[fltrStage]
+            if stageData.shape[0] > 0:
+                ax.text(
+                    ticks[ix], .03, 
+                    '{}'.format(
+                        str(int(stageData[aggMetrics[1]])).zfill(digs)
+                    ), 
+                    ha='center', va='bottom',
+                    rotation=90,
+                    transform=ax.transAxes,
+                    **countsLegend
+                )
+            else:
+                ax.text(
+                    ticks[ix], .03, 
+                    '{}'.format(
+                        str(0).zfill(digs)
+                    ), 
+                    ha='center', va='bottom',
+                    rotation=90,
+                    transform=ax.transAxes,
+                    **countsLegend
+                )
         ax.text(
-            0.525, 0.5, 
-            '{}%'.format(round(ratio*100)), 
-            ha='center', va='center',
-            transform=ax.transAxes,
-            **percentLegend
+            0.975, 0.975, 
+            '{}'.format(
+                str(sum(dataMatchType[aggMetrics[1]])).zfill(digs)
+            ), 
+            ha='right', va='top', transform=ax.transAxes,
+            **countsLegend
         )
     return g
