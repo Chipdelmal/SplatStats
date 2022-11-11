@@ -328,3 +328,15 @@ def ammendStagesStatsByType(
         dfAmmend.append(dfIn)
     dfOut = pd.concat(dfAmmend)
     return dfOut
+
+
+def longestRun(myList, elem='W'):
+    (size, max_size) = (0, 0)
+    for i in myList:
+        if i == elem:
+            size += 1
+            if size > max_size:
+                max_size = size
+        else:
+            size = 0
+    return max_size
