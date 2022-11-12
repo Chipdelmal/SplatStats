@@ -31,7 +31,7 @@ setuptools.setup(
     url="https://github.com/Chipdelmal/SplatStats",
     packages=setuptools.find_packages(),
     extras_require={
-        'dev': ['twine', 'wheel', 'sphinx', 'sphinx-bootstrap-theme']
+        'dev': ['twine', 'wheel', 'sphinx', 'sphinx-press-theme']
     },
     python_requires='>=3.10',
     license='GPLv3',
