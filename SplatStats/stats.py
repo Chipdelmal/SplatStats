@@ -331,6 +331,15 @@ def ammendStagesStatsByType(
 
 
 def longestRun(myList, elem='W'):
+    """Returns the longest consecutive run of appearances of the same element.
+
+    Args:
+        myList (list): List of elements.
+        elem (str, optional): Element to check for run. Defaults to 'W'.
+
+    Returns:
+        int: Longest run.
+    """    
     (size, max_size) = (0, 0)
     for i in myList:
         if i == elem:
