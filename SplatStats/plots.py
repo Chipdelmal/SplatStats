@@ -577,7 +577,7 @@ def plotAwardFrequencies(
 
 
 def plotMatchTypeBars(
-        stagesByTypeFlat, metric, aggMetrics,
+        stagesByTypeFlat, metric, aggMetrics=('win', 'total matches'),
         yRange=(0, 1), cDict=cst.CLR_STAGE, alpha=0.75,
         wspace=0.05, hspace=0, aspect=1, fontsize=8,
         sorting=[
@@ -590,6 +590,29 @@ def plotMatchTypeBars(
         percentage=True,
         fmt='{:.2f}'
     ):
+    """Generates a grid of seaborn plots with stats broken down by match type and stage.
+
+    Args:
+        stagesByTypeFlat (dataframe): _description_
+        metric (str): Main metric for bar sizes.
+        aggMetrics (tuple of strings): These two metrics are used to calculate a fraction of metric1/metric2 on the aggregate value displayed. Defaults to ('win', 'total matches').
+        yRange (tuple, optional): y-axis plot range. Defaults to (0, 1).
+        cDict (dict, optional): Colors dictionary in the form {'stage name': hexColor}. Defaults to cst.CLR_STAGE.
+        alpha (float, optional): Alpha value for bars. Defaults to 0.75.
+        wspace (float, optional): Frames horizontal spacing. Defaults to 0.05.
+        hspace (int, optional): Frames vertical spacing. Defaults to 0.
+        aspect (int, optional): Boxes aspect ratio. Defaults to 1.
+        fontsize (int, optional): Labels font size. Defaults to 8.
+        sorting (list, optional): Sorting of the match-types. Defaults to [ 'Turf War', 'Tower Control', 'Rainmaker', 'Splat Zones', 'Clam Blitz' ].
+        percentLegend (dict, optional): Style for the main aggregate label. Defaults to {'color': '#00000020', 'fontsize': 50}.
+        countsLegend (dict, optional): Style for the counts labels on the bars. Defaults to {'color': '#00000044', 'fontsize': 8}.
+        digs (int, optional): Digits for zfill. Defaults to 3.
+        percentage (bool, optional): Plot fractions as percentages? Defaults to True.
+        fmt (str, optional): Format string for plot aggregate's value. Defaults to '{:.2f}'.
+
+    Returns:
+        sns facetgrid: Seaborn facetgrid object.
+    """    
     allStages = sorted(stagesByTypeFlat['stage'].unique())
     g = sns.FacetGrid(
         stagesByTypeFlat, col="match type", aspect=.75,
