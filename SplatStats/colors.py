@@ -190,4 +190,13 @@ YELLOW_V_LBLU_V_DBLU_LK_S3  = ('#BDBA14', '#4E85C1', '#4828AB', '#B0C444')
 # Other -----------------------------------------------------------------------
 WYELLOW_V_WBLUE_WP_S3       = ('#DACD12', '#4B25C9', '#B62EA7')
 ORANGE_V_DGREEN_SR_S3       = ('#C95431', '#03644B', '#E7E710')
-TEAL_PURPLE_ORANGE_S3       = ('#04B97D', '#98039B', '#C75304', '#C70864')
+TEAL_PURPLE_ORANGE_S3       = ('#1BA974', '#98039B', '#C75304', '#C70864')
+###############################################################################
+# Compile all colors
+###############################################################################
+(all_variables, ALL_COLORS) = (locals(), [])
+for name in all_variables:
+    if name.isupper():
+        vals = list(eval(name))
+        ALL_COLORS.extend(vals)
+ALL_COLORS = sorted(list(set(ALL_COLORS)))
