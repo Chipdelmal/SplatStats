@@ -16,11 +16,11 @@ from SplatStats.constants import MKR_STATS
 if splat.isNotebook():
     (iPath, oPath) = (
         path.expanduser('~/Documents/GitHub/s3s/'),
-        path.expanduser('~/Sync/BattlesData/')
+        path.expanduser('~/Documents/Sync/BattlesData/')
     )
 else:
     (iPath, oPath) = argv[1:]
-###############################################################################
+###############################################################################a
 # Load battle paths
 ###############################################################################
 bPaths = splat.getBattleFilepaths(oPath)
@@ -48,7 +48,7 @@ metric = 'kill'
 normalized = False
 smooth = True
 smoothness = 0.75
-gridRes = 500
+gridSize = 500
 baseline = 'sym'
 colors = [
     "#0D40DE", "#EC0B68", "#6ABF0B", "#9090BA",
@@ -68,14 +68,14 @@ if normalized:
     cSum = np.sum(streamFiltered, axis=0)
     streamFiltered = np.array([r/cSum for r in streamFiltered])
 # Plot variables --------------------------------------------------------------
-x = range(streamFiltered.shape[1])
+x = list(range(streamFiltered.shape[1]))
 if smooth:
-    grid = np.linspace(0, streamFiltered.shape[1], num=gridRes)
-    y = [splat.gaussian_smooth(x, i, grid, smoothness) for i in streamFiltered]
+    smooth = [splat.gaussianSmooth(i, gridSize, smoothness) for i in streamFiltered]
+    (x, y) = (smooth[0][0], [i[1] for i in smooth])
 else:
     y = streamFiltered
 # Generate figure -------------------------------------------------------------
-ax.stackplot(grid, y, baseline="sym", colors=COLORS, alpha=.9)
+ax.stackplot(x, y, baseline="sym", colors=colors, alpha=.9)
 ax.set_xlim(0, max(x))
 ax.set_xticks([])
 ax.set_yticks([])
@@ -87,7 +87,7 @@ ax.legend(
 
 
 
-fig.savefig(
-    path.join(oPath, f'Wave.png'), 
-    dpi=300, bbox_inches='tight', facecolor=fig.get_facecolor()
-)
+# fig.savefig(
+#     path.join(oPath, f'Wave.png'), 
+#     dpi=300, bbox_inches='tight', facecolor=fig.get_facecolor()
+# )

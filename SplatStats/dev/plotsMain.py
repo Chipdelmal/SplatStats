@@ -18,7 +18,7 @@ LEN_LIMIT = 400
 # Create Player Objects
 ##############################################################################
 historyFilepaths = splat.getDataFilepaths(iPath)
-# bPaths = splat.dumpBattlesFromJSONS(historyFilepaths, oPath, overwrite=False)
+bPaths = splat.dumpBattlesFromJSONS(historyFilepaths, oPath, overwrite=False)
 bPaths = splat.getBattleFilepaths(oPath)
 ###############################################################################
 # Create Player Objects

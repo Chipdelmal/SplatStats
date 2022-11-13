@@ -266,7 +266,7 @@ def gaussianSmooth(y, gridSize=500, sd=1):
     Returns:
         list of np arrays: Smoothed values over the provided X range.
     """
-    x = range(y.shape[0])
+    x = range(len(y))
     grid = np.linspace(min(x), max(x), num=gridSize)
     weights = np.transpose([sts.norm.pdf(grid, m, sd) for m in x])
     weights = weights / weights.sum(0)

@@ -114,9 +114,9 @@ fig.savefig(
     dpi=300, bbox_inches='tight', facecolor=fig.get_facecolor()
 )
 
-fig, ax = plt.subplots(figsize=(10, 2))
-ax.stackplot(x, streamFiltered, baseline="zero", colors=COLORS)
-ax.set_xlim(0, max(x))
-# ax.set_ylim(0, 1)
+# fig, ax = plt.subplots(figsize=(10, 2))
+# ax.stackplot(x, streamFiltered, baseline="zero", colors=COLORS)
+# ax.set_xlim(0, max(x))
+# # ax.set_ylim(0, 1)
 
 
