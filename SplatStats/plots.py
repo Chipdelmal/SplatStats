@@ -1,5 +1,4 @@
 
-import math
 import squarify
 import numpy as np
 import seaborn as sns
@@ -702,3 +701,4 @@ def plotMatchTypeBars(
             **countsLegend
         )
     return g
+

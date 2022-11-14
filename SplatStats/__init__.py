@@ -8,6 +8,7 @@ from .parsers import *
 from .stats import *
 from .files import *
 from .plots import *
+from .plotsTeam import *
 from .plotsAux import *
 # Classes
 # from .History import *

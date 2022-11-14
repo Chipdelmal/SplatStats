@@ -3,6 +3,7 @@
 #   The use of a VSCode extension like "Color Highlight" is highly 
 #   recommended to explore this file.
 ###############################################################################
+from random import shuffle
 
 ###############################################################################
 # Splatoon 1
@@ -194,9 +195,10 @@ TEAL_PURPLE_ORANGE_S3       = ('#1BA974', '#98039B', '#C75304', '#C70864')
 ###############################################################################
 # Compile all colors
 ###############################################################################
-(all_variables, ALL_COLORS) = (locals(), [])
+(all_variables, ALL_COLORS) = (list(locals()), [])
 for name in all_variables:
     if name.isupper():
         vals = list(eval(name))
         ALL_COLORS.extend(vals)
-ALL_COLORS = sorted(list(set(ALL_COLORS)))
+ALL_COLORS = list(set(ALL_COLORS))
+shuffle(ALL_COLORS)
