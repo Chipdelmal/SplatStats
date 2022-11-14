@@ -1,16 +1,10 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-import numpy as np
-import pandas as pd
 from sys import argv
 from os import path
 import SplatStats as splat
-from scipy import stats
-from sklearn.preprocessing import normalize
 import matplotlib.pyplot as plt
-from SplatStats.Player import Player
-from SplatStats.constants import MKR_STATS
 
 
 if splat.isNotebook():
@@ -53,5 +47,5 @@ teamHistBT = team.reshapeTeamHistoryByPeriod(
 )
 fig.savefig(
     path.join(oPath, f'Wave - Team.png'), 
-    dpi=300, bbox_inches='tight', facecolor=fig.get_facecolor()
+    dpi=500, bbox_inches='tight', facecolor=fig.get_facecolor()
 )

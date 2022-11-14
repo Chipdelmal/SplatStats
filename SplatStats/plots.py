@@ -581,7 +581,7 @@ def plotMatchTypeBars(
         wspace=0.05, hspace=0, aspect=1, fontsize=8,
         sorting=[
             'Turf War', 'Tower Control', 'Rainmaker', 
-            'Splat Zones', 'Clam Blitz'
+            'Splat Zones', 'Clam Blitz', 'Tricolor Turf War'
         ],
         percentLegend={'color': '#00000020', 'fontsize': 50},
         countsLegend={'color': '#00000044', 'fontsize': 8},

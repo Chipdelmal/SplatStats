@@ -36,7 +36,7 @@ NAMES = (
     'čħîþ ウナギ', 'Yami ウナギ', 'Riché ウナギ', 'DantoNnoob',
     'Oswal　ウナギ', 'April ウナギ', 'Murazee', 'Rei ウナギ'
 )
-plyr = splat.Player(NAMES[7], bPaths, timezone='America/Los_Angeles')
+plyr = splat.Player(NAMES[0], bPaths, timezone='America/Los_Angeles')
 playerHistory = plyr.battlesHistory
 ###############################################################################
 # Streaks

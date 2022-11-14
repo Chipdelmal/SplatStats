@@ -68,7 +68,7 @@ for name in NAMES:
     )
     (_, ax_bottom) = splat.plotMatchTypeHistory(
         (fig, ax_bottom), playerHistory, 
-        sizeMultiplier=.7, labelsize=4, ilocRange=ilocRange
+        sizeMultiplier=.5, labelsize=4, ilocRange=ilocRange
     )
     ax_top.tick_params(labelbottom=False)
     ax_bottom.set_yticks([])
@@ -111,7 +111,7 @@ for name in NAMES:
     (metric, aggMetrics) = ('win ratio', ('win', 'total matches'))
     df = splat.calcStagesStatsByType(playerHistory)
     dfFlat = splat.ammendStagesStatsByType(df, matchModes=list(df.keys()))
-    dfFlat = dfFlat[dfFlat['match type']!='Tricolor Turf War']
+    # dfFlat = dfFlat[dfFlat['match type']!='Tricolor Turf War']
     dfFlat.sort_values('match type', inplace=True)
     g = splat.plotMatchTypeBars(dfFlat, metric, aggMetrics, yRange=(0, 1))
     g.savefig(

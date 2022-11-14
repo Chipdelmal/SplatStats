@@ -38,20 +38,8 @@ TZ = 'America/Los_Angeles'
 team = splat.Team(NAMES, bPaths, TZ)
 teamHist = team.battleHistory
 teamHistBT = team.reshapeTeamHistoryByPeriod(
-    period='24H'
+    period='2H'
 )
 ###############################################################################
 # Plotting Stream
 ###############################################################################
-(fig, ax) = plt.subplots(figsize=(10, 2))
-(fig, ax) = splat.plotStreamTeam(
-    (fig, ax), team, teamHistBT,
-    colors = [
-        "#0D40DE", "#EC0B68", "#6ABF0B", "#9090BA",
-        "#A577FF", "#941A88", "#CFD1C7", "#E4E567" 
-    ]
-)
-fig.savefig(
-    path.join(oPath, f'Wave - Team.png'), 
-    dpi=300, bbox_inches='tight', facecolor=fig.get_facecolor()
-)
