@@ -29,6 +29,10 @@ Additionally, we have the hex codes for all the Splatoon `colors <./colors.html>
 Under development! Come back in a few weeks for more info!
 
 
+.. image:: ../img/MatchesWin.png
+  :width: 100%
+
+
 Contents
 ----------
 
