@@ -50,6 +50,20 @@ The x-asis shows the number of kills/deaths per match, while the y axis is eithe
 
 
 
+Stats By Match-Type and Stage
+____________________________________________
+
+These barcharts show the frequency of a given statistic broken down by match-type and stage.
+
+.. image:: ../img/MatchesWin.png
+  :width: 100%
+
+.. image:: ../img/MatchesKill.png
+  :width: 100%
+
+
+Numbers in the barcharts show the true frequency (if the statistic is a fraction), and the main number in each panel shows the aggregate score amongst all the stages.
+
 Stage/Weapon Stats Treemaps
 ____________________________________________
 

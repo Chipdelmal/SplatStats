@@ -38,6 +38,13 @@ These plots are designed to show which stages are the ones in which the player p
 
 Moreover, these plots can be generated for any arbitrary key in the dataframe: main weapon, sub weapon, head gear, etc.
 
+## [Stats By Match-Type and Stage](https://chipdelmal.github.io/SplatStats/build/html/plots.html#stats-by-match-type-and-stage)
+
+<img src="https://raw.githubusercontent.com/Chipdelmal/SplatStats/main/docs/img/MatchesWin.png" width="99%" align="middle"><br>
+
+
+These barcharts show the frequency of a given statistic broken down by match-type and stage.
+
 ## [Kill/Death Iris](https://chipdelmal.github.io/SplatStats/build/html/plots.html#kill-to-deaths-iris)
 
 <img src="https://raw.githubusercontent.com/Chipdelmal/SplatStats/main/docs/img/IrisA.png" width="33%" align="middle"><img src="https://raw.githubusercontent.com/Chipdelmal/SplatStats/main/docs/img/IrisC.png" width="33%" align="middle"><img src="https://raw.githubusercontent.com/Chipdelmal/SplatStats/main/docs/img/IrisB.png" width="33%" align="middle">

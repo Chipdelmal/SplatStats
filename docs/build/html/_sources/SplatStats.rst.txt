@@ -84,6 +84,14 @@ SplatStats.plotsAux module
    :undoc-members:
    :show-inheritance:
 
+SplatStats.plotsTeam module
+---------------------------
+
+.. automodule:: SplatStats.plotsTeam
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 SplatStats.stats module
 -----------------------
 
