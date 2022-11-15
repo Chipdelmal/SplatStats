@@ -80,3 +80,12 @@ plt.setp(ax_bottom.get_xticklabels(), rotation=90, ha='right')
     (fig, ax), playerHistory,
     innerGuides=(0, 6, 1), outerGuides=(10, 50, 10)
 )
+###############################################################################
+# Wins Barchart
+###############################################################################
+(metric, aggMetrics) = ('win ratio', ('win', 'total matches'))
+df = splat.calcStagesStatsByType(playerHistory)
+dfFlat = splat.ammendStagesStatsByType(df, matchModes=list(df.keys()))
+# dfFlat = dfFlat[dfFlat['match type']!='Tricolor Turf War']
+dfFlat.sort_values('match type', inplace=True)
+g = splat.plotMatchTypeBars(dfFlat, metric, aggMetrics, yRange=(0, 1))
