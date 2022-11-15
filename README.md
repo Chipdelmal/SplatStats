@@ -22,6 +22,13 @@ Have a look at our [documentation](https://chipdelmal.github.io/SplatStats/) for
 
 This panel is constructed as a panel composed of two different figures. The top one is a detailed breakdown of the statistics of each battle. Each column on the x axis represents a single battle; where the left y axis shows the number of kills, deaths, assists and specials; and the right y axis the turf painted over the match (bars on the plot).
 
+## [Stats By Match-Type and Stage](https://chipdelmal.github.io/SplatStats/build/html/plots.html#stats-by-match-type-and-stage)
+
+<img src="https://raw.githubusercontent.com/Chipdelmal/SplatStats/main/docs/img/MatchesWin.png" width="99%" align="middle"><br>
+<img src="https://raw.githubusercontent.com/Chipdelmal/SplatStats/main/docs/img/MatchesKill.png" width="99%" align="middle"><br>
+
+These barcharts show the frequency of a given statistic broken down by match-type and stage.
+
 ## [Kills VS Deaths Distributions](https://chipdelmal.github.io/SplatStats/build/html/plots.html#matches-history-panel)
 
 ![](https://raw.githubusercontent.com/Chipdelmal/SplatStats/main/docs/img/kdHistogram.png)
@@ -37,13 +44,6 @@ These plots are designed to show which stages are the ones in which the player p
 <!-- <img src="./docs/img/treemapD.png" width="50%" align="middle"><img src="./docs/img/treemapC.png" width="50%" align="middle"> -->
 
 Moreover, these plots can be generated for any arbitrary key in the dataframe: main weapon, sub weapon, head gear, etc.
-
-## [Stats By Match-Type and Stage](https://chipdelmal.github.io/SplatStats/build/html/plots.html#stats-by-match-type-and-stage)
-
-<img src="https://raw.githubusercontent.com/Chipdelmal/SplatStats/main/docs/img/MatchesWin.png" width="99%" align="middle"><br>
-
-
-These barcharts show the frequency of a given statistic broken down by match-type and stage.
 
 ## [Kill/Death Iris](https://chipdelmal.github.io/SplatStats/build/html/plots.html#kill-to-deaths-iris)
 
