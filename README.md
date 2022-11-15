@@ -51,6 +51,14 @@ Moreover, these plots can be generated for any arbitrary key in the dataframe: m
 
 Similar to the [matches history panel](https://chipdelmal.github.io/SplatStats/build/html/plots.html#matches-history-panel), these plots show the kill to death ratios as bars but this time they are arranged in a circular pattern to keep it more compact. The radial axis is log-scaled by default with the kill+assist to deaths ratio highlighted at the center of the plot.
 
+
+## [Awards BarChart](https://chipdelmal.github.io/SplatStats/build/html/plots.html#kill-vs-deaths-distributions)
+
+
+<img src="https://chipdelmal.github.io/SplatStats/build/html/_images/awards.png" width="99%" align="middle"><br>
+
+A simple bar chart of the times awards have been given to the player.
+
 ## Coming Soon!
 
 <img src="https://raw.githubusercontent.com/Chipdelmal/SplatStats/main/docs/img/waffle.png" width="99%" align="middle"><br>
@@ -58,8 +66,8 @@ Similar to the [matches history panel](https://chipdelmal.github.io/SplatStats/b
 
 # Author
 
-I'll be writing a [blogpost on my website](https://chipdelmal.github.io/dataViz/2022-09-26-SplatStats.html) with more information about the development, planned features, and some analyses on my own Splatoon matches data!
+Check out the [blogpost on my website](https://chipdelmal.github.io/dataViz/2022-09-26-SplatStats.html) with more information about the development, planned features, and some analyses on my own Splatoon matches data!
 
-<img src="https://github.com/Chipdelmal/SplatStats/blob/main/docs/img/chip.jpg?raw=true" height="300px" align="middle">
+<img src="https://github.com/Chipdelmal/SplatStats/blob/main/docs/img/chip.jpg?raw=true" height="200px" align="middle">
 
 [Héctor M. Sánchez C.](http://chipdelmal.github.io)
