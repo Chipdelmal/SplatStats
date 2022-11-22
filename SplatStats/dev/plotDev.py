@@ -45,6 +45,84 @@ wins = list(playerHistory['win'])
 splat.longestRun(wins, elem='W')
 splat.longestRun(wins, elem='L')
 ###############################################################################
+# Player ranking
+###############################################################################
+df = plyr.getPlayerFullRanking()
+
+cols = ['#C70864', '#C920B7', '#4B25C9', '#830B9C', '#2CB721']
+cats = ['kill', 'death', 'assist', 'special', 'paint']
+(fig, axes) = plt.subplots(figsize=(10, 10), nrows=len(cats), sharex=True)
+for (col, ax, cat) in zip(cols, axes, cats):
+    df[cat].value_counts().sort_index().plot(
+        ax=ax, kind='bar', color=col, width=.9,
+        title=cat, xlabel='Rank'
+    )
+
+
+
+(fig, ax) = plt.subplots()
+(fig, ax) = plt.subplots()
+df['death'].value_counts().sort_index().plot(ax=ax, kind='bar')
+
+
+
+
+
+fig = plt.figure(figsize=(30, 5))
+gs = fig.add_gridspec(
+    2, 1,  
+    width_ratios=(1, ), height_ratios=(.75, .05),
+    left=0.1, right=0.9, bottom=0.1, top=0.9,
+    wspace=0.05, hspace=0
+)
+ax_top    = fig.add_subplot(gs[0])
+ax_bottom = fig.add_subplot(gs[1], sharex=ax_top)
+
+
+
+
+cats = ['kill', 'death', 'assist', 'special', 'paint']
+vals = []
+for cat in cats:
+    dct = Counter(df[cat])
+    counts = sorted(dct.items(), key=lambda x: x[0])[::1]
+    print(counts)
+    vals.append([i[1] for i in counts])
+
+vArray = np.asarray(vals).T
+normArray = np.asarray([r/np.sum(r) for r in vArray])
+
+
+colors = []
+
+x = list(range(1, 6))
+for (i, row) in enumerate(vArray):
+    plt.bar(x, row)
+
+
+colors = []
+dfS = pd.DataFrame.from_dict({
+    i: df[i].value_counts() for i in cats
+})
+dfS.T.plot.barh(stacked=True, legend=True)
+
+
+dfS.index.name = 'rank'
+dfS.reset_index(inplace=True)
+
+dfS.set_index('rank').plot(kind='bar', stacked=True)
+
+
+df.plot(x='rank', kind='bar', stacked=True)
+
+
+dfA = df.drop('datetime', axis=1)
+sns.countplot(dfA.melt(value_vars=dfA.columns), y='value', hue='variable')
+
+
+
+
+###############################################################################
 # Windowed average
 ###############################################################################
 kSize = 10

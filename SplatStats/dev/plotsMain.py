@@ -8,7 +8,7 @@ import matplotlib.pyplot as plt
 
 if splat.isNotebook():
     (iPath, oPath) = (
-        path.expanduser('~/Documents/GitHub/s3s/'),
+        path.expanduser('~/Documents/GitHub/s3s_source/'),
         path.expanduser('~/Documents/Sync/BattlesData/')
     )
 else:
