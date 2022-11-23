@@ -89,3 +89,22 @@ dfFlat = splat.ammendStagesStatsByType(df, matchModes=list(df.keys()))
 # dfFlat = dfFlat[dfFlat['match type']!='Tricolor Turf War']
 dfFlat.sort_values('match type', inplace=True)
 g = splat.plotMatchTypeBars(dfFlat, metric, aggMetrics, yRange=(0, 1))
+###############################################################################
+# Ranks
+###############################################################################
+cats = ['kill', 'death', 'assist', 'special', 'paint']
+dfRank = plyr.getPlayerAlliedRanking(cats=cats)
+(fig, axes) = plt.subplots(figsize=(10, 10), nrows=len(cats), sharex=True)
+(fig, axes) = splat.plotRanking(
+    (fig, axes), dfRank, 
+    normalized=True, xLim=(-.6, 3.6), yLim=(0, 0.75)
+)
+# Full Rank -------------------------------------------------------------------
+dfRank = plyr.getPlayerFullRanking(cats=cats)
+(fig, axes) = plt.subplots(
+    figsize=(10, 10), nrows=len(cats), sharex=True
+)
+(fig, axes) = splat.plotRanking(
+    (fig, axes), dfRank, 
+    normalized=True, xLim=(-.6, 7.6), yLim=(0, 0.5)
+)
