@@ -52,6 +52,12 @@ Moreover, these plots can be generated for any arbitrary key in the dataframe: m
 Similar to the [matches history panel](https://chipdelmal.github.io/SplatStats/build/html/plots.html#matches-history-panel), these plots show the kill to death ratios as bars but this time they are arranged in a circular pattern to keep it more compact. The radial axis is log-scaled by default with the kill+assist to deaths ratio highlighted at the center of the plot.
 
 
+## [Awards BarChart](https://chipdelmal.github.io/SplatStats/build/html/plots.html#matches-ranks)
+
+These plots show the player's results as compared to the other players in the match (left) and on the player's team (right).
+
+<img src="https://raw.githubusercontent.com/Chipdelmal/SplatStats/main/docs/img/rankF.png" width="49%" align="middle"><img src="https://raw.githubusercontent.com/Chipdelmal/SplatStats/main/docs/img/rankA.png" width="49%" align="middle">
+
 ## [Awards BarChart](https://chipdelmal.github.io/SplatStats/build/html/plots.html#kill-vs-deaths-distributions)
 
 

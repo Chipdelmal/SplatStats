@@ -108,6 +108,22 @@ The radial axis is log-scaled by default with the kill+assist to deaths ratio hi
 The first 5 circles in the radial axis are spaced in increments of 1, while the latter ones are spaced in intervals of 10 by default.
 
 
+Matches Ranks
+____________________________________________
+
+
+These plots show the player's results as compared to the other players in the match (left) and on the player's team (right).
+
+.. image:: ../img/rankF.png
+  :width: 49%
+
+.. image:: ../img/rankA.png
+  :width: 49%
+
+
+The x axis is the rank, and the y axis is either the raw frequency of the player being rated that specific rank, or the frequency as a fraction of the total.
+
+
 Awards BarChart
 ____________________________________________
 
