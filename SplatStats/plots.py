@@ -592,7 +592,7 @@ def plotMatchTypeBars(
     """Generates a grid of seaborn plots with stats broken down by match type and stage.
 
     Args:
-        stagesByTypeFlat (dataframe): _description_
+        stagesByTypeFlat (dataframe): Dataframe obtained by running ammendStagesStatsByType on the calcStagesStatsByType structure.
         metric (str): Main metric for bar sizes.
         aggMetrics (tuple of strings): These two metrics are used to calculate a fraction of metric1/metric2 on the aggregate value displayed. Defaults to ('win', 'total matches').
         yRange (tuple, optional): y-axis plot range. Defaults to (0, 1).
@@ -709,15 +709,39 @@ def plotRanking(
         normalized=True, yLim=None, xLim=None,
         colors=['#C70864', '#C920B7', '#4B25C9', '#830B9C', '#2CB721'],
         categories=['kill', 'death', 'assist', 'paint', 'special'],
-        widthBar=0.9,
+        widthBar=0.9, title=True, pad=0, titlePos=(0.975, .9),
         **kwargs
     ):
+    """Generates barcharts on stats for player's ranking across categories.
+
+    Args:
+        figAx (tuple): (fig, ax) tuple as initialized by matplotlib (plt.subplots).
+        rankingDF (dataframe): Either getPlayerAlliedRanking or getPlayerFullRanking dataframe on battle data.
+        normalized (bool, optional): If true, data is scaled to proportions (0 to 1) instead of raw frequencies. Defaults to True.
+        xLim (tuple, optional): Plot limits on x axis Defaults to None.
+        yLim (tuple, optional): Plot limits on y axis. Defaults to None.
+        colors (list, optional): Color palette for bars. Defaults to ['#C70864', '#C920B7', '#4B25C9', '#830B9C', '#2CB721'].
+        categories (list, optional): Categories for the ranks (in order). Defaults to ['kill', 'death', 'assist', 'paint', 'special'].
+        widthBar (float, optional): Bars width. Defaults to 0.9.
+        title (bool, optional): If true, the title of the plot is printed. Defaults to True.
+        titlePos (tuple, optional): Position for plots' title. Defaults to (0.975, .9).
+        pad (int, optional): Padding for plots along the grid. Defaults to 0.
+
+    Returns:
+        (fix, ax): Matplotlib's fig and ax objects.
+    """    
     (fig, axes) = figAx
+    fig.tight_layout(pad=pad)
     for (col, ax, cat) in zip(colors, axes, categories):
         rankingDF[cat].value_counts(normalize=normalized).sort_index().plot(
             ax=ax, kind='bar', color=col, width=widthBar,
-            title=cat, **kwargs
+            **kwargs
         )
+        if title:
+            ax.text(
+                titlePos[0], titlePos[1], cat, 
+                transform=ax.transAxes, ha="right"
+            )
         if yLim:
             ax.set_ylim(*yLim)
         if xLim:

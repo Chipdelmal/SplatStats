@@ -18,7 +18,7 @@ LEN_LIMIT = 400
 # Create Player Objects
 ##############################################################################
 historyFilepaths = splat.getDataFilepaths(iPath)
-bPaths = splat.dumpBattlesFromJSONS(historyFilepaths, oPath, overwrite=False)
+# bPaths = splat.dumpBattlesFromJSONS(historyFilepaths, oPath, overwrite=False)
 bPaths = splat.getBattleFilepaths(oPath)
 ###############################################################################
 # Create Player Objects
@@ -57,7 +57,7 @@ for name in NAMES:
     (fig, axes) = plt.subplots(figsize=(10, 10), nrows=len(cats), sharex=True)
     (fig, axes) = splat.plotRanking(
         (fig, axes), dfRank, 
-        normalized=True, xLim=(-.6, 3.6), yLim=(0, 1)
+        normalized=True, xLim=(-.6, 3.6), yLim=(0, 0.75)
     )
     fig.savefig(
         path.join(oPath, f'RankAllied - {plyr.name}.png'), 
@@ -66,7 +66,9 @@ for name in NAMES:
     plt.close()
     # Full Rank ---------------------------------------------------------------
     dfRank = plyr.getPlayerFullRanking(cats=cats)
-    (fig, axes) = plt.subplots(figsize=(10, 10), nrows=len(cats), sharex=True)
+    (fig, axes) = plt.subplots(
+        figsize=(10, 10), nrows=len(cats), sharex=True
+    )
     (fig, axes) = splat.plotRanking(
         (fig, axes), dfRank, 
         normalized=True, xLim=(-.6, 7.6), yLim=(0, 0.5)
