@@ -51,12 +51,20 @@ df = plyr.getPlayerFullRanking()
 
 cols = ['#C70864', '#C920B7', '#4B25C9', '#830B9C', '#2CB721']
 cats = ['kill', 'death', 'assist', 'special', 'paint']
+normalized = False
+yLim = None
+
 (fig, axes) = plt.subplots(figsize=(10, 10), nrows=len(cats), sharex=True)
+splat.plotRanking((fig, axes), df, normalized=True, yLim=0.5)
+
+
 for (col, ax, cat) in zip(cols, axes, cats):
-    df[cat].value_counts().sort_index().plot(
+    df[cat].value_counts(normalize=normalized).sort_index().plot(
         ax=ax, kind='bar', color=col, width=.9,
         title=cat, xlabel='Rank'
     )
+    if yLim:
+        ax.set_ylim(0, yLim)
 
 
 

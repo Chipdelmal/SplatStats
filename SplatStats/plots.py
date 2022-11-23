@@ -702,3 +702,24 @@ def plotMatchTypeBars(
         )
     return g
 
+
+def plotRanking(
+        figAx,
+        rankingDF, 
+        normalized=True, yLim=None, xLim=None,
+        colors=['#C70864', '#C920B7', '#4B25C9', '#830B9C', '#2CB721'],
+        categories=['kill', 'death', 'assist', 'paint', 'special'],
+        widthBar=0.9,
+        **kwargs
+    ):
+    (fig, axes) = figAx
+    for (col, ax, cat) in zip(colors, axes, categories):
+        rankingDF[cat].value_counts(normalize=normalized).sort_index().plot(
+            ax=ax, kind='bar', color=col, width=widthBar,
+            title=cat, **kwargs
+        )
+        if yLim:
+            ax.set_ylim(*yLim)
+        if xLim:
+            ax.set_xlim(*xLim)
+    return (fig, axes)
