@@ -18,7 +18,7 @@ LEN_LIMIT = 400
 # Create Player Objects
 ##############################################################################
 historyFilepaths = splat.getDataFilepaths(iPath)
-# bPaths = splat.dumpBattlesFromJSONS(historyFilepaths, oPath, overwrite=False)
+bPaths = splat.dumpBattlesFromJSONS(historyFilepaths, oPath, overwrite=False)
 bPaths = splat.getBattleFilepaths(oPath)
 ###############################################################################
 # Create Player Objects
@@ -52,15 +52,27 @@ for name in NAMES:
     ###########################################################################
     # Ranks
     ###########################################################################
-    dfRank = plyr.getPlayerFullRanking()
     cats = ['kill', 'death', 'assist', 'special', 'paint']
+    dfRank = plyr.getPlayerAlliedRanking(cats=cats)
     (fig, axes) = plt.subplots(figsize=(10, 10), nrows=len(cats), sharex=True)
     (fig, axes) = splat.plotRanking(
         (fig, axes), dfRank, 
-        normalized=True, xLim=(-.6, 7.6), yLim=(0, 0.4)
+        normalized=True, xLim=(-.6, 3.6), yLim=(0, 1)
     )
     fig.savefig(
-        path.join(oPath, f'Rank - {plyr.name}.png'), 
+        path.join(oPath, f'RankAllied - {plyr.name}.png'), 
+        dpi=300, bbox_inches='tight', facecolor=fig.get_facecolor()
+    )
+    plt.close()
+    # Full Rank ---------------------------------------------------------------
+    dfRank = plyr.getPlayerFullRanking(cats=cats)
+    (fig, axes) = plt.subplots(figsize=(10, 10), nrows=len(cats), sharex=True)
+    (fig, axes) = splat.plotRanking(
+        (fig, axes), dfRank, 
+        normalized=True, xLim=(-.6, 7.6), yLim=(0, 0.5)
+    )
+    fig.savefig(
+        path.join(oPath, f'RankFull - {plyr.name}.png'), 
         dpi=300, bbox_inches='tight', facecolor=fig.get_facecolor()
     )
     plt.close()

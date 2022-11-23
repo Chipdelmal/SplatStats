@@ -202,14 +202,24 @@ class Player:
         Returns:
             dataframe: Ranks dataframe by category.
         """        
-        (btlRecords, rnks) = (self.battleRecords, [])
-        for btl in btlRecords:
-            df = btl.getAlliedRanks(cats=cats)
-            fltr = df[df['player name'] == self.name]
-            rnks.append(fltr)
+        (name, btlRecords, battlesHistory) = (
+            self.name, self.battleRecords, self.battlesHistory
+            
+        )
+
+        rnks = []
+        for btl in btlRecords[:]:
+            dfA = btl.getAlliedRanks(cats=cats)
+            dfE = pd.concat(btl.getEnemiesRanks(cats=cats))
+            if name in set(dfA['player name']):
+                fltr = dfA[dfA['player name'] == name]
+                rnks.append(fltr)
+            elif name in set(dfE['player name']):
+                fltr = dfE[dfE['player name'] == name]
+                rnks.append(fltr)
         df = pd.concat(rnks, axis=0).drop(columns=['player name', 'player name id'])
         # Filter invalid battles and make indexes match -----------------------
-        bHist = self.battlesHistory
+        bHist = battlesHistory
         vIx = list(bHist.index)
         df = df.iloc[vIx]
         df = df.set_index(pd.Series(vIx))
