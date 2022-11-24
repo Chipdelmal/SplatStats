@@ -88,6 +88,8 @@ class Player:
             self.battleRecords, self.name, 
             validOnly=validOnly, timezone=self.timezone
         )
+        battlesHistory['winBool'] = [1 if i=='W' else 0 for i in battlesHistory['win']]
+        battlesHistory['loseBool'] = [1 if i=='L' else 0 for i in battlesHistory['win']]
         self.battlesHistory = battlesHistory
         return self.battlesHistory
     

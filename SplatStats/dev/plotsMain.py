@@ -18,7 +18,7 @@ LEN_LIMIT = 400
 # Create Player Objects
 ##############################################################################
 historyFilepaths = splat.getDataFilepaths(iPath)
-# bPaths = splat.dumpBattlesFromJSONS(historyFilepaths, oPath, overwrite=False)
+bPaths = splat.dumpBattlesFromJSONS(historyFilepaths, oPath, overwrite=False)
 bPaths = splat.getBattleFilepaths(oPath)
 ###############################################################################
 # Create Player Objects
@@ -27,7 +27,7 @@ NAMES = (
     'čħîþ ウナギ', 'Yami ウナギ', 'Riché ウナギ', 'DantoNnoob',
     'Oswal　ウナギ', 'April ウナギ', 'Murazee', 'Rei ウナギ'
 )
-name = 'Yami ウナギ'
+name = 'čħîþ ウナギ'
 for name in NAMES:
     plyr = splat.Player(name, bPaths, timezone='America/Los_Angeles')
     playerHistory = plyr.battlesHistory
@@ -165,6 +165,7 @@ for name in NAMES:
     #  Waffle
     ###############################################################################
     (fig, ax) = plt.subplots(figsize=(8, 8))
+    # df = playerHistory[playerHistory['match type']=='Tower Control']
     (fig, ax) = splat.plotWaffleStat(
         (fig, ax), playerHistory,
         function=sum, grouping='main weapon', stat='kill',
