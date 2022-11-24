@@ -769,6 +769,29 @@ def plotWaffleStat(
         },
         **kwargs
     ):
+    """Generates a waffle plot of aggregated statistics on player's history (eg. sums of kills broken by main weapon).
+
+    Args:
+        figAx (tuple): (fig, ax) tuple as initialized by matplotlib (plt.subplots).
+        playerHistory (dataframe): Player history dataframe.
+        function (function, optional): Aggregation function for groupby. Defaults to sum.
+        grouping (str, optional): Category over which the aggregation will be done. Defaults to 'main weapon'.
+        stat (str, optional): Statistic to use in the plot. Defaults to 'kill'.
+        rows (int, optional): Number of rows for waffle. Defaults to 50.
+        columns (int, optional): Number of columns for waffle. Defaults to 50.
+        startingLocation (str, optional): Waffle's starting locations (see pywaffle's docs). Defaults to 'NW'.
+        blockArranging (str, optional): Block arranging (see pywaffle's docs). Defaults to 'snake'.
+        intervalRatioX (float, optional): Spacing over x axis. Defaults to 0.5.
+        intervalRatioY (float, optional): Spacing over y axis. Defaults to 0.5.
+        colors (list, optional): List of hex colors. Defaults to clr.ALL_COLORS.
+        alpha (float, optional): Alpha for the colors. Defaults to .6.
+        fmt (str, optional): Formating for the title number. Defaults to "{:.2f}".
+        title (bool, optional): Prints title if true. Defaults to True.
+        legendDict (dict, optional): Dictionary for labels (see pywaffle's docs). Defaults to { 'loc': 'upper left', 'bbox_to_anchor': (1, 1), 'ncol': 1, 'framealpha': 0, 'fontsize': 10 }.
+
+    Returns:
+        (fix, ax): Matplotlib's fig and ax objects.
+    """    
     (fig, ax) = figAx
     # Aggregate ---------------------------------------------------------------
     df = playerHistory.groupby(grouping).agg(function)
