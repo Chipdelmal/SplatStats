@@ -108,3 +108,12 @@ dfRank = plyr.getPlayerFullRanking(cats=cats)
     (fig, axes), dfRank, 
     normalized=True, xLim=(-.6, 7.6), yLim=(0, 0.5)
 )
+###############################################################################
+#  Waffle
+###############################################################################
+(fig, ax) = plt.subplots(figsize=(8, 8))
+(fig, ax) = splat.plotWaffleStat(
+    (fig, ax), playerHistory,
+    function=sum, grouping='main weapon', stat='kill',
+    colors=splat.CLR_CLS_LONG
+)

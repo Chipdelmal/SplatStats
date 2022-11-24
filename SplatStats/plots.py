@@ -2,10 +2,13 @@
 import squarify
 import numpy as np
 import seaborn as sns
+from pywaffle import Waffle
 import matplotlib.pyplot as plt
 from matplotlib.patches import Rectangle
 import SplatStats.constants as cst
 import SplatStats.stats as stats
+import SplatStats.auxiliary as aux
+import SplatStats.colors as clr
 import SplatStats.plotsAux as paux
 import matplotlib
 matplotlib.rcParams['font.family'] = ['monospace']
@@ -747,3 +750,50 @@ def plotRanking(
         if xLim:
             ax.set_xlim(*xLim)
     return (fig, axes)
+
+
+def plotWaffleStat(
+        figAx, playerHistory,
+        function=sum, grouping='main weapon', stat='kill',
+        rows=50, columns=50, startingLocation='NW', blockArranging='snake',
+        intervalRatioX=0.5, intervalRatioY=0.5,
+        colors=clr.ALL_COLORS, alpha=.6,
+        fmt="{:.2f}",
+        title=True,
+        legendDict={
+            'loc': 'upper left',
+            'bbox_to_anchor': (1, 1),
+            'ncol': 1,
+            'framealpha': 0,
+            'fontsize': 10
+        },
+        **kwargs
+    ):
+    (fig, ax) = figAx
+    # Aggregate ---------------------------------------------------------------
+    df = playerHistory.groupby(grouping).agg(function)
+    cols = [
+        i+aux.alphaToHex(alpha) for i in colors[:len(df.index)]
+    ]
+    # Waffle ------------------------------------------------------------------
+    Waffle.make_waffle(
+        ax=ax,
+        rows=rows, 
+        columns=columns,
+        values=df[stat],
+        starting_location=startingLocation,
+        vertical=True,
+        block_arranging_style=blockArranging,
+        colors=cols,
+        interval_ratio_x=intervalRatioX,
+        interval_ratio_y=intervalRatioY,
+        labels=[
+            f"{k} ({float(v/sum(df[stat])*100):.2f}%)" 
+            for (k, v) in zip(df.index, df[stat])
+        ],
+        legend=legendDict,
+        **kwargs
+    )
+    if title:
+        plt.title(f"{stat} ("+fmt.format(function(df[stat]))+")")
+    return (fig, ax)

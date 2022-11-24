@@ -27,7 +27,7 @@ NAMES = (
     'čħîþ ウナギ', 'Yami ウナギ', 'Riché ウナギ', 'DantoNnoob',
     'Oswal　ウナギ', 'April ウナギ', 'Murazee', 'Rei ウナギ'
 )
-name = 'čħîþ ウナギ'
+name = 'Yami ウナギ'
 for name in NAMES:
     plyr = splat.Player(name, bPaths, timezone='America/Los_Angeles')
     playerHistory = plyr.battlesHistory
@@ -161,6 +161,20 @@ for name in NAMES:
         dpi=300, bbox_inches='tight'
     )
     plt.close(g.fig)
+    ###############################################################################
+    #  Waffle
+    ###############################################################################
+    (fig, ax) = plt.subplots(figsize=(8, 8))
+    (fig, ax) = splat.plotWaffleStat(
+        (fig, ax), playerHistory,
+        function=sum, grouping='main weapon', stat='kill',
+        colors=splat.CLR_CLS_LONG
+    )
+    fig.savefig(
+        path.join(oPath, f'WaffleKill - {plyr.name}.png'), 
+        dpi=300, bbox_inches='tight', facecolor=fig.get_facecolor()
+    )
+    plt.close()
     ###########################################################################
     # Win Ratio
     ###########################################################################
@@ -174,7 +188,7 @@ for name in NAMES:
         )
         plt.close()
     except:
-        continue
+        pass
 ###############################################################################
 # Legend
 ###############################################################################
