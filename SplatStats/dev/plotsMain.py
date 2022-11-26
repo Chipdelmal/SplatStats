@@ -169,6 +169,7 @@ for name in NAMES:
     (fig, ax) = splat.plotWaffleStat(
         (fig, ax), playerHistory,
         function=sum, grouping='main weapon', stat='kill',
+        rows=50, columns=50,
         colors=splat.CLR_CLS_LONG
     )
     fig.savefig(

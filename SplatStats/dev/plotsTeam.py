@@ -9,7 +9,7 @@ import matplotlib.pyplot as plt
 
 if splat.isNotebook():
     (iPath, oPath) = (
-        path.expanduser('~/Documents/GitHub/s3s/'),
+        path.expanduser('~/Documents/GitHub/s3s_source/'),
         path.expanduser('~/Documents/Sync/BattlesData/')
     )
 else:
@@ -49,3 +49,4 @@ fig.savefig(
     path.join(oPath, f'Wave - Team.png'), 
     dpi=500, bbox_inches='tight', facecolor=fig.get_facecolor()
 )
+plt.close()

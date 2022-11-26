@@ -10,6 +10,7 @@ import matplotlib.pyplot as plt
 from matplotlib.patches import Rectangle
 from matplotlib import markers
 from collections import Counter
+from itertools import combinations, product
 
 if splat.isNotebook():
     (iPath, oPath) = (
@@ -31,48 +32,51 @@ NAMES = (
     'čħîþ ウナギ', 'Yami ウナギ', 'Riché ウナギ',
     'Oswal　ウナギ', 'April ウナギ', 'Murazee', 'DantoNnoob'
 )
-plyr = splat.Player(NAMES[1], bPaths, timezone='America/Los_Angeles')
+plyr = splat.Player(NAMES[0], bPaths, timezone='America/Los_Angeles')
 # (chip, yami, april, richie, memo, tomas) = [
 #     splat.Player(nme, bPaths, timezone='America/Los_Angeles')
 #     for nme in NAMES
 # ]
 # team = (chip, yami, april, richie, memo, tomas)
 ###############################################################################
-# Fixing Rank counts
-###############################################################################
-cats=['kill', 'death', 'assist', 'special', 'paint']
-
-battlesHistory = plyr.battlesHistory
-btlRecords = plyr.battleRecords
-name = plyr.name
-
-rnks = []
-for btl in btlRecords[:]:
-    dfA = btl.getAlliedRanks(cats=cats)
-    dfE = pd.concat(btl.getEnemiesRanks(cats=cats))
-    if name in set(dfA['player name']):
-        fltr = dfA[dfA['player name'] == name]
-        rnks.append(fltr)
-    elif name in set(dfE['player name']):
-        fltr = dfE[dfE['player name'] == name]
-        rnks.append(fltr)
-df = pd.concat(rnks, axis=0).drop(columns=['player name', 'player name id'])
-# Filter invalid battles and make indexes match -----------------------
-bHist = battlesHistory
-vIx = list(bHist.index)
-df = df.iloc[vIx]
-df = df.set_index(pd.Series(vIx))
-df['datetime'] = bHist['datetime']
-
-###############################################################################
 # Pulling out some stats
 ###############################################################################
-bHist = plyr.battlesHistory
-plyr.playerStats
+(bHist, bRcrd) = (plyr.battlesHistory, plyr.battleRecords)
+
+# Filter Player History
+filters = [
+    bHist['winBool']==1,
+    bHist['main weapon']=='Splattershot',
+    bHist['match type']!='Turf War'
+]
+fullFilter = [all(i) for i in zip(*filters)]
+ix = list(bHist[fullFilter].index)
+# Get matching battle records
+bRecs = [bRcrd[i] for i in ix]
+
+
+attsList = []
+for bRec in bRecs:
+    record = pd.concat(bRec.enemyTeams)
+    attribute = set(record['main weapon'])
+    attsList.extend(attribute)
+freqs = Counter(attsList).most_common()
+fracs = [(n, i/len(bRecs)) for (n, i) in freqs]
 
 
 
-plyr.getAlliesAndEnemiesCounts()['allies']
-bFiltered = bHist[bHist['main weapon'] == 'Splattershot']
-splat.calcBattleHistoryStats(bFiltered)
-plyr.getPlayerHistoryByTypes()
+
+wpsList = set()
+for bRec in bRecs:
+    record = pd.concat(bRec.enemyTeams)
+    wpsList.update(list(record['main weapon']))
+
+wpCombos = list(product(wpsList, repeat=4))
+
+wpSets = set()
+for combo in wpCombos:
+    cmb = tuple(Counter(combo).most_common())
+    if cmb not in wpSets:
+        wpSets.add(cmb)
+
+
