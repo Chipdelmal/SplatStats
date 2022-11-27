@@ -825,11 +825,29 @@ def plotWaffleStat(
 
 def plotCircularBarchartStat(
         figAx,
-        playerHistory, cat, stat, aggFun=np.sum,
+        playerHistory, cat='main weapon', stat='kill', aggFun=np.sum,
         autoRange=True, logScale=True, gStep=30,
         rRange=(0, 270), xRange=(0, 10),
         colors=clr.ALL_COLORS
     ):
+    """Generates a radial barchart for 
+
+    Args:
+        figAx (tuple): (fig, ax) tuple as initialized by matplotlib (plt.subplots).
+        playerHistory (dataframe): Player history dataframe.
+        cat (str): Category over which the aggregation will be done. Defaults to 'main weapon'.
+        stat (str): Statistic to use in the plot. Defaults to 'kill'.
+        aggFun (function, optional): Aggregation function for groupby. Defaults to np.sum.
+        autoRange (bool, optional): Auto-scales the radial plot with data min and data max. Defaults to True.
+        logScale (bool, optional): Uses log-scale for the radial bars. Defaults to True.
+        gStep (int, optional): Number of equally-spaced steps for radial ticks. Defaults to 30.
+        rRange (tuple, optional): Radial angles for the plot. Defaults to (0, 270).
+        xRange (tuple, optional): Values to map onto the rRange values. Defaults to (0, 10).
+        colors (_type_, optional): List of hex colors for bars. Defaults to clr.ALL_COLORS.
+
+    Returns:
+        (fix, ax): Matplotlib's fig and ax objects.
+    """    
     (fig, ax) = figAx
     # Gather data -------------------------------------------------------------
     df = playerHistory.groupby(cat).agg(aggFun)
@@ -865,7 +883,8 @@ def plotCircularBarchartStat(
     ax.set_rlabel_position(0)
     ax.set_thetagrids(rRange, [], color='#00000000')
     ax.set_rgrids(
-        [i-.25 for i in range(len(weapons))], 
-        labels=[f' {w} ({v:.2f})' for (w, v) in zip(weapons, catVals)]
+        [i for i in range(len(weapons))], 
+        labels=[f' {w} ({v:.2f})' for (w, v) in zip(weapons, catVals)],
+        va='center'
     )
     return (fig, ax)

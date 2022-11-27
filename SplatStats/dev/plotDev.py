@@ -126,6 +126,7 @@ ax.set_rlabel_position(0)
 ax.set_thetagrids(rRange, [], color='#00000000') # gGrid)
 # ax.set_xticks([])
 ax.set_rgrids(
-    [i-.25 for i in range(len(weapons))], 
-    labels=[f' {w} ({v:.2f})' for (w, v) in zip(weapons, catVals)]
+    [i for i in range(len(weapons))], 
+    labels=[f' {w} ({v:.2f})' for (w, v) in zip(weapons, catVals)],
+    va='center'
 )
