@@ -4,6 +4,7 @@ import numpy as np
 import seaborn as sns
 from pywaffle import Waffle
 import matplotlib.pyplot as plt
+from math import radians, log10
 from matplotlib.patches import Rectangle
 import SplatStats.constants as cst
 import SplatStats.stats as stats
@@ -819,4 +820,52 @@ def plotWaffleStat(
     )
     if title:
         plt.title(f"{stat} ("+fmt.format(function(df[stat]))+")")
+    return (fig, ax)
+
+
+def plotCircularBarchartStat(
+        figAx,
+        playerHistory, cat, stat, aggFun=np.sum,
+        autoRange=True, logScale=True, gStep=30,
+        rRange=(0, 270), xRange=(0, 10),
+        colors=clr.ALL_COLORS
+    ):
+    (fig, ax) = figAx
+    # Gather data -------------------------------------------------------------
+    df = playerHistory.groupby(cat).agg(aggFun)
+    df.sort_values(by=[stat], inplace=True)
+    catVals = list(df[stat])
+    # Scaling stats values ----------------------------------------------------
+    gGrid = np.arange(0, max(catVals)+max(catVals)/gStep, max(catVals)/gStep)
+    if logScale:
+        vVals = [log10(i+1) for i in catVals]
+        xRan = (0, max(vVals) if autoRange else xRange[1])
+        gVals = [log10(i+1) for i in gGrid]
+    else:
+        vVals = catVals
+        xRan = (0, max(vVals) if autoRange else xRange[1])
+        gVals = gGrid
+    weapons = list(df.index)
+    angles = [np.interp(i, xRan, rRange) for i in vVals]
+    grids = [np.interp(i, xRan, rRange) for i in gVals]
+    # Generate Plot -----------------------------------------------------------
+    (fig, ax) = plt.subplots(figsize=(8, 8), subplot_kw={"projection": "polar"})
+    for (i, ang) in enumerate(angles):
+        ax.barh(i, radians(ang), color=colors[i])
+    # Gridlines and axes ------------------------------------------------------
+    ax.vlines(
+        [radians(i) for i in grids[:-1]], len(weapons)-.5, len(weapons)-.25,  
+        lw=1, colors='k', alpha=.5
+    )
+    ax.xaxis.grid(False)
+    ax.yaxis.grid(False)
+    ax.spines['polar'].set_visible(False)
+    ax.set_theta_zero_location('N')
+    ax.set_theta_direction(1)
+    ax.set_rlabel_position(0)
+    ax.set_thetagrids(rRange, [], color='#00000000')
+    ax.set_rgrids(
+        [i-.25 for i in range(len(weapons))], 
+        labels=[f' {w} ({v:.2f})' for (w, v) in zip(weapons, catVals)]
+    )
     return (fig, ax)

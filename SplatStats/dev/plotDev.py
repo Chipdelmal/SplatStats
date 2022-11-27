@@ -37,7 +37,7 @@ NAMES = (
     'čħîþ ウナギ', 'Yami ウナギ', 'Riché ウナギ', 'DantoNnoob',
     'Oswal　ウナギ', 'April ウナギ', 'Murazee', 'Rei ウナギ'
 )
-plyr = splat.Player(NAMES[0], bPaths, timezone='America/Los_Angeles')
+plyr = splat.Player(NAMES[1], bPaths, timezone='America/Los_Angeles')
 playerHistory = plyr.battlesHistory
 ###############################################################################
 # Streaks
@@ -64,7 +64,7 @@ ax.set_ylim(0, max(winsArray))
 ###############################################################################
 #  Circle Barchart
 ###############################################################################
-(cat, stat, aggFun) = ('main weapon', 'kassist', np.mean)
+(cat, stat, aggFun) = ('main weapon', 'kassist', np.sum)
 (autoRange, xRange, logScale) = (True, (0, 10), True)
 rRange = (0, 270)
 gStep = 50
@@ -79,7 +79,7 @@ df = playerHistory.groupby(cat).agg(aggFun)
 df.sort_values(by=[stat], inplace=True)
 catVals = list(df[stat])
 # Scaling stats values --------------------------------------------------------
-gGrid = np.arange(0, max(catVals), max(catVals)/gStep)
+gGrid = np.arange(0, max(catVals)+max(catVals)/(0.5*gStep), max(catVals)/gStep)
 if logScale:
     vVals = [log10(i+1) for i in catVals]
     xRan = (0, max(vVals) if autoRange else xRange[1])
@@ -96,7 +96,7 @@ grids = [np.interp(i, xRan, rRange) for i in gVals]
 for (i, ang) in enumerate(angles):
     ax.barh(i, radians(ang), color=colors[i])
 ax.vlines(
-    [radians(i) for i in grids], len(weapons)-.5, len(weapons),  
+    [radians(i) for i in grids[:-1]], len(weapons)-.5, len(weapons)-.25,  
     lw=1, colors='k', alpha=.5
 )
 ax.xaxis.grid(False)
@@ -106,8 +106,8 @@ ax.set_theta_zero_location('N')
 ax.set_theta_direction(1)
 ax.set_rlabel_position(0)
 # ax.grid(False)
-# ax.set_thetagrids(rRange, [], color='#00000000') # gGrid)
-ax.set_xticks([])
+ax.set_thetagrids(rRange, [], color='#00000000') # gGrid)
+# ax.set_xticks([])
 ax.set_rgrids(
     [i-.25 for i in range(len(weapons))], 
     labels=[f' {w} ({v:.2f})' for (w, v) in zip(weapons, catVals)]
