@@ -854,7 +854,7 @@ def plotCircularBarchartStat(
         ax.barh(i, radians(ang), color=colors[i])
     # Gridlines and axes ------------------------------------------------------
     ax.vlines(
-        [radians(i) for i in grids[:-1]], len(weapons)-.5, len(weapons)-.25,  
+        [radians(i) for i in grids[:]], len(weapons)-.5, len(weapons)-.25,  
         lw=1, colors='k', alpha=.5
     )
     ax.xaxis.grid(False)

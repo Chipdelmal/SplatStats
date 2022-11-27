@@ -3,6 +3,7 @@
 
 from sys import argv
 from os import path
+import numpy as np
 import SplatStats as splat
 import matplotlib.pyplot as plt
 
@@ -18,7 +19,7 @@ LEN_LIMIT = 400
 # Create Player Objects
 ##############################################################################
 historyFilepaths = splat.getDataFilepaths(iPath)
-bPaths = splat.dumpBattlesFromJSONS(historyFilepaths, oPath, overwrite=False)
+# bPaths = splat.dumpBattlesFromJSONS(historyFilepaths, oPath, overwrite=False)
 bPaths = splat.getBattleFilepaths(oPath)
 ###############################################################################
 # Create Player Objects
@@ -161,9 +162,9 @@ for name in NAMES:
         dpi=300, bbox_inches='tight'
     )
     plt.close(g.fig)
-    ###############################################################################
+    ###########################################################################
     #  Waffle
-    ###############################################################################
+    ###########################################################################
     (fig, ax) = plt.subplots(figsize=(8, 8))
     # df = playerHistory[playerHistory['match type']=='Tower Control']
     (fig, ax) = splat.plotWaffleStat(
@@ -174,6 +175,25 @@ for name in NAMES:
     )
     fig.savefig(
         path.join(oPath, f'WaffleKill - {plyr.name}.png'), 
+        dpi=300, bbox_inches='tight', facecolor=fig.get_facecolor()
+    )
+    plt.close()
+    ###########################################################################
+    #  Circle Barchart
+    ###########################################################################
+    wColors = [
+        '#2DD9B6', '#4F55ED', '#B14A8D', '#7F7F99', '#990F2B',
+        '#C70864', '#C6D314', '#4B25C9', '#830B9C', '#2CB721',
+        '#0D37C3', '#C920B7', '#571DB1', '#14BBE7', '#38377A'
+    ][::-1]
+    (fig, ax) = plt.subplots(figsize=(8, 8), subplot_kw={"projection": "polar"})
+    (fig, ax) = splat.plotCircularBarchartStat(
+        (fig, ax),
+        playerHistory, 'main weapon', 'kassist', np.sum,
+        colors = wColors
+    )
+    fig.savefig(
+        path.join(oPath, f'PolarKill - {plyr.name}.png'), 
         dpi=300, bbox_inches='tight', facecolor=fig.get_facecolor()
     )
     plt.close()

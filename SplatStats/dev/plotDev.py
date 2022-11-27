@@ -64,6 +64,22 @@ ax.set_ylim(0, max(winsArray))
 ###############################################################################
 #  Circle Barchart
 ###############################################################################
+wColors = [
+    '#2DD9B6', '#4F55ED', '#B14A8D', '#7F7F99', '#990F2B',
+    '#C70864', '#C6D314', '#4B25C9', '#830B9C', '#2CB721',
+    '#0D37C3', '#C920B7', '#571DB1', '#14BBE7', '#38377A'
+][::-1]
+(fig, ax) = plt.subplots(figsize=(8, 8), subplot_kw={"projection": "polar"})
+(fig, ax) = splat.plotCircularBarchartStat(
+    (fig, ax),
+    playerHistory, 'main weapon', 'kassist', np.sum,
+    colors = wColors
+)
+
+
+
+
+
 (cat, stat, aggFun) = ('main weapon', 'kassist', np.sum)
 (autoRange, xRange, logScale) = (True, (0, 10), True)
 rRange = (0, 270)
