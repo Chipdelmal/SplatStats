@@ -166,7 +166,6 @@ for name in NAMES:
     #  Waffle
     ###########################################################################
     (fig, ax) = plt.subplots(figsize=(8, 8))
-    # df = playerHistory[playerHistory['match type']=='Tower Control']
     (fig, ax) = splat.plotWaffleStat(
         (fig, ax), playerHistory,
         function=sum, grouping='main weapon', stat='kill',
@@ -190,10 +189,23 @@ for name in NAMES:
     (fig, ax) = splat.plotCircularBarchartStat(
         (fig, ax),
         playerHistory, 'main weapon', 'kassist', np.sum,
-        colors = wColors
+        xRange=(0, 7.5e3),
+        autoRange=False, colors=wColors
     )
     fig.savefig(
         path.join(oPath, f'PolarKill - {plyr.name}.png'), 
+        dpi=300, bbox_inches='tight', facecolor=fig.get_facecolor()
+    )
+    plt.close()
+    (fig, ax) = plt.subplots(figsize=(8, 8), subplot_kw={"projection": "polar"})
+    (fig, ax) = splat.plotCircularBarchartStat(
+        (fig, ax),
+        playerHistory, 'main weapon', 'kassist', np.median,
+        xRange=(0, 10),
+        autoRange=False, colors=wColors
+    )
+    fig.savefig(
+        path.join(oPath, f'PolarKmean - {plyr.name}.png'), 
         dpi=300, bbox_inches='tight', facecolor=fig.get_facecolor()
     )
     plt.close()

@@ -73,7 +73,7 @@ wColors = [
 (fig, ax) = splat.plotCircularBarchartStat(
     (fig, ax),
     playerHistory, 'main weapon', 'kassist', np.sum,
-    colors = wColors
+    colors=wColors
 )
 
 
@@ -81,7 +81,7 @@ wColors = [
 
 
 (cat, stat, aggFun) = ('main weapon', 'kassist', np.sum)
-(autoRange, xRange, logScale) = (True, (0, 10), True)
+(autoRange, xRange, logScale) = (False, (0, 7500), True)
 rRange = (0, 270)
 gStep = 50
 
@@ -95,10 +95,11 @@ df = playerHistory.groupby(cat).agg(aggFun)
 df.sort_values(by=[stat], inplace=True)
 catVals = list(df[stat])
 # Scaling stats values --------------------------------------------------------
-gGrid = np.arange(0, max(catVals)+max(catVals)/(0.5*gStep), max(catVals)/gStep)
+mxVal = max(catVals) if autoRange else xRange[1]
+gGrid = np.arange(0, mxVal+mxVal/(0.5*gStep), mxVal/gStep)
 if logScale:
     vVals = [log10(i+1) for i in catVals]
-    xRan = (0, max(vVals) if autoRange else xRange[1])
+    xRan = (0, max(vVals) if autoRange else log10(1+xRange[1]))
     gVals = [log10(i+1) for i in gGrid]
 else:
     vVals = catVals

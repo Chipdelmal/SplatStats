@@ -836,10 +836,11 @@ def plotCircularBarchartStat(
     df.sort_values(by=[stat], inplace=True)
     catVals = list(df[stat])
     # Scaling stats values ----------------------------------------------------
-    gGrid = np.arange(0, max(catVals)+max(catVals)/gStep, max(catVals)/gStep)
+    mxVal = max(catVals) if autoRange else xRange[1]
+    gGrid = np.arange(xRange[0], mxVal+mxVal/(0.5*gStep), mxVal/gStep)
     if logScale:
         vVals = [log10(i+1) for i in catVals]
-        xRan = (0, max(vVals) if autoRange else xRange[1])
+        xRan = (0, max(vVals) if autoRange else log10(1+xRange[1]))
         gVals = [log10(i+1) for i in gGrid]
     else:
         vVals = catVals
@@ -849,12 +850,11 @@ def plotCircularBarchartStat(
     angles = [np.interp(i, xRan, rRange) for i in vVals]
     grids = [np.interp(i, xRan, rRange) for i in gVals]
     # Generate Plot -----------------------------------------------------------
-    (fig, ax) = plt.subplots(figsize=(8, 8), subplot_kw={"projection": "polar"})
     for (i, ang) in enumerate(angles):
         ax.barh(i, radians(ang), color=colors[i])
     # Gridlines and axes ------------------------------------------------------
     ax.vlines(
-        [radians(i) for i in grids[:]], len(weapons)-.5, len(weapons)-.25,  
+        [radians(i) for i in grids[:-1]], len(weapons)-.5, len(weapons)-.25,  
         lw=1, colors='k', alpha=.5
     )
     ax.xaxis.grid(False)
