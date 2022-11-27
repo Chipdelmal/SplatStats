@@ -25,7 +25,7 @@ bPaths = splat.getBattleFilepaths(oPath)
 ###############################################################################
 NAMES = (
     'čħîþ ウナギ', 'Yami ウナギ', 'Riché ウナギ', 'DantoNnoob',
-    'Oswal　ウナギ', 'April ウナギ', 'Murazee', 'Rei ウナギ'
+    'Oswal　ウナギ', 'April ウナギ', 'Murazee', 'Rei ウナギ', 'HSR'
 )
 name = 'čħîþ ウナギ'
 for name in NAMES:

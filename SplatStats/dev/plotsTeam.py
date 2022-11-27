@@ -23,7 +23,7 @@ bPaths = splat.getBattleFilepaths(oPath)
 ###############################################################################
 NAMES = (
     'čħîþ ウナギ', 'Yami ウナギ', 'Riché ウナギ', 'Oswal　ウナギ',
-    'April ウナギ', 'Rei ウナギ', 'DantoNnoob', 'Murazee'
+    'April ウナギ', 'Rei ウナギ', 'DantoNnoob', 'Murazee', 'HSR'
 )
 COLORS = (
     
@@ -41,8 +41,9 @@ teamHistBT = team.reshapeTeamHistoryByPeriod(
 (fig, ax) = splat.plotStreamTeam(
     (fig, ax), team, teamHistBT,
     colors = [
-        "#0D40DE", "#EC0B68", "#6ABF0B", "#9090BA",
-        "#A577FF", "#941A88", "#CFD1C7", "#E4E567" 
+        "#0D40DE", "#EC0B68", "#6ABF0B", "#A577FF",
+        "#D645C8", "#941A88", "#CFD1C7", "#E4E567", 
+        '#8CE47F'
     ]
 )
 fig.savefig(
