@@ -5,6 +5,7 @@ from sys import argv
 from os import path
 import numpy as np
 import pandas as pd
+from math import radians, log10
 from collections import Counter
 import SplatStats as splat
 from pywaffle import Waffle
@@ -61,11 +62,53 @@ ax.plot(
 ax.autoscale(enable=True, axis='x', tight=True)
 ax.set_ylim(0, max(winsArray))
 ###############################################################################
-#  Waffle Dev
+#  Circle Barchart
 ###############################################################################
-(fig, ax) = plt.subplots(figsize=(10, 10))
-(fig, ax) = splat.plotWaffleStat(
-    (fig, ax), playerHistory,
-    function=sum, grouping='main weapon', stat='kill',
-    colors=splat.CLR_CLS_LONG
+(cat, stat, aggFun) = ('main weapon', 'kassist', np.mean)
+(autoRange, xRange, logScale) = (True, (0, 10), True)
+rRange = (0, 270)
+gStep = 50
+
+colors = [
+    '#C70864', '#C6D314', '#4B25C9', '#830B9C', '#2CB721',
+    '#0D37C3', '#C920B7', '#571DB1', '#14BBE7', '#38377A'
+]
+colors.reverse()
+# Gather data -----------------------------------------------------------------
+df = playerHistory.groupby(cat).agg(aggFun)
+df.sort_values(by=[stat], inplace=True)
+catVals = list(df[stat])
+# Scaling stats values --------------------------------------------------------
+gGrid = np.arange(0, max(catVals), max(catVals)/gStep)
+if logScale:
+    vVals = [log10(i+1) for i in catVals]
+    xRan = (0, max(vVals) if autoRange else xRange[1])
+    gVals = [log10(i+1) for i in gGrid]
+else:
+    vVals = catVals
+    xRan = (0, max(vVals) if autoRange else xRange[1])
+    gVals = gGrid
+weapons = list(df.index)
+angles = [np.interp(i, xRan, rRange) for i in vVals]
+grids = [np.interp(i, xRan, rRange) for i in gVals]
+# Generate Plot ---------------------------------------------------------------
+(fig, ax) = plt.subplots(figsize=(8, 8), subplot_kw={"projection": "polar"})
+for (i, ang) in enumerate(angles):
+    ax.barh(i, radians(ang), color=colors[i])
+ax.vlines(
+    [radians(i) for i in grids], len(weapons)-.5, len(weapons),  
+    lw=1, colors='k', alpha=.5
+)
+ax.xaxis.grid(False)
+ax.yaxis.grid(False)
+ax.spines['polar'].set_visible(False)
+ax.set_theta_zero_location('N')
+ax.set_theta_direction(1)
+ax.set_rlabel_position(0)
+# ax.grid(False)
+# ax.set_thetagrids(rRange, [], color='#00000000') # gGrid)
+ax.set_xticks([])
+ax.set_rgrids(
+    [i-.25 for i in range(len(weapons))], 
+    labels=[f' {w} ({v:.2f})' for (w, v) in zip(weapons, catVals)]
 )
