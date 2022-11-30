@@ -23,7 +23,7 @@ def getPlayerWeapon(player):
     }
     return wDict
 
-def getPlayerResults(player):
+def getPlayerResults(player, kadj=True):
     """Extracts the KADS elements from the player JSON dictionary.
 
     Args:
@@ -37,6 +37,8 @@ def getPlayerResults(player):
         pResults = {
             k: pResult[k] for k in ('kill', 'death', 'assist', 'special')
         }
+        if kadj:
+            pResults['kill'] = pResults['kill']-pResults['assist']
     else:
         pResults = {
             'kill': 0, 'death': 0, 'assist': 0, 'special': 0

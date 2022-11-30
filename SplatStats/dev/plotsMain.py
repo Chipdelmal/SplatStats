@@ -19,7 +19,7 @@ LEN_LIMIT = 400
 # Create Player Objects
 ##############################################################################
 historyFilepaths = splat.getDataFilepaths(iPath)
-# bPaths = splat.dumpBattlesFromJSONS(historyFilepaths, oPath, overwrite=False)
+bPaths = splat.dumpBattlesFromJSONS(historyFilepaths, oPath, overwrite=True)
 bPaths = splat.getBattleFilepaths(oPath)
 ###############################################################################
 # Create Player Objects
@@ -182,7 +182,7 @@ for name in NAMES:
     ###########################################################################
     wColors = [
         '#2DD9B6', '#4F55ED', '#B14A8D', '#7F7F99', '#990F2B',
-        '#C70864', '#C6D314', '#4B25C9', '#830B9C', '#2CB721',
+        '#C70864', '#2CB721', '#4B25C9', '#830B9C', '#C6D314',
         '#0D37C3', '#C920B7', '#571DB1', '#14BBE7', '#38377A'
     ][::-1]
     (fig, ax) = plt.subplots(figsize=(8, 8), subplot_kw={"projection": "polar"})
@@ -200,8 +200,8 @@ for name in NAMES:
     (fig, ax) = plt.subplots(figsize=(8, 8), subplot_kw={"projection": "polar"})
     (fig, ax) = splat.plotCircularBarchartStat(
         (fig, ax),
-        playerHistory, 'main weapon', 'kassist', np.median,
-        xRange=(0, 10),
+        playerHistory, 'main weapon', 'kassist', np.mean,
+        xRange=(0, 10), logScale=False,
         autoRange=False, colors=wColors
     )
     fig.savefig(
