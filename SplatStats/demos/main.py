@@ -1,9 +1,12 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
+from os import path
+import numpy as np
 import SplatStats as splat
 import matplotlib.pyplot as plt
 
+plyrName = 'čħîþ ウナギ'
 (iPath, oPath) = ('./dataJSON', './dataBattle')
 ###############################################################################
 # Process JSON files into battle objects
@@ -14,7 +17,6 @@ bFilepaths = splat.getBattleFilepaths(oPath)
 ###############################################################################
 # Create Player Object
 ###############################################################################
-plyrName = 'čħîþ ウナギ'
 plyr = splat.Player(plyrName, bFilepaths, timezone='America/Los_Angeles')
 playerHistory = plyr.battlesHistory
 playerHistory.columns
@@ -40,6 +42,10 @@ stagesDF = stagesStatsMatch[matchType]
     (fig, ax), stagesDF, metric=metric, 
     fmt='{:.2f}', pad=0.1, alpha=.5
 )
+fig.savefig(
+    path.join(oPath, f'Treemap.png'), 
+    dpi=300, bbox_inches='tight', facecolor=fig.get_facecolor()
+)
 ###############################################################################
 # Kills (top) vs Deaths (bottom) Histogram
 ###############################################################################
@@ -47,6 +53,10 @@ stagesDF = stagesStatsMatch[matchType]
 (fig, ax) = splat.plotKillsAndDeathsHistogram(
     (fig, ax), playerHistory, (0, 40), 
     yRange=(-.5, .5), edgecolor='k', normalized=True
+)
+fig.savefig(
+    path.join(oPath, f'Histogram.png'), 
+    dpi=300, bbox_inches='tight', facecolor=fig.get_facecolor()
 )
 ###############################################################################
 # Battle History Panel
@@ -72,6 +82,10 @@ ax_bottom = fig.add_subplot(gs[1], sharex=ax_top)
 ax_top.tick_params(labelbottom=False)
 ax_bottom.set_yticks([])
 plt.setp(ax_bottom.get_xticklabels(), rotation=90, ha='right')
+fig.savefig(
+    path.join(oPath, f'History.png'), 
+    dpi=300, bbox_inches='tight', facecolor=fig.get_facecolor()
+)
 ###############################################################################
 # Iris Plot
 ###############################################################################
@@ -89,6 +103,10 @@ dfFlat = splat.ammendStagesStatsByType(df, matchModes=list(df.keys()))
 # dfFlat = dfFlat[dfFlat['match type']!='Tricolor Turf War']
 dfFlat.sort_values('match type', inplace=True)
 g = splat.plotMatchTypeBars(dfFlat, metric, aggMetrics, yRange=(0, 1))
+g.savefig(
+    path.join(oPath, f'Barcharts.png'), 
+    dpi=300, bbox_inches='tight', facecolor=fig.get_facecolor()
+)
 ###############################################################################
 # Ranks
 ###############################################################################
@@ -108,6 +126,10 @@ dfRank = plyr.getPlayerFullRanking(cats=cats)
     (fig, axes), dfRank, 
     normalized=True, xLim=(-.6, 7.6), yLim=(0, 0.5)
 )
+fig.savefig(
+    path.join(oPath, f'Ranks.png'), 
+    dpi=300, bbox_inches='tight', facecolor=fig.get_facecolor()
+)
 ###############################################################################
 #  Waffle
 ###############################################################################
@@ -116,4 +138,27 @@ dfRank = plyr.getPlayerFullRanking(cats=cats)
     (fig, ax), playerHistory,
     function=sum, grouping='main weapon', stat='kill',
     colors=splat.CLR_CLS_LONG
+)
+fig.savefig(
+    path.join(oPath, f'Waffle.png'), 
+    dpi=300, bbox_inches='tight', facecolor=fig.get_facecolor()
+)
+###############################################################################
+#  Circle Barchart
+###############################################################################
+wColors = [
+    '#2DD9B6', '#4F55ED', '#B14A8D', '#7F7F99', '#990F2B',
+    '#C70864', '#2CB721', '#4B25C9', '#830B9C', '#C6D314',
+    '#0D37C3', '#C920B7', '#571DB1', '#14BBE7', '#38377A'
+][::-1]
+(fig, ax) = plt.subplots(figsize=(8, 8), subplot_kw={"projection": "polar"})
+(fig, ax) = splat.plotCircularBarchartStat(
+    (fig, ax),
+    playerHistory, 'main weapon', 'kassist', np.sum,
+    xRange=(0, 7.5e3),
+    autoRange=False, colors=wColors
+)
+fig.savefig(
+    path.join(oPath, f'Polar.png'), 
+    dpi=300, bbox_inches='tight', facecolor=fig.get_facecolor()
 )
