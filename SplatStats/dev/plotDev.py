@@ -37,7 +37,7 @@ NAMES = (
     'čħîþ ウナギ', 'Yami ウナギ', 'Riché ウナギ', 'DantoNnoob',
     'Oswal　ウナギ', 'April ウナギ', 'Murazee', 'Rei ウナギ'
 )
-plyr = splat.Player(NAMES[1], bPaths, timezone='America/Los_Angeles')
+plyr = splat.Player(NAMES[0], bPaths, timezone='America/Los_Angeles')
 playerHistory = plyr.battlesHistory
 ###############################################################################
 # Streaks
@@ -62,7 +62,7 @@ ax.plot(
 ax.autoscale(enable=True, axis='x', tight=True)
 ax.set_ylim(0, max(winsArray))
 ###############################################################################
-#  Circle Barchart
+# Circle Barchart
 ###############################################################################
 wColors = [
     '#2DD9B6', '#4F55ED', '#B14A8D', '#7F7F99', '#990F2B',
@@ -75,58 +75,79 @@ wColors = [
     playerHistory, 'main weapon', 'kassist', np.sum,
     colors=wColors
 )
-
-
-
-
-
-(cat, stat, aggFun) = ('main weapon', 'kassist', np.sum)
-(autoRange, xRange, logScale) = (False, (0, 7500), True)
-rRange = (0, 270)
-gStep = 50
-
-colors = [
-    '#C70864', '#C6D314', '#4B25C9', '#830B9C', '#2CB721',
-    '#0D37C3', '#C920B7', '#571DB1', '#14BBE7', '#38377A'
-]
-colors.reverse()
-# Gather data -----------------------------------------------------------------
+###############################################################################
+# Divide BarChart
+###############################################################################
+cat = 'main weapon'
+aggFun = np.sum
+stat = 'kassist'
+# Gather data -------------------------------------------------------------
 df = playerHistory.groupby(cat).agg(aggFun)
 df.sort_values(by=[stat], inplace=True)
 catVals = list(df[stat])
-# Scaling stats values --------------------------------------------------------
-mxVal = max(catVals) if autoRange else xRange[1]
-gGrid = np.arange(0, mxVal+mxVal/(0.5*gStep), mxVal/gStep)
+
+wColors = [
+    '#2DD9B6', '#4F55ED', '#B14A8D', '#7F7F99', '#C70864', 
+    '#C6D314', '#4B25C9', '#830B9C', '#2CB721', '#0D37C3', 
+    '#C920B7', '#571DB1', '#14BBE7', '#38377A', '#990F2B'
+][::-1]
+
+xVals = list(df.index)
+yVals = catVals
+
+logScale=True
+gStep=10
+rRange=(0, 270)
+yRange=(0, 10e3)
+colors=wColors
+labels=True
+fmt='{:.0f}' #'{:.2f}'
+
+figAx = plt.subplots(figsize=(8, 8), subplot_kw={"projection": "polar"})
+
+(fig, ax) = figAx
+# Get value ranges ------------------------------------------------------------
+(minValY, maxValY) = [
+    0 if not yRange else yRange[0],
+    max(yVals) if not yRange else yRange[1]
+]
+if not yRange:
+    yRange = (minValY, maxValY)
+# Define grid -----------------------------------------------------------------
+stepSizeY = maxValY/gStep
+gridY = np.arange(minValY, maxValY+maxValY/stepSizeY, stepSizeY)
+# Log-scale if needed ---------------------------------------------------------
 if logScale:
-    vVals = [log10(i+1) for i in catVals]
-    xRan = (0, max(vVals) if autoRange else log10(1+xRange[1]))
-    gVals = [log10(i+1) for i in gGrid]
+    (gridYSca, yValsSca, yRangeSca) =  [
+        [log10(i+1) for i in j] for j in (gridY, yVals, yRange)
+    ]
 else:
-    vVals = catVals
-    xRan = (0, max(vVals) if autoRange else xRange[1])
-    gVals = gGrid
-weapons = list(df.index)
-angles = [np.interp(i, xRan, rRange) for i in vVals]
-grids = [np.interp(i, xRan, rRange) for i in gVals]
+    (gridYSca, yValsSca, yRangeSca) =  (gridY, yVals, yRange)
+# Convert heights into radii --------------------------------------------------
+angleHeights = [np.interp(i, yRangeSca, rRange) for i in yValsSca]
+grids = [np.interp(i, yRangeSca, rRange) for i in gridYSca]
 # Generate Plot ---------------------------------------------------------------
-(fig, ax) = plt.subplots(figsize=(8, 8), subplot_kw={"projection": "polar"})
-for (i, ang) in enumerate(angles):
+for (i, ang) in enumerate(angleHeights):
     ax.barh(i, radians(ang), color=colors[i])
+# Gridlines and axes ----------------------------------------------------------
 ax.vlines(
-    [radians(i) for i in grids[:-1]], len(weapons)-.5, len(weapons)-.25,  
+    [radians(i) for i in grids], len(xVals)-.5, len(xVals)-.25,  
     lw=1, colors='k', alpha=.5
 )
 ax.xaxis.grid(False)
 ax.yaxis.grid(False)
+ax.set_ylim(-.5, len(yVals)-0.1)
 ax.spines['polar'].set_visible(False)
 ax.set_theta_zero_location('N')
 ax.set_theta_direction(1)
 ax.set_rlabel_position(0)
-# ax.grid(False)
-ax.set_thetagrids(rRange, [], color='#00000000') # gGrid)
-# ax.set_xticks([])
+# Labels ----------------------------------------------------------------------
+labelsText = [fmt.format(i) for i in gridY] if labels else []
+ax.set_thetagrids(grids, labelsText, color='#000000FF')
+# Categories Markers ----------------------------------------------------------
 ax.set_rgrids(
-    [i for i in range(len(weapons))], 
-    labels=[f' {w} ({v:.2f})' for (w, v) in zip(weapons, catVals)],
+    [i for i in range(len(xVals))], 
+    labels=[f' {w} ({v:.2f})' for (w, v) in zip(xVals, yVals)],
     va='center'
 )
+

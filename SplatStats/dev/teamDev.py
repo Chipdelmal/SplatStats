@@ -36,7 +36,7 @@ mType = 'Rainmaker'
 ix = 1
 btl = team.players[plyr].battleRecords[ix]
 btlType = btl.matchType
-(btlAllies, btlEnemis) = (
+(btlAllies, btlEnemies) = (
     set(btl.alliedTeam['player name']), 
     set(pd.concat(btl.enemyTeams)['player name'])
 )
@@ -44,3 +44,4 @@ btlType = btl.matchType
     (True if btl.alliedTeam['win'].iloc[0]!='L' else False),
     btl.ko
 )
+
