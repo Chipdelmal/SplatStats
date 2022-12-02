@@ -41,7 +41,8 @@ Polar Barcharts
 ____________________________________________
 
 
-These plots show breakdown of a given statistic by category shown in a polar barchart (linear or log-scaled).
+These plots show the breakdown of a given statistic (kills + 1/2*assists) by category (main weapon) shown in a polar barchart.
+
 
 .. image:: ../img/polarKillsA.png
   :width: 49%
