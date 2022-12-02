@@ -24,7 +24,8 @@ This panel is constructed as a panel composed of two different figures. The top 
 
 ## [Polar Barcharts](https://chipdelmal.github.io/SplatStats/build/html/plots.html#polar-barcharts)
 
-These plots show the breakdown of a given statistic (kills + 1/2*assists) by category (main weapon) shown in a polar barchart.
+These plots show the breakdown of a given statistic by category shown in a polar barchart. 
+In the following examples we show kills+1/2*assists (kassists) by main weapon.
 
 <img src="https://raw.githubusercontent.com/Chipdelmal/SplatStats/main/docs/img/polarKillsA.png" width="49%" align="middle"><img src="https://raw.githubusercontent.com/Chipdelmal/SplatStats/main/docs/img/polarKillsB.png" width="49%" align="middle"><br>
 
