@@ -37,16 +37,17 @@ Finally, the bottom row shows the type of match played:
 Have a look at the `function's documentation <./SplatStats.html#module-SplatStats.plots>`_ for more information, and our `demo <https://github.com/Chipdelmal/SplatStats/tree/main/SplatStats/demos>`_  for an example on how to generate it.
 
 
-
-Kill VS Deaths Distributions
+Polar Barcharts
 ____________________________________________
 
-These paired histograms show the frequency distributions of the number of kills or kassists (top, blue), and the number of deaths (bottom, magenta) across matches.
 
-.. image:: ../img/kdHistogram.png
-  :width: 100%
+These plots show breakdown of a given statistic by category shown in a polar barchart (linear or log-scaled).
 
-The x-asis shows the number of kills/deaths per match, while the y axis is either the raw frequency or the density of the quantity in that bin (if the histogram is normalized).  Have a look at the `function's documentation <./SplatStats.html#module-SplatStats.plots>`_ for more information, and our `demo <https://github.com/Chipdelmal/SplatStats/tree/main/SplatStats/demos>`_  for an example on how to generate these histograms.
+.. image:: ../img/polarKillsA.png
+  :width: 49%
+
+.. image:: ../img/polarKillsB.png
+  :width: 49%
 
 
 
@@ -63,19 +64,6 @@ These barcharts show the frequency of a given statistic broken down by match-typ
 
 
 Numbers in the barcharts show the true frequency (if the statistic is a fraction), and the main number in each panel shows the aggregate score amongst all the stages.
-
-
-Polar Barcharts
-____________________________________________
-
-
-These plots show breakdown of a given statistic by category shown in a polar barchart (linear or log-scaled).
-
-.. image:: ../img/polarKillsA.png
-  :width: 49%
-
-.. image:: ../img/polarKillsB.png
-  :width: 49%
 
 
 Stage/Weapon Stats Treemaps
@@ -120,6 +108,19 @@ Similar to the `matches history panel <./plots.html#matches-history-panel>`_, th
 
 The radial axis is log-scaled by default with the kill+assist to deaths ratio highlighted at the center of the plot. 
 The first 5 circles in the radial axis are spaced in increments of 1, while the latter ones are spaced in intervals of 10 by default.
+
+
+
+Kill VS Deaths Distributions
+____________________________________________
+
+These paired histograms show the frequency distributions of the number of kills or kassists (top, blue), and the number of deaths (bottom, magenta) across matches.
+
+.. image:: ../img/kdHistogram.png
+  :width: 100%
+
+The x-asis shows the number of kills/deaths per match, while the y axis is either the raw frequency or the density of the quantity in that bin (if the histogram is normalized).  Have a look at the `function's documentation <./SplatStats.html#module-SplatStats.plots>`_ for more information, and our `demo <https://github.com/Chipdelmal/SplatStats/tree/main/SplatStats/demos>`_  for an example on how to generate these histograms.
+
 
 
 Matches Ranks

@@ -24,36 +24,38 @@ This panel is constructed as a panel composed of two different figures. The top 
 
 ## [Stats By Match-Type and Stage](https://chipdelmal.github.io/SplatStats/build/html/plots.html#stats-by-match-type-and-stage)
 
+These barcharts show the frequency of a given statistic broken down by match-type and stage.
+
 <img src="https://raw.githubusercontent.com/Chipdelmal/SplatStats/main/docs/img/MatchesWin.png" width="99%" align="middle"><br>
 <img src="https://raw.githubusercontent.com/Chipdelmal/SplatStats/main/docs/img/MatchesKill.png" width="99%" align="middle"><br>
-
-These barcharts show the frequency of a given statistic broken down by match-type and stage.
 
 ## [Polar Barcharts](https://chipdelmal.github.io/SplatStats/build/html/plots.html#polar-barcharts)
 
 These plots show breakdown of a given statistic by category shown in a polar barchart.
 
-<img src="https://chipdelmal.github.io/SplatStats/build/html/_images/polarKillsA.png" width="49%" align="middle"><img src="https://chipdelmal.github.io/SplatStats/build/html/_images/polarKillsB.png" width="49%" align="middle"><br>
+<img src="https://raw.githubusercontent.com/Chipdelmal/SplatStats/main/docs/img/polarKillsA.png" width="49%" align="middle"><img src="https://raw.githubusercontent.com/Chipdelmal/SplatStats/main/docs/img/polarKillsB.png" width="49%" align="middle"><br>
 
 
 ## [Kill/Death Iris](https://chipdelmal.github.io/SplatStats/build/html/plots.html#kill-to-deaths-iris)
 
+Similar to the [matches history panel](https://chipdelmal.github.io/SplatStats/build/html/plots.html#matches-history-panel), these plots show the kill to death ratios as bars but this time they are arranged in a circular pattern to keep it more compact. The radial axis is log-scaled by default with the kill+assist to deaths ratio highlighted at the center of the plot.
+
 <img src="https://raw.githubusercontent.com/Chipdelmal/SplatStats/main/docs/img/IrisA.png" width="33%" align="middle"><img src="https://raw.githubusercontent.com/Chipdelmal/SplatStats/main/docs/img/IrisC.png" width="33%" align="middle"><img src="https://raw.githubusercontent.com/Chipdelmal/SplatStats/main/docs/img/IrisB.png" width="33%" align="middle">
 
-Similar to the [matches history panel](https://chipdelmal.github.io/SplatStats/build/html/plots.html#matches-history-panel), these plots show the kill to death ratios as bars but this time they are arranged in a circular pattern to keep it more compact. The radial axis is log-scaled by default with the kill+assist to deaths ratio highlighted at the center of the plot.
+
 
 
 ## [Kills VS Deaths Distributions](https://chipdelmal.github.io/SplatStats/build/html/plots.html#matches-history-panel)
 
-![](https://raw.githubusercontent.com/Chipdelmal/SplatStats/main/docs/img/kdHistogram.png)
-
 These paired histograms show the frequency distributions of the number of kills or kassists (top, blue), and the number of deaths (bottom, magenta) across matches.
+
+![](https://raw.githubusercontent.com/Chipdelmal/SplatStats/main/docs/img/kdHistogram.png)
 
 ## [Stage/Weapons Stats Treemaps](https://chipdelmal.github.io/SplatStats/build/html/plots.html#stats-treemaps)
 
-<img src="https://raw.githubusercontent.com/Chipdelmal/SplatStats/main/docs/img/treemapA.png" width="50%" align="middle"><img src="https://raw.githubusercontent.com/Chipdelmal/SplatStats/main/docs/img/treemapB.png" width="50%" align="middle">
-
 These plots are designed to show which stages are the ones in which the player performs best on any given stage with respect to a selected metric. Auxiliary provided functions generate the statistics dataframe required for these plots, which includes: kills, deaths, win ratio, paint, total matches; amongst many others. These statistics can be also generated for a specific match type (Rainmaker, Turf War, Tower Control, etc), or for a combination of them.
+
+<img src="https://raw.githubusercontent.com/Chipdelmal/SplatStats/main/docs/img/treemapA.png" width="50%" align="middle"><img src="https://raw.githubusercontent.com/Chipdelmal/SplatStats/main/docs/img/treemapB.png" width="50%" align="middle">
 
 <!-- <img src="./docs/img/treemapD.png" width="50%" align="middle"><img src="./docs/img/treemapC.png" width="50%" align="middle"> -->
 

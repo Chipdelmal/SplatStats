@@ -37,6 +37,20 @@ Finally, the bottom row shows the type of match played:
 Have a look at the `function's documentation <./SplatStats.html#module-SplatStats.plots>`_ for more information, and our `demo <https://github.com/Chipdelmal/SplatStats/tree/main/SplatStats/demos>`_  for an example on how to generate it.
 
 
+Polar Barcharts
+____________________________________________
+
+
+These plots show breakdown of a given statistic by category shown in a polar barchart (linear or log-scaled).
+
+.. image:: ../img/polarKillsA.png
+  :width: 49%
+
+.. image:: ../img/polarKillsB.png
+  :width: 49%
+
+
+
 Stats By Match-Type and Stage
 ____________________________________________
 
@@ -50,19 +64,6 @@ These barcharts show the frequency of a given statistic broken down by match-typ
 
 
 Numbers in the barcharts show the true frequency (if the statistic is a fraction), and the main number in each panel shows the aggregate score amongst all the stages.
-
-
-Polar Barcharts
-____________________________________________
-
-
-These plots show breakdown of a given statistic by category shown in a polar barchart (linear or log-scaled).
-
-.. image:: ../img/polarKillsA.png
-  :width: 49%
-
-.. image:: ../img/polarKillsB.png
-  :width: 49%
 
 
 Stage/Weapon Stats Treemaps

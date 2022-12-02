@@ -113,15 +113,15 @@
                 
                   <li class="toctree-l2"><a href="#matches-history-panel" class="reference internal">Matches History Panel</a></li>
                 
-                  <li class="toctree-l2"><a href="#kill-vs-deaths-distributions" class="reference internal">Kill VS Deaths Distributions</a></li>
+                  <li class="toctree-l2"><a href="#polar-barcharts" class="reference internal">Polar Barcharts</a></li>
                 
                   <li class="toctree-l2"><a href="#stats-by-match-type-and-stage" class="reference internal">Stats By Match-Type and Stage</a></li>
-                
-                  <li class="toctree-l2"><a href="#polar-barcharts" class="reference internal">Polar Barcharts</a></li>
                 
                   <li class="toctree-l2"><a href="#stage-weapon-stats-treemaps" class="reference internal">Stage/Weapon Stats Treemaps</a></li>
                 
                   <li class="toctree-l2"><a href="#kill-to-deaths-iris" class="reference internal">Kill to Deaths Iris</a></li>
+                
+                  <li class="toctree-l2"><a href="#kill-vs-deaths-distributions" class="reference internal">Kill VS Deaths Distributions</a></li>
                 
                   <li class="toctree-l2"><a href="#matches-ranks" class="reference internal">Matches Ranks</a></li>
                 
@@ -189,11 +189,11 @@ Kills, deaths, assists and specials are encoded with the following symbols:</p>
 <a class="reference internal image-reference" href="_images/LegendC.png"><img alt="_images/LegendC.png" src="_images/LegendC.png" style="width: 15%;" /></a>
 <p>Have a look at the <a class="reference external" href="./SplatStats.html#module-SplatStats.plots">function’s documentation</a> for more information, and our <a class="reference external" href="https://github.com/Chipdelmal/SplatStats/tree/main/SplatStats/demos">demo</a>  for an example on how to generate it.</p>
 </section>
-<section id="kill-vs-deaths-distributions">
-<h2>Kill VS Deaths Distributions<a class="headerlink" href="#kill-vs-deaths-distributions" title="Permalink to this heading">¶</a></h2>
-<p>These paired histograms show the frequency distributions of the number of kills or kassists (top, blue), and the number of deaths (bottom, magenta) across matches.</p>
-<a class="reference internal image-reference" href="_images/kdHistogram.png"><img alt="_images/kdHistogram.png" src="_images/kdHistogram.png" style="width: 100%;" /></a>
-<p>The x-asis shows the number of kills/deaths per match, while the y axis is either the raw frequency or the density of the quantity in that bin (if the histogram is normalized).  Have a look at the <a class="reference external" href="./SplatStats.html#module-SplatStats.plots">function’s documentation</a> for more information, and our <a class="reference external" href="https://github.com/Chipdelmal/SplatStats/tree/main/SplatStats/demos">demo</a>  for an example on how to generate these histograms.</p>
+<section id="polar-barcharts">
+<h2>Polar Barcharts<a class="headerlink" href="#polar-barcharts" title="Permalink to this heading">¶</a></h2>
+<p>These plots show breakdown of a given statistic by category shown in a polar barchart (linear or log-scaled).</p>
+<a class="reference internal image-reference" href="_images/polarKillsA.png"><img alt="_images/polarKillsA.png" src="_images/polarKillsA.png" style="width: 49%;" /></a>
+<a class="reference internal image-reference" href="_images/polarKillsB.png"><img alt="_images/polarKillsB.png" src="_images/polarKillsB.png" style="width: 49%;" /></a>
 </section>
 <section id="stats-by-match-type-and-stage">
 <h2>Stats By Match-Type and Stage<a class="headerlink" href="#stats-by-match-type-and-stage" title="Permalink to this heading">¶</a></h2>
@@ -201,12 +201,6 @@ Kills, deaths, assists and specials are encoded with the following symbols:</p>
 <a class="reference internal image-reference" href="_images/MatchesWin.png"><img alt="_images/MatchesWin.png" src="_images/MatchesWin.png" style="width: 100%;" /></a>
 <a class="reference internal image-reference" href="_images/MatchesKill.png"><img alt="_images/MatchesKill.png" src="_images/MatchesKill.png" style="width: 100%;" /></a>
 <p>Numbers in the barcharts show the true frequency (if the statistic is a fraction), and the main number in each panel shows the aggregate score amongst all the stages.</p>
-</section>
-<section id="polar-barcharts">
-<h2>Polar Barcharts<a class="headerlink" href="#polar-barcharts" title="Permalink to this heading">¶</a></h2>
-<p>These plots show breakdown of a given statistic by category shown in a polar barchart (linear or log-scaled).</p>
-<a class="reference internal image-reference" href="_images/polarKillsA.png"><img alt="_images/polarKillsA.png" src="_images/polarKillsA.png" style="width: 49%;" /></a>
-<a class="reference internal image-reference" href="_images/polarKillsB.png"><img alt="_images/polarKillsB.png" src="_images/polarKillsB.png" style="width: 49%;" /></a>
 </section>
 <section id="stage-weapon-stats-treemaps">
 <h2>Stage/Weapon Stats Treemaps<a class="headerlink" href="#stage-weapon-stats-treemaps" title="Permalink to this heading">¶</a></h2>
@@ -228,6 +222,12 @@ These statistics can be also generated for a specific match type (Rainmaker, Tur
 <a class="reference internal image-reference" href="_images/IrisB.png"><img alt="_images/IrisB.png" src="_images/IrisB.png" style="width: 33%;" /></a>
 <p>The radial axis is log-scaled by default with the kill+assist to deaths ratio highlighted at the center of the plot.
 The first 5 circles in the radial axis are spaced in increments of 1, while the latter ones are spaced in intervals of 10 by default.</p>
+</section>
+<section id="kill-vs-deaths-distributions">
+<h2>Kill VS Deaths Distributions<a class="headerlink" href="#kill-vs-deaths-distributions" title="Permalink to this heading">¶</a></h2>
+<p>These paired histograms show the frequency distributions of the number of kills or kassists (top, blue), and the number of deaths (bottom, magenta) across matches.</p>
+<a class="reference internal image-reference" href="_images/kdHistogram.png"><img alt="_images/kdHistogram.png" src="_images/kdHistogram.png" style="width: 100%;" /></a>
+<p>The x-asis shows the number of kills/deaths per match, while the y axis is either the raw frequency or the density of the quantity in that bin (if the histogram is normalized).  Have a look at the <a class="reference external" href="./SplatStats.html#module-SplatStats.plots">function’s documentation</a> for more information, and our <a class="reference external" href="https://github.com/Chipdelmal/SplatStats/tree/main/SplatStats/demos">demo</a>  for an example on how to generate these histograms.</p>
 </section>
 <section id="matches-ranks">
 <h2>Matches Ranks<a class="headerlink" href="#matches-ranks" title="Permalink to this heading">¶</a></h2>
