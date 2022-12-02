@@ -117,6 +117,10 @@ dfRank = plyr.getPlayerAlliedRanking(cats=cats)
     (fig, axes), dfRank, 
     normalized=True, xLim=(-.6, 3.6), yLim=(0, 0.75)
 )
+fig.savefig(
+    path.join(oPath, f'RanksAllied.png'), 
+    dpi=300, bbox_inches='tight', facecolor=fig.get_facecolor()
+)
 # Full Rank -------------------------------------------------------------------
 dfRank = plyr.getPlayerFullRanking(cats=cats)
 (fig, axes) = plt.subplots(
