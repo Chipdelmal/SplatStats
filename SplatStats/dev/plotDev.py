@@ -102,6 +102,9 @@ yRange=(0, 10e3)
 colors=wColors
 labels=True
 fmt='{:.0f}' #'{:.2f}'
+origin='N'
+direction=1
+ha='left'
 
 figAx = plt.subplots(figsize=(8, 8), subplot_kw={"projection": "polar"})
 
@@ -124,22 +127,24 @@ if logScale:
 else:
     (gridYSca, yValsSca, yRangeSca) =  (gridY, yVals, yRange)
 # Convert heights into radii --------------------------------------------------
-angleHeights = [np.interp(i, yRangeSca, rRange) for i in yValsSca]
-grids = [np.interp(i, yRangeSca, rRange) for i in gridYSca]
+(angleHeights, grids) = [
+    [np.interp(i, yRangeSca, rRange) for i in j] 
+    for j in (yValsSca, gridYSca)
+]
 # Generate Plot ---------------------------------------------------------------
 for (i, ang) in enumerate(angleHeights):
     ax.barh(i, radians(ang), color=colors[i])
 # Gridlines and axes ----------------------------------------------------------
 ax.vlines(
     [radians(i) for i in grids], len(xVals)-.5, len(xVals)-.25,  
-    lw=1, colors='k', alpha=.5
+    lw=1, colors='#000000FF'
 )
 ax.xaxis.grid(False)
 ax.yaxis.grid(False)
 ax.set_ylim(-.5, len(yVals)-0.1)
 ax.spines['polar'].set_visible(False)
-ax.set_theta_zero_location('N')
-ax.set_theta_direction(1)
+ax.set_theta_zero_location(origin)
+ax.set_theta_direction(direction)
 ax.set_rlabel_position(0)
 # Labels ----------------------------------------------------------------------
 labelsText = [fmt.format(i) for i in gridY] if labels else []
@@ -148,6 +153,6 @@ ax.set_thetagrids(grids, labelsText, color='#000000FF')
 ax.set_rgrids(
     [i for i in range(len(xVals))], 
     labels=[f' {w} ({v:.2f})' for (w, v) in zip(xVals, yVals)],
-    va='center'
+    va='center', ha=ha
 )
 
