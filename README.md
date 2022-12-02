@@ -22,18 +22,19 @@ Have a look at our [documentation](https://chipdelmal.github.io/SplatStats/) for
 
 This panel is constructed as a panel composed of two different figures. The top one is a detailed breakdown of the statistics of each battle. Each column on the x axis represents a single battle; where the left y axis shows the number of kills, deaths, assists and specials; and the right y axis the turf painted over the match (bars on the plot).
 
+## [Polar Barcharts](https://chipdelmal.github.io/SplatStats/build/html/plots.html#polar-barcharts)
+
+These plots show the breakdown of a given statistic by category shown in a polar barchart.
+
+<img src="https://raw.githubusercontent.com/Chipdelmal/SplatStats/main/docs/img/polarKillsA.png" width="49%" align="middle"><img src="https://raw.githubusercontent.com/Chipdelmal/SplatStats/main/docs/img/polarKillsB.png" width="49%" align="middle"><br>
+
+
 ## [Stats By Match-Type and Stage](https://chipdelmal.github.io/SplatStats/build/html/plots.html#stats-by-match-type-and-stage)
 
 These barcharts show the frequency of a given statistic broken down by match-type and stage.
 
 <img src="https://raw.githubusercontent.com/Chipdelmal/SplatStats/main/docs/img/MatchesWin.png" width="99%" align="middle"><br>
 <img src="https://raw.githubusercontent.com/Chipdelmal/SplatStats/main/docs/img/MatchesKill.png" width="99%" align="middle"><br>
-
-## [Polar Barcharts](https://chipdelmal.github.io/SplatStats/build/html/plots.html#polar-barcharts)
-
-These plots show breakdown of a given statistic by category shown in a polar barchart.
-
-<img src="https://raw.githubusercontent.com/Chipdelmal/SplatStats/main/docs/img/polarKillsA.png" width="49%" align="middle"><img src="https://raw.githubusercontent.com/Chipdelmal/SplatStats/main/docs/img/polarKillsB.png" width="49%" align="middle"><br>
 
 
 ## [Kill/Death Iris](https://chipdelmal.github.io/SplatStats/build/html/plots.html#kill-to-deaths-iris)
