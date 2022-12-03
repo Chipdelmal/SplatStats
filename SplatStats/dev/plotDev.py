@@ -175,8 +175,7 @@ ax.set_rgrids(
 def polarBarChart(
         xVals, yVals,
         figAx=None,
-        logScale=True,
-        gStep=10,
+        logScale=True, ticksStep=10,
         rRange=(0, 270),
         yRange=(0, 10e3),
         colors=splat.ALL_COLORS,
@@ -208,7 +207,7 @@ def polarBarChart(
     if not yRange:
         yRange = (minValY, maxValY)
     # Define grid -------------------------------------------------------------
-    stepSizeY = maxValY/gStep
+    stepSizeY = maxValY/ticksStep
     gridY = np.arange(minValY, maxValY+maxValY/stepSizeY, stepSizeY)
     # Log-scale if needed -----------------------------------------------------
     if logScale:
@@ -239,7 +238,7 @@ def polarBarChart(
     ax.set_theta_direction(direction)
     ax.set_rlabel_position(0)
     # Labels ------------------------------------------------------------------
-    labelsText = [fmt.format(i) for i in gridY] if labels else []
+    labelsText = [labelFmt['fmt'].format(i) for i in gridY] if labels else []
     ax.set_thetagrids(grids, labelsText, color=ticksFmt['color'])
     # Categories Markers ------------------------------------------------------
     if labelQty:
@@ -256,4 +255,4 @@ def polarBarChart(
     # Return results ----------------------------------------------------------
     return (fig, ax)
 
-polarBarChart(xVals, yVals)
+polarBarChart(['a', 'b', 'c'], [0, 1000, 5000])
