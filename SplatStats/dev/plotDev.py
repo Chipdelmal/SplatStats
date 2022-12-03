@@ -69,12 +69,16 @@ wColors = [
     '#C70864', '#C6D314', '#4B25C9', '#830B9C', '#2CB721',
     '#0D37C3', '#C920B7', '#571DB1', '#14BBE7', '#38377A'
 ][::-1]
-(fig, ax) = plt.subplots(figsize=(8, 8), subplot_kw={"projection": "polar"})
 (fig, ax) = splat.plotCircularBarchartStat(
-    (fig, ax),
-    playerHistory, 'main weapon', 'kassist', np.sum,
-    colors=wColors
+    playerHistory, cat='main weapon', stat='kassist', aggFun=np.sum,
+    colors=wColors, yRange=(0, 10), ticksStep=5, logScale=False,
+    ticksFmt={
+        'lw': 1, 'range': (-0.5, -0.25), 
+        'color': '#000000DD', 'fontsize': 8, 'fmt': '{:.2f}'
+    }
 )
+
+
 ###############################################################################
 # Divide BarChart
 ###############################################################################
@@ -85,6 +89,8 @@ stat = 'kassist'
 df = playerHistory.groupby(cat).agg(aggFun)
 df.sort_values(by=[stat], inplace=True)
 catVals = list(df[stat])
+
+
 
 wColors = [
     '#2DD9B6', '#4F55ED', '#B14A8D', '#7F7F99', '#C70864', 
@@ -157,7 +163,7 @@ ax.set_theta_direction(direction)
 ax.set_rlabel_position(0)
 # Labels ----------------------------------------------------------------------
 labelsText = [fmt.format(i) for i in gridY] if labels else []
-ax.set_thetagrids(grids, labelsText, color=ticksFmt['color'])
+ax.set_thetagrids(grids[:gStep+1], labelsText[:gStep+1], color=ticksFmt['color'])
 # Categories Markers ----------------------------------------------------------
 if labelQty:
     labelText = [

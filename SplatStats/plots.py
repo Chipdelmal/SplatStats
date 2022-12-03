@@ -824,11 +824,20 @@ def plotWaffleStat(
 
 
 def plotCircularBarchartStat(
-        figAx,
-        playerHistory, cat='main weapon', stat='kill', aggFun=np.sum,
-        autoRange=True, logScale=True, gStep=30,
-        rRange=(0, 270), xRange=(0, 10),
-        colors=clr.ALL_COLORS
+        playerHistory, figAx=None,
+        cat='main weapon', stat='kill', aggFun=np.sum,
+        logScale=False, ticksStep=10,
+        rRange=(0, 270), yRange=None,
+        labels=True, labelQty=False, colors=clr.ALL_COLORS,
+        origin='N', direction=1,
+        ticksFmt={
+            'lw': 1, 'range': (-0.5, -0.25), 
+            'color': '#000000DD', 'fontsize': 8, 'fmt': '{:.2f}'
+        },
+        labelFmt={
+            'color': '#000000EE', 'fontsize': 10, 
+            'ha': 'left', 'fmt': '{:.1f}'
+        }
     ):
     """Generates a radial barchart for 
 
@@ -847,45 +856,101 @@ def plotCircularBarchartStat(
 
     Returns:
         (fix, ax): Matplotlib's fig and ax objects.
-    """    
-    (fig, ax) = figAx
+    """
     # Gather data -------------------------------------------------------------
     df = playerHistory.groupby(cat).agg(aggFun)
     df.sort_values(by=[stat], inplace=True)
     catVals = list(df[stat])
-    # Scaling stats values ----------------------------------------------------
-    mxVal = max(catVals) if autoRange else xRange[1]
-    gGrid = np.arange(xRange[0], mxVal+mxVal/(0.5*gStep), mxVal/gStep)
-    if logScale:
-        vVals = [log10(i+1) for i in catVals]
-        xRan = (0, max(vVals) if autoRange else log10(1+xRange[1]))
-        gVals = [log10(i+1) for i in gGrid]
-    else:
-        vVals = catVals
-        xRan = (0, max(vVals) if autoRange else xRange[1])
-        gVals = gGrid
-    weapons = list(df.index)
-    angles = [np.interp(i, xRan, rRange) for i in vVals]
-    grids = [np.interp(i, xRan, rRange) for i in gVals]
-    # Generate Plot -----------------------------------------------------------
-    for (i, ang) in enumerate(angles):
-        ax.barh(i, radians(ang), color=colors[i])
-    # Gridlines and axes ------------------------------------------------------
-    ax.vlines(
-        [radians(i) for i in grids[:-1]], len(weapons)-.5, len(weapons)-.25,  
-        lw=1, colors='k', alpha=.5
-    )
-    ax.xaxis.grid(False)
-    ax.yaxis.grid(False)
-    ax.spines['polar'].set_visible(False)
-    ax.set_theta_zero_location('N')
-    ax.set_theta_direction(1)
-    ax.set_rlabel_position(0)
-    ax.set_thetagrids(rRange, [], color='#00000000')
-    ax.set_rgrids(
-        [i for i in range(len(weapons))], 
-        labels=[f' {w} ({v:.2f})' for (w, v) in zip(weapons, catVals)],
-        va='center'
+    # Generate chart ----------------------------------------------------------
+    (fig, ax) = polarBarChart(
+        xVals=list(df.index), yVals=catVals,
+        figAx=figAx, logScale=logScale, ticksStep=ticksStep,
+        rRange=rRange, yRange=yRange, colors=colors, labels=labels,
+        origin=origin, direction=direction, labelQty=labelQty, 
+        ticksFmt=ticksFmt, labelFmt=labelFmt
     )
     return (fig, ax)
 
+
+def polarBarChart(
+        xVals, yVals,
+        figAx=None,
+        logScale=False, ticksStep=10,
+        rRange=(0, 270), yRange=(0, 10e3),
+        colors=clr.ALL_COLORS,
+        labels=True, labelQty=False,
+        origin='N', direction=1,
+        ticksFmt={
+            'lw': 1, 'range': (-0.5, -0.25), 
+            'color': '#000000DD', 'fontsize': 8, 'fmt': '{:.2f}'
+        },
+        labelFmt={
+            'color': '#000000EE', 'fontsize': 10, 
+            'ha': 'left', 'fmt': '{:.1f}'
+        }
+    ):
+    # Generate (fig, ax) if needed --------------------------------------------
+    if figAx is None:
+        (fig, ax) = plt.subplots(
+            figsize=(8, 8), subplot_kw={"projection": "polar"}
+        )
+    else:
+        (fig, ax) = figAx
+    # Get value ranges --------------------------------------------------------
+    (minValY, maxValY) = [
+        0 if not yRange else yRange[0],
+        max(yVals) if not yRange else yRange[1]
+    ]
+    if not yRange:
+        yRange = (minValY, maxValY)
+    # Define grid -------------------------------------------------------------
+    stepSizeY = maxValY/ticksStep
+    gridY = np.arange(minValY, maxValY+maxValY/stepSizeY, stepSizeY)
+    # Log-scale if needed -----------------------------------------------------
+    if logScale:
+        (gridYSca, yValsSca, yRangeSca) =  [
+            [log10(i+1) for i in j] for j in (gridY, yVals, yRange)
+        ]
+    else:
+        (gridYSca, yValsSca, yRangeSca) =  (gridY, yVals, yRange)
+    # Convert heights into radii ----------------------------------------------
+    (angleHeights, grids) = [
+        [np.interp(i, yRangeSca, rRange) for i in j] 
+        for j in (yValsSca, gridYSca)
+    ]
+    # Generate Plot -----------------------------------------------------------
+    for (i, ang) in enumerate(angleHeights):
+        ax.barh(i, radians(ang), color=colors[i])
+    # Gridlines and axes ------------------------------------------------------
+    ax.vlines(
+        [radians(i) for i in grids[:ticksStep+1]], 
+        len(xVals)+ticksFmt['range'][0], len(xVals)+ticksFmt['range'][1],
+        colors=ticksFmt['color']
+    )
+    ax.xaxis.grid(False)
+    ax.yaxis.grid(False)
+    ax.set_ylim(-.5, len(yVals)-0.1)
+    ax.spines['polar'].set_visible(False)
+    ax.set_theta_zero_location(origin)
+    ax.set_theta_direction(direction)
+    ax.set_rlabel_position(0)
+    # Labels ------------------------------------------------------------------
+    labelsText = [ticksFmt['fmt'].format(i) for i in gridY] if labels else []
+    ax.set_thetagrids(
+        grids[:ticksStep+1], labelsText[:ticksStep+1], 
+        color=ticksFmt['color']
+    )
+    # Categories Markers ------------------------------------------------------
+    if labelQty:
+        labelText = [
+            f' {w} ('+labelFmt['fmt'].format(v)+')' for (w, v) in zip(xVals, yVals)
+        ]
+    else:
+        labelText = [f' {i}' for i in xVals]
+    ax.set_rgrids(
+        [i for i in range(len(xVals))], 
+        labels=labelText,
+        va='center', **labelFmt
+    )
+    # Return results ----------------------------------------------------------
+    return (fig, ax)

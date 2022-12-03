@@ -19,7 +19,7 @@ LEN_LIMIT = 400
 # Create Player Objects
 ##############################################################################
 historyFilepaths = splat.getDataFilepaths(iPath)
-bPaths = splat.dumpBattlesFromJSONS(historyFilepaths, oPath, overwrite=True)
+# bPaths = splat.dumpBattlesFromJSONS(historyFilepaths, oPath, overwrite=False)
 bPaths = splat.getBattleFilepaths(oPath)
 ###############################################################################
 # Create Player Objects
@@ -185,24 +185,26 @@ for name in NAMES:
         '#2CB721', '#4B25C9', '#830B9C', '#C6D314', '#0D37C3', 
         '#C920B7', '#571DB1', '#14BBE7', '#38377A', '#990F2B'
     ][::-1]
-    (fig, ax) = plt.subplots(figsize=(8, 8), subplot_kw={"projection": "polar"})
     (fig, ax) = splat.plotCircularBarchartStat(
-        (fig, ax),
-        playerHistory, 'main weapon', 'kassist', np.sum,
-        xRange=(0, 7.5e3),
-        autoRange=False, colors=wColors
+        playerHistory, cat='main weapon', stat='kassist', aggFun=np.sum,
+        colors=wColors, yRange=(0, 10e3), logScale=True, ticksStep=10,
+        ticksFmt={
+            'lw': 1, 'range': (-0.5, -0.25), 
+            'color': '#000000DD', 'fontsize': 8, 'fmt': '{:.0f}'
+        }
     )
     fig.savefig(
         path.join(oPath, f'PolarKill - {plyr.name}.png'), 
         dpi=300, bbox_inches='tight', facecolor=fig.get_facecolor()
     )
     plt.close()
-    (fig, ax) = plt.subplots(figsize=(8, 8), subplot_kw={"projection": "polar"})
     (fig, ax) = splat.plotCircularBarchartStat(
-        (fig, ax),
-        playerHistory, 'main weapon', 'kassist', np.mean,
-        xRange=(0, 10), logScale=False,
-        autoRange=False, colors=wColors
+        playerHistory, cat='main weapon', stat='kassist', aggFun=np.mean,
+        colors=wColors, yRange=(0, 10), logScale=False, ticksStep=12,
+        ticksFmt={
+            'lw': 1, 'range': (-0.5, -0.25), 
+            'color': '#000000DD', 'fontsize': 8, 'fmt': '{:.0f}'
+        }
     )
     fig.savefig(
         path.join(oPath, f'PolarKmean - {plyr.name}.png'), 
