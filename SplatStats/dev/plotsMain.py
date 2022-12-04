@@ -6,7 +6,6 @@ from os import path
 import numpy as np
 import SplatStats as splat
 import matplotlib.pyplot as plt
-from matplotlib import font_manager
 
 if splat.isNotebook():
     (iPath, oPath) = (
@@ -25,15 +24,7 @@ bPaths = splat.getBattleFilepaths(oPath)
 ###############################################################################
 # Setup Splats Font
 ###############################################################################
-try:
-    bPaths = splat.getBattleFilepaths(oPath)
-    font_dirs = [oPath]
-    font_files = font_manager.findSystemFonts(fontpaths=font_dirs)
-    for font_file in font_files:
-        font_manager.fontManager.addfont(font_file)
-    plt.rcParams["font.family"]="Splatfont 2"
-except:
-    pass
+splat.setSplatoonFont(oPath, fontName="Splatfont 2")
 ###############################################################################
 # Create Player Objects
 ###############################################################################
@@ -53,9 +44,11 @@ for name in NAMES:
     ###########################################################################
     # Histogram
     ###########################################################################
-    (fig, ax) = plt.subplots(figsize=(30, 15))
+    (fig, ax) = plt.subplots(figsize=(10, 3))
     (fig, ax) = splat.plotKillsAndDeathsHistogram(
-        (fig, ax), playerHistory, (0, 40), yRange=(-.25, .25), edgecolor='k',
+        (fig, ax), playerHistory, (0, 35), 
+        yRange=(-.25, .25), edgecolor='k',
+        alpha=0.85,
         normalized=True
     )
     plt.savefig(
@@ -129,18 +122,19 @@ for name in NAMES:
         (fig, ax), playerHistory,
         # colorsTop=('#4F55ED', '#CB0856'),
         # colorBars='#4F55ED',
+        alpha=.9,
         innerGuides=(0, 10, 1), 
         outerGuides=(10, 50, 10),
-        fontColor='#00000066',
-        innerGuidesColor="#00000033",
-        outerGuidesColor="#00000011",
+        fontColor='#000000CC',
+        innerGuidesColor="#000000BB",
+        outerGuidesColor="#000000BB",
         frameColor="#000000AA",
         innerTextFmt='{:.2f}'
     )
     ax.set_facecolor("w")
     ax.set_yticklabels(
         ["", 10, 20, 30, 40], 
-        fontdict={'fontsize': 8.5, 'color': '#00000022'}
+        fontdict={'fontsize': 8.5, 'color': '#000000BB'}
     )
     ax.set_rlabel_position(0)
     fig.savefig(
@@ -159,7 +153,7 @@ for name in NAMES:
     g = splat.plotMatchTypeBars(
         dfFlat, metric, aggMetrics, 
         yRange=(0, 1), countsLegend={'color': '#00000044', 'fontsize': 8},
-        textOffset=0.005
+        textOffset=0.005, alpha=0.85
     )
     g.savefig(
         path.join(oPath, f'MatchesWin - {plyr.name}.png'), 
@@ -172,7 +166,7 @@ for name in NAMES:
     (metric, aggMetrics) = ('kassists ratio', ('kassists', 'deaths'))
     g = splat.plotMatchTypeBars(
         dfFlat, metric, aggMetrics, yRange=(0, 4),
-        percentage=False
+        percentage=False, textOffset=0.005, alpha=0.85
     )
     g.savefig(
         path.join(oPath, f'MatchesKill - {plyr.name}.png'), 
@@ -182,11 +176,11 @@ for name in NAMES:
     ###########################################################################
     #  Waffle
     ###########################################################################
-    (fig, ax) = plt.subplots(figsize=(8, 8))
+    (fig, ax) = plt.subplots(figsize=(12, 3.4))
     (fig, ax) = splat.plotWaffleStat(
         (fig, ax), playerHistory,
         function=sum, grouping='main weapon', stat='kill',
-        rows=50, columns=50,
+        rows=30, columns=100, vertical=False,
         colors=splat.CLR_CLS_LONG
     )
     fig.savefig(

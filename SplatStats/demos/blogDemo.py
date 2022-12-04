@@ -12,6 +12,10 @@ import SplatStats as splat
     path.expanduser('./dataBattle/')
 )
 ###############################################################################
+# Setup Splats Font
+###############################################################################
+splat.setSplatoonFont(oPath, fontName="Splatfont 2")
+###############################################################################
 # Dump battle objects from JSONs
 ###############################################################################
 hPaths = splat.getDataFilepaths(iPath)
@@ -48,21 +52,36 @@ plt.savefig(
     dpi=200, bbox_inches='tight', facecolor=fig.get_facecolor()
 )
 ###############################################################################
-# Treemap
+# Treemap Stage
 ###############################################################################
-(matchType, metric) = ("Turf War", "paint avg")
+(matchType, metric) = ("All", "kassists ratio")
 if matchType != "All":
-    stagesStatsMatch = splat.calcStagesStatsByType(pHist)[matchType]
+    stagesDF = splat.calcStagesStatsByType(pHist)[matchType]
 else:
     stagesDF = splat.calcStagesStats(pHist)
 (fig, ax) = plt.subplots(figsize=(5, 5))
 (fig, ax) = splat.plotTreemapByStages(
     (fig, ax), stagesDF, metric=metric, 
-    fmt='{:.2f}', pad=0.1, alpha=.6
+    fmt='{:.2f}', pad=0.1, alpha=.8
 )
 ax.set_title(f"{matchType} - {metric}")
 plt.savefig(
     path.join(oPath, f'{matchType}-{metric}_Treemap.png'), 
+    dpi=200, bbox_inches='tight', facecolor=fig.get_facecolor()
+)
+###############################################################################
+# Treemap Weapon
+###############################################################################
+(pivot, metric) = ('main weapon', 'kills avg')
+weaponsDF = splat.calcStatsByKey(pHist, pivot)
+(fig, ax) = plt.subplots(figsize=(5, 5))
+(fig, ax) = splat.plotTreemapByKey(
+    (fig, ax), stagesDF, pivot, metric=metric, 
+    fmt='{:.2f}', pad=0.1, alpha=.8
+)
+ax.set_title(f"{pivot} - {metric}")
+plt.savefig(
+    path.join(oPath, f'Weapon-{metric}_Treemap.png'), 
     dpi=200, bbox_inches='tight', facecolor=fig.get_facecolor()
 )
 ###############################################################################

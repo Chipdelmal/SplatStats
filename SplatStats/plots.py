@@ -23,6 +23,7 @@ def plotKillsAndDeathsHistogram(
         binSize=1, assistsAdjustment=True, normalized=True,
         yRange=(-.25, .25), aspect=.25, alpha=.75, edgecolor='#000000',
         kColor=cst.CLR_STATS['kill'], dColor=cst.CLR_STATS['death'],
+        labelsDict={'fontsize': 10},
         **kwargs
     ): 
     """Creates a paired histogram in which the top represents player kills, and the bottom the player deaths.
@@ -77,6 +78,13 @@ def plotKillsAndDeathsHistogram(
             )
         )
     # Fix axes and return figure
+    xLab = (
+        'Kills/Deaths' 
+        if not assistsAdjustment else 
+        '(Kills+1/2*Assists)/Deaths'
+    )
+    ax.set_xlabel(xLab, fontdict=labelsDict)
+    ax.set_ylabel('Frequency', fontdict=labelsDict)
     ax.set_xlim(*killRange)
     ax.set_ylim(*yRange)
     ax.set_aspect(aspect/ax.get_data_ratio())
@@ -236,12 +244,12 @@ def plotMatchHistory(
                {kratio:.2f} K/D ({kNum:04d}/{dNum:04d}) 
                {aratio:.2f} A/D ({int(kaNum):04d}/{dNum:04d}) 
             '''.expandtabs()
-    mStr = f''' Matches:  {mNum:06d}  ( avg  &  pmin)
- Paint:    {paint:06d}  ({pAvg:.1f} & {ppm:.1f})
- Kills:    {kNum:06d}  ({kAvg:.3f} & {kpm:.3f})
- Deaths:   {dNum:06d}  ({dAvg:.3f} & {dpm:.3f})
- Assists:  {aNum:06d}  ({aAvg:.3f} & {apm:.3f})
- KAssists: {int(kaNum):06d}  ({kaAvg:.3f} & {kapm:.3f})
+    mStr = f''' Matches: {mNum:06d}
+ Paint: {paint:08d} (avg: {pAvg:.0f} & per min: {ppm:.0f})
+ Kills: {kNum:08d} (avg: {kAvg:.3f} & per min: {kpm:.3f})
+ Deaths: {dNum:08d} (avg: {dAvg:.3f} & per min: {dpm:.3f})
+ Assists: {aNum:08d} (avg: {aAvg:.3f} & per min: {apm:.3f})
+ KAssists: {int(kaNum):06d} (avg: {kaAvg:.3f} & per min: {kapm:.3f})
         '''.expandtabs()
     if printStats:
         ax.text(
@@ -400,7 +408,7 @@ def plotIris(
         rScale='symlog', innerOffset=0.75, clockwise=True,
         colorsTop=(cst.CLR_STATS['kill'], cst.CLR_STATS['death']),
         colorBars=cst.CLR_PAINT,
-        innerText=None, fontSize=20, fontColor='#00000066',
+        innerText=None, fontSize=20, fontColor='#000000CC',
         innerGuides=(0, 6, 1), innerGuidesColor="#00000066",
         outerGuides=(0, 50, 5), outerGuidesColor="#00000088",
         frameColor="#00000011"
@@ -488,7 +496,7 @@ def plotIris(
 
 def plotkillDeathIris(
         figAx, playerHistory, kassist=True, paint=True,
-        kRange=(0, 50), pRange=(0, 2000),
+        kRange=(0, 50), pRange=(0, 2000), alpha=.85,
         rScale='symlog', innerOffset=0.75, clockwise=True,
         colorsTop=(cst.CLR_STATS['kill'], cst.CLR_STATS['death']),
         colorBars=cst.CLR_PAINT,
@@ -537,7 +545,7 @@ def plotkillDeathIris(
         text = np.sum(outer)/np.sum(inner)
     # Generate plot -----------------------------------------------------------
     (fig, ax) = plotIris(
-        figAx, outer, inner, barArray=bar,
+        figAx, outer, inner, barArray=bar, alpha=alpha,
         tbRange=kRange, bRange=pRange, rScale=rScale, innerOffset=innerOffset,
         clockwise=clockwise, colorsTop=colorsTop, colorBars=colorBars,
         innerText=innerTextFmt.format(text), 
@@ -751,6 +759,9 @@ def plotRanking(
             ax.set_ylim(*yLim)
         if xLim:
             ax.set_xlim(*xLim)
+    axes[-1].set_xticklabels([i+1 for i in axes[-1].get_xticks()], rotation=0)
+    axes[-1].set_xlabel("Rank")
+    axes[-1].set_ylabel("Frequency")
     return (fig, axes)
 
 
@@ -762,6 +773,7 @@ def plotWaffleStat(
         colors=clr.ALL_COLORS, alpha=.6,
         fmt="{:.2f}",
         title=True,
+        vertical=True,
         legendDict={
             'loc': 'upper left',
             'bbox_to_anchor': (1, 1),
@@ -807,7 +819,7 @@ def plotWaffleStat(
         columns=columns,
         values=df[stat],
         starting_location=startingLocation,
-        vertical=True,
+        vertical=vertical,
         block_arranging_style=blockArranging,
         colors=cols,
         interval_ratio_x=intervalRatioX,
