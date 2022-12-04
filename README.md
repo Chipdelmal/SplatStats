@@ -38,15 +38,6 @@ These barcharts show the frequency of a given statistic broken down by match-typ
 <img src="https://raw.githubusercontent.com/Chipdelmal/SplatStats/main/docs/img/MatchesKill.png" width="99%" align="middle"><br>
 
 
-## [Kill/Death Iris](https://chipdelmal.github.io/SplatStats/build/html/plots.html#kill-to-deaths-iris)
-
-Similar to the [matches history panel](https://chipdelmal.github.io/SplatStats/build/html/plots.html#matches-history-panel), these plots show the kill to death ratios as bars but this time they are arranged in a circular pattern to keep it more compact. The radial axis is log-scaled by default with the kill+assist to deaths ratio highlighted at the center of the plot.
-
-<img src="https://raw.githubusercontent.com/Chipdelmal/SplatStats/main/docs/img/IrisA.png" width="33%" align="middle"><img src="https://raw.githubusercontent.com/Chipdelmal/SplatStats/main/docs/img/IrisC.png" width="33%" align="middle"><img src="https://raw.githubusercontent.com/Chipdelmal/SplatStats/main/docs/img/IrisB.png" width="33%" align="middle">
-
-
-
-
 ## [Kills VS Deaths Distributions](https://chipdelmal.github.io/SplatStats/build/html/plots.html#matches-history-panel)
 
 These paired histograms show the frequency distributions of the number of kills or kassists (top, blue), and the number of deaths (bottom, magenta) across matches.
@@ -62,6 +53,15 @@ These plots are designed to show which stages are the ones in which the player p
 <!-- <img src="./docs/img/treemapD.png" width="50%" align="middle"><img src="./docs/img/treemapC.png" width="50%" align="middle"> -->
 
 Moreover, these plots can be generated for any arbitrary key in the dataframe: main weapon, sub weapon, head gear, etc.
+
+
+## [Kill/Death Iris](https://chipdelmal.github.io/SplatStats/build/html/plots.html#kill-to-deaths-iris)
+
+Similar to the [matches history panel](https://chipdelmal.github.io/SplatStats/build/html/plots.html#matches-history-panel), these plots show the kill to death ratios as bars but this time they are arranged in a circular pattern to keep it more compact. The radial axis is log-scaled by default with the (kill+1/2*assist) to deaths ratio highlighted at the center of the plot.
+
+<img src="https://raw.githubusercontent.com/Chipdelmal/SplatStats/main/docs/img/IrisA.png" width="33%" align="middle"><img src="https://raw.githubusercontent.com/Chipdelmal/SplatStats/main/docs/img/IrisC.png" width="33%" align="middle"><img src="https://raw.githubusercontent.com/Chipdelmal/SplatStats/main/docs/img/IrisB.png" width="33%" align="middle">
+
+
 
 
 ## [Player Rank](https://chipdelmal.github.io/SplatStats/build/html/plots.html#matches-ranks)
