@@ -5,7 +5,7 @@ from sys import argv
 from os import path
 import SplatStats as splat
 import matplotlib.pyplot as plt
-
+from matplotlib import font_manager
 
 if splat.isNotebook():
     (iPath, oPath) = (
@@ -14,10 +14,18 @@ if splat.isNotebook():
     )
 else:
     (iPath, oPath) = argv[1:]
-###############################################################################a
-# Load battle paths
 ###############################################################################
-bPaths = splat.getBattleFilepaths(oPath)
+# Setup Splats Font
+###############################################################################
+try:
+    bPaths = splat.getBattleFilepaths(oPath)
+    font_dirs = [oPath]
+    font_files = font_manager.findSystemFonts(fontpaths=font_dirs)
+    for font_file in font_files:
+        font_manager.fontManager.addfont(font_file)
+    plt.rcParams["font.family"]="Splatfont 2"
+except:
+    pass
 ###############################################################################
 # Create Team Objects
 ###############################################################################
@@ -26,7 +34,9 @@ NAMES = (
     'April ウナギ', 'Rei ウナギ', 'DantoNnoob', 'Murazee', 'HSR'
 )
 COLORS = (
-    
+    "#0D40DE", "#EC0B68", "#6ABF0B", "#A577FF",
+    "#D645C8", "#941A88", "#CFD1C7", "#E4E567", 
+    '#8CE47F'
 )
 TZ = 'America/Los_Angeles'
 team = splat.Team(NAMES, bPaths, TZ)
@@ -38,14 +48,7 @@ teamHistBT = team.reshapeTeamHistoryByPeriod(
 # Plotting Stream
 ###############################################################################
 (fig, ax) = plt.subplots(figsize=(10, 2))
-(fig, ax) = splat.plotStreamTeam(
-    (fig, ax), team, teamHistBT,
-    colors = [
-        "#0D40DE", "#EC0B68", "#6ABF0B", "#A577FF",
-        "#D645C8", "#941A88", "#CFD1C7", "#E4E567", 
-        '#8CE47F'
-    ]
-)
+(fig, ax) = splat.plotStreamTeam((fig, ax), team, teamHistBT, colors=COLORS)
 fig.savefig(
     path.join(oPath, f'Wave - Team.png'), 
     dpi=500, bbox_inches='tight', facecolor=fig.get_facecolor()

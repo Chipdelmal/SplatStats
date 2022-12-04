@@ -591,6 +591,7 @@ def plotMatchTypeBars(
         countsLegend={'color': '#00000044', 'fontsize': 8},
         digs=3,
         percentage=True,
+        textOffset=0.01,
         fmt='{:.2f}'
     ):
     """Generates a grid of seaborn plots with stats broken down by match type and stage.
@@ -676,7 +677,7 @@ def plotMatchTypeBars(
             stageData = dataMatchType[fltrStage]
             if stageData.shape[0] > 0:
                 ax.text(
-                    ticks[ix], .03, 
+                    ticks[ix]+textOffset, .03, 
                     '{}'.format(
                         str(int(stageData[aggMetrics[1]])).zfill(digs)
                     ), 
@@ -876,13 +877,13 @@ def polarBarChart(
         xVals, yVals,
         figAx=None,
         logScale=False, ticksStep=10,
-        rRange=(0, 270), yRange=(0, 10e3),
+        rRange=(0, 270), yRange=None,
         colors=clr.ALL_COLORS,
         labels=True, labelQty=False,
         origin='N', direction=1,
         ticksFmt={
             'lw': 1, 'range': (-0.5, -0.25), 
-            'color': '#000000DD', 'fontsize': 8, 'fmt': '{:.2f}'
+            'color': '#000000DD', 'fontsize': 8, 'fmt': '{:.1f}'
         },
         labelFmt={
             'color': '#000000EE', 'fontsize': 10, 

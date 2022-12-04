@@ -6,6 +6,7 @@ from os import path
 import numpy as np
 import SplatStats as splat
 import matplotlib.pyplot as plt
+from matplotlib import font_manager
 
 if splat.isNotebook():
     (iPath, oPath) = (
@@ -21,6 +22,18 @@ LEN_LIMIT = 400
 historyFilepaths = splat.getDataFilepaths(iPath)
 # bPaths = splat.dumpBattlesFromJSONS(historyFilepaths, oPath, overwrite=False)
 bPaths = splat.getBattleFilepaths(oPath)
+###############################################################################
+# Setup Splats Font
+###############################################################################
+try:
+    bPaths = splat.getBattleFilepaths(oPath)
+    font_dirs = [oPath]
+    font_files = font_manager.findSystemFonts(fontpaths=font_dirs)
+    for font_file in font_files:
+        font_manager.fontManager.addfont(font_file)
+    plt.rcParams["font.family"]="Splatfont 2"
+except:
+    pass
 ###############################################################################
 # Create Player Objects
 ###############################################################################
@@ -111,7 +124,7 @@ for name in NAMES:
     ###########################################################################
     # Iris
     ###########################################################################
-    (fig, ax) = plt.subplots(figsize=(8, 8), subplot_kw={"projection": "polar"})
+    (fig, ax) = plt.subplots(figsize=(10, 10), subplot_kw={"projection": "polar"})
     (fig, ax) = splat.plotkillDeathIris(
         (fig, ax), playerHistory,
         # colorsTop=('#4F55ED', '#CB0856'),
@@ -143,7 +156,11 @@ for name in NAMES:
     dfFlat = splat.ammendStagesStatsByType(df, matchModes=list(df.keys()))
     # dfFlat = dfFlat[dfFlat['match type']!='Tricolor Turf War']
     dfFlat.sort_values('match type', inplace=True)
-    g = splat.plotMatchTypeBars(dfFlat, metric, aggMetrics, yRange=(0, 1))
+    g = splat.plotMatchTypeBars(
+        dfFlat, metric, aggMetrics, 
+        yRange=(0, 1), countsLegend={'color': '#00000044', 'fontsize': 8},
+        textOffset=0.005
+    )
     g.savefig(
         path.join(oPath, f'MatchesWin - {plyr.name}.png'), 
         dpi=300, bbox_inches='tight'
