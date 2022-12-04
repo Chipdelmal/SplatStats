@@ -6,6 +6,8 @@ import dill as pkl
 from os import path
 from glob import glob
 from collections import Counter
+import matplotlib.pyplot as plt
+from matplotlib import font_manager
 
 
 def gearPrepend(gearType):
@@ -197,3 +199,17 @@ def alphaToHex(alphaFloat):
     xInter = np.interp(alphaFloat, (0, 1), (0, 255))
     xHex = hex(int(xInter))
     return xHex[2:]
+
+
+def setSplatoonFont(fontDir, fontName="Splatfont 2"):
+    try:
+        font_files = font_manager.findSystemFonts(fontpaths=[fontDir])
+        for font_file in font_files:
+            font_manager.fontManager.addfont(font_file)
+        plt.rcParams["font.family"]=fontName
+    except:
+        print('''
+              Error setting up Splatoon's font. 
+              Please download from https://blogfonts.com/splatfont-2.font, 
+                unzip and place in your folder.
+        ''')
