@@ -42,7 +42,15 @@ To install the latest `SplatStats <https://chipdelmal.github.io/SplatStats/>`_ v
     pip install SplatStats
 
 
+And to upgrade it:
+
+.. code-block:: bash
+
+    pip install SplatStats --upgrade
+
+
 The use of virtual environments is highly recommended, and we do provide our `requirements.yml <https://github.com/Chipdelmal/SplatStats/blob/main/requirements.yml>`_ file to install all the required dependencies to run both `SplatStats <https://chipdelmal.github.io/SplatStats/>`_ and `s3s <https://github.com/frozenpandaman/s3s/>`_ in an `anaconda <https://www.anaconda.com/>`_ virtual environment. 
+
 
 
 Demo Code and Files (for the impatient)
