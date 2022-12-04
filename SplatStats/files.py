@@ -33,12 +33,15 @@ def dumpBattlesFromJSONS(historyFilepaths, oPath, overwrite=True):
         # Process battles in file -----------------------------------------
         histSize = len(data)
         for i in range(histSize):
-            bDetail = data[i]['data']['vsHistoryDetail']
-            # Process battle history --------------------------------------
-            battle = bat.Battle(bDetail)
-            # Export battle history ---------------------------------------
-            bPath = battle.dumpBattle(oPath, overwrite=overwrite)
-            bPaths.append(bPath)
+            try:
+                bDetail = data[i]['data']['vsHistoryDetail']
+                # Process battle history ---------------------------------
+                battle = bat.Battle(bDetail)
+                # Export battle history ----------------------------------
+                bPath = battle.dumpBattle(oPath, overwrite=overwrite)
+                bPaths.append(bPath)
+            except:
+                pass
     return bPaths
 
 ###########################################################################
