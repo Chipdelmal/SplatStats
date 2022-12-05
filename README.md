@@ -88,4 +88,4 @@ Check out the [blogpost on my website](https://chipdelmal.github.io/dataViz/2022
 
 <img src="https://github.com/Chipdelmal/SplatStats/blob/main/docs/img/chip.jpg?raw=true" height="200px" align="middle">
 
-[Héctor M. Sánchez C.](http://chipdelmal.github.io)
+[Héctor M. Sánchez C.](http://chipdelmal.github.io) (chipdelmal@gmail.com)
