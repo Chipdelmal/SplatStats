@@ -94,25 +94,6 @@ The functions to generate these treemaps were ultimately extended, so it is also
 Have a look at the `function's documentation <./SplatStats.html#module-SplatStats.plots>`_ for more information, and our `demo <https://github.com/Chipdelmal/SplatStats/tree/main/SplatStats/demos>`_  for an example on how to generate these plots.
 
 
-Kill to Deaths Iris
-____________________________________________
-
-Similar to the `matches history panel <./plots.html#matches-history-panel>`_, these plots show the kill to death ratios as bars but this time they are arranged in a circular pattern to keep it more compact.
-
-.. image:: ../img/IrisA.png
-  :width: 33%
-
-.. image:: ../img/IrisC.png
-  :width: 33%
-
-.. image:: ../img/IrisB.png
-  :width: 33%
-
-The radial axis is log-scaled by default with the kill+assist to deaths ratio highlighted at the center of the plot. 
-The first 5 circles in the radial axis are spaced in increments of 1, while the latter ones are spaced in intervals of 10 by default.
-
-
-
 Kill VS Deaths Distributions
 ____________________________________________
 
@@ -148,3 +129,36 @@ A simple bar chart of the times awards have been given to the player.
 
 .. image:: ../img/awards.png
   :width: 100%
+
+
+
+Waffle Plot
+____________________________________________
+
+
+Shows the contributions of given categories to a certain stat. 
+In this example, we show the total number of (kills+1/2*assists) broken down by weapon.
+
+.. image:: ../img/waffle.png
+  :width: 100%
+
+
+
+
+Kill to Deaths Iris
+____________________________________________
+
+Similar to the `matches history panel <./plots.html#matches-history-panel>`_, these plots show the kill to death ratios as bars but this time they are arranged in a circular pattern to keep it more compact.
+
+.. image:: ../img/IrisA.png
+  :width: 33%
+
+.. image:: ../img/IrisC.png
+  :width: 33%
+
+.. image:: ../img/IrisB.png
+  :width: 33%
+
+The radial axis is log-scaled by default with the kill+assist to deaths ratio highlighted at the center of the plot. 
+The first 5 circles in the radial axis are spaced in increments of 1, while the latter ones are spaced in intervals of 10 by default.
+

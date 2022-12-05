@@ -179,7 +179,7 @@ for name in NAMES:
     (fig, ax) = plt.subplots(figsize=(12, 3.4))
     (fig, ax) = splat.plotWaffleStat(
         (fig, ax), playerHistory,
-        function=sum, grouping='main weapon', stat='kill',
+        function=sum, grouping='main weapon', stat='kassist',
         rows=30, columns=100, vertical=False,
         colors=splat.CLR_CLS_LONG
     )

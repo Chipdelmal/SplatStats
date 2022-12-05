@@ -119,13 +119,15 @@
                 
                   <li class="toctree-l2"><a href="#stage-weapon-stats-treemaps" class="reference internal">Stage/Weapon Stats Treemaps</a></li>
                 
-                  <li class="toctree-l2"><a href="#kill-to-deaths-iris" class="reference internal">Kill to Deaths Iris</a></li>
-                
                   <li class="toctree-l2"><a href="#kill-vs-deaths-distributions" class="reference internal">Kill VS Deaths Distributions</a></li>
                 
                   <li class="toctree-l2"><a href="#matches-ranks" class="reference internal">Matches Ranks</a></li>
                 
                   <li class="toctree-l2"><a href="#awards-barchart" class="reference internal">Awards BarChart</a></li>
+                
+                  <li class="toctree-l2"><a href="#waffle-plot" class="reference internal">Waffle Plot</a></li>
+                
+                  <li class="toctree-l2"><a href="#kill-to-deaths-iris" class="reference internal">Kill to Deaths Iris</a></li>
                 
               </ul>
             
@@ -215,15 +217,6 @@ These statistics can be also generated for a specific match type (Rainmaker, Tur
 <a class="reference internal image-reference" href="_images/treemapD.png"><img alt="_images/treemapD.png" src="_images/treemapD.png" style="width: 50%;" /></a>
 <p>Have a look at the <a class="reference external" href="./SplatStats.html#module-SplatStats.plots">function’s documentation</a> for more information, and our <a class="reference external" href="https://github.com/Chipdelmal/SplatStats/tree/main/SplatStats/demos">demo</a>  for an example on how to generate these plots.</p>
 </section>
-<section id="kill-to-deaths-iris">
-<h2>Kill to Deaths Iris<a class="headerlink" href="#kill-to-deaths-iris" title="Permalink to this heading">¶</a></h2>
-<p>Similar to the <a class="reference external" href="./plots.html#matches-history-panel">matches history panel</a>, these plots show the kill to death ratios as bars but this time they are arranged in a circular pattern to keep it more compact.</p>
-<a class="reference internal image-reference" href="_images/IrisA.png"><img alt="_images/IrisA.png" src="_images/IrisA.png" style="width: 33%;" /></a>
-<a class="reference internal image-reference" href="_images/IrisC.png"><img alt="_images/IrisC.png" src="_images/IrisC.png" style="width: 33%;" /></a>
-<a class="reference internal image-reference" href="_images/IrisB.png"><img alt="_images/IrisB.png" src="_images/IrisB.png" style="width: 33%;" /></a>
-<p>The radial axis is log-scaled by default with the kill+assist to deaths ratio highlighted at the center of the plot.
-The first 5 circles in the radial axis are spaced in increments of 1, while the latter ones are spaced in intervals of 10 by default.</p>
-</section>
 <section id="kill-vs-deaths-distributions">
 <h2>Kill VS Deaths Distributions<a class="headerlink" href="#kill-vs-deaths-distributions" title="Permalink to this heading">¶</a></h2>
 <p>These paired histograms show the frequency distributions of the number of kills or kassists (top, blue), and the number of deaths (bottom, magenta) across matches.</p>
@@ -241,6 +234,21 @@ The first 5 circles in the radial axis are spaced in increments of 1, while the 
 <h2>Awards BarChart<a class="headerlink" href="#awards-barchart" title="Permalink to this heading">¶</a></h2>
 <p>A simple bar chart of the times awards have been given to the player.</p>
 <a class="reference internal image-reference" href="_images/awards.png"><img alt="_images/awards.png" src="_images/awards.png" style="width: 100%;" /></a>
+</section>
+<section id="waffle-plot">
+<h2>Waffle Plot<a class="headerlink" href="#waffle-plot" title="Permalink to this heading">¶</a></h2>
+<p>Shows the contributions of given categories to a certain stat.
+In this example, we show the total number of (kills+1/2*assists) broken down by weapon.</p>
+<a class="reference internal image-reference" href="_images/waffle.png"><img alt="_images/waffle.png" src="_images/waffle.png" style="width: 100%;" /></a>
+</section>
+<section id="kill-to-deaths-iris">
+<h2>Kill to Deaths Iris<a class="headerlink" href="#kill-to-deaths-iris" title="Permalink to this heading">¶</a></h2>
+<p>Similar to the <a class="reference external" href="./plots.html#matches-history-panel">matches history panel</a>, these plots show the kill to death ratios as bars but this time they are arranged in a circular pattern to keep it more compact.</p>
+<a class="reference internal image-reference" href="_images/IrisA.png"><img alt="_images/IrisA.png" src="_images/IrisA.png" style="width: 33%;" /></a>
+<a class="reference internal image-reference" href="_images/IrisC.png"><img alt="_images/IrisC.png" src="_images/IrisC.png" style="width: 33%;" /></a>
+<a class="reference internal image-reference" href="_images/IrisB.png"><img alt="_images/IrisB.png" src="_images/IrisB.png" style="width: 33%;" /></a>
+<p>The radial axis is log-scaled by default with the kill+assist to deaths ratio highlighted at the center of the plot.
+The first 5 circles in the radial axis are spaced in increments of 1, while the latter ones are spaced in intervals of 10 by default.</p>
 </section>
 </section>
 
