@@ -722,7 +722,8 @@ def plotRanking(
         normalized=True, yLim=None, xLim=None,
         colors=['#C70864', '#C920B7', '#4B25C9', '#830B9C', '#2CB721'],
         categories=['kill', 'death', 'assist', 'paint', 'special'],
-        widthBar=0.9, title=True, pad=0, titlePos=(0.975, .9),
+        widthBar=0.9, title=True, pad=0, titlePos=(0.975, .85),
+        fontsize=20,
         **kwargs
     ):
     """Generates barcharts on stats for player's ranking across categories.
@@ -753,15 +754,15 @@ def plotRanking(
         if title:
             ax.text(
                 titlePos[0], titlePos[1], cat, 
-                transform=ax.transAxes, ha="right"
+                transform=ax.transAxes, ha="right", fontsize=fontsize*.75
             )
         if yLim:
             ax.set_ylim(*yLim)
         if xLim:
             ax.set_xlim(*xLim)
     axes[-1].set_xticklabels([i+1 for i in axes[-1].get_xticks()], rotation=0)
-    axes[-1].set_xlabel("Rank")
-    axes[-1].set_ylabel("Frequency")
+    axes[-1].set_xlabel("Rank", fontsize=fontsize)
+    axes[-1].set_ylabel("Frequency", fontsize=fontsize)
     return (fig, axes)
 
 
