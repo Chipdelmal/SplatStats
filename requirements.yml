@@ -145,6 +145,7 @@ dependencies:
   - pillow
   - pip
   - pkginfo
+  - plotly
   - ply
   - portaudio
   - prompt-toolkit
@@ -192,6 +193,7 @@ dependencies:
   - sqlite
   - stack_data
   - statsmodels
+  - tenacity
   - termcolor
   - tk
   - toml
@@ -218,14 +220,27 @@ dependencies:
   - zipp
   - zstd
   - pip:
+    - chardet
+    - colorlover
     - colorutils
+    - cufflinks
+    - datetimerange
     - fontawesomefree
+    - ipywidgets
+    - joblib
+    - jupyterlab-widgets
     - karma-sphinx-theme
+    - mbstrdecoder
     - msgpack
     - piccolo-theme
     - pywaffle
+    - scikit-learn
+    - sklearn
     - sphinx-bootstrap-theme
     - sphinx-press-theme
     - splatstats
     - squarify
+    - threadpoolctl
+    - typepy
+    - widgetsnbextension
     - zerovm-sphinx-theme
