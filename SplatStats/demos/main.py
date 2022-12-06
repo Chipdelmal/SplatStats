@@ -7,7 +7,10 @@ import SplatStats as splat
 import matplotlib.pyplot as plt
 
 plyrName = 'čħîþ ウナギ'
-(iPath, oPath) = ('./dataJSON', './dataBattle')
+if splat.isNotebook():
+    (iPath, oPath) = ('./dataJSON', './dataBattle')
+else:
+    (iPath, oPath) = ('/data/', '/data/')
 ###############################################################################
 # Process JSON files into battle objects
 ###############################################################################

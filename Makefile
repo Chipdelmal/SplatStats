@@ -58,4 +58,13 @@ docker_build:
 	- docker build -t splatstats:dev .
 
 docker_run:
+	- docker run -v "$(pwd)":/data/ splatstats:dev
+
+docker_run_python:
 	- docker run -it splatstats:dev python
+
+docker_run_bash:
+	- docker run -it splatstats:dev bash
+
+docker_exec:
+	- docker run -v "$(pwd)":/data/ -it splatstats:dev bash
