@@ -23,8 +23,7 @@ clean:
 	- make clean_develop 
 	- make clean_pypi
 
-pypi: 
-	clean clean_sdist \
+pypi: clean clean_sdist
 	set -x \
 	&& $(python) setup.py sdist bdist_wheel \
 	&& twine check dist/* \
@@ -58,7 +57,7 @@ docker_build:
 	- docker build -t splatstats:dev .
 
 docker_run:
-	- docker run -v "$(pwd)":/data/ splatstats:dev
+	- docker run -v "$(pwd)":/data/ splatstats:dev 'Yami ウナギ'
 
 docker_run_python:
 	- docker run -it splatstats:dev python

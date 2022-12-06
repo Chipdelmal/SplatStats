@@ -1,15 +1,17 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-from os import path
 import numpy as np
+from os import path
+from sys import argv
 import SplatStats as splat
 import matplotlib.pyplot as plt
 
-plyrName = 'čħîþ ウナギ'
 if splat.isNotebook():
+    plyrName = 'čħîþ ウナギ'
     (iPath, oPath) = ('./dataJSON', './dataBattle')
 else:
+    plyrName = argv[1]
     (iPath, oPath) = ('/data/', '/data/')
 ###############################################################################
 # Process JSON files into battle objects
@@ -17,6 +19,10 @@ else:
 hFilepaths = splat.getDataFilepaths(iPath, filePat='results.json')
 bPaths = splat.dumpBattlesFromJSONS(hFilepaths, oPath)
 bFilepaths = splat.getBattleFilepaths(oPath)
+###############################################################################
+# Setup Splats Font
+###############################################################################
+splat.setSplatoonFont(oPath, fontName="Splatfont 2")
 ###############################################################################
 # Create Player Object
 ###############################################################################
