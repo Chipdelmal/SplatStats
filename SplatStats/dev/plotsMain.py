@@ -134,7 +134,7 @@ for name in NAMES:
     ax.set_facecolor("w")
     ax.set_yticklabels(
         ["", 10, 20, 30, 40], 
-        fontdict={'fontsize': 8.5, 'color': '#000000BB'}
+        fontdict={'fontsize': 8.5, 'color': '#000000BB', 'ha': 'center'}
     )
     ax.set_rlabel_position(0)
     fig.savefig(

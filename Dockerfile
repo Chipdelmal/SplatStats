@@ -6,12 +6,13 @@ LABEL maintainer="Hector M. Sanchez C. <sanchez.hmsc@berkeley.edu>"
 ###############################################################################
 RUN apt-get update \
     && python -m pip install --upgrade pip \
+    && pip install beautifulsoup4 msgpack_python packaging Pillow requests \
     && pip install SplatStats \
     && mkdir SplatStats \
     && mkdir data
 
 ###############################################################################
-# Copy needed files and install package
+# Copy needed files
 ###############################################################################
 COPY ./* ./SplatStats/
 
@@ -19,4 +20,5 @@ COPY ./* ./SplatStats/
 # Run
 ###############################################################################
 # CMD ["python /SplatStats/demos/main.py"]
-ENTRYPOINT ["python","./SplatStats/demos/main.py"]
+# ENTRYPOINT ["python","./SplatStats/demos/main.py"]
+ENTRYPOINT ["python", "./SplatStats/dockerRoutines/main.py"]
