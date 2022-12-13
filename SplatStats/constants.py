@@ -89,6 +89,12 @@ CLR_STAGE = {
     'Undertow Spillway': clr.RASPBERRY_V_NYELLOW_S2[1],
     'Wahoo World': clr.PINK_V_ORANGE_S1[2]
 }
+CLR_WEAPON = {
+    'Clash Blaster': '#0D37C3',
+    'Hero Shot Replica': '#FDFF00',
+    'Splattershot': '#4F55ED',
+    'Tentatek Splattershot': '#C920B7',
+}
 CLR_CLS_LONG = [
     clr.LPINK_V_BLUE_S2[0], clr.LPINK_V_BLUE_S2[1],
     clr.NPINK_V_NGREEN_S2[1], 

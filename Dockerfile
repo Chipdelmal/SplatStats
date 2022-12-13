@@ -20,5 +20,5 @@ COPY ./* ./SplatStats/
 # Run
 ###############################################################################
 # CMD ["python /SplatStats/demos/main.py"]
-# ENTRYPOINT ["python","./SplatStats/demos/main.py"]
-ENTRYPOINT ["python", "./SplatStats/dockerRoutines/main.py"]
+# ENTRYPOINT ["python", "./SplatStats/dockerRoutines/dockerPlots.py"]
+ENTRYPOINT ["/bin/bash", "./SplatStats/dockerRoutines/dockerMain.sh"]
