@@ -6,11 +6,13 @@
 #   --weapon: Weapon's string (Defaults to "All") [eg. --weapon 'Hero Shot Replica']
 #   --matchMode: Match mode string (Defaults to "All") [eg. --matchMode 'Turf War']
 #   --download: Determines if s3s should be used to download the data (Defaults to "False") [eg. --download True]
+#   --upload: Determines if s3s should be used to upload the missing data to stat.ink (Defaults to "False") [eg. --upload True]
 ###############################################################################
 player=${player:-None}
 weapon=${weapon:-All}
 matchMode=${matchMode:-All}
 download=${download:-False}
+upload=${upload:-False}
 ###############################################################################
 # Get args
 ###############################################################################
@@ -34,9 +36,9 @@ printf "${RED}\t Please visit our github repo for more info: https://github.com/
 # Run s3s scraper
 ###############################################################################
 if [[ "$download" == "False" ]]; then
-    printf "\n${BLUE}* [1/2] Skipping data download...${CLEAR}\n"
+    printf "\n${BLUE}* [1/3] Skipping data download...${CLEAR}\n"
 else
-    printf "\n${BLUE}* [1/2] Downloading config.txt's data with s3s...${CLEAR}\n"
+    printf "\n${BLUE}* [1/3] Downloading config.txt's data with s3s...${CLEAR}\n"
     printf "${BLUE}\t s3s is a third-party software not designed by the SplatStats team, please visit https://github.com/frozenpandaman/s3s for more info and to support the devs! ${CLEAR}\n"
     # Scrape data -------------------------------------------------------------
     cd /data
@@ -46,9 +48,9 @@ fi
 # Run SplatStats scripts
 ###############################################################################
 if [[ "$player" == "None" ]]; then
-    printf "\n${BLUE}* [2/2] No player name was provided (--player), skipping...${CLEAR}\n"
+    printf "\n${BLUE}* [2/3] No player name was provided (--player), skipping...${CLEAR}\n"
 else
-    printf "\n${BLUE}* [2/2] Processing data with SplatStats...${CLEAR}\n"
+    printf "\n${BLUE}* [2/3] Processing data with SplatStats...${CLEAR}\n"
     printf "${BLUE}\t Player: ${player}${CLEAR}\n"
     printf "${BLUE}\t Weapon: ${weapon}${CLEAR}\n"
     printf "${BLUE}\t Match Modes: ${matchMode}${CLEAR}\n\n"
@@ -56,4 +58,15 @@ else
     cd ~
     python /SplatStats/dockerRoutines/dockerPlots.py "$player" "$weapon" "$matchMode"
 fi
-
+###############################################################################
+# Upload s3s to stat.ink
+###############################################################################
+if [[ "$upload" == "False" ]]; then
+    printf "\n${BLUE}* [3/3] Skipping data upload to stat.ink ...${CLEAR}\n"
+else
+    printf "\n${BLUE}* [3/3] Uploading required data to stat.ink ...${CLEAR}\n"
+    printf "${BLUE}\t s3s is a third-party software not designed by the SplatStats team, please visit https://github.com/frozenpandaman/s3s for more info and to support the devs! ${CLEAR}\n"
+    # Upload data -------------------------------------------------------------
+    cd /data
+    printf "n\n" | python /other/s3s/s3s.py -r
+fi
