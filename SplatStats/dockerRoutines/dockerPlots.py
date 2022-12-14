@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 
 import numpy as np
+import pandas as pd
 from os import path
 from sys import argv
 import SplatStats as splat
@@ -10,9 +11,9 @@ import matplotlib.pyplot as plt
 if splat.isNotebook():
     (plyrName, weapon, mode) = ('čħîþ ウナギ', 'Splattershot', 'All')
     (iPath, bPath, oPath) = (
-        path.expanduser('~/Documents/WorkSims/SplatStats/'),
-        path.expanduser('~/Documents/WorkSims/SplatStats/'),
-        path.expanduser('~/Documents/WorkSims/SplatStats/')
+        path.expanduser('~/Documents/WorkSims/SplatStats/jsons'),
+        path.expanduser('~/Documents/WorkSims/SplatStats/battles'),
+        path.expanduser('~/Documents/WorkSims/SplatStats/out')
     )
     fontPath = './SplatStats/'
 else:
@@ -42,7 +43,6 @@ if weapon != 'All':
 else:
     pHist = playerHistory
 # Battle mode filter ----------------------------------------------------------
-
 ###############################################################################
 # Iris
 ###############################################################################
@@ -69,6 +69,7 @@ fig.savefig(
 ###############################################################################
 #  Circle Barchart Kills
 ###############################################################################
+killsTotal = playerHistory['kassist'].sum()
 wColors = [
     '#2DD9B6', '#4F55ED', '#B14A8D', '#7F7F99', '#C70864', 
     '#2CB721', '#4B25C9', '#830B9C', '#C6D314', '#0D37C3', 
@@ -83,7 +84,7 @@ wColors = [
         'color': '#000000DD', 'fontsize': 8, 'fmt': '{:.0f}'
     }
 )
-ax.set_title(title+'\n', fontsize=18)
+ax.set_title(f'(Kills+0.5*Assists) = {killsTotal}\n', fontsize=18)
 fig.savefig(
     path.join(oPath, f'{fNameID}_Polar-Kill.png'), 
     dpi=300, bbox_inches='tight', facecolor=fig.get_facecolor()
@@ -91,6 +92,7 @@ fig.savefig(
 ###############################################################################
 #  Circle Barchart Wins
 ###############################################################################
+winsTotal = playerHistory['winBool'].sum()
 wColors = [
     '#2DD9B6', '#4F55ED', '#B14A8D', '#7F7F99', '#C70864', 
     '#2CB721', '#4B25C9', '#830B9C', '#C6D314', '#0D37C3', 
@@ -105,7 +107,7 @@ wColors = [
         'color': '#000000DD', 'fontsize': 8, 'fmt': '{:.0f}'
     }
 )
-ax.set_title('Wins\n', fontsize=18)
+ax.set_title(f'Wins = {winsTotal}\n', fontsize=18)
 fig.savefig(
     path.join(oPath, f'{fNameID}_Polar-Win.png'), 
     dpi=300, bbox_inches='tight', facecolor=fig.get_facecolor()
@@ -144,3 +146,7 @@ g.savefig(
     dpi=300, bbox_inches='tight'
 )
 plt.close(g.fig)
+###############################################################################
+# Player History to Disk
+###############################################################################
+playerHistory.to_csv(path.join(oPath, f'{plyrName}.csv'))
