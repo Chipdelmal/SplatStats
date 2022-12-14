@@ -49,7 +49,7 @@ fi
 # Run SplatStats scripts
 ###############################################################################
 if [[ "$player" == "None" ]]; then
-    printf "\n${BLUE}* [2/3] No player name was provided (--player), skipping...${CLEAR}\n"
+    printf "\n${BLUE}* [2/3] No player name was provided, skipping...${CLEAR}\n"
 else
     printf "\n${BLUE}* [2/3] Processing data with SplatStats...${CLEAR}\n"
     printf "${BLUE}\t Player: ${player}${CLEAR}\n"

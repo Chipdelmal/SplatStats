@@ -685,7 +685,7 @@ def plotMatchTypeBars(
             stageData = dataMatchType[fltrStage]
             if stageData.shape[0] > 0:
                 ax.text(
-                    ticks[ix]+textOffset, .03, 
+                    ticks[ix]+textOffset, .025, 
                     '{}'.format(
                         str(int(stageData[aggMetrics[1]])).zfill(digs)
                     ), 
@@ -696,7 +696,7 @@ def plotMatchTypeBars(
                 )
             else:
                 ax.text(
-                    ticks[ix], .03, 
+                    ticks[ix], .025, 
                     '{}'.format(
                         str(0).zfill(digs)
                     ), 

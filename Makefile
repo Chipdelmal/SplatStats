@@ -57,7 +57,7 @@ docker_build:
 	- docker build -t splatstats:dev .
 
 docker_run:
-	- docker run -v "$(pwd)":/data/ splatstats:dev 'čħîþ ウナギ'
+	- docker run -v "$(pwd)":/data/ splatstats:dev  --download "True" --upload "True" --player 'čħîþ ウナギ'
 
 docker_run_python:
 	- docker run -it splatstats:dev python
@@ -67,3 +67,9 @@ docker_run_bash:
 
 docker_exec:
 	- docker run -v "$(pwd)":/data/ -it splatstats:dev bash
+
+docker_release:
+	- docker build -t chipdelmal/splatstats:$(version) .
+	- docker push chipdelmal/splatstats:$(version)
+	- docker build -t chipdelmal/splatstats:latest .
+	- docker push chipdelmal/splatstats:latest
