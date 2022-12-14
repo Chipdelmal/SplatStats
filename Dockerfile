@@ -9,12 +9,14 @@ RUN apt-get update \
     && pip install beautifulsoup4 msgpack_python packaging Pillow requests \
     && pip install SplatStats \
     && mkdir SplatStats \
+    && mkdir other \
     && mkdir data
 
 ###############################################################################
 # Copy needed files
 ###############################################################################
-COPY ./* ./SplatStats/
+COPY ./SplatStats ./SplatStats
+COPY ./other ./other
 
 ###############################################################################
 # Run

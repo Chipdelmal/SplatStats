@@ -17,7 +17,7 @@ if splat.isNotebook():
 else:
     (plyrName, weapon, mode) = argv[1:]
     (iPath, oPath) = ('/data/', '/data/')
-    fontPath = '/SplatStats/'
+    fontPath = '/other/'
 ###############################################################################
 # Auxiliary 
 ###############################################################################
