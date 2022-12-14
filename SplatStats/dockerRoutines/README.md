@@ -3,6 +3,17 @@
 ## Installation and Setup
 
 
+```bash
+data
+    jsons
+        config.txt
+        export-*
+    battles
+        *.pkl
+    out
+        *.png
+        *.csv
+```
 
 ## How to Run
 
@@ -17,9 +28,9 @@ docker run \
 
 Docker call breakdown:
 
-* `--net=host`
+* `--net=host`: Needed if `--upload` or `--download` are `True`, as [s3s](https://github.com/frozenpandaman/s3s)  needs internet connection for scraping.
 * `-v "$(pwd)":/data/`
-* `splatstats:dev`
+* `splatstats:dev`: Docker image name and version
 
 SplatStat's optional arguments:
 

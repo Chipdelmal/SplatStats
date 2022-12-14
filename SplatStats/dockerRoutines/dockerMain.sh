@@ -41,7 +41,8 @@ else
     printf "\n${BLUE}* [1/3] Downloading config.txt's data with s3s...${CLEAR}\n"
     printf "${BLUE}\t s3s is a third-party software not designed by the SplatStats team, please visit https://github.com/frozenpandaman/s3s for more info and to support the devs! ${CLEAR}\n"
     # Scrape data -------------------------------------------------------------
-    cd /data
+    mkdir -p /data/jsons
+    cd /data/jsons
     printf "n\n" | python /other/s3s/s3s.py -o
 fi
 ###############################################################################
@@ -55,6 +56,7 @@ else
     printf "${BLUE}\t Weapon: ${weapon}${CLEAR}\n"
     printf "${BLUE}\t Match Modes: ${matchMode}${CLEAR}\n\n"
     # Analyze the data --------------------------------------------------------
+    mkdir -p /data/battles
     cd ~
     python /SplatStats/dockerRoutines/dockerPlots.py "$player" "$weapon" "$matchMode"
 fi
@@ -67,6 +69,7 @@ else
     printf "\n${BLUE}* [3/3] Uploading required data to stat.ink ...${CLEAR}\n"
     printf "${BLUE}\t s3s is a third-party software not designed by the SplatStats team, please visit https://github.com/frozenpandaman/s3s for more info and to support the devs! ${CLEAR}\n"
     # Upload data -------------------------------------------------------------
-    cd /data
+    mkdir -p /data/jsons
+    cd /data/jsons
     printf "n\n" | python /other/s3s/s3s.py -r
 fi

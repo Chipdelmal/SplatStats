@@ -9,14 +9,15 @@ import matplotlib.pyplot as plt
 
 if splat.isNotebook():
     (plyrName, weapon, mode) = ('čħîþ ウナギ', 'Splattershot', 'All')
-    (iPath, oPath) = (
+    (iPath, bPath, oPath) = (
+        path.expanduser('~/Documents/WorkSims/SplatStats/'),
         path.expanduser('~/Documents/WorkSims/SplatStats/'),
         path.expanduser('~/Documents/WorkSims/SplatStats/')
     )
     fontPath = './SplatStats/'
 else:
     (plyrName, weapon, mode) = argv[1:]
-    (iPath, oPath) = ('/data/', '/data/')
+    (iPath, bPath, oPath) = ('/data/jsons', '/data/battles', '/data/out')
     fontPath = '/other/'
 ###############################################################################
 # Auxiliary 
@@ -28,17 +29,20 @@ splat.setSplatoonFont(fontPath, fontName="Splatfont 2")
 # Process JSON files into battle objects
 ###############################################################################
 hFilepaths = splat.getDataFilepaths(iPath, filePat='results.json')
-bPaths = splat.dumpBattlesFromJSONS(hFilepaths, oPath, overwrite=False)
-bFilepaths = splat.getBattleFilepaths(oPath)
+bPaths = splat.dumpBattlesFromJSONS(hFilepaths, bPath, overwrite=False)
+bFilepaths = splat.getBattleFilepaths(bPath)
 ###############################################################################
 # Create Player Object
 ###############################################################################
 plyr = splat.Player(plyrName, bFilepaths, timezone='America/Los_Angeles')
 playerHistory = plyr.battlesHistory
+# Weapon filter ---------------------------------------------------------------
 if weapon != 'All':
     pHist = playerHistory[playerHistory['main weapon']==weapon]
 else:
     pHist = playerHistory
+# Battle mode filter ----------------------------------------------------------
+
 ###############################################################################
 # Iris
 ###############################################################################
