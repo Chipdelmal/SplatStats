@@ -1,27 +1,59 @@
 #!/bin/bash
 
-pyName=$1
-weapon=$2
-btMode=$3
-dwnlad=$4
-
 ###############################################################################
-# Constants and Message
+# Args breakdown
+#   --player: Username string (Defaults to "None" and skips SplatStats)[eg. --player 'chip ウナギ']
+#   --weapon: Weapon's string (Defaults to "All") [eg. --weapon 'Hero Shot Replica']
+#   --matchMode: Match mode string (Defaults to "All") [eg. --matchMode 'Turf War']
+#   --download: Determines if s3s should be used to download the data (Defaults to "False") [eg. --download True]
+###############################################################################
+player=${player:-None}
+weapon=${weapon:-All}
+matchMode=${matchMode:-All}
+download=${download:-False}
+###############################################################################
+# Get args
+###############################################################################
+while [ $# -gt 0 ]; do
+    if [[ $1 == *"--"* ]]; then
+        param="${1/--/}"
+        declare $param="$2"
+    fi
+    shift
+done
+###############################################################################
+# Constants and Welcome
 ###############################################################################
 BLUE='\033[0;34m'
 GREEN='\033[0;32m'
 CLEAR='\033[0m'
 RED='\033[0;31m'
-printf "\n${RED}* Welcome to SplatStats!!!!!!!!!!!!${CLEAR}\n"
+printf "${RED}* Welcome to SplatStats!!!!!!!!!!!!${CLEAR}\n"
+printf "${RED}\t Please visit our github repo for more info: https://github.com/Chipdelmal/SplatStats${CLEAR}"
 ###############################################################################
 # Run s3s scraper
 ###############################################################################
-printf "\n${BLUE}* [1/2] Downloading your data with s3s...${CLEAR}\n"
-cd /data
-printf "n\n" | python /other/s3s/s3s.py -o
+if [[ "$download" == "False" ]]; then
+    printf "\n${BLUE}* [1/2] Skipping data download...${CLEAR}\n"
+else
+    printf "\n${BLUE}* [1/2] Downloading config.txt's data with s3s...${CLEAR}\n"
+    printf "${BLUE}\t s3s is a third-party software not designed by the SplatStats team, please visit https://github.com/frozenpandaman/s3s for more info and to support the devs! ${CLEAR}\n"
+    # Scrape data -------------------------------------------------------------
+    cd /data
+    printf "n\n" | python /other/s3s/s3s.py -o
+fi
 ###############################################################################
 # Run SplatStats scripts
 ###############################################################################
-# printf "\n${BLUE}* [2/2] Processing your data with SplatStats...${CLEAR}\n"
-# cd ~
-# python /SplatStats/dockerRoutines/dockerPlots.py "$pyName" "$weapon" "$btMode"
+if [[ "$player" == "None" ]]; then
+    printf "\n${BLUE}* [2/2] No player name was provided (--player), skipping...${CLEAR}\n"
+else
+    printf "\n${BLUE}* [2/2] Processing data with SplatStats...${CLEAR}\n"
+    printf "${BLUE}\t Player: ${player}${CLEAR}\n"
+    printf "${BLUE}\t Weapon: ${weapon}${CLEAR}\n"
+    printf "${BLUE}\t Match Modes: ${matchMode}${CLEAR}\n\n"
+    # Analyze the data --------------------------------------------------------
+    cd ~
+    python /SplatStats/dockerRoutines/dockerPlots.py "$player" "$weapon" "$matchMode"
+fi
+
