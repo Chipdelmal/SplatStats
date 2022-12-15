@@ -1,7 +1,7 @@
 FROM python:3.10-slim-buster
 LABEL maintainer="Hector M. Sanchez C. <sanchez.hmsc@berkeley.edu>"
 
-###############################################################################
+####################################################################
 # Install Linux, SplatStats and Make Folders
 ###############################################################################
 RUN apt-get update \
@@ -10,7 +10,7 @@ RUN apt-get update \
     && pip install SplatStats \
     && mkdir SplatStats \
     && mkdir other \
-    && mkdir data
+    && mkdir data 
 
 ###############################################################################
 # Copy needed files

@@ -1,11 +1,13 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
+import os
 import numpy as np
-import pandas as pd
 from os import path
 from sys import argv
 import SplatStats as splat
+import warnings
+warnings.filterwarnings("ignore")
 import matplotlib.pyplot as plt
 
 if splat.isNotebook():

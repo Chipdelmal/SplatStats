@@ -11,11 +11,11 @@ import SplatStats.stats as stats
 import SplatStats.auxiliary as aux
 import SplatStats.colors as clr
 import SplatStats.plotsAux as paux
+import warnings
+warnings.filterwarnings("ignore")
 import matplotlib
 matplotlib.rcParams['font.family'] = ['monospace']
 # matplotlib.rcParams['font.stretch'] = ['condensed']
-import warnings
-warnings.filterwarnings("ignore")
 
 
 def plotKillsAndDeathsHistogram(

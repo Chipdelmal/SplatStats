@@ -20,6 +20,7 @@ data
 ```bash
 docker run \
     --net=host \
+    --user "$(id -u):$(id -g)" \
     -v "$(pwd)":/data/ \
     splatstats:dev \
     --player "čħîþ ウナギ" --weapon "Hero Shot Replica" --battleMode "All" \
