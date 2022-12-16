@@ -968,3 +968,68 @@ def polarBarChart(
     )
     # Return results ----------------------------------------------------------
     return (fig, ax)
+
+def polarBarRanks(
+        dfRank, ranksNum,
+        cats=['kill', 'death', 'assist', 'paint'],
+        yRange=(0, 1), ticksStep=10,
+        colors=['#EC0B68', '#3D59DE', '#6BFF00', '#38377A']
+    ):
+    # Get Values --------------------------------------------------------------
+    vals = {}
+    for cat in cats:
+        vals[cat] = list(
+            dfRank[cat].value_counts(sort=False, normalize=True).sort_index()
+        )[::-1]
+    # Generate Grid -----------------------------------------------------------
+    thetaRange = (0, 90)
+    fig = plt.figure(figsize=(10, 10))
+    gs = fig.add_gridspec(
+        2, 2,  
+        width_ratios=(1, 1), height_ratios=(1, 1),
+        left=0.1, right=0.9, bottom=0.1, top=0.9,
+        wspace=0.075, hspace=0.075
+    )
+    ax_k = fig.add_subplot(gs[0], projection='polar')
+    ax_d = fig.add_subplot(gs[1], sharex=ax_k, projection='polar')
+    ax_a = fig.add_subplot(gs[2], sharey=ax_d, projection='polar')
+    ax_p = fig.add_subplot(gs[3], sharex=ax_a, projection='polar')
+    # Plot Sectors ------------------------------------------------------------
+    (fig, ax_k) = polarBarChart(
+        range(1, ranksNum+1)[::-1], vals[cats[0]], figAx=(fig, ax_k),
+        logScale=False, rRange=(0, 90), yRange=yRange, labels=True,
+        origin='W', direction=-1, colors=[colors[0]]*ranksNum, ticksStep=ticksStep
+    )
+    ax_k.set_thetamin(thetaRange[0]); ax_k.set_thetamax(thetaRange[1])
+    ax_k.text(.25, .9, cats[0], fontsize=15, ha='right', transform=ax_k.transAxes)
+    [x.set_linewidth(1.5) for x in ax_k.spines.values()]
+    # ax.set(frame_on=False)
+    (fig, ax_d) = polarBarChart(
+        range(1, ranksNum+1)[::-1], vals[cats[1]], figAx=(fig, ax_d),
+        logScale=False, rRange=(0, 90), yRange=yRange, labels=True,
+        origin='N', direction=-1, colors=[colors[1]]*ranksNum, ticksStep=ticksStep
+    )
+    ax_d.set_thetamin(thetaRange[0]); ax_d.set_thetamax(thetaRange[1])
+    ax_d.text(.75, .9, cats[1], fontsize=15, ha='left', transform=ax_d.transAxes)
+    [x.set_linewidth(1.5) for x in ax_d.spines.values()]
+    # ax.set(frame_on=False)
+    (fig, ax_a) = polarBarChart(
+        range(1, ranksNum+1)[::-1], vals[cats[2]], figAx=(fig, ax_a),
+        logScale=False, rRange=(0, 90), yRange=yRange, labels=True,
+        origin='S', direction=-1, colors=[colors[2]]*ranksNum, ticksStep=ticksStep
+    )
+    ax_a.set_thetamin(thetaRange[0]); ax_a.set_thetamax(thetaRange[1])
+    ax_a.text(.25, .1, cats[3], fontsize=15, ha='right', transform=ax_a.transAxes)
+    [x.set_linewidth(1.5) for x in ax_a.spines.values()]
+    # ax.set(frame_on=False)
+    (fig, ax_p) = polarBarChart(
+        range(1, ranksNum+1)[::-1], vals[cats[3]], figAx=(fig, ax_p),
+        logScale=False, rRange=(0, 90), yRange=yRange, labels=True,
+        origin='E', direction=-1, colors=[colors[3]]*ranksNum, ticksStep=ticksStep
+    )
+    ax_p.set_thetamin(thetaRange[0]); ax_p.set_thetamax(thetaRange[1])
+    ax_p.text(.75, .1, cats[2], fontsize=15, ha='left', transform=ax_p.transAxes)
+    [x.set_linewidth(1.5) for x in ax_p.spines.values()]
+    # ax.set(frame_on=False)
+    # Return ------------------------------------------------------------------
+    return (fig, (ax_k, ax_d, ax_a, ax_p))

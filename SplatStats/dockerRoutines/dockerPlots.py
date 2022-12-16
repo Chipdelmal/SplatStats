@@ -250,29 +250,22 @@ plt.close()
 ###############################################################################
 # Ranks
 ###############################################################################
-cats = ['kill', 'death', 'assist', 'special', 'paint']
+cats = ['kill', 'death', 'assist', 'paint']
 dfRank = plyr.getPlayerAlliedRanking(cats=cats)
-(fig, axes) = plt.subplots(figsize=(10, 10), nrows=len(cats), sharex=True)
-(fig, axes) = splat.plotRanking(
-    (fig, axes), dfRank, fontsize=20,
-    normalized=True, xLim=(-.6, 3.6), yLim=(0, 0.75)
-)
+(fig, ax) = splat.polarBarRanks(dfRank, 4)
 fig.savefig(
-    path.join(oPath, f'{fNameID}_RanksFull.png'), 
+    path.join(oPath, f'{fNameID}_RanksAllied.png'), 
     dpi=300, bbox_inches='tight', facecolor=fig.get_facecolor()
 )
 plt.close()
 # Full Rank ---------------------------------------------------------------
 dfRank = plyr.getPlayerFullRanking(cats=cats)
-(fig, axes) = plt.subplots(
-    figsize=(10, 10), nrows=len(cats), sharex=True
-)
-(fig, axes) = splat.plotRanking(
-    (fig, axes), dfRank, fontsize=20,
-    normalized=True, xLim=(-.6, 7.6), yLim=(0, 0.5)
+(fig, ax) = splat.polarBarRanks(
+    dfRank, 8,
+    yRange=(0, .5), ticksStep=5
 )
 fig.savefig(
-    path.join(oPath, f'{fNameID}_RanksAllied.png'), 
+    path.join(oPath, f'{fNameID}_RanksFull.png'), 
     dpi=300, bbox_inches='tight', facecolor=fig.get_facecolor()
 )
 plt.close()

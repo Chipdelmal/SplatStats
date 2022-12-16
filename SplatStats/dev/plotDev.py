@@ -88,55 +88,67 @@ wColors = [
 # Divide BarChart
 ###############################################################################
 cats = ['kill', 'death', 'assist', 'paint']
-
 dfRank = plyr.getPlayerFullRanking(cats=cats)
 
+splat.polarBarRanks(dfRank, 8)
+
+
+cats = ['kill', 'death', 'assist', 'paint']
+dfRank = plyr.getPlayerFullRanking(cats=cats)
 vals = {}
 for cat in cats:
-    vals[cat] = list(dfRank[cat].value_counts(normalize=True))[::-1]
+    vals[cat] = list(dfRank[cat].value_counts(sort=False, normalize=True).sort_index())[::-1]
 
 
-yRange = (0, 0.5)
+yRange = (0, 1)
 ranksNum = 8
+thetaRange = (0, 90)
+colors=['#EC0B68', '#3D59DE', '#6BFF00', '#38377A']
 
 fig = plt.figure(figsize=(10, 10))
 gs = fig.add_gridspec(
     2, 2,  
     width_ratios=(1, 1), height_ratios=(1, 1),
     left=0.1, right=0.9, bottom=0.1, top=0.9,
-    wspace=0.05, hspace=0
+    wspace=0.075, hspace=0.075
 )
 ax_k = fig.add_subplot(gs[0], projection='polar')
 ax_d = fig.add_subplot(gs[1], sharex=ax_k, projection='polar')
 ax_a = fig.add_subplot(gs[2], sharey=ax_d, projection='polar')
 ax_p = fig.add_subplot(gs[3], sharex=ax_a, projection='polar')
-
-(fig, ax) = splat.polarBarChart(
+# Plot Sectors ------------------------------------------------------------
+(fig, ax_k) = splat.polarBarChart(
     range(1, ranksNum+1)[::-1], vals[cats[0]], figAx=(fig, ax_k),
     logScale=False, rRange=(0, 90), yRange=yRange, labels=True,
-    origin='W', direction=-1, colors=['#EC0B68']*ranksNum
+    origin='W', direction=-1, colors=[colors[0]]*ranksNum
 )
-ax.set_thetamin(0)
-ax.set_thetamax(90)
-(fig, ax) = splat.polarBarChart(
+ax_k.set_thetamin(thetaRange[0]); ax_k.set_thetamax(thetaRange[1])
+ax_k.text(.25, .9, cats[0], fontsize=15, ha='right', transform=ax_k.transAxes)
+[x.set_linewidth(1.5) for x in ax_k.spines.values()]
+# ax.set(frame_on=False)
+(fig, ax_d) = splat.polarBarChart(
     range(1, ranksNum+1)[::-1], vals[cats[1]], figAx=(fig, ax_d),
     logScale=False, rRange=(0, 90), yRange=yRange, labels=True,
-    origin='N', direction=-1, colors=['#3D59DE']*ranksNum
+    origin='N', direction=-1, colors=[colors[1]]*ranksNum
 )
-ax.set_thetamin(0)
-ax.set_thetamax(90)
-(fig, ax) = splat.polarBarChart(
+ax_d.set_thetamin(thetaRange[0]); ax_d.set_thetamax(thetaRange[1])
+ax_d.text(.75, .9, cats[1], fontsize=15, ha='left', transform=ax_d.transAxes)
+[x.set_linewidth(1.5) for x in ax_d.spines.values()]
+# ax.set(frame_on=False)
+(fig, ax_a) = splat.polarBarChart(
     range(1, ranksNum+1)[::-1], vals[cats[2]], figAx=(fig, ax_a),
     logScale=False, rRange=(0, 90), yRange=yRange, labels=True,
-    origin='S', direction=-1, colors=['#6BFF00']*ranksNum
+    origin='S', direction=-1, colors=[colors[2]]*ranksNum
 )
-ax.set_thetamin(0)
-ax.set_thetamax(90)
-(fig, ax) = splat.polarBarChart(
+ax_a.set_thetamin(thetaRange[0]); ax_a.set_thetamax(thetaRange[1])
+ax_a.text(.25, .1, cats[3], fontsize=15, ha='right', transform=ax_a.transAxes)
+[x.set_linewidth(1.5) for x in ax_a.spines.values()]
+# ax.set(frame_on=False)
+(fig, ax_p) = splat.polarBarChart(
     range(1, ranksNum+1)[::-1], vals[cats[3]], figAx=(fig, ax_p),
     logScale=False, rRange=(0, 90), yRange=yRange, labels=True,
-    origin='E', direction=-1, colors=['#38377A']*ranksNum
+    origin='E', direction=-1, colors=[colors[3]]*ranksNum
 )
-ax.set_thetamin(0)
-ax.set_thetamax(90)
-
+ax_p.set_thetamin(thetaRange[0]); ax_p.set_thetamax(thetaRange[1])
+ax_p.text(.75, .1, cats[2], fontsize=15, ha='left', transform=ax_p.transAxes)
+[x.set_linewidth(1.5) for x in ax_p.spines.values()]
