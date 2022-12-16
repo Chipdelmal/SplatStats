@@ -1,7 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-import os
 import numpy as np
 from os import path
 from sys import argv
@@ -13,9 +12,9 @@ import matplotlib.pyplot as plt
 if splat.isNotebook():
     (plyrName, weapon, mode, overwrite) = ('čħîþ ウナギ', 'All', 'All', 'True')
     (iPath, bPath, oPath) = (
-        path.expanduser('~/Documents/WorkSims/SplatStats/jsons'),
-        path.expanduser('~/Documents/WorkSims/SplatStats/battles'),
-        path.expanduser('~/Documents/WorkSims/SplatStats/out')
+        path.expanduser('~/Documents/Sync/BattlesDocker/jsons'),
+        path.expanduser('~/Documents/Sync/BattlesDocker/battles'),
+        path.expanduser('~/Documents/Sync/BattlesDocker/out')
     )
     fontPath = '/home/chipdelmal/Documents/GitHub/SplatStats/other/'
 else:
@@ -26,7 +25,7 @@ else:
         '/data/out'
     )
     fontPath = '/other/'
-overwrite = (True if "False"=="True"  else False)
+overwrite = (True if overwrite=="True"  else False)
 LEN_LIMIT = 400
 ###############################################################################
 # Auxiliary 
@@ -245,6 +244,35 @@ ax_bottom.set_yticks([])
 plt.setp(ax_bottom.get_xticklabels(), rotation=90, ha='right')
 plt.savefig(
     path.join(oPath, f'{fNameID}_History.png'), 
+    dpi=300, bbox_inches='tight', facecolor=fig.get_facecolor()
+)
+plt.close()
+###############################################################################
+# Ranks
+###############################################################################
+cats = ['kill', 'death', 'assist', 'special', 'paint']
+dfRank = plyr.getPlayerAlliedRanking(cats=cats)
+(fig, axes) = plt.subplots(figsize=(10, 10), nrows=len(cats), sharex=True)
+(fig, axes) = splat.plotRanking(
+    (fig, axes), dfRank, fontsize=20,
+    normalized=True, xLim=(-.6, 3.6), yLim=(0, 0.75)
+)
+fig.savefig(
+    path.join(oPath, f'{fNameID}_RanksFull.png'), 
+    dpi=300, bbox_inches='tight', facecolor=fig.get_facecolor()
+)
+plt.close()
+# Full Rank ---------------------------------------------------------------
+dfRank = plyr.getPlayerFullRanking(cats=cats)
+(fig, axes) = plt.subplots(
+    figsize=(10, 10), nrows=len(cats), sharex=True
+)
+(fig, axes) = splat.plotRanking(
+    (fig, axes), dfRank, fontsize=20,
+    normalized=True, xLim=(-.6, 7.6), yLim=(0, 0.5)
+)
+fig.savefig(
+    path.join(oPath, f'{fNameID}_RanksAllied.png'), 
     dpi=300, bbox_inches='tight', facecolor=fig.get_facecolor()
 )
 plt.close()
