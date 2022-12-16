@@ -11,21 +11,23 @@ warnings.filterwarnings("ignore")
 import matplotlib.pyplot as plt
 
 if splat.isNotebook():
-    (plyrName, weapon, mode) = ('čħîþ ウナギ', 'All', 'All')
+    (plyrName, weapon, mode, overwrite) = ('čħîþ ウナギ', 'All', 'All', 'True')
     (iPath, bPath, oPath) = (
         path.expanduser('~/Documents/WorkSims/SplatStats/jsons'),
         path.expanduser('~/Documents/WorkSims/SplatStats/battles'),
         path.expanduser('~/Documents/WorkSims/SplatStats/out')
     )
-    fontPath = './SplatStats/'
+    fontPath = '/home/chipdelmal/Documents/GitHub/SplatStats/other/'
 else:
-    (plyrName, weapon, mode) = argv[1:]
+    (plyrName, weapon, mode, overwrite) = argv[1:]
     (iPath, bPath, oPath) = (
         '/data/jsons', 
         '/data/battles', 
         '/data/out'
     )
     fontPath = '/other/'
+overwrite = (True if "False"=="True"  else False)
+LEN_LIMIT = 400
 ###############################################################################
 # Auxiliary 
 ###############################################################################
@@ -36,7 +38,7 @@ splat.setSplatoonFont(fontPath, fontName="Splatfont 2")
 # Process JSON files into battle objects
 ###############################################################################
 hFilepaths = splat.getDataFilepaths(iPath, filePat='results.json')
-bPaths = splat.dumpBattlesFromJSONS(hFilepaths, bPath, overwrite=False)
+bPaths = splat.dumpBattlesFromJSONS(hFilepaths, bPath, overwrite=overwrite)
 bFilepaths = splat.getBattleFilepaths(bPath)
 ###############################################################################
 # Create Player Object
@@ -70,8 +72,10 @@ ax.set_yticklabels(
 ax.set_rlabel_position(0)
 fig.savefig(
     path.join(oPath, f'{fNameID}_Iris.png'), 
-    dpi=300, bbox_inches='tight', facecolor=fig.get_facecolor()
+    dpi=300, bbox_inches='tight',
+    facecolor=fig.get_facecolor()
 )
+plt.close()
 ###############################################################################
 #  Circle Barchart Kills
 ###############################################################################
@@ -95,6 +99,7 @@ fig.savefig(
     path.join(oPath, f'{fNameID}_Polar-Kill.png'), 
     dpi=300, bbox_inches='tight', facecolor=fig.get_facecolor()
 )
+plt.close()
 ###############################################################################
 #  Circle Barchart Wins
 ###############################################################################
@@ -113,6 +118,7 @@ fig.savefig(
     path.join(oPath, f'{fNameID}_Polar-Win.png'), 
     dpi=300, bbox_inches='tight', facecolor=fig.get_facecolor()
 )
+plt.close()
 ###############################################################################
 # Win Ratio
 ###############################################################################
@@ -202,12 +208,46 @@ try:
         alpha=.975
     )
     fig.savefig(
-        path.join(oPath, f'Awards - {plyr.name}.png'), 
+        path.join(oPath, f'{fNameID}_Awards.png'), 
         dpi=300, bbox_inches='tight', facecolor=fig.get_facecolor()
     )
     plt.close()
 except:
     pass
+###############################################################################
+# Battle History
+###############################################################################
+phLen = playerHistory.shape[0]
+if phLen > LEN_LIMIT:
+    ilocRange = (-LEN_LIMIT, phLen)
+else:
+    ilocRange = (0, -1)
+yRange = ((0, 40), (0, 2000))
+fig = plt.figure(figsize=(30, 5))
+gs = fig.add_gridspec(
+    2, 1,  
+    width_ratios=(1, ), height_ratios=(.75, .05),
+    left=0.1, right=0.9, bottom=0.1, top=0.9,
+    wspace=0.05, hspace=0
+)
+ax_top    = fig.add_subplot(gs[0])
+ax_bottom = fig.add_subplot(gs[1], sharex=ax_top)
+(_, ax_top) = splat.plotMatchHistory(
+    (fig, ax_top), playerHistory, 
+    yRange=yRange, sizeMultiplier=.8, ilocRange=ilocRange
+)
+(_, ax_bottom) = splat.plotMatchTypeHistory(
+    (fig, ax_bottom), playerHistory, 
+    sizeMultiplier=.5, labelsize=4, ilocRange=ilocRange
+)
+ax_top.tick_params(labelbottom=False)
+ax_bottom.set_yticks([])
+plt.setp(ax_bottom.get_xticklabels(), rotation=90, ha='right')
+plt.savefig(
+    path.join(oPath, f'{fNameID}_History.png'), 
+    dpi=300, bbox_inches='tight', facecolor=fig.get_facecolor()
+)
+plt.close()
 ###############################################################################
 # Player History to Disk
 ###############################################################################

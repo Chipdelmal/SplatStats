@@ -7,12 +7,14 @@
 #   --matchMode: Match mode string (Defaults to "All") [eg. --matchMode 'Turf War']
 #   --download: Determines if s3s should be used to download the data (Defaults to "False") [eg. --download True]
 #   --upload: Determines if s3s should be used to upload the missing data to stat.ink (Defaults to "False") [eg. --upload True]
+#   --overwrite: 
 ###############################################################################
 player=${player:-None}
 weapon=${weapon:-All}
 matchMode=${matchMode:-All}
 download=${download:-False}
 upload=${upload:-False}
+overwrite=${overwrite:-True}
 ###############################################################################
 # Get args
 ###############################################################################
@@ -54,11 +56,12 @@ else
     printf "\n${BLUE}* [2/3] Processing data with SplatStats...${CLEAR}\n"
     printf "${BLUE}\t Player: ${player}${CLEAR}\n"
     printf "${BLUE}\t Weapon: ${weapon}${CLEAR}\n"
-    printf "${BLUE}\t Match Modes: ${matchMode}${CLEAR}\n\n"
+    printf "${BLUE}\t Match Modes: ${matchMode}${CLEAR}\n"
+    printf "${BLUE}\t Overwrite Battles: ${overwrite}${CLEAR}\n\n"
     # Analyze the data --------------------------------------------------------
     mkdir -p /data/battles
     cd ~
-    python /SplatStats/dockerRoutines/dockerPlots.py "$player" "$weapon" "$matchMode"
+    python /SplatStats/dockerRoutines/dockerPlots.py "$player" "$weapon" "$matchMode" "$overwrite"
 fi
 ###############################################################################
 # Upload s3s to stat.ink
