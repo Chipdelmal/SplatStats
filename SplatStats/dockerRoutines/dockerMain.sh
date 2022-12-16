@@ -34,8 +34,10 @@ BLUE='\033[0;34m'
 GREEN='\033[0;32m'
 CLEAR='\033[0m'
 RED='\033[0;31m'
+printf "${RED}*****************************************************************************************************\n"
 printf "${RED}* Welcome to SplatStats!!!!!!!!!!!!${CLEAR}\n"
 printf "${RED}\t Please visit our github repo for more info: https://github.com/Chipdelmal/SplatStats${CLEAR}\n"
+printf "${RED}*****************************************************************************************************\n"
 ###############################################################################
 # Setup Credentials
 ###############################################################################
@@ -72,7 +74,7 @@ else
     mkdir -p /data/battles
     mkdir -p /data/out
     cd ~
-    python /SplatStats/dockerRoutines/dockerPlots.py "$player" "$weapon" "$matchMode" "$overwrite"
+    python /SplatStats/SplatStats/dockerRoutines/dockerPlots.py "$player" "$weapon" "$matchMode" "$overwrite"
 fi
 ###############################################################################
 # Upload s3s to stat.ink

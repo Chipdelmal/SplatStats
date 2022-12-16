@@ -27,7 +27,8 @@ pypi: clean clean_sdist
 	set -x \
 	&& $(python) setup.py sdist bdist_wheel \
 	&& twine check dist/* \
-	&& twine upload dist/*
+	&& twine upload dist/* \
+	&& pip install .
 
 clean_pypi:
 	- rm -rf build/
@@ -56,6 +57,10 @@ docker_build:
 	- docker rmi splatstats:dev -f
 	- docker build -t splatstats:dev .
 
+docker_build_force:
+	- docker rmi splatstats:dev -f
+	- docker build --no-cache -t splatstats:dev .
+
 docker_run:
 	- docker run -v "$(pwd)":/data/ splatstats:dev  --download "True" --upload "True" --player 'čħîþ ウナギ'
 
@@ -73,3 +78,10 @@ docker_release:
 	- docker push chipdelmal/splatstats:$(version)
 	- docker build -t chipdelmal/splatstats:latest .
 	- docker push chipdelmal/splatstats:latest
+
+###############################################################################
+# Full version release
+###############################################################################
+full_release:
+	- make pypi
+	- make docker_release
