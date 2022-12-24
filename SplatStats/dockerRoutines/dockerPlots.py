@@ -251,19 +251,24 @@ plt.close()
 # Ranks
 ###############################################################################
 cats = ['kill', 'death', 'assist', 'paint']
+ranksNum = 4
 dfRank = plyr.getPlayerAlliedRanking(cats=cats)
-(fig, ax) = splat.polarBarRanks(dfRank, 4)
+(fig, ax) = splat.polarBarRanks(dfRank, ranksNum)
+for x in ax:
+    x.set_ylim(-ranksNum/ranksNum, ranksNum)
 fig.savefig(
     path.join(oPath, f'{fNameID}_RanksAllied.png'), 
     dpi=300, bbox_inches='tight', facecolor=fig.get_facecolor()
 )
 plt.close()
 # Full Rank ---------------------------------------------------------------
+ranksNum = 8
 dfRank = plyr.getPlayerFullRanking(cats=cats)
 (fig, ax) = splat.polarBarRanks(
-    dfRank, 8,
-    yRange=(0, .5), ticksStep=5
+    dfRank, ranksNum, yRange=(0, .5), ticksStep=5
 )
+for x in ax:
+    x.set_ylim(-ranksNum/ranksNum, ranksNum)
 fig.savefig(
     path.join(oPath, f'{fNameID}_RanksFull.png'), 
     dpi=300, bbox_inches='tight', facecolor=fig.get_facecolor()
