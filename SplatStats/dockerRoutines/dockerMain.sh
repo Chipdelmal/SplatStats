@@ -53,7 +53,7 @@ if [[ "$download" == "False" ]]; then
     printf "\n${BLUE}* [1/3] Skipping data download...${CLEAR}\n"
 else
     printf "\n${BLUE}* [1/3] Downloading config.txt's data with s3s...${CLEAR}\n"
-    printf "${BLUE}\t s3s is a third-party software not designed by the SplatStats team, please visit https://github.com/frozenpandaman/s3s for more info and to support the devs! ${CLEAR}\n"
+    printf "${BLUE}\t s3s is third-party software not designed by the SplatStats team, please visit https://github.com/frozenpandaman/s3s for more info and to support the devs! ${CLEAR}\n"
     # Scrape data -------------------------------------------------------------
     mkdir -p /data/jsons
     cd /data/jsons
@@ -83,7 +83,7 @@ if [[ "$upload" == "False" ]]; then
     printf "\n${BLUE}* [3/3] Skipping data upload to stat.ink ...${CLEAR}\n"
 else
     printf "\n${BLUE}* [3/3] Uploading required data to stat.ink ...${CLEAR}\n"
-    printf "${BLUE}\t s3s is a third-party software not designed by the SplatStats team, please visit https://github.com/frozenpandaman/s3s for more info and to support the devs! ${CLEAR}\n"
+    printf "${BLUE}\t s3s is third-party software not designed by the SplatStats team, please visit https://github.com/frozenpandaman/s3s for more info and to support the devs! ${CLEAR}\n"
     # Upload data -------------------------------------------------------------
     mkdir -p /data/jsons
     cd /data/jsons
