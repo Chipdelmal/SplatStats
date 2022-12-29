@@ -11,26 +11,24 @@ It does this by reading JSON files downloaded by the `s3s package <https://githu
 
 
 Have a look at our `quickstart guide <./quickstart.html>`_ for setup instructions and some of the basics on how to use our package! 
-Or run our our `demo <https://github.com/Chipdelmal/SplatStats/tree/main/SplatStats/demos>`_  for some example data and plots.
+You can also run our package through our `docker image <./docker.html>`_ or run our our `demo <https://github.com/Chipdelmal/SplatStats/tree/main/SplatStats/demos>`_  for some example data and plots.
 
-.. image:: ../img/kdHistogram.png
+
+.. image:: https://chipdelmal.github.io/media/splatstats/BarsWin.png
   :width: 100%
 
 
 Additionally, we have the hex codes for all the Splatoon `colors <./colors.html>`_ as detailed in the `Inkipedia <https://splatoonwiki.org/wiki/Ink>`_.
 
 
-.. image:: ../img/treemapA.png
-  :height: 250px
+.. image:: https://chipdelmal.github.io/media/splatstats/RankFull.png
+  :width: 29%
+
+.. image:: file:///home/chipdelmal/Documents/GitHub/SplatStats/docs/build/html/_images/polarKillsA.png
+  :width: 29%
 
 .. image:: ../img/IrisA.png
-  :height: 250px
-
-Under development! Come back in a few weeks for more info!
-
-
-.. image:: ../img/MatchesWin.png
-  :width: 100%
+  :width: 29%
 
 
 Contents
