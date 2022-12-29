@@ -42,6 +42,7 @@ Contents
 
   index
   quickstart
+  docker
   packageStructure
   plots
   colors

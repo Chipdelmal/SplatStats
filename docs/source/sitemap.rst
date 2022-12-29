@@ -8,6 +8,7 @@ Sitemap
 
   index
   quickstart
+  docker
   plots
   packageStructure
 

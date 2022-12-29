@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html  lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1"><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
+      <title>Docker Image</title>
+    
+          <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+          <link rel="stylesheet" href="_static/theme.css " type="text/css" />
+      
+      <!-- sphinx script_files -->
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/sphinx_highlight.js"></script>
+
+      
+      <!-- bundled in js (rollup iife) -->
+      <!-- <script src="_static/theme-vendors.js"></script> -->
+      <script src="_static/theme.js" defer></script>
+    
+  <link rel="index" title="Index" href="genindex.html" />
+  <link rel="search" title="Search" href="search.html" />
+  <link rel="next" title="Pkg and Data Structures" href="packageStructure.html" />
+  <link rel="prev" title="Quickstart" href="quickstart.html" /> 
+  </head>
+
+  <body>
+    <div id="app">
+    <div class="theme-container" :class="pageClasses"><navbar @toggle-sidebar="toggleSidebar">
+  <router-link to="index.html" class="home-link">
+    
+      <span class="site-name">SplatStats</span>
+    
+  </router-link>
+
+  <div class="links">
+    <navlinks class="can-hide">
+
+
+
+    </navlinks>
+  </div>
+</navbar>
+
+      
+      <div class="sidebar-mask" @click="toggleSidebar(false)">
+      </div>
+        <sidebar @toggle-sidebar="toggleSidebar">
+          
+          <navlinks>
+            
+
+
+
+            
+          </navlinks><div id="searchbox" class="searchbox" role="search">
+  <div class="caption"><span class="caption-text">Quick search</span>
+    <div class="searchformwrapper">
+      <form class="search" action="search.html" method="get">
+        <input type="text" name="q" />
+        <input type="submit" value="Search" />
+        <input type="hidden" name="check_keywords" value="yes" />
+        <input type="hidden" name="area" value="default" />
+      </form>
+    </div>
+  </div>
+</div><div class="sidebar-links" role="navigation" aria-label="main navigation">
+  
+    <div class="sidebar-group">
+      <p class="caption">
+        <span class="caption-text"><a href="index.html#contents">contents</a></span>
+      </p>
+      <ul class="current">
+        
+          <li class="toctree-l1 ">
+            
+              <a href="index.html" class="reference internal ">SplatStats’ docs!</a>
+            
+
+            
+          </li>
+
+        
+          <li class="toctree-l1 ">
+            
+              <a href="quickstart.html" class="reference internal ">Quickstart</a>
+            
+
+            
+          </li>
+
+        
+          <li class="toctree-l1 current">
+            
+              <a href="#" class="reference internal current">Docker Image</a>
+            
+
+            
+              <ul>
+                
+                  <li class="toctree-l2"><a href="#setting-folder-structure-up" class="reference internal">Setting Folder Structure Up</a></li>
+                
+                  <li class="toctree-l2"><a href="#pulling-docker-image" class="reference internal">Pulling Docker image</a></li>
+                
+                  <li class="toctree-l2"><a href="#running-image" class="reference internal">Running Image</a></li>
+                
+              </ul>
+            
+          </li>
+
+        
+          <li class="toctree-l1 ">
+            
+              <a href="packageStructure.html" class="reference internal ">Pkg and Data Structures</a>
+            
+
+            
+          </li>
+
+        
+          <li class="toctree-l1 ">
+            
+              <a href="plots.html" class="reference internal ">Plots</a>
+            
+
+            
+          </li>
+
+        
+          <li class="toctree-l1 ">
+            
+              <a href="colors.html" class="reference internal ">Colors</a>
+            
+
+            
+          </li>
+
+        
+      </ul>
+    </div>
+  
+</div>
+        </sidebar>
+
+      <page>
+          <div class="body-header" role="navigation" aria-label="navigation">
+  
+  <ul class="breadcrumbs">
+    <li><a href="index.html">Docs</a> &raquo;</li>
+    
+    <li>Docker Image</li>
+  </ul>
+  
+
+  <ul class="page-nav">
+  <li class="prev">
+    <a href="quickstart.html"
+       title="previous chapter">← Quickstart</a>
+  </li>
+  <li class="next">
+    <a href="packageStructure.html"
+       title="next chapter">Pkg and Data Structures →</a>
+  </li>
+</ul>
+  
+</div>
+<hr>
+          <div class="content" role="main" v-pre>
+            
+  <section id="docker-image">
+<h1>Docker Image<a class="headerlink" href="#docker-image" title="Permalink to this heading">¶</a></h1>
+<p>One of the main <a class="reference external" href="https://chipdelmal.github.io/SplatStats/">SplatStats</a> drawbacks as it stood up to now was that it needed the independent handling of the <a class="reference external" href="https://github.com/frozenpandaman/s3s">s3s</a> package to download data.
+The following updates described here were done to make some progress in alleviating this nuissance by bundling both packages together (as allowed by <a class="reference external" href="https://github.com/frozenpandaman/s3s#license--copyleft-statement-">s3s’ licence</a>).</p>
+<section id="setting-folder-structure-up">
+<h2>Setting Folder Structure Up<a class="headerlink" href="#setting-folder-structure-up" title="Permalink to this heading">¶</a></h2>
+<p>Follow the instructions on <a class="reference external" href="./quickstart.html#getting-s3s-up-and-running">installing s3s locally</a>.
+Once it has finished, we need to run s3s at least once, and to setup the following folder structure (the <code class="code docutils literal notranslate"><span class="pre">battles</span></code> and <code class="code docutils literal notranslate"><span class="pre">out</span></code> folders are auto-created, but the jsons one has to be created manually for now):</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>data
+  jsons
+    config.txt
+  battles
+  out
+</pre></div>
+</div>
+<p>Where <code class="code docutils literal notranslate"><span class="pre">data</span></code> is a dedicated folder for SplatStats’ data and the <code class="code docutils literal notranslate"><span class="pre">config.txt</span></code> file is the one generated by <a class="reference external" href="https://github.com/frozenpandaman/s3s">s3s</a>’s first run.
+Once the package has been run successfully, we can do the rest from <a class="reference external" href="https://hub.docker.com/r/chipdelmal/splatstats">SplatStat’s docker image</a>!</p>
+</section>
+<section id="pulling-docker-image">
+<h2>Pulling Docker image<a class="headerlink" href="#pulling-docker-image" title="Permalink to this heading">¶</a></h2>
+<p>If docker is <a class="reference external" href="https://docs.docker.com/get-docker/">installed</a> in the user’s computer, the <a class="reference external" href="https://hub.docker.com/r/chipdelmal/splatstats">image</a> can easily be downloaded with:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>docker pull chipdelmal/splatstats
+</pre></div>
+</div>
+</section>
+<section id="running-image">
+<h2>Running Image<a class="headerlink" href="#running-image" title="Permalink to this heading">¶</a></h2>
+<p>To run the image, navigate to the <code class="code docutils literal notranslate"><span class="pre">data</span></code> folder location and run the following command on the terminal:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>docker run <span class="se">\</span>
+  --net<span class="o">=</span>host <span class="se">\</span>
+  --user <span class="s2">&quot;</span><span class="k">$(</span>id -u<span class="k">)</span><span class="s2">:</span><span class="k">$(</span>id -g<span class="k">)</span><span class="s2">&quot;</span> <span class="se">\</span>
+  -v <span class="s2">&quot;</span><span class="k">$(</span><span class="nb">pwd</span><span class="k">)</span><span class="s2">&quot;</span>:/data/ <span class="se">\</span>
+  splatstats:dev <span class="se">\</span>
+  --player <span class="s2">&quot;čħîþ ウナギ&quot;</span> --download True --upload False --overwrite True --weapon All
+</pre></div>
+</div>
+<p>Replacing <code class="code docutils literal notranslate"><span class="pre">&quot;čħîþ</span> <span class="pre">ウナギ&quot;</span></code> with your Splatoon player name!
+If the <code class="code docutils literal notranslate"><span class="pre">config.txt</span></code> file is valid, the image will download your latest 50 battles JSON file, process it to extract the battles’ serialized data, and output the resulting <a class="reference external" href="./plots.html">plots</a> to the <code class="code docutils literal notranslate"><span class="pre">out</span></code> directory.
+Additionally, if you want your stats to be uploaded to <a class="reference external" href="https://stat.ink/&#64;chipdelmal">stat.ink</a> you can simply replace <code class="code docutils literal notranslate"><span class="pre">--upload</span> <span class="pre">True</span></code>!</p>
+<a class="reference internal image-reference" href="_images/statink.png"><img alt="_images/statink.png" src="_images/statink.png" style="width: 100%;" /></a>
+<p>For more information on the code have a read on my <a class="reference external" href="https://chipdelmal.github.io/dataViz/2022-12-28-SplatStats2.html">blogpost</a>!</p>
+</section>
+</section>
+
+
+          </div>
+          <div class="page-nav">
+            <div class="inner"><ul class="page-nav">
+  <li class="prev">
+    <a href="quickstart.html"
+       title="previous chapter">← Quickstart</a>
+  </li>
+  <li class="next">
+    <a href="packageStructure.html"
+       title="next chapter">Pkg and Data Structures →</a>
+  </li>
+</ul><div class="footer" role="contentinfo">
+      &#169; Copyright 2022, chipdelmal.
+    <br>
+    Created using <a href="http://sphinx-doc.org/">Sphinx</a> 5.2.3 with <a href="https://github.com/schettino72/sphinx_press_theme">Press Theme</a> 0.8.0.
+</div>
+            </div>
+          </div>
+      </page>
+    </div></div>
+    
+    
+  </body>
+</html>

@@ -58,10 +58,10 @@ ____________________________________________
 
 These barcharts show the frequency of a given statistic broken down by match-type and stage.
 
-.. image:: ../img/MatchesWin.png
+.. image:: https://chipdelmal.github.io/media/splatstats/BarsWin.png
   :width: 100%
 
-.. image:: ../img/MatchesKill.png
+.. image:: https://chipdelmal.github.io/media/splatstats/BarsKill.png
   :width: 100%
 
 
@@ -112,10 +112,10 @@ ____________________________________________
 
 These plots show the player's results as compared to the other players in the match (left) and on the player's team (right).
 
-.. image:: ../img/rankF.png
+.. image:: https://chipdelmal.github.io/media/splatstats/RankFull.png
   :width: 49%
 
-.. image:: ../img/rankA.png
+.. image:: https://chipdelmal.github.io/media/splatstats/RankAllied.png
   :width: 49%
 
 
@@ -127,7 +127,7 @@ ____________________________________________
 
 A simple bar chart of the times awards have been given to the player.
 
-.. image:: ../img/awards.png
+.. image:: https://chipdelmal.github.io/media/splatstats/awards.png
   :width: 100%
 
 

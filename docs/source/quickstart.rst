@@ -23,7 +23,7 @@ With those in place, we run the main script with the `-o` flag so that it export
     python s3s.py -o
 
 
-The first time it's run, it will ask us to follow some instructions so that it can gain access to your splatoon data (for more information have a look at `s3s <https://github.com/frozenpandaman/s3s/>`_ or `splatnet2statink <https://github.com/frozenpandaman/splatnet2statink>`  instructions).
+The first time it's run, it will ask us to follow some instructions so that it can gain access to your splatoon data (for more information have a look at `s3s <https://github.com/frozenpandaman/s3s/>`_ or `splatnet2statink <https://github.com/frozenpandaman/splatnet2statink>`_  instructions).
 Please note that it might be necessary to create an account in `stat.ink <https://stat.ink/>`_ to generate a couple of keys.
 
 
