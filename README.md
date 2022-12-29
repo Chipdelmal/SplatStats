@@ -38,28 +38,17 @@ These paired histograms show the frequency distributions of the number of kills 
 
 ![](https://raw.githubusercontent.com/Chipdelmal/SplatStats/main/docs/img/kdHistogram.png)
 
-## [Stage/Weapons Stats Treemaps](https://chipdelmal.github.io/SplatStats/build/html/plots.html#stats-treemaps)
-
-These plots are designed to show which stages are the ones in which the player performs best on any given stage with respect to a selected metric. Auxiliary provided functions generate the statistics dataframe required for these plots, which includes: kills, deaths, win ratio, paint, total matches; amongst many others. These statistics can be also generated for a specific match type (Rainmaker, Turf War, Tower Control, etc), or for a combination of them.
-
-<img src="https://raw.githubusercontent.com/Chipdelmal/SplatStats/main/docs/img/treemapA.png" width="50%" align="middle"><img src="https://raw.githubusercontent.com/Chipdelmal/SplatStats/main/docs/img/treemapB.png" width="50%" align="middle">
-
-<!-- <img src="./docs/img/treemapD.png" width="50%" align="middle"><img src="./docs/img/treemapC.png" width="50%" align="middle"> -->
-
-Moreover, these plots can be generated for any arbitrary key in the dataframe: main weapon, sub weapon, head gear, etc.
-
-
 ## [Player Rank](https://chipdelmal.github.io/SplatStats/build/html/plots.html#matches-ranks)
 
 These plots show the player's results as compared to the other players in the match (left) and on the player's team (right).
 
-<img src="https://raw.githubusercontent.com/Chipdelmal/SplatStats/main/docs/img/rankF.png" width="49%" align="middle"><img src="https://raw.githubusercontent.com/Chipdelmal/SplatStats/main/docs/img/rankA.png" width="49%" align="middle">
+<img src="https://chipdelmal.github.io/media/splatstats/RankFull.png" width="49%" align="middle"><img src="https://chipdelmal.github.io/media/splatstats/RankAllied.png" width="49%" align="middle">
 
 ## [Awards BarChart](https://chipdelmal.github.io/SplatStats/build/html/plots.html#kill-vs-deaths-distributions)
 
 A simple bar chart of the times awards have been given to the player.
 
-<img src="https://chipdelmal.github.io/SplatStats/build/html/_images/awards.png" width="99%" align="middle"><br>
+<img src="https://chipdelmal.github.io/media/splatstats/awards.png" width="99%" align="middle"><br>
 
 
 ## [Matches History Panel](https://chipdelmal.github.io/SplatStats/build/html/plots.html#matches-history-panel)
@@ -81,11 +70,21 @@ Similar to the [matches history panel](https://chipdelmal.github.io/SplatStats/b
 
 <img src="https://raw.githubusercontent.com/Chipdelmal/SplatStats/main/docs/img/IrisA.png" width="33%" align="middle"><img src="https://raw.githubusercontent.com/Chipdelmal/SplatStats/main/docs/img/IrisC.png" width="33%" align="middle"><img src="https://raw.githubusercontent.com/Chipdelmal/SplatStats/main/docs/img/IrisB.png" width="33%" align="middle">
 
+## [Stage/Weapons Stats Treemaps](https://chipdelmal.github.io/SplatStats/build/html/plots.html#stats-treemaps)
+
+These plots are designed to show which stages are the ones in which the player performs best on any given stage with respect to a selected metric. Auxiliary provided functions generate the statistics dataframe required for these plots, which includes: kills, deaths, win ratio, paint, total matches; amongst many others. These statistics can be also generated for a specific match type (Rainmaker, Turf War, Tower Control, etc), or for a combination of them.
+
+<img src="https://raw.githubusercontent.com/Chipdelmal/SplatStats/main/docs/img/treemapA.png" width="50%" align="middle"><img src="https://raw.githubusercontent.com/Chipdelmal/SplatStats/main/docs/img/treemapB.png" width="50%" align="middle">
+
+<!-- <img src="./docs/img/treemapD.png" width="50%" align="middle"><img src="./docs/img/treemapC.png" width="50%" align="middle"> -->
+
+Moreover, these plots can be generated for any arbitrary key in the dataframe: main weapon, sub weapon, head gear, etc.
+
 
 # Author
 
-Check out the [blogpost on my website](https://chipdelmal.github.io/dataViz/2022-09-26-SplatStats.html) with more information about the development, planned features, and some analyses on my own Splatoon matches data!
+Check out the [blogposts on my website](https://chipdelmal.github.io/dataViz/) with more information about the development, planned features, and some analyses on my own Splatoon matches data!
 
-<img src="https://github.com/Chipdelmal/SplatStats/blob/main/docs/img/chip.jpg?raw=true" height="200px" align="middle">
+<img src="https://chipdelmal.github.io/media/splatstats/chip2.jpg" height="200px" align="middle">
 
 [Héctor M. Sánchez C.](http://chipdelmal.github.io) (chipdelmal@gmail.com)
