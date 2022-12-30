@@ -24,8 +24,10 @@ Additionally, we have the hex codes for all the Splatoon `colors <./colors.html>
 .. image:: https://chipdelmal.github.io/media/splatstats/RankFull.png
   :width: 29%
 
+
 .. image:: file:///home/chipdelmal/Documents/GitHub/SplatStats/docs/build/html/_images/polarKillsA.png
   :width: 29%
+
 
 .. image:: ../img/IrisA.png
   :width: 29%
