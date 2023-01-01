@@ -108,3 +108,53 @@ CLR_CLS_LONG = [
     clr.YELLOW_V_DTEAL_LK_S3[0], clr.YELLOW_V_DTEAL_LK_S3[1], clr.YELLOW_V_DTEAL_LK_S3[2]
 ]
 CLR_BAR = clr.SMUSHROOM_V_SSTAR_S2[-1]
+###############################################################################
+# Weapons Classes
+###############################################################################
+WPN_CLASS = {
+    'Blaster': {
+        'Blaster', 'Clash Blaster', 'Luna Blaster', 'Luna Blaster Neo',
+        'Range Blaster', 'Rapid Blaster', 'Rapid Blaster Pro'
+    },
+    'Brella': {
+        'Splat Brella', 'Tenta Brella', 'Undercover Brella'
+    },
+    'Brush': {
+        'Inkbrush', 'Inkbrush Nouveau', 'Octobrush'
+    },
+    'Charger': {
+        'Bamboozler 14 Mk I', 'Classic Squiffer', 'E-liter 4K', 
+        'E-liter 4K Scope', 'Goo Tuber', 'Snipewriter 5H', 'Splat Charger',
+        'Splatterscope'
+    },
+    'Dualie': {
+        'Dapple Dualies', 'Dapple Dualies Nouveau', 'Dark Tetra Dualies',
+        'Dualie Squelchers', 'Glooga Dualies', 'Splat Dualies'
+    },
+    'Roller': {
+        'Big Swig Roller', 'Carbon Roller', 'Carbon Roller Deco',
+        'Dynamo Roller', 'Flingza Roller', 'Splat Roller'
+    },
+    'Shooter': {
+        '.52 Gal', '.96 Gal', 'Aerospray MG', 'Aerospray RG', 
+        'Custom Splattershot Jr.', 'Forge Splattershot Pro', 
+        'H-3 Nozzlenose', 'Hero Shot Replica', 'Jet Squelcher',
+        'L-3 Nozzlenose', "N-ZAP '85", 'Splash-o-matic', 'Splattershot',
+        'Splattershot Jr.', 'Splattershot Nova', 'Splattershot Pro', 
+        'Sploosh-o-matic', 'Squeezer', 'Tentatek Splattershot'
+    },
+    'Slosher': {
+        'Bloblobber', 'Explosher', 'Slosher', 'Slosher Deco',
+        'Sloshing Machine', 'Tri-Slosher'
+    },
+    'Splatana': {
+        'Splatana Stamper', 'Splatana Wiper'
+    },
+    'Splatling': {
+        'Ballpoint Splatling', 'Heavy Splatling', 'Hydra Splatling',
+        'Mini Splatling', 'Nautilus 47', 'Zink Mini Splatling'
+    },
+    'Stringer': {
+        'REEF-LUX 450', 'Tri-Stringer'
+    }
+}
