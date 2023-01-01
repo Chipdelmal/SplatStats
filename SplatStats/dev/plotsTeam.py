@@ -8,24 +8,25 @@ import matplotlib.pyplot as plt
 from matplotlib import font_manager
 
 if splat.isNotebook():
-    (iPath, oPath) = (
-        path.expanduser('~/Documents/GitHub/s3s_source/'),
-        path.expanduser('~/Documents/Sync/BattlesData/')
+    (iPath, bPath, oPath) = (
+        path.expanduser('~/Documents/Sync/BattlesDocker/jsons'),
+        path.expanduser('~/Documents/Sync/BattlesDocker/battles'),
+        path.expanduser('~/Documents/Sync/BattlesDocker/out')
     )
+    fontPath = '/home/chipdelmal/Documents/GitHub/SplatStats/other/'
 else:
     (iPath, oPath) = argv[1:]
+    fontPath = '/home/chipdelmal/Documents/GitHub/SplatStats/other/'
 ###############################################################################
 # Setup Splats Font
 ###############################################################################
-try:
-    bPaths = splat.getBattleFilepaths(oPath)
-    font_dirs = [oPath]
-    font_files = font_manager.findSystemFonts(fontpaths=font_dirs)
-    for font_file in font_files:
-        font_manager.fontManager.addfont(font_file)
-    plt.rcParams["font.family"]="Splatfont 2"
-except:
-    pass
+splat.setSplatoonFont(fontPath, fontName="Splatfont 2")
+###############################################################################
+# Process JSON files into battle objects
+###############################################################################
+hFilepaths = splat.getDataFilepaths(iPath, filePat='results.json')
+bPaths = splat.dumpBattlesFromJSONS(hFilepaths, bPath, overwrite=True)
+bFilepaths = splat.getBattleFilepaths(bPath)
 ###############################################################################
 # Create Team Objects
 ###############################################################################
@@ -50,7 +51,7 @@ teamHistBT = team.reshapeTeamHistoryByPeriod(
 (fig, ax) = plt.subplots(figsize=(10, 2))
 (fig, ax) = splat.plotStreamTeam((fig, ax), team, teamHistBT, colors=COLORS)
 fig.savefig(
-    path.join(oPath, f'Wave - Team.png'), 
+    path.join(oPath, f'Team-Wave.png'), 
     dpi=500, bbox_inches='tight', facecolor=fig.get_facecolor()
 )
 plt.close()

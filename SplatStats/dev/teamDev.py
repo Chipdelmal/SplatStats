@@ -8,10 +8,9 @@ from os import path
 import SplatStats as splat
 
 (iPath, oPath) = (
-    path.expanduser('~/Documents/GitHub/s3s/'),
-    path.expanduser('~/Documents/Sync/BattlesData/')
+    path.expanduser('~/Documents/Sync/BattlesDocker/battles'),
+    path.expanduser('~/Documents/Sync/BattlesDocker/out')
 )
-
 historyFilepaths = splat.getDataFilepaths(iPath, filePat='results.json')
 # bPaths = splat.dumpBattlesFromJSONS(historyFilepaths, oPath)
 bPaths = splat.getBattleFilepaths(oPath)
