@@ -9,7 +9,7 @@ from collections import Counter
 import SplatStats as splat
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.feature_extraction import DictVectorizer
-from sklearn.feature_extraction.text import CountVectorizer, DictVectorize
+from sklearn.feature_extraction.text import CountVectorizer
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import classification_report, confusion_matrix, accuracy_score
 
@@ -32,12 +32,11 @@ bFilepaths = splat.getBattleFilepaths(bPath)
 # Create Team Object
 ###############################################################################
 plyr = splat.Player(plyrName, bFilepaths, timezone='America/Los_Angeles')
-playerHistory = plyr.battlesHistory
+(plyrHist, btleHist) = (plyr.battlesHistory, plyr.battleRecords)
 ###############################################################################
 # Battles Analysis
 ###############################################################################
-btleHist = plyr.battleRecords
-matchType = 'All'
+matchType = 'Turf War'
 (vectA, vectE) = (
     DictVectorizer(sparse=False), DictVectorizer(sparse=False)
 )
@@ -78,7 +77,7 @@ wpLabels = vectE.get_feature_names_out()
 # Train
 ###############################################################################
 (X_train, X_test, y_train, y_test) = train_test_split(
-    XE, y, test_size=0.1
+    XE, y, test_size=0.15
 )
 clf = RandomForestClassifier()
 clf.fit(X_train, y_train)
@@ -96,3 +95,46 @@ probe = {
 }
 xi = vectE.transform([probe])
 clf.predict(xi)
+###############################################################################
+# Frequency Analysis
+###############################################################################
+ix = 0
+matchType = 'Clam Blitz'
+(wpA, wpE) = ({'W': [], 'L': []}, {'W': [], 'L': []})
+for ix in range(len(btleHist)):
+    # Get battle entry --------------------------------------------------------
+    btl = btleHist[ix]
+    if (btl.matchType==matchType) or (matchType=='All'):
+        # Get teams dataframes and result -------------------------------------
+        (dfAlly, dfEnmy) = (btl.alliedTeam, pd.concat(btl.enemyTeams))
+        (btlResult, btlKO) = (
+            (1 if btl.alliedTeam['win'].iloc[0]!='L' else 0),
+            btl.ko
+        )
+        # Teams weapons -------------------------------------------------------
+        if btlResult:
+            wpA['W'].extend(list(dfAlly['main weapon']))
+            wpE['W'].extend(list(dfEnmy['main weapon']))
+        else:
+            wpA['L'].extend(list(dfAlly['main weapon']))
+            wpE['L'].extend(list(dfEnmy['main weapon']))
+
+norm = True
+ran = 10
+probe = Counter(wpE['L']).most_common()
+(x, y) = (
+    [i[0] for i in probe][:ran][::-1],
+    [i[1] for i in probe][:ran][::-1]
+)
+if norm:
+    tMatch = np.sum(y)
+    y = [i/tMatch for i in y]
+splat.polarBarChart(
+    x, y,
+    rRange=(0, 270),
+    yRange=(0, .25),
+    ticksFmt={
+        'lw': 1, 'range': (-0.5, -0.25), 
+        'color': '#000000DD', 'fontsize': 8, 'fmt': '{:.2f}'
+    }
+)
