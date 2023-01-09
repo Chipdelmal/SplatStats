@@ -138,3 +138,10 @@ splat.polarBarChart(
         'color': '#000000DD', 'fontsize': 8, 'fmt': '{:.2f}'
     }
 )
+
+def getWeaponClass(weapon, wpnClassDict=splat.WPN_CLASS):
+    dictKey = filter(lambda x: (weapon in wpnClassDict[x]), wpnClassDict)
+    if len(dictKey)==0:
+        return None
+    else:
+        return dictKey[0]
