@@ -42,9 +42,7 @@ COLORS = (
 TZ = 'America/Los_Angeles'
 team = splat.Team(NAMES, bPaths, TZ)
 teamHist = team.battleHistory
-teamHistBT = team.reshapeTeamHistoryByPeriod(
-    period='24H'
-)
+teamHistBT = team.reshapeTeamHistoryByPeriod(period='24H')
 ###############################################################################
 # Plotting Stream
 ###############################################################################
