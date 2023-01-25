@@ -233,7 +233,7 @@ for name in NAMES:
         )
         ax.set_title(f'Awards\n', fontsize=18)
         fig.savefig(
-            path.join(oPath, f'{fNameID}_Awards.png'), 
+            path.join(oPath, f'Awards - {plyr.name}.png'), 
             dpi=300, bbox_inches='tight', facecolor=fig.get_facecolor()
         )
         plt.close()
