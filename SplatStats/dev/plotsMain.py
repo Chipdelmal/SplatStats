@@ -216,14 +216,27 @@ for name in NAMES:
     # Awards
     ###########################################################################
     try:
-        awds = plyr.getAwardFrequencies()
-        (fig, ax) = plt.subplots(figsize=(10, 4))
-        (fig, ax) = splat.plotAwardFrequencies((fig, ax), awds)
-        fig.savefig(
-            path.join(oPath, f'Awards - {plyr.name}.png'), 
-            dpi=300, bbox_inches='tight', facecolor=fig.get_facecolor()
-        )
-        plt.close()
+    awds = plyr.getAwardFrequencies()
+    (fig, ax) = splat.polarBarChart(
+        [i[0] for i in awds[::-1]], 
+        [i[1] for i in awds[::-1]],
+        labelFmt={
+            'color': '#000000EE', 'fontsize': 7.5, 
+            'ha': 'left', 'fmt': '{:.1f}'
+        },
+        colors=[
+            '#C70864', '#571DB1', '#C920B7', '#4F55ED', '#B14A8D', '#7F7F99', 
+            '#C70864', 
+            '#2CB721', '#4B25C9', '#830B9C', '#C6D314', '#0D37C3', 
+            '#14BBE7', '#38377A', '#C70864'
+        ][::-1]*10
+    )
+    ax.set_title(f'Awards\n', fontsize=18)
+    fig.savefig(
+        path.join(oPath, f'{fNameID}_Awards.png'), 
+        dpi=300, bbox_inches='tight', facecolor=fig.get_facecolor()
+    )
+    plt.close()
     except:
         pass
 ###############################################################################
@@ -236,20 +249,3 @@ plt.savefig(
     dpi=300, bbox_inches='tight', facecolor=fig.get_facecolor()
 )
 plt.close()
-
-
-
-splat.polarBarChart(
-    [i[0] for i in awds[::-1]], 
-    [i[1] for i in awds[::-1]],
-    labelFmt={
-        'color': '#000000EE', 'fontsize': 7.5, 
-        'ha': 'left', 'fmt': '{:.1f}'
-    },
-    colors=[
-        '#C70864', '#571DB1', '#C920B7', '#4F55ED', '#B14A8D', '#7F7F99', 
-        '#C70864', 
-        '#2CB721', '#4B25C9', '#830B9C', '#C6D314', '#0D37C3', 
-        '#14BBE7', '#38377A', '#C70864'
-    ][::-1]*10
-)
