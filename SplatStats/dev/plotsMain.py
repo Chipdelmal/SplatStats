@@ -237,3 +237,19 @@ plt.savefig(
 )
 plt.close()
 
+
+
+splat.polarBarChart(
+    [i[0] for i in awds[::-1]], 
+    [i[1] for i in awds[::-1]],
+    labelFmt={
+        'color': '#000000EE', 'fontsize': 7.5, 
+        'ha': 'left', 'fmt': '{:.1f}'
+    },
+    colors=[
+        '#C70864', '#571DB1', '#C920B7', '#4F55ED', '#B14A8D', '#7F7F99', 
+        '#C70864', 
+        '#2CB721', '#4B25C9', '#830B9C', '#C6D314', '#0D37C3', 
+        '#14BBE7', '#38377A', '#C70864'
+    ][::-1]*10
+)

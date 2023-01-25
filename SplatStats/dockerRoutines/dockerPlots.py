@@ -200,12 +200,21 @@ plt.close()
 ###############################################################################
 try:
     awds = plyr.getAwardFrequencies()
-    (fig, ax) = plt.subplots(figsize=(10, 4))
-    (fig, ax) = splat.plotAwardFrequencies(
-        (fig, ax), awds,
-        textSize=6, color=wColors,
-        alpha=.975
+    (fig, ax) = splat.polarBarChart(
+        [i[0] for i in awds[::-1]], 
+        [i[1] for i in awds[::-1]],
+        labelFmt={
+            'color': '#000000EE', 'fontsize': 7.5, 
+            'ha': 'left', 'fmt': '{:.1f}'
+        },
+        colors=[
+            '#C70864', '#571DB1', '#C920B7', '#4F55ED', '#B14A8D', '#7F7F99', 
+            '#C70864', 
+            '#2CB721', '#4B25C9', '#830B9C', '#C6D314', '#0D37C3', 
+            '#14BBE7', '#38377A', '#C70864'
+        ][::-1]*10
     )
+    ax.set_title(f'Awards\n', fontsize=18)
     fig.savefig(
         path.join(oPath, f'{fNameID}_Awards.png'), 
         dpi=300, bbox_inches='tight', facecolor=fig.get_facecolor()
@@ -256,6 +265,7 @@ dfRank = plyr.getPlayerAlliedRanking(cats=cats)
 (fig, ax) = splat.polarBarRanks(dfRank, ranksNum)
 for x in ax:
     x.set_ylim(-ranksNum/ranksNum, ranksNum)
+fig.suptitle(f'Team Ranking Frequency\n', fontsize=18)
 fig.savefig(
     path.join(oPath, f'{fNameID}_RanksAllied.png'), 
     dpi=300, bbox_inches='tight', facecolor=fig.get_facecolor()
@@ -269,6 +279,7 @@ dfRank = plyr.getPlayerFullRanking(cats=cats)
 )
 for x in ax:
     x.set_ylim(-ranksNum/ranksNum, ranksNum)
+fig.suptitle(f'Overall Ranking Frequency\n', fontsize=18)
 fig.savefig(
     path.join(oPath, f'{fNameID}_RanksFull.png'), 
     dpi=300, bbox_inches='tight', facecolor=fig.get_facecolor()
