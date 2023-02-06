@@ -26,7 +26,7 @@ splat.setSplatoonFont(fontPath, fontName="Splatfont 2")
 # Process JSON files into battle objects
 ###############################################################################
 hFilepaths = splat.getDataFilepaths(iPath, filePat='results.json')
-bPaths = splat.dumpBattlesFromJSONS(hFilepaths, bPath, overwrite=False)
+bPaths = splat.dumpBattlesFromJSONS(hFilepaths, bPath, overwrite=True)
 bFilepaths = splat.getBattleFilepaths(bPath)
 ###############################################################################
 # Create Team Object
@@ -120,8 +120,8 @@ for ix in range(len(btleHist)):
             wpE['L'].extend(list(dfEnmy['main weapon']))
 
 norm = True
-ran = 10
-probe = Counter(wpE['L']).most_common()
+ran = 20
+probe = Counter(wpA['W']).most_common()
 (x, y) = (
     [i[0] for i in probe][:ran][::-1],
     [i[1] for i in probe][:ran][::-1]
@@ -132,7 +132,7 @@ if norm:
 splat.polarBarChart(
     x, y,
     rRange=(0, 270),
-    yRange=(0, .25),
+    yRange=(0, .5),
     ticksFmt={
         'lw': 1, 'range': (-0.5, -0.25), 
         'color': '#000000DD', 'fontsize': 8, 'fmt': '{:.2f}'
