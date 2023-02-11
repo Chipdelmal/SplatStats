@@ -166,6 +166,7 @@ ROCK_PAPER_SCISSORS_S3      = ('#413BBA', '#BEB013', '#C03E3E', '#35BA49')
 GEAR_GRUB_FUN_S3            = ('#8A19F7', '#BE7118', '#28C05E', '#3F2CD2')
 GRASS_FIRE_WATER_S3         = ('#1BA974', '#DA4514', '#002AFF', '#FFFF00')
 SPICY_SWEET_SOUR_S3         = ('#AD5438', '#9A6FCC', '#A5B533', '#00A2E8')
+DARK_MILK_WHITE_S3          = ('#3D1F7A', '#995935', '#D6BF8F')
 # Return of the Mammalians ----------------------------------------------------
 ORANGE_V_BLUE_S3            = ('#EE8711', '#0943F0', '#81DE17')
 YELLOW_V_INDIGO_S3          = ('#DEC109', '#531BBA', '#C920B7')
