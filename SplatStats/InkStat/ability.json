@@ -1,0 +1,210 @@
+[
+    {
+        "key": "ink_saver_main",
+        "name": {
+            "en_US": "Ink Saver (Main)",
+            "ja_JP": "インク効率アップ(メイン)"
+        },
+        "primary_only": false
+    },
+    {
+        "key": "ink_saver_sub",
+        "name": {
+            "en_US": "Ink Saver (Sub)",
+            "ja_JP": "インク効率アップ(サブ)"
+        },
+        "primary_only": false
+    },
+    {
+        "key": "ink_recovery_up",
+        "name": {
+            "en_US": "Ink Recovery Up",
+            "ja_JP": "インク回復力アップ"
+        },
+        "primary_only": false
+    },
+    {
+        "key": "run_speed_up",
+        "name": {
+            "en_US": "Run Speed Up",
+            "ja_JP": "ヒト移動速度アップ"
+        },
+        "primary_only": false
+    },
+    {
+        "key": "swim_speed_up",
+        "name": {
+            "en_US": "Swim Speed Up",
+            "ja_JP": "イカダッシュ速度アップ"
+        },
+        "primary_only": false
+    },
+    {
+        "key": "special_charge_up",
+        "name": {
+            "en_US": "Special Charge Up",
+            "ja_JP": "スペシャル増加量アップ"
+        },
+        "primary_only": false
+    },
+    {
+        "key": "special_saver",
+        "name": {
+            "en_US": "Special Saver",
+            "ja_JP": "スペシャル減少量ダウン"
+        },
+        "primary_only": false
+    },
+    {
+        "key": "special_power_up",
+        "name": {
+            "en_US": "Special Power Up",
+            "ja_JP": "スペシャル性能アップ"
+        },
+        "primary_only": false
+    },
+    {
+        "key": "quick_respawn",
+        "name": {
+            "en_US": "Quick Respawn",
+            "ja_JP": "復活時間短縮"
+        },
+        "primary_only": false
+    },
+    {
+        "key": "quick_super_jump",
+        "name": {
+            "en_US": "Quick Super Jump",
+            "ja_JP": "スーパージャンプ時間短縮"
+        },
+        "primary_only": false
+    },
+    {
+        "key": "sub_power_up",
+        "name": {
+            "en_US": "Sub Power Up",
+            "ja_JP": "サブ性能アップ"
+        },
+        "primary_only": false
+    },
+    {
+        "key": "ink_resistance_up",
+        "name": {
+            "en_US": "Ink Resistance Up",
+            "ja_JP": "相手インク影響軽減"
+        },
+        "primary_only": false
+    },
+    {
+        "key": "sub_resistance_up",
+        "name": {
+            "en_US": "Sub Resistance Up",
+            "ja_JP": "サブ影響軽減"
+        },
+        "primary_only": false
+    },
+    {
+        "key": "intensify_action",
+        "name": {
+            "en_US": "Intensify Action",
+            "ja_JP": "アクション強化"
+        },
+        "primary_only": false
+    },
+    {
+        "key": "opening_gambit",
+        "name": {
+            "en_US": "Opening Gambit",
+            "ja_JP": "スタートダッシュ"
+        },
+        "primary_only": true
+    },
+    {
+        "key": "last_ditch_effort",
+        "name": {
+            "en_US": "Last-Ditch Effort",
+            "ja_JP": "ラストスパート"
+        },
+        "primary_only": true
+    },
+    {
+        "key": "tenacity",
+        "name": {
+            "en_US": "Tenacity",
+            "ja_JP": "逆境強化"
+        },
+        "primary_only": true
+    },
+    {
+        "key": "comeback",
+        "name": {
+            "en_US": "Comeback",
+            "ja_JP": "カムバック"
+        },
+        "primary_only": true
+    },
+    {
+        "key": "ninja_squid",
+        "name": {
+            "en_US": "Ninja Squid",
+            "ja_JP": "イカニンジャ"
+        },
+        "primary_only": true
+    },
+    {
+        "key": "haunt",
+        "name": {
+            "en_US": "Haunt",
+            "ja_JP": "リベンジ"
+        },
+        "primary_only": true
+    },
+    {
+        "key": "thermal_ink",
+        "name": {
+            "en_US": "Thermal Ink",
+            "ja_JP": "サーマルインク"
+        },
+        "primary_only": true
+    },
+    {
+        "key": "respawn_punisher",
+        "name": {
+            "en_US": "Respawn Punisher",
+            "ja_JP": "復活ペナルティアップ"
+        },
+        "primary_only": true
+    },
+    {
+        "key": "ability_doubler",
+        "name": {
+            "en_US": "Ability Doubler",
+            "ja_JP": "追加ギアパワー倍化"
+        },
+        "primary_only": true
+    },
+    {
+        "key": "stealth_jump",
+        "name": {
+            "en_US": "Stealth Jump",
+            "ja_JP": "ステルスジャンプ"
+        },
+        "primary_only": true
+    },
+    {
+        "key": "object_shredder",
+        "name": {
+            "en_US": "Object Shredder",
+            "ja_JP": "対物攻撃力アップ"
+        },
+        "primary_only": true
+    },
+    {
+        "key": "drop_roller",
+        "name": {
+            "en_US": "Drop Roller",
+            "ja_JP": "受け身術"
+        },
+        "primary_only": true
+    }
+]
