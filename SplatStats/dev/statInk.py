@@ -26,15 +26,27 @@ GAME_MODE = {
     'asari': 'Clam Blitz'
 }
 
+dTypes = {
+    '# season': 'string',
+    #'period': 'datetime64'
+    'game-ver': 'string',
+    'lobby': 'string',
+    'mode': 'string',
+    'stage': 'string',
+    'time': 'uint16',
+    'rank': 'string'
+}
 ###############################################################################
 # Read Full Data
 ###############################################################################
-DFS_LIST = [pd.read_csv(f, low_memory=False) for f in FPATHS]
+DFS_LIST = [pd.read_csv(f, dtype=dTypes, parse_dates=['period']) for f in FPATHS]
 FULL_DF = pd.concat(DFS_LIST)
-cols = list(FULL_DF.columns)
+cols = [i.replace('#', '').strip() for i in list(FULL_DF.columns)]
+df = FULL_DF.copy()
 ###############################################################################
 # Make Replacements
 ###############################################################################
-df = FULL_DF.copy()
+df.columns = cols
 df['lobby'] = [LOBBY_MODE[lob] for lob in df['lobby']]
 df['mode']  = [GAME_MODE[lob] for lob in df['mode']]
+
