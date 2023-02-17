@@ -12,9 +12,11 @@ class StatInk:
     Attributes
     ----------
     fPaths: list of paths
-        Dummy text
+        Filepaths of the battle results csv files loaded for analysis
     rawResults: dataframe
         Dataframe containing battle results information directly from stat.ink
+    battleResults: dataframe
+        Clean dataframe containing results in human-readable form
     """
     def __init__(self, resultsPaths, fNamePattern='*-*-*.csv'):
         self.fPaths = glob(path.join(resultsPaths, fNamePattern))
@@ -28,11 +30,13 @@ class StatInk:
         # Clean dataframe to standard names/times ----------------------------
         self.battlesResults = self.cleanBattlesDataframe(self.rawResults)
         
-    def cleanBattlesDataframe(rawResults):
+    def cleanBattlesDataframe(self, rawResults):
         df = rawResults.copy()
+        # Cleaning column names ----------------------------------------------
+        df.columns = [i.replace('#', '').strip() for i in list(rawResults.columns)]
         # Replace simple columns ---------------------------------------------
-        df['lobby'] = [ink.LOBBY_MODE[lob] for lob in df['lobby']]
-        df['mode']  = [ink.GAME_MODE[lob] for lob in df['mode']]
+        df['lobby'] = [ink.LOBBY_MODE[l] for l in df['lobby']]
+        df['mode']  = [ink.GAME_MODE[m] for m in df['mode']]
         df['stage'] = [ink.STGS_DICT[s] for s in df['stage']]
         # Replace weapon names (US standard) ---------------------------------
         for i in range(1, 5):
@@ -40,5 +44,9 @@ class StatInk:
             df[f'B{i}-weapon'] = [ink.WPNS_DICT[w] for w in df[f'B{i}-weapon']]
         # Replace knockouts and wins -----------------------------------------
         df['knockout'] = [par.boolToInt(k) for k in df['knockout']]
+        # Cleanup colors -----------------------------------------------------
+        nullColor = '#00000000'
+        df['alpha-color'] = [f'#{c}' if type(c) is str else nullColor for c in df['alpha-color']]
+        df['bravo-color'] = [f'#{c}' if type(c) is str else nullColor for c in df['bravo-color']]
         # Return standard dataframe ------------------------------------------
         return df
