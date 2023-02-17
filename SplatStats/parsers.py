@@ -230,3 +230,18 @@ def parsePlayerHistoryFromBattles(
     else:
         bHist = playerDF
     return bHist
+
+
+def boolToInt(entry, naValue=-1):
+    """Converts the bool value of a given entry to 0 or 1, returning naValue if the entry is not bool.
+
+    Args:
+        entry (object): element to evaluate
+        naValue (int): value to return if the entry is not bool 
+    Returns:
+        int: Converted value.
+    """    
+    if type(entry) is not bool:
+        return naValue
+    else:
+        return int(entry)

@@ -5,26 +5,11 @@
 from os import path
 from glob import glob
 import pandas as pd
+import SplatStats as splat
 
-DATA_PATH = '/Users/sanchez.hmsc/Downloads/InkStats'
+DATA_PATH = '/Users/sanchez.hmsc/Sync/BattlesDocker/battle-results-csv'
 FPATHS = glob(path.join(DATA_PATH, '*-*-*.csv'))
 
-
-LOBBY_MODE = {
-    'regular': 'Regular',
-    'bankara_challenge': 'Anarchy (Series)',
-    'bankara_open': 'Anarchy (Open)',
-    'xmatch': 'X Battle',
-    'splatfest_challenge': 'Splatfest (Pro)',
-    'splatfest_open': 'Splatfest (Open)'
-}
-GAME_MODE = {
-    'nawabari': 'Turf War',
-    'area': 'Splat Zones',
-    'yagura': 'Tower Control',
-    'hoko': 'Rainmaker',
-    'asari': 'Clam Blitz'
-}
 
 dTypes = {
     '# season': 'string',
@@ -47,6 +32,12 @@ df = FULL_DF.copy()
 # Make Replacements
 ###############################################################################
 df.columns = cols
-df['lobby'] = [LOBBY_MODE[lob] for lob in df['lobby']]
-df['mode']  = [GAME_MODE[lob] for lob in df['mode']]
-
+df['lobby'] = [splat.LOBBY_MODE[lob] for lob in df['lobby']]
+df['mode'] = [splat.GAME_MODE[lob] for lob in df['mode']]
+# Replace weapon names (US standard) ------------------------------------------
+for i in range(1, 5):
+    df[f'A{i}-weapon'] = [splat.WPNS_DICT[w] for w in df[f'A{i}-weapon']]
+    df[f'B{i}-weapon'] = [splat.WPNS_DICT[w] for w in df[f'B{i}-weapon']]
+# Replace stages names (US standard) ------------------------------------------
+df['stage'] = [splat.STGS_DICT[s] for s in df['stage']]
+df['knockout'] = [splat.boolToInt(k) for k in df['knockout']]
