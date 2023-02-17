@@ -5,7 +5,6 @@ from os import path
 from glob import glob
 import pandas as pd
 import SplatStats.constantsStatInk as ink
-import SplatStats.parsers as par
 
 class StatInk:
     """
@@ -30,7 +29,10 @@ class StatInk:
         # Clean dataframe to standard names/times ----------------------------
         self.battlesResults = self.cleanBattlesDataframe(self.rawResults)
         
-    def cleanBattlesDataframe(self, rawResults):
+    def cleanBattlesDataframe(
+            self, rawResults, dataTypesDict={},
+            naColor='#00000000', naBool=-1, naString='NA', naInt=0
+        ):
         df = rawResults.copy()
         # Cleaning column names ----------------------------------------------
         df.columns = [i.replace('#', '').strip() for i in list(rawResults.columns)]
@@ -42,11 +44,13 @@ class StatInk:
         for i in range(1, 5):
             df[f'A{i}-weapon'] = [ink.WPNS_DICT[w] for w in df[f'A{i}-weapon']]
             df[f'B{i}-weapon'] = [ink.WPNS_DICT[w] for w in df[f'B{i}-weapon']]
-        # Replace knockouts and wins -----------------------------------------
-        df['knockout'] = [par.boolToInt(k) for k in df['knockout']]
+        # Replace knockouts, ranks and wins ----------------------------------
+        df['knockout'] = [int(k) if (type(k) is bool) else naBool for k in df['knockout']]
+        df['rank'] = [r if type(r) is str else naString for r in df['rank']]
+        df['power'] = df['power'].fillna(naInt)
         # Cleanup colors -----------------------------------------------------
-        nullColor = '#00000000'
-        df['alpha-color'] = [f'#{c}' if type(c) is str else nullColor for c in df['alpha-color']]
-        df['bravo-color'] = [f'#{c}' if type(c) is str else nullColor for c in df['bravo-color']]
-        # Return standard dataframe ------------------------------------------
+        df['alpha-color'] = [f'#{c}' if type(c) is str else naColor for c in df['alpha-color']]
+        df['bravo-color'] = [f'#{c}' if type(c) is str else naColor for c in df['bravo-color']]
+        # Coherce into data types and return dataframe -----------------------
+        # df.astype(dataTypesDict, copy=False)
         return df
