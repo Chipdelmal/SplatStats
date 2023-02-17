@@ -6,6 +6,8 @@ from os import path
 from glob import glob
 import pandas as pd
 import numpy as np
+from sklearn.feature_extraction import DictVectorizer
+from collections import Counter
 import SplatStats as splat
 
 DATA_PATH = '/Users/sanchez.hmsc/Sync/BattlesDocker/battle-results-csv'
@@ -47,12 +49,27 @@ df['knockout'] = [splat.boolToInt(k) for k in df['knockout']]
 nullColor = '#00000000'
 df['alpha-color'] = [f'#{c}' if type(c) is str else nullColor for c in df['alpha-color']]
 df['bravo-color'] = [f'#{c}' if type(c) is str else nullColor for c in df['bravo-color']]
+df['rank'] = [r if type(r) is str else 'NA' for r in df['rank']]
 
 
-df['rank'].unique()
+df['power'].unique()
 
 
 ###############################################################################
 # Testing class
 ###############################################################################
 statInk = splat.StatInk(DATA_PATH)
+knocks = [i for i in statInk.battlesResults['knockout'] if (i>=0)]
+
+btls = statInk.battlesResults
+alpha = btls[[f'A{i}-weapon' for i in range(1, 5)]]
+winrs = btls['win']
+bravo = btls[[f'B{i}-weapon' for i in range(1, 5)]]
+
+
+
+(vectA, vectE) = (
+    DictVectorizer(sparse=False), DictVectorizer(sparse=False)
+)
+
+lb.transform([1, 4])
