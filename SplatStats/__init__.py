@@ -15,6 +15,7 @@ from .files import *
 from .plots import *
 from .plotsTeam import *
 from .plotsAux import *
+from .statInkStats import *
 ###############################################################################
 # Classes
 ###############################################################################

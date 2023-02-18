@@ -10,7 +10,7 @@ with open(version_path, 'wt') as fversion:
 
 REQUIRED_PACKAGES=[
     'dill', 'termcolor', 'colorutils', 'tqdm',
-    'numpy', 'scipy', 'pandas', 
+    'numpy', 'scipy', 'pandas', 'scikit-learn',
     'DateTimeRange',
     'matplotlib', 'pywaffle', 'squarify', 'seaborn'
 ]
