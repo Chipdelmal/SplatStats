@@ -8,7 +8,7 @@ from glob import glob
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
-# from sklearn.feature_extraction import DictVectorizer
+from sklearn.feature_extraction import DictVectorizer
 # from sklearn.ensemble import RandomForestClassifier
 # from sklearn.model_selection import train_test_split
 # from sklearn.metrics import classification_report, confusion_matrix, accuracy_score
@@ -42,22 +42,39 @@ df['mode'] = [splat.GAME_MODE[lob] for lob in df['mode']]
 
 
 
-# ###############################################################################
-# # Testing class
-# ###############################################################################
-# 
-# knocks = [i for i in statInk.battlesResults['knockout'] if (i>=0)]
+###############################################################################
+# Testing class
+###############################################################################
+btls = statInk.battlesResults
+alpha = btls[[f'A{i}-weapon' for i in range(1, 5)]]
+bravo = btls[[f'B{i}-weapon' for i in range(1, 5)]]
+winrs = list(btls['win'])
 
-# btls = statInk.battlesResults
-# alpha = btls[[f'A{i}-weapon' for i in range(1, 5)]]
-# winrs = btls['win']
-# bravo = btls[[f'B{i}-weapon' for i in range(1, 5)]]
+vct = DictVectorizer(sparse=False)
+bA = [dict(Counter(alpha.iloc[i])) for i in range(alpha.shape[0])]
+bB = [dict(Counter(bravo.iloc[i])) for i in range(bravo.shape[0])]
+(dA, dB) = (vct.fit_transform(bA), vct.fit_transform(bB))
+wpnsNames = list(vct.get_feature_names_out())
 
-# (vectA, vectB) = [DictVectorizer(sparse=False) for _ in range(2)]
-# bA = [dict(Counter(alpha.iloc[i])) for i in range(alpha.shape[0])]
-# dA = vectB.fit_transform(bA)
-# bB = [dict(Counter(bravo.iloc[i])) for i in range(bravo.shape[0])]
-# dB = vectB.fit_transform(bB)
+domMtx = np.zeros((len(wpnsNames), len(wpnsNames)))
+
+for ix in range(len(winrs)):
+    (bAWpns, bBWpns, winTeam) = (bA[ix], bB[ix], winrs[ix])
+    (bAVctr, bBVctr) = (dA[ix], dB[ix])
+    if winTeam:
+        rxs = [wpnsNames.index(wpn) for wpn in bBWpns]
+        for rx in rxs:
+            domMtx[rx] = domMtx[rx]+bAVctr
+    else:
+        rxs = [wpnsNames.index(wpn) for wpn in bAWpns]
+        for rx in rxs:
+            domMtx[rx] = domMtx[rx]+bBVctr
+domMtx = domMtx.T        
+            
+import matplotlib.pyplot as plt
+plt.matshow(domMtx)
+
+wpnsNames[46]
 
 # labels = list(btls['win'])
 # ###############################################################################
