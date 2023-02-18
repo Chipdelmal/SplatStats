@@ -4,7 +4,7 @@
 from os import path
 from glob import glob
 import pandas as pd
-import SplatStats.constantsStatInk as ink
+import SplatStats.statInkConstants as ink
 
 class StatInk:
     """
@@ -22,7 +22,7 @@ class StatInk:
         # Read csv's into a dataframe ----------------------------------------
         rawDFList = [
             pd.read_csv(
-                f, parse_dates=['period'], # dtype=dTypes, 
+                f, parse_dates=['period'], dtype=ink.STATINK_DTYPES, 
             ) for f in self.fPaths
         ]
         self.rawResults = pd.concat(rawDFList)
@@ -30,7 +30,7 @@ class StatInk:
         self.battlesResults = self.cleanBattlesDataframe(self.rawResults)
         
     def cleanBattlesDataframe(
-            self, rawResults, dataTypesDict={},
+            self, rawResults,
             naColor='#00000000', naBool=-1, naString='NA', naInt=0
         ):
         df = rawResults.copy()
@@ -48,9 +48,10 @@ class StatInk:
         df['knockout'] = [int(k) if (type(k) is bool) else naBool for k in df['knockout']]
         df['rank'] = [r if type(r) is str else naString for r in df['rank']]
         df['power'] = df['power'].fillna(naInt)
+        df['win'] = [True if (i=='alpha') else False for i in df['win']]
         # Cleanup colors -----------------------------------------------------
         df['alpha-color'] = [f'#{c}' if type(c) is str else naColor for c in df['alpha-color']]
         df['bravo-color'] = [f'#{c}' if type(c) is str else naColor for c in df['bravo-color']]
         # Coherce into data types and return dataframe -----------------------
-        # df.astype(dataTypesDict, copy=False)
+        df.astype(ink.SPLATSTATS_DTYPES, copy=False)
         return df

@@ -3,7 +3,7 @@
 # Constants
 ###############################################################################
 from .constants import *
-from .constantsStatInk import *
+from .statInkConstants import *
 from .colors import *
 ###############################################################################
 # Functions
