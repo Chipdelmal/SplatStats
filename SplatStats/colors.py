@@ -4,6 +4,7 @@
 #   recommended to explore this file.
 ###############################################################################
 from random import shuffle
+import matplotlib.colors as mcolors
 
 ###############################################################################
 # Splatoon 1
@@ -204,3 +205,12 @@ for name in all_variables:
         ALL_COLORS.extend(vals)
 ALL_COLORS = list(set(ALL_COLORS))
 shuffle(ALL_COLORS)
+
+###############################################################################
+# Auxiliary Functions
+###############################################################################
+def colorPaletteFromHexList(clist):
+    c = mcolors.ColorConverter().to_rgba
+    clrs = [c(i) for i in clist]
+    rvb = mcolors.LinearSegmentedColormap.from_list("", clrs)
+    return rvb
