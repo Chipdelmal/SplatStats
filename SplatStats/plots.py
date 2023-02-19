@@ -950,6 +950,7 @@ def polarBarChart(
     ax.set_theta_direction(direction)
     ax.set_rlabel_position(0)
     # Labels ------------------------------------------------------------------
+    fig.canvas.draw()
     labelsText = [ticksFmt['fmt'].format(i) for i in gridY] if labels else []
     ax.set_thetagrids(
         grids[:ticksStep+1], labelsText[:ticksStep+1], 
