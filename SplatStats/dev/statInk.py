@@ -42,7 +42,7 @@ fltrBool = [all(i) for i in zip(*fltrs)]
 ###############################################################################
 # Frequency Analysis
 ###############################################################################
-btlsFiltered = btls[fltrBool]
+btlsFiltered = btls# [fltrBool]
 (names, matrix) = splat.calculateDominanceMatrixWins(btlsFiltered)
 # Calculating totals ----------------------------------------------------------
 (totalW, totalL) = (np.sum(matrix, axis=1), np.sum(matrix, axis=0))
@@ -59,7 +59,7 @@ labels = ['{} ({}%)'.format(n, int(f*100)) for (n, f) in zip(wpnsDict.keys(), wl
 (fig, ax) = splat.polarBarChart(
     labels, 
     [i[0] for i in wpnsDict.values()],
-    yRange=(0, 1.25e6), rRange=(0, 360-20), ticksStep=25,
+    yRange=(0, 1.25e6), rRange=(0, 270), ticksStep=25,
     colors=[c+'AA' for c in splat.ALL_COLORS],
     figAx=(fig, ax),
     ticksFmt={
@@ -74,7 +74,7 @@ labels = ['{} ({}%)'.format(n, int(f*100)) for (n, f) in zip(wpnsDict.keys(), wl
 (fig, ax) = splat.polarBarChart(
     labels, 
     [i[2] for i in wpnsDict.values()],
-    yRange=(0, 1.25e6), rRange=(0, 360-20), ticksStep=25,
+    yRange=(0, 1.25e6), rRange=(0, 270), ticksStep=25,
     figAx=(fig, ax),
     colors=[c+'FF' for c in splat.ALL_COLORS],
     ticksFmt={
@@ -82,11 +82,11 @@ labels = ['{} ({}%)'.format(n, int(f*100)) for (n, f) in zip(wpnsDict.keys(), wl
         'color': '#000000DD', 'fontsize': 1, 'fmt': '{:.2e}'
     },
     labelFmt={
-        'color': '#000000EE', 'fontsize': 3, 
+        'color': '#000000EE', 'fontsize': 4.25, 
         'ha': 'left', 'fmt': '{:.2f}'
     }
 )
-ax.set_xticklabels(ax.get_xticklabels(), rotation=0, fontsize=5)
+ax.set_xticklabels(ax.get_xticklabels(), rotation=0, fontsize=7.5)
 fName = 'Polar.png'
 plt.savefig(
     path.join('/home/chipdelmal/Desktop/', fName),
@@ -107,8 +107,9 @@ plt.close('all')
 statInk = splat.StatInk(path.join(DATA_PATH, 'battle-results-csv'))
 btls = statInk.battlesResults
 gmodes = zip(
-    ['Splat Zones', 'Tower Control', 'Rainmaker', 'Clam Blitz', 'Turf War'],
-    ['55', '55', '55', '55', '44']
+    ['Turf War', 'Splat Zones', 'Tower Control', 'Rainmaker', 'Clam Blitz'],
+    ['FF', '99', '77', '55', '44'],
+    [.2, .4, .5, .6, .8]
 )
 ###############################################################################
 # Frequency Analysis
@@ -125,10 +126,10 @@ wpnsDict = {x[0]: np.array([0, 0, 0]) for (_, x) in sorted(wpnSortZip)[::]}
 
 (fig, ax) = plt.subplots(figsize=(12, 12), subplot_kw={"projection": "polar"})
 gm = 'Turf War'
-lum = 0.1
+lum = -.15
 cols = splat.ALL_COLORS
-for (gm, ap) in gmodes:
-    lum = (lum + 0.1)
+for (gm, ap, lum) in gmodes:
+    # lum = (lum + 0.15)
     ###############################################################################
     # Filter by Constraints
     ###############################################################################
@@ -144,25 +145,25 @@ for (gm, ap) in gmodes:
     colrs = []
     for c in splat.ALL_COLORS:
         cl = Color(c)
-        cl.set_luminance(1-lum)
+        cl.set_luminance(lum)
         colrs.append(cl.get_hex_l())
 
     (fig, ax) = splat.polarBarChart(
         wpnsDict.keys(), 
         [i[0] for i in wpnsDict.values()],
         figAx=(fig, ax),
-        yRange=(0, 1.25e6), rRange=(0, 360-20), ticksStep=25,
+        yRange=(0, 1.25e6), rRange=(0, 270), ticksStep=25,
         colors=[str(c)+ap for c in colrs],
         ticksFmt={
             'lw': 1, 'range': (-.2, 1), 
             'color': '#000000DD', 'fontsize': 1, 'fmt': '{:.2e}'
         },
         labelFmt={
-            'color': '#000000EE', 'fontsize': 3, 
+            'color': '#000000EE', 'fontsize': 4.25, 
             'ha': 'left', 'fmt': '{:.2f}'
         }
     )
-ax.set_xticklabels(ax.get_xticklabels(), rotation=0, fontsize=5)
+ax.set_xticklabels(ax.get_xticklabels(), rotation=0, fontsize=7.5)
 fName = 'PolarBroken.png'
 plt.savefig(
     path.join('/home/chipdelmal/Desktop/', fName),
