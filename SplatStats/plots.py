@@ -892,7 +892,8 @@ def polarBarChart(
         figAx=None,
         logScale=False, ticksStep=10,
         rRange=(0, 270), yRange=None,
-        colors=clr.ALL_COLORS,
+        colors=clr.ALL_COLORS, 
+        edgecolor='#00000000', linewidth=0,
         labels=True, labelQty=False,
         origin='N', direction=1,
         ticksFmt={
@@ -935,7 +936,10 @@ def polarBarChart(
     ]
     # Generate Plot -----------------------------------------------------------
     for (i, ang) in enumerate(angleHeights):
-        ax.barh(i, radians(ang), color=colors[i])
+        ax.barh(
+            i, radians(ang), 
+            color=colors[i], edgecolor=edgecolor, linewidth=linewidth
+        )
     # Gridlines and axes ------------------------------------------------------
     ax.vlines(
         [radians(i) for i in grids[:ticksStep+1]], 

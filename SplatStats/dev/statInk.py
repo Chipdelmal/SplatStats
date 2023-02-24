@@ -11,12 +11,18 @@ import matplotlib.pyplot as plt
 from math import radians, log10
 from matplotlib import colors
 from colour import Color
+from matplotlib.ticker import EngFormatter
 from sklearn.feature_extraction import DictVectorizer
 from collections import Counter
 import SplatStats as splat
 import chord as chd
 
-DATA_PATH = '/home/chipdelmal/Documents/Sync/BattlesDocker/'
+
+USR='lab'
+if USR=='lab':
+    DATA_PATH = '/Users/sanchez.hmsc/Sync/BattlesDocker/'
+else:
+    DATA_PATH = '/home/chipdelmal/Documents/Sync/BattlesDocker/'
 FPATHS = glob(path.join(DATA_PATH, 'battle-results-csv', '*-*-*.csv'))
 splat.setSplatoonFont(DATA_PATH, fontName="Splatfont 2")
 ###############################################################################
@@ -59,8 +65,9 @@ labels = ['{} ({}%)'.format(n, int(f*100)) for (n, f) in zip(wpnsDict.keys(), wl
 (fig, ax) = splat.polarBarChart(
     labels, 
     [i[0] for i in wpnsDict.values()],
-    yRange=(0, 1.25e6), rRange=(0, 270), ticksStep=25,
+    yRange=(0, 1.25e6), rRange=(0, 270), ticksStep=20,
     colors=[c+'AA' for c in splat.ALL_COLORS],
+    edgecolor='#000000', linewidth=0.0,
     figAx=(fig, ax),
     ticksFmt={
         'lw': 1, 'range': (-.2, 1), 
@@ -74,9 +81,10 @@ labels = ['{} ({}%)'.format(n, int(f*100)) for (n, f) in zip(wpnsDict.keys(), wl
 (fig, ax) = splat.polarBarChart(
     labels, 
     [i[2] for i in wpnsDict.values()],
-    yRange=(0, 1.25e6), rRange=(0, 270), ticksStep=25,
+    yRange=(0, 1.25e6), rRange=(0, 270), ticksStep=20,
     figAx=(fig, ax),
     colors=[c+'FF' for c in splat.ALL_COLORS],
+    edgecolor='#00000033', linewidth=0.1,
     ticksFmt={
         'lw': 1, 'range': (-.2, 1), 
         'color': '#000000DD', 'fontsize': 1, 'fmt': '{:.2e}'
@@ -86,10 +94,13 @@ labels = ['{} ({}%)'.format(n, int(f*100)) for (n, f) in zip(wpnsDict.keys(), wl
         'ha': 'left', 'fmt': '{:.2f}'
     }
 )
+# formatter1 = EngFormatter(places=1, unit="", sep="")
+# ax.xaxis.set_major_formatter(formatter1)
 ax.set_xticklabels(ax.get_xticklabels(), rotation=0, fontsize=7.5)
+# ax.set_xlabel('Number [Hz]')
 fName = 'Polar.png'
 plt.savefig(
-    path.join('/home/chipdelmal/Desktop/', fName),
+    path.join(DATA_PATH, 'statInk/'+fName),
     dpi=350, transparent=False, facecolor='#ffffff', 
     bbox_inches='tight'
 )
@@ -122,17 +133,16 @@ totalM = totalW + totalL
 wpnsTriplets = zip(names, totalM, totalW, totalL)
 wpnSortZip = zip(totalM, wpnsTriplets)
 wpnsDict = {x[0]: np.array([0, 0, 0]) for (_, x) in sorted(wpnSortZip)[::]}
-
-
+# Generate figure -------------------------------------------------------------
 (fig, ax) = plt.subplots(figsize=(12, 12), subplot_kw={"projection": "polar"})
 gm = 'Turf War'
 lum = -.15
 cols = splat.ALL_COLORS
 for (gm, ap, lum) in gmodes:
     # lum = (lum + 0.15)
-    ###############################################################################
+    ###########################################################################
     # Filter by Constraints
-    ###############################################################################
+    ###########################################################################
     fltrs = (btls['mode']==gm,)
     fltrBool = [all(i) for i in zip(*fltrs)]
     btlsFiltered = btls[fltrBool]
@@ -152,6 +162,7 @@ for (gm, ap, lum) in gmodes:
         wpnsDict.keys(), 
         [i[0] for i in wpnsDict.values()],
         figAx=(fig, ax),
+        edgecolor='#00000033', linewidth=0.1,
         yRange=(0, 1.25e6), rRange=(0, 270), ticksStep=25,
         colors=[str(c)+ap for c in colrs],
         ticksFmt={
@@ -166,7 +177,7 @@ for (gm, ap, lum) in gmodes:
 ax.set_xticklabels(ax.get_xticklabels(), rotation=0, fontsize=7.5)
 fName = 'PolarBroken.png'
 plt.savefig(
-    path.join('/home/chipdelmal/Desktop/', fName),
+    path.join(DATA_PATH, 'statInk/'+fName),
     dpi=350, transparent=False, facecolor='#ffffff', 
     bbox_inches='tight'
 )
