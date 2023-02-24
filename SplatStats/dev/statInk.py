@@ -41,8 +41,8 @@ btls = statInk.battlesResults
 # Filter by Constraints
 ###############################################################################
 fltrs = (
-    btls['mode']=='Turf War',
-    btls['season']=='Chill Season 2022'
+    # btls['mode']=='Turf War',
+    btls['season']=='Drizzle Season 2022',
 )
 fltrBool = [all(i) for i in zip(*fltrs)]
 ###############################################################################
@@ -67,7 +67,7 @@ labels = ['{} ({}%)'.format(n, int(f*100)) for (n, f) in zip(wpnsDict.keys(), wl
     [i[0] for i in wpnsDict.values()],
     yRange=(0, 1.25e6), rRange=(0, 270), ticksStep=20,
     colors=[c+'AA' for c in splat.ALL_COLORS],
-    edgecolor='#00000088', linewidth=0.5,
+    edgecolor='#00000088', linewidth=0.25,
     figAx=(fig, ax),
     ticksFmt={
         'lw': 1, 'range': (-.2, 1), 
@@ -84,7 +84,7 @@ labels = ['{} ({}%)'.format(n, int(f*100)) for (n, f) in zip(wpnsDict.keys(), wl
     yRange=(0, 1.25e6), rRange=(0, 270), ticksStep=20,
     figAx=(fig, ax),
     colors=[c+'FF' for c in splat.ALL_COLORS],
-    edgecolor='#00000088', linewidth=0.5,
+    edgecolor='#00000088', linewidth=0.25,
     ticksFmt={
         'lw': 1, 'range': (-.2, 1), 
         'color': '#000000DD', 'fontsize': 1, 'fmt': '{:.2e}'
@@ -96,7 +96,7 @@ labels = ['{} ({}%)'.format(n, int(f*100)) for (n, f) in zip(wpnsDict.keys(), wl
 )
 # formatter1 = EngFormatter(places=1, unit="", sep="")
 # ax.xaxis.set_major_formatter(formatter1)
-ax.set_xticklabels(ax.get_xticklabels(), rotation=0, fontsize=7.5)
+ax.set_xticklabels(ax.get_xticklabels(), rotation=0, fontsize=5)
 # ax.set_xlabel('Number [Hz]')
 fName = 'Polar.png'
 plt.savefig(
@@ -174,7 +174,7 @@ for (gm, ap, lum) in gmodes:
             'ha': 'left', 'fmt': '{:.2f}'
         }
     )
-ax.set_xticklabels(ax.get_xticklabels(), rotation=0, fontsize=7.5)
+ax.set_xticklabels(ax.get_xticklabels(), rotation=0, fontsize=5)
 fName = 'PolarBroken.png'
 plt.savefig(
     path.join(DATA_PATH, 'statInk/'+fName),
