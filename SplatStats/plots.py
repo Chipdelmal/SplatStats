@@ -935,11 +935,19 @@ def polarBarChart(
         for j in (yValsSca, gridYSca)
     ]
     # Generate Plot -----------------------------------------------------------
+    bars = []
     for (i, ang) in enumerate(angleHeights):
-        ax.barh(
+        b = ax.barh(
             i, radians(ang), 
-            color=colors[i], edgecolor=edgecolor, linewidth=linewidth
+            color=colors[i], # edgecolor=edgecolor, linewidth=linewidth
         )
+        bars.append(b)
+    for bar in bars:
+        x, y = bar[0].get_xy()
+        w, h = bar[0].get_width(), bar[0].get_height()
+        # ax.plot([x, x], [y, y + h], color='black', lw=4)
+        # ax.plot([x, x + w], [y + h, y + h], color='black', lw=4)
+        ax.plot([x+w, x+w], [y, y+h], color=edgecolor, lw=linewidth)
     # Gridlines and axes ------------------------------------------------------
     ax.vlines(
         [radians(i) for i in grids[:ticksStep+1]], 

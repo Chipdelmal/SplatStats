@@ -67,7 +67,7 @@ labels = ['{} ({}%)'.format(n, int(f*100)) for (n, f) in zip(wpnsDict.keys(), wl
     [i[0] for i in wpnsDict.values()],
     yRange=(0, 1.25e6), rRange=(0, 270), ticksStep=20,
     colors=[c+'AA' for c in splat.ALL_COLORS],
-    edgecolor='#000000', linewidth=0.0,
+    edgecolor='#00000088', linewidth=0.5,
     figAx=(fig, ax),
     ticksFmt={
         'lw': 1, 'range': (-.2, 1), 
@@ -84,7 +84,7 @@ labels = ['{} ({}%)'.format(n, int(f*100)) for (n, f) in zip(wpnsDict.keys(), wl
     yRange=(0, 1.25e6), rRange=(0, 270), ticksStep=20,
     figAx=(fig, ax),
     colors=[c+'FF' for c in splat.ALL_COLORS],
-    edgecolor='#00000033', linewidth=0.1,
+    edgecolor='#00000088', linewidth=0.5,
     ticksFmt={
         'lw': 1, 'range': (-.2, 1), 
         'color': '#000000DD', 'fontsize': 1, 'fmt': '{:.2e}'
@@ -162,7 +162,7 @@ for (gm, ap, lum) in gmodes:
         wpnsDict.keys(), 
         [i[0] for i in wpnsDict.values()],
         figAx=(fig, ax),
-        edgecolor='#00000033', linewidth=0.1,
+        edgecolor='#00000088', linewidth=0.25,
         yRange=(0, 1.25e6), rRange=(0, 270), ticksStep=25,
         colors=[str(c)+ap for c in colrs],
         ticksFmt={
