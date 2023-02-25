@@ -2,9 +2,14 @@
 # -*- coding: utf-8 -*-
 
 import numpy as np
+import matplotlib.pyplot as plt
 from collections import Counter
 from sklearn.feature_extraction import DictVectorizer
 
+
+###############################################################################
+# Stats
+###############################################################################
 def calculateDominanceMatrixWins(statInkBattles):
     # Get the weapons dictionaries for each team ------------------------------
     btls = statInkBattles
@@ -35,3 +40,58 @@ def calculateDominanceMatrixWins(statInkBattles):
     # Transpose and return ----------------------------------------------------
     domMtx = domMtx.T  
     return (wpnsNames, domMtx)
+
+
+
+###############################################################################
+# Plots
+###############################################################################
+def plotStackedBar(
+        data, series_labels, labels=None, figAx=None, category_labels=None, 
+        show_values=False, value_format="{}", y_label=None, 
+        colors=None, textColor='#000000', fontsize=12,
+        xTickOffset=5
+    ):
+    if not figAx:
+        (fig, ax) = plt.figure(figsize=(2, 20))
+    else:
+        (fig, ax) = figAx
+
+    ny = len(data[0])
+    ind = list(range(ny))
+    axes = []
+    (cum_size, data) = (np.zeros(ny), np.array(data))
+
+    for i, row_data in enumerate(data):
+        color = colors[i] if colors is not None else None
+        axes.append(plt.bar(
+            ind, row_data, bottom=cum_size, 
+            label=series_labels[i], color=color
+        ))
+        cum_size += row_data
+
+    if category_labels:
+        ax.xticks(ind, category_labels)
+
+    if show_values:
+        for (ix, axis) in enumerate(axes):
+            for (_, bar) in enumerate(axis):
+                w, h = bar.get_width(), bar.get_height()
+                if not labels:
+                    ax.text(
+                        bar.get_x()+w/2, bar.get_y()+h/2, 
+                        value_format.format(h), 
+                        ha="center", va="center", 
+                        color=textColor, fontsize=fontsize
+                    )
+                else:
+                    ax.text(
+                        bar.get_x()-xTickOffset,# +w/2, 
+                        bar.get_y()+h/2, 
+                        '{}\n{}'.format(labels[ix], value_format.format(h)), 
+                        ha="center", va="center",
+                        color=textColor, fontsize=fontsize
+                    )
+    ax.set_xlim(-w/2, w/2)
+    ax.set_ylim(0, np.sum(data))
+    return (fig, ax)

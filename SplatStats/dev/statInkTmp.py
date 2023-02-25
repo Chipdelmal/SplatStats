@@ -53,3 +53,128 @@ counts = df.groupby([df['period'].dt.date]).count()['dummy']
 ax.plot(list(counts))
 df['mode'] = [splat.GAME_MODE[lob] for lob in df['mode']]
 
+
+
+
+###############################################################################
+# Stacked by type
+###############################################################################
+statInk = splat.StatInk(path.join(DATA_PATH, 'battle-results-csv'))
+btls = statInk.battlesResults
+gmodes = zip(
+    ['Turf War', 'Splat Zones', 'Tower Control', 'Rainmaker', 'Clam Blitz'],
+    ['FF', '99', '77', '55', '44'],
+    [.2, .4, .5, .6, .8]
+)
+###############################################################################
+# Frequency Analysis
+###############################################################################
+btlsFiltered = btls
+(names, matrix) = splat.calculateDominanceMatrixWins(btlsFiltered)
+# Calculating totals ----------------------------------------------------------
+(totalW, totalL) = (np.sum(matrix, axis=1), np.sum(matrix, axis=0))
+totalM = totalW + totalL
+wpnsTriplets = zip(names, totalM, totalW, totalL)
+wpnSortZip = zip(totalM, wpnsTriplets)
+wpnsDict = {x[0]: np.array([0, 0, 0]) for (_, x) in sorted(wpnSortZip)[::]}
+# Generate figure -------------------------------------------------------------
+(fig, ax) = plt.subplots(figsize=(12, 12), subplot_kw={"projection": "polar"})
+gm = 'Turf War'
+lum = -.15
+cols = splat.ALL_COLORS
+for (gm, ap, lum) in gmodes:
+    # lum = (lum + 0.15)
+    ###########################################################################
+    # Filter by Constraints
+    ###########################################################################
+    fltrs = (btls['mode']==gm,)
+    fltrBool = [all(i) for i in zip(*fltrs)]
+    btlsFiltered = btls[fltrBool]
+    (names, matrix) = splat.calculateDominanceMatrixWins(btlsFiltered)
+    (totalW, totalL) = (np.sum(matrix, axis=1), np.sum(matrix, axis=0))
+    totalM = totalW + totalL
+    for (ix, wpn) in enumerate(names):
+        wpnsDict[wpn] = wpnsDict[wpn] + [totalM[ix], totalW[ix], totalL[ix]]
+
+    colrs = []
+    for c in splat.ALL_COLORS:
+        cl = Color(c)
+        cl.set_luminance(lum)
+        colrs.append(cl.get_hex_l())
+
+    (fig, ax) = splat.polarBarChart(
+        wpnsDict.keys(), 
+        [i[0] for i in wpnsDict.values()],
+        figAx=(fig, ax),
+        edgecolor='#00000088', linewidth=0.25,
+        yRange=(0, 1.5e6), rRange=(0, 180), ticksStep=6,
+        colors=[str(c)+ap for c in colrs],
+        ticksFmt={
+            'lw': 1, 'range': (-.2, 1), 
+            'color': '#000000DD', 'fontsize': 1, 'fmt': '{:.2e}'
+        },
+        labelFmt={
+            'color': '#000000EE', 'fontsize': 4.25, 
+            'ha': 'left', 'fmt': '{:.2f}'
+        }
+    )
+ax.set_xticklabels(ax.get_xticklabels(), rotation=0, fontsize=7.5)
+fName = 'PolarBroken.png'
+plt.savefig(
+    path.join(DATA_PATH, 'statInk/'+fName),
+    dpi=350, transparent=False, facecolor='#ffffff', 
+    bbox_inches='tight'
+)
+plt.close('all')
+
+
+###############################################################################
+# Win/Lose
+###############################################################################
+labels = ['{} ({}%)'.format(n, int(f*100)) for (n, f) in zip(wpnsDict.keys(), wlRatio)]
+(fig, ax) = plt.subplots(
+    figsize=(12, 12), subplot_kw={"projection": "polar"}
+)
+(fig, ax) = splat.polarBarChart(
+    labels, 
+    [i[0] for i in wpnsDict.values()],
+    yRange=(0, 1.5e6), rRange=(0, 180), ticksStep=6,
+    colors=[c+'DD' for c in splat.ALL_COLORS],
+    edgecolor='#00000088', linewidth=0,
+    figAx=(fig, ax),
+    ticksFmt={
+        'lw': 1, 'range': (-.2, 1), 
+        'color': '#000000DD', 'fontsize': 1, 'fmt': '{:.2e}'
+    },
+    labelFmt={
+        'color': '#000000EE', 'fontsize': 4, 
+        'ha': 'left', 'fmt': '{:.2f}'
+    }
+)
+# (fig, ax) = splat.polarBarChart(
+#     labels, 
+#     [i[2] for i in wpnsDict.values()],
+#     yRange=(0, 1.5e6), rRange=(0, 180), ticksStep=20,
+#     figAx=(fig, ax),
+#     colors=[c+'FF' for c in splat.ALL_COLORS],
+#     edgecolor='#00000088', linewidth=0.25,
+#     ticksFmt={
+#         'lw': 1, 'range': (-.2, 1), 
+#         'color': '#000000DD', 'fontsize': 1, 'fmt': '{:.2e}'
+#     },
+#     labelFmt={
+#         'color': '#000000EE', 'fontsize': 4.25, 
+#         'ha': 'left', 'fmt': '{:.2f}'
+#     }
+# )
+# formatter1 = EngFormatter(places=1, unit="", sep="")
+# ax.xaxis.set_major_formatter(formatter1)
+ax.set_xticklabels(ax.get_xticklabels(), rotation=0, fontsize=7.5)
+# ax.set_xlabel('Number [Hz]')
+fName = 'Polar.png'
+plt.savefig(
+    path.join(DATA_PATH, 'statInk/'+fName),
+    dpi=350, transparent=False, facecolor='#ffffff', 
+    bbox_inches='tight'
+)
+plt.close('all')
