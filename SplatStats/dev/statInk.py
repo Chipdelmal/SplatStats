@@ -7,9 +7,8 @@ from os import path
 from glob import glob
 import pandas as pd
 import numpy as np
+from random import shuffle
 import matplotlib.pyplot as plt
-from math import radians, log10
-from matplotlib import colors
 from colour import Color
 from matplotlib.ticker import EngFormatter
 from sklearn.feature_extraction import DictVectorizer
@@ -19,7 +18,8 @@ import chord as chd
 
 
 USR='dsk'
-season = 'Chill Season 2022'
+SEASON = 'Chill Season 2022'
+TOP = 20
 ###############################################################################
 # Get files and set font
 ###############################################################################
@@ -37,10 +37,7 @@ btls = statInk.battlesResults
 ###############################################################################
 # Filter by Constraints
 ###############################################################################
-fltrs = (
-    # btls['mode']=='Turf War',
-    btls['season']==season,
-)
+fltrs = (btls['season']==SEASON, )
 fltrBool = [all(i) for i in zip(*fltrs)]
 btlsFiltered = btls[fltrBool]
 ###############################################################################
@@ -55,7 +52,13 @@ wpnSortZip = zip(totalM, wpnsTriplets)
 wpnsDict = {x[0]: (x[1], x[2], x[3]) for (_, x) in sorted(wpnSortZip)[::]}
 wlRatio = [i[1]/i[0] for i in wpnsDict.values()]
 # Polar barchart --------------------------------------------------------------
-labels = ['{} ({}%)'.format(n, int(f*100)) for (n, f) in zip(wpnsDict.keys(), wlRatio)]
+nItems = len(wlRatio)
+itr = zip(
+    [nItems-i for i in range(nItems)], 
+    wpnsDict.keys(), 
+    wlRatio
+)
+labels = ['{:02d}. {} ({}%)'.format(ix, n, int(f*100)) for (ix, n, f) in itr]
 (fig, ax) = plt.subplots(
     figsize=(12, 12), subplot_kw={"projection": "polar"}
 )
@@ -77,7 +80,7 @@ labels = ['{} ({}%)'.format(n, int(f*100)) for (n, f) in zip(wpnsDict.keys(), wl
 # formatter1 = EngFormatter(places=1, unit="", sep="")
 # ax.xaxis.set_major_formatter(formatter1)
 ax.set_xticklabels(ax.get_xticklabels(), rotation=0, fontsize=7.5)
-fName = 'Polar - {}.png'.format(season)
+fName = 'Polar - {}.png'.format(SEASON)
 plt.savefig(
     path.join(DATA_PATH, 'statInk/'+fName),
     dpi=350, transparent=False, facecolor='#ffffff', 
@@ -85,7 +88,7 @@ plt.savefig(
 )
 plt.close('all')
 ###############################################################################
-# Frequency Analysis
+# Type of Lobby
 ###############################################################################
 cntr = Counter(btlsFiltered['lobby'])
 # Generate lobby barchart -----------------------------------------------------
@@ -114,10 +117,66 @@ ax.text(
     transform=ax.transAxes,
     rotation=90
 )
-fName = 'StackedLobby - {}.png'.format(season)
+fName = 'StackedLobby - {}.png'.format(SEASON)
 plt.savefig(
     path.join(DATA_PATH, 'statInk/'+fName),
     dpi=350, transparent=False, facecolor='#ffffff', 
     bbox_inches='tight'
 )
 plt.close('all')
+###############################################################################
+# Frequency Analysis
+###############################################################################
+RAN = 400e3
+COLORS = [c+'DD' for c in splat.ALL_COLORS]
+# Iterate through modes -------------------------------------------------------
+gModes = sorted(list(btlsFiltered['mode'].unique()))
+gMode = gModes[0]
+for gMode in gModes:
+    colors = shuffle(COLORS)
+    fltrs = (btls['mode']==gMode, )
+    fltrBool = [all(i) for i in zip(*fltrs)]
+    btlsMode = btls[fltrBool]
+    (names, matrix) = splat.calculateDominanceMatrixWins(btlsMode)
+    # Calculating totals ------------------------------------------------------
+    (totalW, totalL) = (np.sum(matrix, axis=1), np.sum(matrix, axis=0))
+    totalM = totalW + totalL
+    wpnsTriplets = zip(names, totalM, totalW, totalL)
+    wpnSortZip = zip(totalM, wpnsTriplets)
+    wpnsDict = {x[0]: (x[1], x[2], x[3]) for (_, x) in sorted(wpnSortZip)[::]}
+    wlRatio = [i[1]/i[0] for i in wpnsDict.values()]
+    # Assembling tops ---------------------------------------------------------
+    topWeapons = [(k, wpnsDict[k]) for k in list(wpnsDict)[-TOP:]][::-1]
+    totPart = np.sum(totalM)
+    ###########################################################################
+    # Generate Plot
+    ###########################################################################
+    (fig, ax) = plt.subplots(figsize=(12, 8))
+    ix = 0
+    parPart = []
+    for (wpn, twl) in topWeapons:
+        (t, w, l) = twl
+        b = ax.barh(len(topWeapons)-ix, t, height=0.95, color=COLORS[ix])
+        parPart.append(t/totPart)
+        ix=ix+1
+    ax.set_yticks(
+        np.arange(1, TOP+1), 
+        labels=[
+            '{} ({:.2f}%)'.format(lab[0], ix*100) 
+            for (ix, lab) in zip(parPart[::-1], topWeapons[::-1])
+        ]
+    )
+    ax.spines['top'].set_visible(False)
+    ax.spines['bottom'].set_visible(False)
+    ax.spines['left'].set_visible(False)
+    ax.spines['right'].set_visible(False)
+    ax.set_title('{} (total participation: {:.0f})'.format(gMode, totPart))
+    ax.set_xlim(0, RAN)
+    ax.set_ylim(0.5, TOP+.5)
+    fName = 'GMFrequency {} - {}.png'.format(gMode, SEASON)
+    plt.savefig(
+        path.join(DATA_PATH, 'statInk/'+fName),
+        dpi=350, transparent=False, facecolor='#ffffff', 
+        bbox_inches='tight'
+    )
+    plt.close('all')
