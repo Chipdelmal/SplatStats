@@ -167,7 +167,7 @@ for gMode in gModes:
             '{} ({:.2f}%)'.format(lab[0], ix*100) 
             for (ix, lab) in zip(parPart[::-1], topWeapons[::-1])
         ],
-        fontsize=12.5,
+        fontsize=13.5,
         rotation=45,
         ha='right', ma='right'
     )

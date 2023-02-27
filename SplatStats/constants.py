@@ -87,7 +87,9 @@ CLR_STAGE = {
     'Scorch Gorge': clr.UNICORN_V_NARWHAL_S2[0],
     'Sturgeon Shipyard': clr.VAMPIRE_V_WEREWOLF_S2[2],
     'Undertow Spillway': clr.RASPBERRY_V_NYELLOW_S2[1],
-    'Wahoo World': clr.PINK_V_ORANGE_S1[2]
+    'Wahoo World': clr.PINK_V_ORANGE_S1[2],
+    'Manta Maria': clr.DARK_MILK_WHITE_S3[-1],
+    "Um'ami Ruins": clr.YELLOW_V_INDIGO_S3 [-1],
 }
 CLR_WEAPON = {
     'Clash Blaster': '#0D37C3',
