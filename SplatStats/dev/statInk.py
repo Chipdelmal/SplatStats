@@ -1,9 +1,10 @@
+# !/usr/bin/env python3
 
 # https://github.com/fetus-hina/stat.ink/wiki/Spl3-%EF%BC%8D-CSV-Schema-%EF%BC%8D-Battle
 # https://stat.ink/api-info/weapon3
 
-import re
-from os import path
+import fileinput
+from os import path, system
 from glob import glob
 import pandas as pd
 import numpy as np
@@ -18,7 +19,7 @@ import chord as chd
 
 
 USR='dsk'
-SEASON = 'Chill Season 2022'
+SEASON = 'Drizzle Season 2022'
 TOP = 20
 ###############################################################################
 # Get files and set font
@@ -59,13 +60,15 @@ itr = zip(
     wlRatio
 )
 labels = ['{:02d}. {} ({}%)'.format(ix, n, int(f*100)) for (ix, n, f) in itr]
+COLORS = splat.ALL_COLORS
+shuffle(COLORS)
 (fig, ax) = plt.subplots(
     figsize=(12, 12), subplot_kw={"projection": "polar"}
 )
 (fig, ax) = splat.polarBarChart(
     labels, [i[0] for i in wpnsDict.values()],
     yRange=(0, 1e6), rRange=(0, 180), ticksStep=4,
-    colors=[c+'DD' for c in splat.ALL_COLORS],
+    colors=[c+'DD' for c in COLORS],
     edgecolor='#00000088', linewidth=0,
     figAx=(fig, ax),
     ticksFmt={
@@ -79,7 +82,12 @@ labels = ['{:02d}. {} ({}%)'.format(ix, n, int(f*100)) for (ix, n, f) in itr]
 )
 # formatter1 = EngFormatter(places=1, unit="", sep="")
 # ax.xaxis.set_major_formatter(formatter1)
-ax.set_xticklabels(ax.get_xticklabels(), rotation=0, fontsize=7.5)
+xlabels = ax.get_xticklabels()
+for txt in xlabels:
+    lab = txt.get_text()
+    txt.set_text('{:.2f}M'.format(float(lab)/1e6))
+# labels[0].set_text('')
+ax.set_xticklabels(xlabels, rotation=0, fontsize=7.5)
 fName = 'Polar - {}.png'.format(SEASON)
 plt.savefig(
     path.join(DATA_PATH, 'statInk/'+fName),
@@ -111,7 +119,7 @@ ax.spines['top'].set_visible(False)
 ax.spines['bottom'].set_visible(False)
 ax.text(
     -2.25, 0.5, 'Total matches: {}'.format(np.sum(data)),
-    fontsize=25,
+    fontsize=20,
     horizontalalignment='center',
     verticalalignment='center',
     transform=ax.transAxes,
@@ -127,16 +135,16 @@ plt.close('all')
 ###############################################################################
 # Frequency Analysis
 ###############################################################################
-RAN = 400e3
+RAN = 250e3
 COLORS = [c+'DD' for c in splat.ALL_COLORS]
 # Iterate through modes -------------------------------------------------------
 gModes = sorted(list(btlsFiltered['mode'].unique()))
 gMode = gModes[0]
 for gMode in gModes:
-    colors = shuffle(COLORS)
-    fltrs = (btls['mode']==gMode, )
+    shuffle(COLORS)
+    fltrs = (btlsFiltered['mode']==gMode, )
     fltrBool = [all(i) for i in zip(*fltrs)]
-    btlsMode = btls[fltrBool]
+    btlsMode = btlsFiltered[fltrBool]
     (names, matrix) = splat.calculateDominanceMatrixWins(btlsMode)
     # Calculating totals ------------------------------------------------------
     (totalW, totalL) = (np.sum(matrix, axis=1), np.sum(matrix, axis=0))
@@ -177,14 +185,14 @@ for gMode in gModes:
     labelsFix = [f'{i:.0f}k' for i in labels]
     labelsFix[0] = ''
     ax.set_xticklabels(labelsFix)
-    plt.xticks(rotation=45, ha='right', fontsize=15)
+    plt.xticks(rotation=45, ha='right', fontsize=20)
     ax.spines['top'].set_visible(False)
     ax.spines['bottom'].set_visible(False)
     ax.spines['left'].set_visible(False)
     ax.spines['right'].set_visible(False)
     ax.text(
         RAN, TOP*delta+delta, 
-        'Total Participation: {:.2e}'.format(totPart),
+        'Total Participation: {:.2f}M'.format(totPart/1e6),
         fontsize=20,
         horizontalalignment='center',
         verticalalignment='top',
@@ -202,3 +210,18 @@ for gMode in gModes:
         bbox_inches='tight'
     )
     plt.close('all')
+###############################################################################
+# Export to Disk
+###############################################################################
+(bText, rText) = ('Drizzle Season 2022', SEASON)
+fName = path.join(DATA_PATH, 'statInk/'+'InkstatPanel.svg')
+fOutPNG = str(path.join(DATA_PATH, 'statInk/', SEASON+'.png')).replace(' ', '')
+fOutSVG = fOutPNG.replace('.png', '.svg')
+with open(fName, 'r') as file:
+    data = file.read()
+    data = data.replace(bText, rText)
+    data = data.replace(bText.replace(' ', '%20'), rText)
+with open(fOutSVG, 'w') as file:
+    file.write(data)
+system(f"inkscape '{fOutSVG}' --export-filename='{fOutPNG}' --export-width=5500")
+
