@@ -151,28 +151,50 @@ for gMode in gModes:
     ###########################################################################
     # Generate Plot
     ###########################################################################
-    (fig, ax) = plt.subplots(figsize=(12, 8))
-    ix = 0
-    parPart = []
+    (fig, ax) = plt.subplots(figsize=(18, 8))
+    (ix, parPart, delta) = (0, [], 0.5)
     for (wpn, twl) in topWeapons:
         (t, w, l) = twl
-        b = ax.barh(len(topWeapons)-ix, t, height=0.95, color=COLORS[ix])
+        b = ax.barh(
+            delta*(len(topWeapons)-ix), t, 
+            height=delta*0.95, color=COLORS[ix]
+        )
         parPart.append(t/totPart)
         ix=ix+1
     ax.set_yticks(
-        np.arange(1, TOP+1), 
+        delta*np.arange(1, TOP+1), 
         labels=[
             '{} ({:.2f}%)'.format(lab[0], ix*100) 
             for (ix, lab) in zip(parPart[::-1], topWeapons[::-1])
-        ]
+        ],
+        fontsize=12.5,
+        rotation=45,
+        ha='right', ma='right'
     )
+    ax.set_xlim(0, RAN)
+    ax.set_ylim(delta*0.5, delta*(TOP+.5))
+    labels = [int(item.get_text())/1000 for item in ax.get_xticklabels()]
+    labelsFix = [f'{i:.0f}k' for i in labels]
+    labelsFix[0] = ''
+    ax.set_xticklabels(labelsFix)
+    plt.xticks(rotation=45, ha='right', fontsize=15)
     ax.spines['top'].set_visible(False)
     ax.spines['bottom'].set_visible(False)
     ax.spines['left'].set_visible(False)
     ax.spines['right'].set_visible(False)
-    ax.set_title('{} (total participation: {:.0f})'.format(gMode, totPart))
-    ax.set_xlim(0, RAN)
-    ax.set_ylim(0.5, TOP+.5)
+    ax.text(
+        RAN, TOP*delta+delta, 
+        'Total Participation: {:.2e}'.format(totPart),
+        fontsize=20,
+        horizontalalignment='center',
+        verticalalignment='top',
+        # transform=ax.transAxes,
+        rotation=90
+    )
+    # ax.set_title(
+    #     'All Weapons Participation: {:.0f}'.format(totPart),
+    #     fontsize=20
+    # )
     fName = 'GMFrequency {} - {}.png'.format(gMode, SEASON)
     plt.savefig(
         path.join(DATA_PATH, 'statInk/'+fName),
