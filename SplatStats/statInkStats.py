@@ -30,13 +30,19 @@ def calculateDominanceMatrixWins(statInkBattles):
         (bAWpns, bBWpns, winTeam) = (wpnsDA[ix], wpnsDB[ix], winrs[ix])
         (bAVctr, bBVctr) = (wpnsVA[ix], wpnsVB[ix])
         if winTeam:
-            rxs = [wpnsNames.index(wpn) for wpn in bBWpns]
-            for rx in rxs:
-                domMtx[rx] = domMtx[rx]+bAVctr
+            try:
+                rxs = [wpnsNames.index(wpn) for wpn in bBWpns]
+                for rx in rxs:
+                    domMtx[rx] = domMtx[rx]+bAVctr
+            except:
+                pass
         else:
-            rxs = [wpnsNames.index(wpn) for wpn in bAWpns]
-            for rx in rxs:
-                domMtx[rx] = domMtx[rx]+bBVctr
+            try:
+                rxs = [wpnsNames.index(wpn) for wpn in bAWpns]
+                for rx in rxs:
+                    domMtx[rx] = domMtx[rx]+bBVctr
+            except:
+                pass
     # Transpose and return ----------------------------------------------------
     domMtx = domMtx.T  
     return (wpnsNames, domMtx)

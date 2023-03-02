@@ -2,8 +2,8 @@
     {
         "key": "52gal",
         "aliases": [
-            "52_gal",
-            "50"
+            "50",
+            "52_gal"
         ],
         "type": {
             "key": "shooter",
@@ -87,8 +87,8 @@
     {
         "key": "96gal",
         "aliases": [
-            "96_gal",
-            "80"
+            "80",
+            "96_gal"
         ],
         "type": {
             "key": "shooter",
@@ -170,10 +170,95 @@
         "reskin_of": "96gal"
     },
     {
+        "key": "96gal_deco",
+        "aliases": [
+            "81",
+            "96_gal_deco"
+        ],
+        "type": {
+            "key": "shooter",
+            "aliases": [],
+            "name": {
+                "de_DE": "Shooters",
+                "en_GB": "Shooters",
+                "en_US": "Shooters",
+                "es_ES": "Lanzatintas",
+                "es_MX": "Rociadors",
+                "fr_CA": "Lanceur",
+                "fr_FR": "Lanceur",
+                "it_IT": "Shooters",
+                "ja_JP": "シューター",
+                "ko_KR": "슈터",
+                "nl_NL": "Shooters",
+                "ru_RU": "Shooters",
+                "zh_CN": "射击枪",
+                "zh_TW": "射擊槍"
+            }
+        },
+        "name": {
+            "de_DE": ".96 Gallon Deko",
+            "en_GB": ".96 Gal Deco",
+            "en_US": ".96 Gal Deco",
+            "es_ES": "Salpicadora 3000 DX",
+            "es_MX": "Salpicadora 3000 chic",
+            "fr_CA": "Calibre 3000 chic",
+            "fr_FR": "Calibre 3000 chic",
+            "it_IT": "Calibro 3000 DX",
+            "ja_JP": ".96ガロンデコ",
+            "ko_KR": ".96 갤런 데코",
+            "nl_NL": ".96 Kaliter Deco",
+            "ru_RU": "Струевик .96 «Деко»",
+            "zh_CN": ".96加仑 装饰",
+            "zh_TW": ".96加侖 裝飾"
+        },
+        "main": "96gal",
+        "sub": {
+            "key": "splashshield",
+            "aliases": [],
+            "name": {
+                "de_DE": "Tintenwall",
+                "en_GB": "Splash Wall",
+                "en_US": "Splash Wall",
+                "es_ES": "Telón de tinta",
+                "es_MX": "Barricada",
+                "fr_CA": "Mur d'encre",
+                "fr_FR": "Mur d'encre",
+                "it_IT": "Muro di colore",
+                "ja_JP": "スプラッシュシールド",
+                "ko_KR": "스플래시 실드",
+                "nl_NL": "Inktgordijn",
+                "ru_RU": "Чернильный занавес",
+                "zh_CN": "斯普拉防护墙",
+                "zh_TW": "斯普拉防護牆"
+            }
+        },
+        "special": {
+            "key": "teioika",
+            "aliases": [],
+            "name": {
+                "de_DE": "Tintentyrann",
+                "en_GB": "Kraken Royale",
+                "en_US": "Kraken Royale",
+                "es_ES": "Calamar imperial",
+                "es_MX": "Calamar imperial",
+                "fr_CA": "Kraken royal",
+                "fr_FR": "Kraken royal",
+                "it_IT": "Kraken reale",
+                "ja_JP": "テイオウイカ",
+                "ko_KR": "로열 크라켄",
+                "nl_NL": "Monstermorfose",
+                "ru_RU": "Тираннокракен",
+                "zh_CN": "帝王鱿鱼",
+                "zh_TW": "帝王魷魚"
+            }
+        },
+        "reskin_of": "96gal_deco"
+    },
+    {
         "key": "bold",
         "aliases": [
-            "sploosh_o_matic",
-            "0"
+            "0",
+            "sploosh_o_matic"
         ],
         "type": {
             "key": "shooter",
@@ -255,10 +340,95 @@
         "reskin_of": "bold"
     },
     {
+        "key": "bold_neo",
+        "aliases": [
+            "1",
+            "neo_sploosh_o_matic"
+        ],
+        "type": {
+            "key": "shooter",
+            "aliases": [],
+            "name": {
+                "de_DE": "Shooters",
+                "en_GB": "Shooters",
+                "en_US": "Shooters",
+                "es_ES": "Lanzatintas",
+                "es_MX": "Rociadors",
+                "fr_CA": "Lanceur",
+                "fr_FR": "Lanceur",
+                "it_IT": "Shooters",
+                "ja_JP": "シューター",
+                "ko_KR": "슈터",
+                "nl_NL": "Shooters",
+                "ru_RU": "Shooters",
+                "zh_CN": "射击枪",
+                "zh_TW": "射擊槍"
+            }
+        },
+        "name": {
+            "de_DE": "Disperser Neo",
+            "en_GB": "Neo Sploosh-o-matic",
+            "en_US": "Neo Sploosh-o-matic",
+            "es_ES": "Marcador neo",
+            "es_MX": "Marcador grueso neo",
+            "fr_CA": "Marqueur lourd néo",
+            "fr_FR": "Marqueur lourd Néo",
+            "it_IT": "Marker Neo",
+            "ja_JP": "ボールドマーカーネオ",
+            "ko_KR": "네오 볼드 마커",
+            "nl_NL": "Spettertuit Neo",
+            "ru_RU": "Плюхотрон «Нео»",
+            "zh_CN": "广域标记枪 新型",
+            "zh_TW": "廣域標記槍 新型"
+        },
+        "main": "bold",
+        "sub": {
+            "key": "jumpbeacon",
+            "aliases": [],
+            "name": {
+                "de_DE": "Sprungboje",
+                "en_GB": "Squid Beakon",
+                "en_US": "Squid Beakon",
+                "es_ES": "Baliza transportadora",
+                "es_MX": "Baliza",
+                "fr_CA": "Balise de saut",
+                "fr_FR": "Balise de saut",
+                "it_IT": "Trasferitore",
+                "ja_JP": "ジャンプビーコン",
+                "ko_KR": "점프 비컨",
+                "nl_NL": "Springschotel",
+                "ru_RU": "Прыжковый маячок",
+                "zh_CN": "跳跃信标",
+                "zh_TW": "跳躍信標"
+            }
+        },
+        "special": {
+            "key": "megaphone51",
+            "aliases": [],
+            "name": {
+                "de_DE": "Heulboje 5.1",
+                "en_GB": "Killer Wail 5.1",
+                "en_US": "Killer Wail 5.1",
+                "es_ES": "Tintófono 5.1",
+                "es_MX": "Berreón 5.1",
+                "fr_CA": "Laser perçant 5.1",
+                "fr_FR": "Haut-perceur 5.1",
+                "it_IT": "Tintofono 5.1",
+                "ja_JP": "メガホンレーザー5.1ch",
+                "ko_KR": "메가폰 레이저 5.1ch",
+                "nl_NL": "Megalofoon 5.1",
+                "ru_RU": "Мегалофон 5.1",
+                "zh_CN": "喇叭镭射5.1ch",
+                "zh_TW": "喇叭雷射5.1ch"
+            }
+        },
+        "reskin_of": "bold_neo"
+    },
+    {
         "key": "bottlegeyser",
         "aliases": [
-            "squeezer",
-            "400"
+            "400",
+            "squeezer"
         ],
         "type": {
             "key": "shooter",
@@ -342,8 +512,8 @@
     {
         "key": "heroshooter_replica",
         "aliases": [
-            "hero_shot_replica",
-            "45"
+            "45",
+            "hero_shot_replica"
         ],
         "type": {
             "key": "shooter",
@@ -427,8 +597,8 @@
     {
         "key": "jetsweeper",
         "aliases": [
-            "jet_squelcher",
-            "90"
+            "90",
+            "jet_squelcher"
         ],
         "type": {
             "key": "shooter",
@@ -508,6 +678,91 @@
             }
         },
         "reskin_of": "jetsweeper"
+    },
+    {
+        "key": "jetsweeper_custom",
+        "aliases": [
+            "91",
+            "custom_jet_squelcher"
+        ],
+        "type": {
+            "key": "shooter",
+            "aliases": [],
+            "name": {
+                "de_DE": "Shooters",
+                "en_GB": "Shooters",
+                "en_US": "Shooters",
+                "es_ES": "Lanzatintas",
+                "es_MX": "Rociadors",
+                "fr_CA": "Lanceur",
+                "fr_FR": "Lanceur",
+                "it_IT": "Shooters",
+                "ja_JP": "シューター",
+                "ko_KR": "슈터",
+                "nl_NL": "Shooters",
+                "ru_RU": "Shooters",
+                "zh_CN": "射击枪",
+                "zh_TW": "射擊槍"
+            }
+        },
+        "name": {
+            "de_DE": "Platscher SE",
+            "en_GB": "Custom Jet Squelcher",
+            "en_US": "Custom Jet Squelcher",
+            "es_ES": "Megabarredora SP",
+            "es_MX": "Megasoplador adaptado",
+            "fr_CA": "Méganettoyeur modifié",
+            "fr_FR": "Nettoyeur XL modifié",
+            "it_IT": "Sweeper CM",
+            "ja_JP": "ジェットスイーパーカスタム",
+            "ko_KR": "커스텀 제트 스위퍼",
+            "nl_NL": "Gemodde Straalplonzer",
+            "ru_RU": "Плескарь «Понт»",
+            "zh_CN": "喷射清洁枪 改装",
+            "zh_TW": "噴射清潔槍 改裝"
+        },
+        "main": "jetsweeper",
+        "sub": {
+            "key": "poisonmist",
+            "aliases": [],
+            "name": {
+                "de_DE": "Sepitox-Nebel",
+                "en_GB": "Toxic Mist",
+                "en_US": "Toxic Mist",
+                "es_ES": "Nebulizador",
+                "es_MX": "Nebulizador",
+                "fr_CA": "Brume toxique",
+                "fr_FR": "Brume toxique",
+                "it_IT": "Nebbia tossica",
+                "ja_JP": "ポイズンミスト",
+                "ko_KR": "포이즌 미스트",
+                "nl_NL": "Gifmist",
+                "ru_RU": "Едкий туман",
+                "zh_CN": "毒雾",
+                "zh_TW": "毒霧"
+            }
+        },
+        "special": {
+            "key": "amefurashi",
+            "aliases": [],
+            "name": {
+                "de_DE": "Tintenschauer",
+                "en_GB": "Ink Storm",
+                "en_US": "Ink Storm",
+                "es_ES": "Atormentador",
+                "es_MX": "Atormentador",
+                "fr_CA": "Pluie d'encre",
+                "fr_FR": "Pluie d'encre",
+                "it_IT": "Pioggia di colore",
+                "ja_JP": "アメフラシ",
+                "ko_KR": "먹구름",
+                "nl_NL": "Spetterbui",
+                "ru_RU": "Туча краски",
+                "zh_CN": "墨雨云",
+                "zh_TW": "墨雨雲"
+            }
+        },
+        "reskin_of": "jetsweeper_custom"
     },
     {
         "key": "momiji",
@@ -597,8 +852,8 @@
     {
         "key": "nzap85",
         "aliases": [
-            "n_zap_85",
-            "60"
+            "60",
+            "n_zap_85"
         ],
         "type": {
             "key": "shooter",
@@ -680,10 +935,95 @@
         "reskin_of": "nzap85"
     },
     {
+        "key": "nzap89",
+        "aliases": [
+            "61",
+            "n_zap_89"
+        ],
+        "type": {
+            "key": "shooter",
+            "aliases": [],
+            "name": {
+                "de_DE": "Shooters",
+                "en_GB": "Shooters",
+                "en_US": "Shooters",
+                "es_ES": "Lanzatintas",
+                "es_MX": "Rociadors",
+                "fr_CA": "Lanceur",
+                "fr_FR": "Lanceur",
+                "it_IT": "Shooters",
+                "ja_JP": "シューター",
+                "ko_KR": "슈터",
+                "nl_NL": "Shooters",
+                "ru_RU": "Shooters",
+                "zh_CN": "射击枪",
+                "zh_TW": "射擊槍"
+            }
+        },
+        "name": {
+            "de_DE": "N-ZAP89",
+            "en_GB": "N-ZAP '89",
+            "en_US": "N-ZAP '89",
+            "es_ES": "N-ZAP 89",
+            "es_MX": "N-ZAP 89",
+            "fr_CA": "N-ZAP 89",
+            "fr_FR": "N-ZAP 89",
+            "it_IT": "N-ZAP89",
+            "ja_JP": "N-ZAP89",
+            "ko_KR": "N-ZAP89",
+            "nl_NL": "N-ZAP '89",
+            "ru_RU": "N-ZAP 89",
+            "zh_CN": "N-ZAP89",
+            "zh_TW": "N-ZAP89"
+        },
+        "main": "nzap85",
+        "sub": {
+            "key": "robotbomb",
+            "aliases": [],
+            "name": {
+                "de_DE": "Robo-Bombe",
+                "en_GB": "Autobomb",
+                "en_US": "Autobomb",
+                "es_ES": "Robobomba",
+                "es_MX": "Robobomba",
+                "fr_CA": "Bombe robot",
+                "fr_FR": "Bombe robot",
+                "it_IT": "Robo-bomba",
+                "ja_JP": "ロボットボム",
+                "ko_KR": "로봇 밤",
+                "nl_NL": "Robobom",
+                "ru_RU": "Робобомба",
+                "zh_CN": "机器人炸弹",
+                "zh_TW": "機器人炸彈"
+            }
+        },
+        "special": {
+            "key": "decoy",
+            "aliases": [],
+            "name": {
+                "de_DE": "Bluffbomber",
+                "en_GB": "Super Chump",
+                "en_US": "Super Chump",
+                "es_ES": "Multiseñuelos",
+                "es_MX": "Multiseñuelos",
+                "fr_CA": "Multi-leurres",
+                "fr_FR": "Multi-leurres",
+                "it_IT": "Diversivo esplosivo",
+                "ja_JP": "デコイチラシ",
+                "ko_KR": "디코이 캐넌",
+                "nl_NL": "Voorschutter",
+                "ru_RU": "Суперпрыжатор",
+                "zh_CN": "诱饵烟花",
+                "zh_TW": "誘餌煙火"
+            }
+        },
+        "reskin_of": "nzap89"
+    },
+    {
         "key": "prime",
         "aliases": [
-            "splattershot_pro",
-            "70"
+            "70",
+            "splattershot_pro"
         ],
         "type": {
             "key": "shooter",
@@ -852,8 +1192,8 @@
     {
         "key": "promodeler_mg",
         "aliases": [
-            "aerospray_mg",
-            "30"
+            "30",
+            "aerospray_mg"
         ],
         "type": {
             "key": "shooter",
@@ -1022,8 +1362,8 @@
     {
         "key": "sharp",
         "aliases": [
-            "splash_o_matic",
-            "20"
+            "20",
+            "splash_o_matic"
         ],
         "type": {
             "key": "shooter",
@@ -1105,10 +1445,95 @@
         "reskin_of": "sharp"
     },
     {
+        "key": "sharp_neo",
+        "aliases": [
+            "21",
+            "neo_splash_o_matic"
+        ],
+        "type": {
+            "key": "shooter",
+            "aliases": [],
+            "name": {
+                "de_DE": "Shooters",
+                "en_GB": "Shooters",
+                "en_US": "Shooters",
+                "es_ES": "Lanzatintas",
+                "es_MX": "Rociadors",
+                "fr_CA": "Lanceur",
+                "fr_FR": "Lanceur",
+                "it_IT": "Shooters",
+                "ja_JP": "シューター",
+                "ko_KR": "슈터",
+                "nl_NL": "Shooters",
+                "ru_RU": "Shooters",
+                "zh_CN": "射击枪",
+                "zh_TW": "射擊槍"
+            }
+        },
+        "name": {
+            "de_DE": "Fein-Disperser Neo",
+            "en_GB": "Neo Splash-o-matic",
+            "en_US": "Neo Splash-o-matic",
+            "es_ES": "Marcador fino neo",
+            "es_MX": "Plumón neo",
+            "fr_CA": "Marqueur léger néo",
+            "fr_FR": "Marqueur léger Néo",
+            "it_IT": "Marker d'assalto Neo",
+            "ja_JP": "シャープマーカーネオ",
+            "ko_KR": "네오 샤프 마커",
+            "nl_NL": "Spetterspuit Neo",
+            "ru_RU": "Плюхомет «Нео»",
+            "zh_CN": "窄域标记枪 新型",
+            "zh_TW": "窄域標記槍 新型"
+        },
+        "main": "sharp",
+        "sub": {
+            "key": "kyubanbomb",
+            "aliases": [],
+            "name": {
+                "de_DE": "Haftbombe",
+                "en_GB": "Suction Bomb",
+                "en_US": "Suction Bomb",
+                "es_ES": "Bomba ventosa",
+                "es_MX": "Bomba pegajosa",
+                "fr_CA": "Bombe gluante",
+                "fr_FR": "Bombe gluante",
+                "it_IT": "Appiccibomba",
+                "ja_JP": "キューバンボム",
+                "ko_KR": "빨판 밤",
+                "nl_NL": "Kleefbom",
+                "ru_RU": "Бомба на присоске",
+                "zh_CN": "吸盘炸弹",
+                "zh_TW": "吸盤炸彈"
+            }
+        },
+        "special": {
+            "key": "tripletornado",
+            "aliases": [],
+            "name": {
+                "de_DE": "Tri-Tintferno",
+                "en_GB": "Triple Inkstrike",
+                "en_US": "Triple Inkstrike",
+                "es_ES": "Tornado triple",
+                "es_MX": "Tornado triple",
+                "fr_CA": "Trimissile tornade",
+                "fr_FR": "Trimissile tornade",
+                "it_IT": "Triplo tornado",
+                "ja_JP": "トリプルトルネード",
+                "ko_KR": "트리플 토네이도",
+                "nl_NL": "Tri-tornado",
+                "ru_RU": "Тройной торнадо",
+                "zh_CN": "三重龙卷风",
+                "zh_TW": "三重龍捲風"
+            }
+        },
+        "reskin_of": "sharp_neo"
+    },
+    {
         "key": "spaceshooter",
         "aliases": [
-            "splattershot_nova",
-            "100"
+            "100",
+            "splattershot_nova"
         ],
         "type": {
             "key": "shooter",
@@ -1192,8 +1617,8 @@
     {
         "key": "sshooter",
         "aliases": [
-            "splattershot",
-            "40"
+            "40",
+            "splattershot"
         ],
         "type": {
             "key": "shooter",
@@ -1362,8 +1787,8 @@
     {
         "key": "wakaba",
         "aliases": [
-            "splattershot_jr",
-            "10"
+            "10",
+            "splattershot_jr"
         ],
         "type": {
             "key": "shooter",
@@ -1447,8 +1872,8 @@
     {
         "key": "clashblaster",
         "aliases": [
-            "clash_blaster",
-            "230"
+            "230",
+            "clash_blaster"
         ],
         "type": {
             "key": "blaster",
@@ -1530,10 +1955,95 @@
         "reskin_of": "clashblaster"
     },
     {
+        "key": "clashblaster_neo",
+        "aliases": [
+            "231",
+            "clash_blaster_neo"
+        ],
+        "type": {
+            "key": "blaster",
+            "aliases": [],
+            "name": {
+                "de_DE": "Blasters",
+                "en_GB": "Blasters",
+                "en_US": "Blasters",
+                "es_ES": "Devastadors",
+                "es_MX": "Devastadors",
+                "fr_CA": "Éclablasters",
+                "fr_FR": "Éclablasters",
+                "it_IT": "Blasters",
+                "ja_JP": "ブラスター",
+                "ko_KR": "블래스터",
+                "nl_NL": "Blasters",
+                "ru_RU": "Blasters",
+                "zh_CN": "爆破枪",
+                "zh_TW": "爆破槍"
+            }
+        },
+        "name": {
+            "de_DE": "Kontra-Blaster Neo",
+            "en_GB": "Clash Blaster Neo",
+            "en_US": "Clash Blaster Neo",
+            "es_ES": "Turbodevastador neo",
+            "es_MX": "Hiperlanzamotas neo",
+            "fr_CA": "Rafalblasteur néo",
+            "fr_FR": "Rafablaster Néo",
+            "it_IT": "Blaster da mischia Neo",
+            "ja_JP": "クラッシュブラスターネオ",
+            "ko_KR": "네오 크래시 블래스터",
+            "nl_NL": "Knalblaster Neo",
+            "ru_RU": "Контрабластер «Нео»",
+            "zh_CN": "冲涂爆破枪 新型",
+            "zh_TW": "衝塗爆破槍 新型"
+        },
+        "main": "clashblaster",
+        "sub": {
+            "key": "curlingbomb",
+            "aliases": [],
+            "name": {
+                "de_DE": "Curling-Bombe",
+                "en_GB": "Curling Bomb",
+                "en_US": "Curling Bomb",
+                "es_ES": "Bomba deslizante",
+                "es_MX": "Bomba deslizante",
+                "fr_CA": "Bombe curling",
+                "fr_FR": "Bombe curling",
+                "it_IT": "Bomba curling",
+                "ja_JP": "カーリングボム",
+                "ko_KR": "컬링 밤",
+                "nl_NL": "Curlingbom",
+                "ru_RU": "Керлинг-бомба",
+                "zh_CN": "冰壶炸弹",
+                "zh_TW": "冰壺炸彈"
+            }
+        },
+        "special": {
+            "key": "decoy",
+            "aliases": [],
+            "name": {
+                "de_DE": "Bluffbomber",
+                "en_GB": "Super Chump",
+                "en_US": "Super Chump",
+                "es_ES": "Multiseñuelos",
+                "es_MX": "Multiseñuelos",
+                "fr_CA": "Multi-leurres",
+                "fr_FR": "Multi-leurres",
+                "it_IT": "Diversivo esplosivo",
+                "ja_JP": "デコイチラシ",
+                "ko_KR": "디코이 캐넌",
+                "nl_NL": "Voorschutter",
+                "ru_RU": "Суперпрыжатор",
+                "zh_CN": "诱饵烟花",
+                "zh_TW": "誘餌煙火"
+            }
+        },
+        "reskin_of": "clashblaster_neo"
+    },
+    {
         "key": "hotblaster",
         "aliases": [
-            "blaster",
-            "210"
+            "210",
+            "blaster"
         ],
         "type": {
             "key": "blaster",
@@ -1617,8 +2127,8 @@
     {
         "key": "longblaster",
         "aliases": [
-            "range_blaster",
-            "220"
+            "220",
+            "range_blaster"
         ],
         "type": {
             "key": "blaster",
@@ -1702,8 +2212,8 @@
     {
         "key": "nova",
         "aliases": [
-            "luna_blaster",
-            "200"
+            "200",
+            "luna_blaster"
         ],
         "type": {
             "key": "blaster",
@@ -1872,8 +2382,8 @@
     {
         "key": "rapid",
         "aliases": [
-            "rapid_blaster",
-            "240"
+            "240",
+            "rapid_blaster"
         ],
         "type": {
             "key": "blaster",
@@ -1955,10 +2465,95 @@
         "reskin_of": "rapid"
     },
     {
+        "key": "rapid_deco",
+        "aliases": [
+            "241",
+            "rapid_blaster_deco"
+        ],
+        "type": {
+            "key": "blaster",
+            "aliases": [],
+            "name": {
+                "de_DE": "Blasters",
+                "en_GB": "Blasters",
+                "en_US": "Blasters",
+                "es_ES": "Devastadors",
+                "es_MX": "Devastadors",
+                "fr_CA": "Éclablasters",
+                "fr_FR": "Éclablasters",
+                "it_IT": "Blasters",
+                "ja_JP": "ブラスター",
+                "ko_KR": "블래스터",
+                "nl_NL": "Blasters",
+                "ru_RU": "Blasters",
+                "zh_CN": "爆破枪",
+                "zh_TW": "爆破槍"
+            }
+        },
+        "name": {
+            "de_DE": "Turbo-Blaster Deko",
+            "en_GB": "Rapid Blaster Deco",
+            "en_US": "Rapid Blaster Deco",
+            "es_ES": "Devastador exprés DX",
+            "es_MX": "Turbolanzamotas chic",
+            "fr_CA": "Turboblasteur chic",
+            "fr_FR": "Turboblaster chic",
+            "it_IT": "Blaster rapido DX",
+            "ja_JP": "ラピッドブラスターデコ",
+            "ko_KR": "래피드 블래스터 데코",
+            "nl_NL": "Flitsblaster Deco",
+            "ru_RU": "Бластермат «Деко»",
+            "zh_CN": "快速爆破枪 装饰",
+            "zh_TW": "快速爆破槍 裝飾"
+        },
+        "main": "rapid",
+        "sub": {
+            "key": "torpedo",
+            "aliases": [],
+            "name": {
+                "de_DE": "Torpedo",
+                "en_GB": "Torpedo",
+                "en_US": "Torpedo",
+                "es_ES": "Torpedo",
+                "es_MX": "Torpedo",
+                "fr_CA": "Bentorpille",
+                "fr_FR": "Bentorpille",
+                "it_IT": "Torpedinatore",
+                "ja_JP": "トーピード",
+                "ko_KR": "토피도",
+                "nl_NL": "Torpedobom",
+                "ru_RU": "Торпедная бомба",
+                "zh_CN": "鱼雷",
+                "zh_TW": "魚雷"
+            }
+        },
+        "special": {
+            "key": "jetpack",
+            "aliases": [],
+            "name": {
+                "de_DE": "Tintendüser",
+                "en_GB": "Inkjet",
+                "en_US": "Inkjet",
+                "es_ES": "Propulsor",
+                "es_MX": "Propulsor",
+                "fr_CA": "Chromo-jet",
+                "fr_FR": "Chromo-jet",
+                "it_IT": "Jet splat",
+                "ja_JP": "ジェットパック",
+                "ko_KR": "제트 팩",
+                "nl_NL": "Inktjet",
+                "ru_RU": "Красколет",
+                "zh_CN": "喷射背包",
+                "zh_TW": "噴射背包"
+            }
+        },
+        "reskin_of": "rapid_deco"
+    },
+    {
         "key": "rapid_elite",
         "aliases": [
-            "rapid_blaster_pro",
-            "250"
+            "250",
+            "rapid_blaster_pro"
         ],
         "type": {
             "key": "blaster",
@@ -2042,8 +2637,8 @@
     {
         "key": "h3reelgun",
         "aliases": [
-            "h_3_nozzlenose",
-            "310"
+            "310",
+            "h_3_nozzlenose"
         ],
         "type": {
             "key": "reelgun",
@@ -2127,8 +2722,8 @@
     {
         "key": "l3reelgun",
         "aliases": [
-            "l_3_nozzlenose",
-            "300"
+            "300",
+            "l_3_nozzlenose"
         ],
         "type": {
             "key": "reelgun",
@@ -2210,10 +2805,95 @@
         "reskin_of": "l3reelgun"
     },
     {
+        "key": "l3reelgun_d",
+        "aliases": [
+            "301",
+            "l_3_nozzlenose_d"
+        ],
+        "type": {
+            "key": "reelgun",
+            "aliases": [],
+            "name": {
+                "de_DE": "Nozzlenoses",
+                "en_GB": "Nozzlenoses",
+                "en_US": "Nozzlenoses",
+                "es_ES": "Nozzlenoses",
+                "es_MX": "Nozzlenoses",
+                "fr_CA": "Nozzlenoses",
+                "fr_FR": "Nozzlenoses",
+                "it_IT": "Nozzlenoses",
+                "ja_JP": "リールガン",
+                "ko_KR": "릴건",
+                "nl_NL": "Nozzlenoses",
+                "ru_RU": "Nozzlenoses",
+                "zh_CN": "卷管枪",
+                "zh_TW": "捲管槍"
+            }
+        },
+        "name": {
+            "de_DE": "L3 Tintenwerfer D",
+            "en_GB": "L-3 Nozzlenose D",
+            "en_US": "L-3 Nozzlenose D",
+            "es_ES": "Tintambor ligero D",
+            "es_MX": "Manguera ligera D",
+            "fr_CA": "Arroseur léger requin",
+            "fr_FR": "Arroseur léger Cétacé",
+            "it_IT": "Triplete compatto D",
+            "ja_JP": "L3リールガンD",
+            "ko_KR": "L3 릴 건 D",
+            "nl_NL": "L-3 Stompsnuit D",
+            "ru_RU": "Каплетрон-компакт 2.0",
+            "zh_CN": "L3卷管枪D",
+            "zh_TW": "L3捲管槍D"
+        },
+        "main": "l3reelgun",
+        "sub": {
+            "key": "quickbomb",
+            "aliases": [],
+            "name": {
+                "de_DE": "Insta-Bombe",
+                "en_GB": "Burst Bomb",
+                "en_US": "Burst Bomb",
+                "es_ES": "Bomba rápida",
+                "es_MX": "Globo entintado",
+                "fr_CA": "Bombe ballon",
+                "fr_FR": "Bombe ballon",
+                "it_IT": "Granata",
+                "ja_JP": "クイックボム",
+                "ko_KR": "퀵 밤",
+                "nl_NL": "Ballonbom",
+                "ru_RU": "Разрывная бомба",
+                "zh_CN": "快速炸弹",
+                "zh_TW": "快速炸彈"
+            }
+        },
+        "special": {
+            "key": "ultrahanko",
+            "aliases": [],
+            "name": {
+                "de_DE": "Ultra-Stempel",
+                "en_GB": "Ultra Stamp",
+                "en_US": "Ultra Stamp",
+                "es_ES": "Ultraselladora",
+                "es_MX": "Ultraselladora",
+                "fr_CA": "Ultra-étampeur",
+                "fr_FR": "Ultra-tamponneur",
+                "it_IT": "Mega timbro",
+                "ja_JP": "ウルトラハンコ",
+                "ko_KR": "울트라 스탬프",
+                "nl_NL": "Ultrastempel",
+                "ru_RU": "Припечать",
+                "zh_CN": "终极印章",
+                "zh_TW": "終極印章"
+            }
+        },
+        "reskin_of": "l3reelgun_d"
+    },
+    {
         "key": "dualsweeper",
         "aliases": [
-            "dualie_squelchers",
-            "5030"
+            "5030",
+            "dualie_squelchers"
         ],
         "type": {
             "key": "maneuver",
@@ -2297,8 +2977,8 @@
     {
         "key": "kelvin525",
         "aliases": [
-            "glooga_dualies",
-            "5020"
+            "5020",
+            "glooga_dualies"
         ],
         "type": {
             "key": "maneuver",
@@ -2382,8 +3062,8 @@
     {
         "key": "maneuver",
         "aliases": [
-            "splat_dualies",
-            "5010"
+            "5010",
+            "splat_dualies"
         ],
         "type": {
             "key": "maneuver",
@@ -2467,8 +3147,8 @@
     {
         "key": "quadhopper_black",
         "aliases": [
-            "dark_tetra_dualies",
-            "5040"
+            "5040",
+            "dark_tetra_dualies"
         ],
         "type": {
             "key": "maneuver",
@@ -2552,8 +3232,8 @@
     {
         "key": "sputtery",
         "aliases": [
-            "dapple_dualies",
-            "5000"
+            "5000",
+            "dapple_dualies"
         ],
         "type": {
             "key": "maneuver",
@@ -2722,8 +3402,8 @@
     {
         "key": "carbon",
         "aliases": [
-            "carbon_roller",
-            "1000"
+            "1000",
+            "carbon_roller"
         ],
         "type": {
             "key": "roller",
@@ -2892,8 +3572,8 @@
     {
         "key": "dynamo",
         "aliases": [
-            "dynamo_roller",
-            "1020"
+            "1020",
+            "dynamo_roller"
         ],
         "type": {
             "key": "roller",
@@ -2977,8 +3657,8 @@
     {
         "key": "splatroller",
         "aliases": [
-            "splat_roller",
-            "1010"
+            "1010",
+            "splat_roller"
         ],
         "type": {
             "key": "roller",
@@ -3060,10 +3740,95 @@
         "reskin_of": "splatroller"
     },
     {
+        "key": "splatroller_collabo",
+        "aliases": [
+            "1011",
+            "krak_on_splat_roller"
+        ],
+        "type": {
+            "key": "roller",
+            "aliases": [],
+            "name": {
+                "de_DE": "Rollers",
+                "en_GB": "Rollers",
+                "en_US": "Rollers",
+                "es_ES": "Rodillos",
+                "es_MX": "Rodillos",
+                "fr_CA": "Rouleau",
+                "fr_FR": "Rouleau",
+                "it_IT": "Rollers",
+                "ja_JP": "ローラー",
+                "ko_KR": "롤러",
+                "nl_NL": "Rollers",
+                "ru_RU": "Rollers",
+                "zh_CN": "滚筒",
+                "zh_TW": "滾筒"
+            }
+        },
+        "name": {
+            "de_DE": "Medusa-Klecksroller",
+            "en_GB": "Krak-On Splat Roller",
+            "en_US": "Krak-On Splat Roller",
+            "es_ES": "Rodillo básico B",
+            "es_MX": "Rodillo básico Meddux",
+            "fr_CA": "Rouleau Krakeurs",
+            "fr_FR": "Rouleau griffé",
+            "it_IT": "Rullo splat logo",
+            "ja_JP": "スプラローラーコラボ",
+            "ko_KR": "스플랫 롤러 컬래버",
+            "nl_NL": "Krak-On Klodderroller",
+            "ru_RU": "Сплат-валик «Кра-Кен»",
+            "zh_CN": "斯普拉滚筒 联名",
+            "zh_TW": "斯普拉滾筒 聯名"
+        },
+        "main": "splatroller",
+        "sub": {
+            "key": "jumpbeacon",
+            "aliases": [],
+            "name": {
+                "de_DE": "Sprungboje",
+                "en_GB": "Squid Beakon",
+                "en_US": "Squid Beakon",
+                "es_ES": "Baliza transportadora",
+                "es_MX": "Baliza",
+                "fr_CA": "Balise de saut",
+                "fr_FR": "Balise de saut",
+                "it_IT": "Trasferitore",
+                "ja_JP": "ジャンプビーコン",
+                "ko_KR": "점프 비컨",
+                "nl_NL": "Springschotel",
+                "ru_RU": "Прыжковый маячок",
+                "zh_CN": "跳跃信标",
+                "zh_TW": "跳躍信標"
+            }
+        },
+        "special": {
+            "key": "teioika",
+            "aliases": [],
+            "name": {
+                "de_DE": "Tintentyrann",
+                "en_GB": "Kraken Royale",
+                "en_US": "Kraken Royale",
+                "es_ES": "Calamar imperial",
+                "es_MX": "Calamar imperial",
+                "fr_CA": "Kraken royal",
+                "fr_FR": "Kraken royal",
+                "it_IT": "Kraken reale",
+                "ja_JP": "テイオウイカ",
+                "ko_KR": "로열 크라켄",
+                "nl_NL": "Monstermorfose",
+                "ru_RU": "Тираннокракен",
+                "zh_CN": "帝王鱿鱼",
+                "zh_TW": "帝王魷魚"
+            }
+        },
+        "reskin_of": "splatroller_collabo"
+    },
+    {
         "key": "variableroller",
         "aliases": [
-            "flingza_roller",
-            "1030"
+            "1030",
+            "flingza_roller"
         ],
         "type": {
             "key": "roller",
@@ -3147,8 +3912,8 @@
     {
         "key": "wideroller",
         "aliases": [
-            "big_swig_roller",
-            "1040"
+            "1040",
+            "big_swig_roller"
         ],
         "type": {
             "key": "roller",
@@ -3232,8 +3997,8 @@
     {
         "key": "hokusai",
         "aliases": [
-            "octobrush",
-            "1110"
+            "1110",
+            "octobrush"
         ],
         "type": {
             "key": "brush",
@@ -3317,8 +4082,8 @@
     {
         "key": "pablo",
         "aliases": [
-            "inkbrush",
-            "1100"
+            "1100",
+            "inkbrush"
         ],
         "type": {
             "key": "brush",
@@ -3487,8 +4252,8 @@
     {
         "key": "drivewiper",
         "aliases": [
-            "splatana_wiper",
-            "8010"
+            "8010",
+            "splatana_wiper"
         ],
         "type": {
             "key": "wiper",
@@ -3572,8 +4337,8 @@
     {
         "key": "jimuwiper",
         "aliases": [
-            "splatana_stamper",
-            "8000"
+            "8000",
+            "splatana_stamper"
         ],
         "type": {
             "key": "wiper",
@@ -3657,8 +4422,8 @@
     {
         "key": "bamboo14mk1",
         "aliases": [
-            "bamboozler_14_mk_i",
-            "2050"
+            "2050",
+            "bamboozler_14_mk_i"
         ],
         "type": {
             "key": "charger",
@@ -3742,8 +4507,8 @@
     {
         "key": "liter4k",
         "aliases": [
-            "e_liter_4k",
-            "2030"
+            "2030",
+            "e_liter_4k"
         ],
         "type": {
             "key": "charger",
@@ -3827,8 +4592,8 @@
     {
         "key": "liter4k_scope",
         "aliases": [
-            "e_liter_4k_scope",
-            "2040"
+            "2040",
+            "e_liter_4k_scope"
         ],
         "type": {
             "key": "charger",
@@ -3912,8 +4677,8 @@
     {
         "key": "rpen_5h",
         "aliases": [
-            "snipewriter_5h",
-            "2070"
+            "2070",
+            "snipewriter_5h"
         ],
         "type": {
             "key": "charger",
@@ -3997,8 +4762,8 @@
     {
         "key": "soytuber",
         "aliases": [
-            "goo_tuber",
-            "2060"
+            "2060",
+            "goo_tuber"
         ],
         "type": {
             "key": "charger",
@@ -4082,8 +4847,8 @@
     {
         "key": "splatcharger",
         "aliases": [
-            "splat_charger",
-            "2010"
+            "2010",
+            "splat_charger"
         ],
         "type": {
             "key": "charger",
@@ -4165,10 +4930,95 @@
         "reskin_of": "splatcharger"
     },
     {
+        "key": "splatcharger_collabo",
+        "aliases": [
+            "2011",
+            "z_f_splat_charger"
+        ],
+        "type": {
+            "key": "charger",
+            "aliases": [],
+            "name": {
+                "de_DE": "Chargers",
+                "en_GB": "Chargers",
+                "en_US": "Chargers",
+                "es_ES": "Cargatintas",
+                "es_MX": "Cargatintas",
+                "fr_CA": "Fusil",
+                "fr_FR": "Fusil",
+                "it_IT": "Chargers",
+                "ja_JP": "チャージャー",
+                "ko_KR": "차저",
+                "nl_NL": "Chargers",
+                "ru_RU": "Chargers",
+                "zh_CN": "蓄力狙击枪",
+                "zh_TW": "蓄力狙擊槍"
+            }
+        },
+        "name": {
+            "de_DE": "Zekkori-Klecks-Konzentrator",
+            "en_GB": "Z+F Splat Charger",
+            "en_US": "Z+F Splat Charger",
+            "es_ES": "Cargatintas Ezkkor",
+            "es_MX": "Cargatintas ZyS",
+            "fr_CA": "Concentraceur E+A",
+            "fr_FR": "Concentraceur E+F",
+            "it_IT": "Splatter a carica logo",
+            "ja_JP": "スプラチャージャーコラボ",
+            "ko_KR": "스플랫 차저 컬래버",
+            "nl_NL": "Zekkofin Bloplader",
+            "ru_RU": "Сплатган «ЙожкоТюр»",
+            "zh_CN": "斯普拉蓄力狙击枪 联名",
+            "zh_TW": "斯普拉蓄力狙擊槍 聯名"
+        },
+        "main": "splatcharger",
+        "sub": {
+            "key": "splashshield",
+            "aliases": [],
+            "name": {
+                "de_DE": "Tintenwall",
+                "en_GB": "Splash Wall",
+                "en_US": "Splash Wall",
+                "es_ES": "Telón de tinta",
+                "es_MX": "Barricada",
+                "fr_CA": "Mur d'encre",
+                "fr_FR": "Mur d'encre",
+                "it_IT": "Muro di colore",
+                "ja_JP": "スプラッシュシールド",
+                "ko_KR": "스플래시 실드",
+                "nl_NL": "Inktgordijn",
+                "ru_RU": "Чернильный занавес",
+                "zh_CN": "斯普拉防护墙",
+                "zh_TW": "斯普拉防護牆"
+            }
+        },
+        "special": {
+            "key": "tripletornado",
+            "aliases": [],
+            "name": {
+                "de_DE": "Tri-Tintferno",
+                "en_GB": "Triple Inkstrike",
+                "en_US": "Triple Inkstrike",
+                "es_ES": "Tornado triple",
+                "es_MX": "Tornado triple",
+                "fr_CA": "Trimissile tornade",
+                "fr_FR": "Trimissile tornade",
+                "it_IT": "Triplo tornado",
+                "ja_JP": "トリプルトルネード",
+                "ko_KR": "트리플 토네이도",
+                "nl_NL": "Tri-tornado",
+                "ru_RU": "Тройной торнадо",
+                "zh_CN": "三重龙卷风",
+                "zh_TW": "三重龍捲風"
+            }
+        },
+        "reskin_of": "splatcharger_collabo"
+    },
+    {
         "key": "splatscope",
         "aliases": [
-            "splatterscope",
-            "2020"
+            "2020",
+            "splatterscope"
         ],
         "type": {
             "key": "charger",
@@ -4250,10 +5100,95 @@
         "reskin_of": "splatscope"
     },
     {
+        "key": "splatscope_collabo",
+        "aliases": [
+            "2021",
+            "z_f_splatterscope"
+        ],
+        "type": {
+            "key": "charger",
+            "aliases": [],
+            "name": {
+                "de_DE": "Chargers",
+                "en_GB": "Chargers",
+                "en_US": "Chargers",
+                "es_ES": "Cargatintas",
+                "es_MX": "Cargatintas",
+                "fr_CA": "Fusil",
+                "fr_FR": "Fusil",
+                "it_IT": "Chargers",
+                "ja_JP": "チャージャー",
+                "ko_KR": "차저",
+                "nl_NL": "Chargers",
+                "ru_RU": "Chargers",
+                "zh_CN": "蓄力狙击枪",
+                "zh_TW": "蓄力狙擊槍"
+            }
+        },
+        "name": {
+            "de_DE": "Zekkori-Ziel-Konzentrator",
+            "en_GB": "Z+F Splatterscope",
+            "en_US": "Z+F Splatterscope",
+            "es_ES": "Cargatintas con mira Ezkkor",
+            "es_MX": "Telecargatintas ZyS",
+            "fr_CA": "Concentraceur zoom E+A",
+            "fr_FR": "Concentraceur zoom E+F",
+            "it_IT": "Splatter con mirino logo",
+            "ja_JP": "スプラスコープコラボ",
+            "ko_KR": "스플랫 스코프 컬래버",
+            "nl_NL": "Zekkofin Schelpschutter",
+            "ru_RU": "Снайпокрас «ЙожкоТюр»",
+            "zh_CN": "斯普拉准星枪 联名",
+            "zh_TW": "斯普拉準星槍 聯名"
+        },
+        "main": "splatscope",
+        "sub": {
+            "key": "splashshield",
+            "aliases": [],
+            "name": {
+                "de_DE": "Tintenwall",
+                "en_GB": "Splash Wall",
+                "en_US": "Splash Wall",
+                "es_ES": "Telón de tinta",
+                "es_MX": "Barricada",
+                "fr_CA": "Mur d'encre",
+                "fr_FR": "Mur d'encre",
+                "it_IT": "Muro di colore",
+                "ja_JP": "スプラッシュシールド",
+                "ko_KR": "스플래시 실드",
+                "nl_NL": "Inktgordijn",
+                "ru_RU": "Чернильный занавес",
+                "zh_CN": "斯普拉防护墙",
+                "zh_TW": "斯普拉防護牆"
+            }
+        },
+        "special": {
+            "key": "tripletornado",
+            "aliases": [],
+            "name": {
+                "de_DE": "Tri-Tintferno",
+                "en_GB": "Triple Inkstrike",
+                "en_US": "Triple Inkstrike",
+                "es_ES": "Tornado triple",
+                "es_MX": "Tornado triple",
+                "fr_CA": "Trimissile tornade",
+                "fr_FR": "Trimissile tornade",
+                "it_IT": "Triplo tornado",
+                "ja_JP": "トリプルトルネード",
+                "ko_KR": "트리플 토네이도",
+                "nl_NL": "Tri-tornado",
+                "ru_RU": "Тройной торнадо",
+                "zh_CN": "三重龙卷风",
+                "zh_TW": "三重龍捲風"
+            }
+        },
+        "reskin_of": "splatscope_collabo"
+    },
+    {
         "key": "squiclean_a",
         "aliases": [
-            "classic_squiffer",
-            "2000"
+            "2000",
+            "classic_squiffer"
         ],
         "type": {
             "key": "charger",
@@ -4337,8 +5272,8 @@
     {
         "key": "bucketslosher",
         "aliases": [
-            "slosher",
-            "3000"
+            "3000",
+            "slosher"
         ],
         "type": {
             "key": "slosher",
@@ -4591,8 +5526,8 @@
     {
         "key": "furo",
         "aliases": [
-            "bloblobber",
-            "3030"
+            "3030",
+            "bloblobber"
         ],
         "type": {
             "key": "slosher",
@@ -4676,8 +5611,8 @@
     {
         "key": "hissen",
         "aliases": [
-            "tri_slosher",
-            "3010"
+            "3010",
+            "tri_slosher"
         ],
         "type": {
             "key": "slosher",
@@ -4759,10 +5694,95 @@
         "reskin_of": "hissen"
     },
     {
+        "key": "hissen_hue",
+        "aliases": [
+            "3011",
+            "tri_slosher_nouveau"
+        ],
+        "type": {
+            "key": "slosher",
+            "aliases": [],
+            "name": {
+                "de_DE": "Sloshers",
+                "en_GB": "Sloshers",
+                "en_US": "Sloshers",
+                "es_ES": "Derramatics",
+                "es_MX": "Derramatics",
+                "fr_CA": "Seauceur",
+                "fr_FR": "Seauceur",
+                "it_IT": "Sloshers",
+                "ja_JP": "スロッシャー",
+                "ko_KR": "슬로셔",
+                "nl_NL": "Sloshers",
+                "ru_RU": "Sloshers",
+                "zh_CN": "泼桶",
+                "zh_TW": "潑桶"
+            }
+        },
+        "name": {
+            "de_DE": "3R-Schwapper Fresco",
+            "en_GB": "Tri-Slosher Nouveau",
+            "en_US": "Tri-Slosher Nouveau",
+            "es_ES": "Derramatic triple maestro",
+            "es_MX": "Derramatic triple maestro",
+            "fr_CA": "Seauceur nuancé",
+            "fr_FR": "Dépoteur nuancé",
+            "it_IT": "Secchiostro triplo master",
+            "ja_JP": "ヒッセン・ヒュー",
+            "ko_KR": "물통 휴",
+            "nl_NL": "Triomorser Nouveau",
+            "ru_RU": "Ведроган 3 в 1 «НуВо»",
+            "zh_CN": "洗笔桶·新艺术",
+            "zh_TW": "洗筆桶‧新藝術"
+        },
+        "main": "hissen",
+        "sub": {
+            "key": "tansanbomb",
+            "aliases": [],
+            "name": {
+                "de_DE": "Sprudel-Bombe",
+                "en_GB": "Fizzy Bomb",
+                "en_US": "Fizzy Bomb",
+                "es_ES": "Bomba carbónica",
+                "es_MX": "Bomba carbónica",
+                "fr_CA": "Bombe soda",
+                "fr_FR": "Bombe soda",
+                "it_IT": "Bomba a gassosa",
+                "ja_JP": "タンサンボム",
+                "ko_KR": "탄산 밤",
+                "nl_NL": "Bomblikje",
+                "ru_RU": "Содовая бомба",
+                "zh_CN": "碳酸炸弹",
+                "zh_TW": "碳酸炸彈"
+            }
+        },
+        "special": {
+            "key": "energystand",
+            "aliases": [],
+            "name": {
+                "de_DE": "Tranktank",
+                "en_GB": "Tacticooler",
+                "en_US": "Tacticooler",
+                "es_ES": "Dispensabebidas",
+                "es_MX": "Dispensabebidas",
+                "fr_CA": "Districool",
+                "fr_FR": "Districool",
+                "it_IT": "Rinfrigorente",
+                "ja_JP": "エナジースタンド",
+                "ko_KR": "에너지 스탠드",
+                "nl_NL": "Reddingsbar",
+                "ru_RU": "Тоникулер",
+                "zh_CN": "能量站",
+                "zh_TW": "能量站"
+            }
+        },
+        "reskin_of": "hissen_hue"
+    },
+    {
         "key": "screwslosher",
         "aliases": [
-            "sloshing_machine",
-            "3020"
+            "3020",
+            "sloshing_machine"
         ],
         "type": {
             "key": "slosher",
@@ -4846,8 +5866,8 @@
     {
         "key": "barrelspinner",
         "aliases": [
-            "heavy_splatling",
-            "4010"
+            "4010",
+            "heavy_splatling"
         ],
         "type": {
             "key": "spinner",
@@ -4931,8 +5951,8 @@
     {
         "key": "hydra",
         "aliases": [
-            "hydra_splatling",
-            "4020"
+            "4020",
+            "hydra_splatling"
         ],
         "type": {
             "key": "spinner",
@@ -5016,8 +6036,8 @@
     {
         "key": "kugelschreiber",
         "aliases": [
-            "ballpoint_splatling",
-            "4030"
+            "4030",
+            "ballpoint_splatling"
         ],
         "type": {
             "key": "spinner",
@@ -5101,8 +6121,8 @@
     {
         "key": "nautilus47",
         "aliases": [
-            "nautilus_47",
-            "4040"
+            "4040",
+            "nautilus_47"
         ],
         "type": {
             "key": "spinner",
@@ -5186,8 +6206,8 @@
     {
         "key": "splatspinner",
         "aliases": [
-            "mini_splatling",
-            "4000"
+            "4000",
+            "mini_splatling"
         ],
         "type": {
             "key": "spinner",
@@ -5356,8 +6376,8 @@
     {
         "key": "campingshelter",
         "aliases": [
-            "tenta_brella",
-            "6010"
+            "6010",
+            "tenta_brella"
         ],
         "type": {
             "key": "brella",
@@ -5441,8 +6461,8 @@
     {
         "key": "parashelter",
         "aliases": [
-            "splat_brella",
-            "6000"
+            "6000",
+            "splat_brella"
         ],
         "type": {
             "key": "brella",
@@ -5526,8 +6546,8 @@
     {
         "key": "spygadget",
         "aliases": [
-            "undercover_brella",
-            "6020"
+            "6020",
+            "undercover_brella"
         ],
         "type": {
             "key": "brella",
@@ -5611,8 +6631,8 @@
     {
         "key": "lact450",
         "aliases": [
-            "reef_lux_450",
-            "7020"
+            "7020",
+            "reef_lux_450"
         ],
         "type": {
             "key": "stringer",
@@ -5696,8 +6716,8 @@
     {
         "key": "tristringer",
         "aliases": [
-            "tri_stringer",
-            "7010"
+            "7010",
+            "tri_stringer"
         ],
         "type": {
             "key": "stringer",

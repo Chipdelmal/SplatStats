@@ -80,9 +80,9 @@ plt.close()
 ###############################################################################
 killsTotal = playerHistory['kassist'].sum()
 wColors = [
-    '#2DD9B6', '#4F55ED', '#B14A8D', '#7F7F99', '#C70864', 
-    '#2CB721', '#4B25C9', '#830B9C', '#C6D314', '#0D37C3', 
-    '#C920B7', '#571DB1', '#14BBE7', '#38377A', '#990F2B'
+    '#2DD9B6', '#4F55ED', '#B14A8D', '#C70864', '#2CB721', 
+    '#4B25C9', '#830B9C', '#C6D314', '#0D37C3', '#C920B7', 
+    '#571DB1', '#14BBE7', '#38377A', '#990F2B', '#7F7F99',
 ][::-1]
 (fig, ax) = splat.plotCircularBarchartStat(
     playerHistory, cat='main weapon', stat='kassist', aggFun=np.sum,

@@ -19,6 +19,7 @@ import chord as chd
 
 
 USR='dsk'
+# ['Drizzle Season 2022', 'Chill Season 2022', 'Fresh Season 2023']
 SEASON = 'Chill Season 2022'
 TOP = 20
 ###############################################################################
