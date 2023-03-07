@@ -27,17 +27,30 @@ def dumpBattlesFromJSONS(historyFilepaths, oPath, overwrite=True):
     cpt = colored(f'Parsing JSONs to battle object files (pkl)', 'red')
     print(cpt, end='\r')
     for fName in tqdm(hFiles):
-        # Load JSON -------------------------------------------------------
+        # Load JSON ----------------------------------------------------------
         with open(fName, 'r') as file:
             data = json.load(file)
-        # Process battles in file -----------------------------------------
+        # Process battles in file --------------------------------------------
         histSize = len(data)
-        for i in range(histSize):
+        if histSize > 1:
+            # Older s3s versions ---------------------------------------------
+            for i in range(histSize):
+                try:
+                    bDetail = data[i]['data']['vsHistoryDetail']
+                    # Process battle history ---------------------------------
+                    battle = bat.Battle(bDetail)
+                    # Export battle history ----------------------------------
+                    bPath = battle.dumpBattle(oPath, overwrite=overwrite)
+                    bPaths.append(bPath)
+                except:
+                    pass
+        else:
+            # New s3s versions (> 1.3.4) -------------------------------------
             try:
-                bDetail = data[i]['data']['vsHistoryDetail']
-                # Process battle history ---------------------------------
+                bDetail = data['data']['vsHistoryDetail']
+                # Process battle history -------------------------------------
                 battle = bat.Battle(bDetail)
-                # Export battle history ----------------------------------
+                # Export battle history --------------------------------------
                 bPath = battle.dumpBattle(oPath, overwrite=overwrite)
                 bPaths.append(bPath)
             except:
@@ -47,19 +60,27 @@ def dumpBattlesFromJSONS(historyFilepaths, oPath, overwrite=True):
 ###########################################################################
 # Get filepaths
 ###########################################################################
-def getDataFilepaths(iPath, fldrPat='export-*', filePat='results.json'):
+def getDataFilepaths(
+        iPath, fldrPat='export-*', 
+        filePat='results.json',
+        newPat=True
+    ):
     """Gets the filepaths in which files with a certain pattern can be found inside folders with a given pattern.
 
     Args:
         iPath (str): Base path in which we will perform the folders search.
         fldrPat (str, optional): Glob pattern for folder matches. Defaults to 'export-\*'.
         filePat (str, optional): Glob pattern for file matches inside the folders. Defaults to 'results.json'.
-
+        newPat (bool, optional): Set to True if using s3s >=v1.3.4
+        
     Returns:
         list: List of filepaths that match the provided patterns.
     """    
     hFolders = aux.getHistoryFolders(iPath, fldrPat=fldrPat)
-    hFiles = aux.getHistoryFiles(hFolders, pattern=filePat) 
+    hFiles = aux.getHistoryFiles(hFolders, pattern=filePat)
+    if newPat:
+        fnames = glob(path.join(iPath, 'exports/results/*.json'))
+        hFiles.extend(fnames)
     return hFiles
 
 

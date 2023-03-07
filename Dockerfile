@@ -7,6 +7,7 @@ LABEL maintainer="Hector M. Sanchez C. <sanchez.hmsc@berkeley.edu>"
 ###############################################################################
 RUN apt-get update \
     && python -m pip install --upgrade pip \
+    && pip install --upgrade pip \
     && pip install beautifulsoup4 msgpack_python packaging Pillow requests \
     && mkdir SplatStats \
     && mkdir other \
