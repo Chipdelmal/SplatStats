@@ -1,3 +1,60 @@
+# !/usr/bin/env python3
+
+# https://github.com/fetus-hina/stat.ink/wiki/Spl3-%EF%BC%8D-CSV-Schema-%EF%BC%8D-Battle
+# https://stat.ink/api-info/weapon3
+
+import fileinput
+from os import path, system
+from glob import glob
+import pandas as pd
+import numpy as np
+from random import shuffle
+import matplotlib.pyplot as plt
+from colour import Color
+from matplotlib.ticker import EngFormatter
+from sklearn.feature_extraction import DictVectorizer
+from collections import Counter
+import SplatStats as splat
+import chord as chd
+
+
+USR='dsk'
+# ['Drizzle Season 2022', 'Chill Season 2022', 'Fresh Season 2023']
+SEASON = 'Fresh Season 2023'
+TOP = 20
+###############################################################################
+# Get files and set font
+###############################################################################
+if USR=='lab':
+    DATA_PATH = '/Users/sanchez.hmsc/Sync/BattlesDocker/'
+else:
+    DATA_PATH = '/home/chipdelmal/Documents/Sync/BattlesDocker/'
+FPATHS = glob(path.join(DATA_PATH, 'battle-results-csv', '*-*-*.csv'))
+splat.setSplatoonFont(DATA_PATH, fontName="Splatfont 2")
+###############################################################################
+# Parse Data Object
+###############################################################################
+statInk = splat.StatInk(path.join(DATA_PATH, 'battle-results-csv'))
+btls = statInk.battlesResults
+(names, matrix) = splat.calculateDominanceMatrixWins(btls)
+ix = names.index("Splash-o-matic")
+tups = [(names[i], matrix[ix, i]) for i in range(len(matrix))]
+tups.sort(key = lambda x: x[1])
+#
+(totalW, totalL) = (np.sum(matrix, axis=1), np.sum(matrix, axis=0))
+totalM = totalW + totalL
+#
+wmat = np.array([matrix[i]/totalM[i] for i in range(len(matrix))])
+ix = names.index("Splash-o-matic")
+tups = [(names[i], wmat[ix, i]) for i in range(len(wmat))]
+tups.sort(key = lambda x: x[1])
+
+wpnsTriplets = zip(names, totalM, totalW, totalL)
+wpnSortZip = zip(totalM, wpnsTriplets)
+wpnsDict = {x[0]: (x[1], x[2], x[3]) for (_, x) in sorted(wpnSortZip)[::]}
+wlRatio = [i[1]/i[0] for i in wpnsDict.values()]
+
+
 ###############################################################################
 # Chord Analysis
 ###############################################################################
