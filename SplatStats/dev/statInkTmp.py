@@ -18,7 +18,7 @@ import SplatStats as splat
 import chord as chd
 
 
-USR='dsk'
+USR='lab'
 # ['Drizzle Season 2022', 'Chill Season 2022', 'Fresh Season 2023']
 SEASON = 'Fresh Season 2023'
 TOP = 20
@@ -37,23 +37,32 @@ splat.setSplatoonFont(DATA_PATH, fontName="Splatfont 2")
 statInk = splat.StatInk(path.join(DATA_PATH, 'battle-results-csv'))
 btls = statInk.battlesResults
 (names, matrix) = splat.calculateDominanceMatrixWins(btls)
-ix = names.index("Splash-o-matic")
-tups = [(names[i], matrix[ix, i]) for i in range(len(matrix))]
+ix = names.index("Splattershot")
+winsDiff = matrix[ix]/matrix[:,ix]
+tups = [(names[i], winsDiff[i]) for i in range(len(matrix))]
 tups.sort(key = lambda x: x[1])
+tups
 #
-(totalW, totalL) = (np.sum(matrix, axis=1), np.sum(matrix, axis=0))
-totalM = totalW + totalL
-#
-wmat = np.array([matrix[i]/totalM[i] for i in range(len(matrix))])
-ix = names.index("Splash-o-matic")
-tups = [(names[i], wmat[ix, i]) for i in range(len(wmat))]
-tups.sort(key = lambda x: x[1])
+tauW = np.zeros((len(matrix), len(matrix)))
+for (ix, wp) in enumerate(names):
+    winsDiff = matrix[ix]/matrix[:,ix]
+    tauW[ix] = winsDiff
+    
 
-wpnsTriplets = zip(names, totalM, totalW, totalL)
-wpnSortZip = zip(totalM, wpnsTriplets)
-wpnsDict = {x[0]: (x[1], x[2], x[3]) for (_, x) in sorted(wpnSortZip)[::]}
-wlRatio = [i[1]/i[0] for i in wpnsDict.values()]
+(fig, ax) = plt.subplots(figsize=(20, 20))
+ax.matshow(tauW, vmin=0.5, vmax=1.5, cmap='bwr')
+ax.set_xticks(np.arange(0, len(names)))
+ax.set_yticks(np.arange(0, len(names)))
+ax.set_xticklabels(names, rotation=90)
+ax.set_yticklabels(names)
 
+
+# TESTS  ----------------------------------------------------------------------
+(up, lo) = (np.triu(matrix, k=0), np.tril(matrix, k=0))
+mat = np.copy(matrix)
+np.fill_diagonal(mat, 0)
+np.fill_diagonal(up, 0)
+np.fill_diagonal(lo, 0)
 
 ###############################################################################
 # Chord Analysis
