@@ -16,17 +16,20 @@ from sklearn.feature_extraction import DictVectorizer
 from collections import Counter
 import SplatStats as splat
 import chord as chd
+import matplotlib.colors as colors
 
 
-USR='lab'
+USR='lap'
 # ['Drizzle Season 2022', 'Chill Season 2022', 'Fresh Season 2023']
-SEASON = 'Fresh Season 2023'
+SEASON = 'Drizzle Season 2022'
 TOP = 20
 ###############################################################################
 # Get files and set font
 ###############################################################################
 if USR=='lab':
     DATA_PATH = '/Users/sanchez.hmsc/Sync/BattlesDocker/'
+elif USR=='lap':
+    DATA_PATH = '/Users/sanchez.hmsc/Documents/SyncMega/BattlesDocker'
 else:
     DATA_PATH = '/home/chipdelmal/Documents/Sync/BattlesDocker/'
 FPATHS = glob(path.join(DATA_PATH, 'battle-results-csv', '*-*-*.csv'))
@@ -36,26 +39,83 @@ splat.setSplatoonFont(DATA_PATH, fontName="Splatfont 2")
 ###############################################################################
 statInk = splat.StatInk(path.join(DATA_PATH, 'battle-results-csv'))
 btls = statInk.battlesResults
-(names, matrix) = splat.calculateDominanceMatrixWins(btls)
+###############################################################################
+# Filter by Constraints
+###############################################################################
+fltrs = (btls['season']==SEASON, )
+fltrBool = [all(i) for i in zip(*fltrs)]
+btlsFiltered = btls[fltrBool]
+###############################################################################
+# Matrices
+###############################################################################
+(names, matrix) = splat.calculateDominanceMatrixWins(btlsFiltered)
 ix = names.index("Splattershot")
 winsDiff = matrix[ix]/matrix[:,ix]
 tups = [(names[i], winsDiff[i]) for i in range(len(matrix))]
 tups.sort(key = lambda x: x[1])
-tups
+(totalW, totalL) = (np.sum(matrix, axis=1), np.sum(matrix, axis=0))
+totalM = totalW + totalL
 #
 tauW = np.zeros((len(matrix), len(matrix)))
 for (ix, wp) in enumerate(names):
     winsDiff = matrix[ix]/matrix[:,ix]
     tauW[ix] = winsDiff
-    
 
 (fig, ax) = plt.subplots(figsize=(20, 20))
-ax.matshow(tauW, vmin=0.5, vmax=1.5, cmap='bwr')
+ax.matshow(tauW, vmin=.5, vmax=1.5, cmap='bwr')
 ax.set_xticks(np.arange(0, len(names)))
 ax.set_yticks(np.arange(0, len(names)))
 ax.set_xticklabels(names, rotation=90)
 ax.set_yticklabels(names)
+plt.savefig(
+    path.join('/Users/sanchez.hmsc/Desktop', 'Matrix.png'),
+    dpi=300, transparent=False, facecolor='#ffffff', 
+    bbox_inches='tight'
+)
 
+
+
+tauX = np.copy(tauW)
+sorting = list(np.argsort(totalM))[::-1]
+tauS = tauX[sorting][:,sorting]
+namS = [names[i] for i in sorting]
+
+(fig, ax) = plt.subplots(figsize=(20, 20))
+ax.matshow(tauS, vmin=0.5, vmax=1.5, cmap='bwr')
+ax.set_xticks(np.arange(0, len(namS)))
+ax.set_yticks(np.arange(0, len(namS)))
+ax.set_xticklabels(namS, rotation=90)
+ax.set_yticklabels(namS)
+plt.savefig(
+    path.join('/Users/sanchez.hmsc/Desktop', 'MatrixSorted.png'),
+    dpi=300, transparent=False, facecolor='#ffffff', 
+    bbox_inches='tight'
+)
+
+
+tauW[tauW<=1]=0
+
+pad = 1.5
+norm = colors.LogNorm(vmin=0.1, vmax=np.max(tauW))
+colorPalette = splat.colorPaletteFromHexList(['#bdedf6', '#04067B'])
+pColors = [colorPalette(norm(i)) for i in np.sum(tauW, axis=1)]
+(fig, ax) = plt.subplots(figsize=(20, 20))
+ax = chd.chord_modded(
+    tauW, names, 
+    ax=ax, rotate_names=[True]*len(names),
+    fontcolor='k', chordwidth=.7, width=0.1, fontsize=4,
+    extent=360, start_at=0, use_gradient=True, directed=False,
+    cmap='plasma'
+    # colors=pColors, 
+)
+ax.set_xlim(-pad, pad)
+ax.set_ylim(-pad, pad)
+ax.axis('off')
+plt.savefig(
+    path.join('/Users/sanchez.hmsc/Desktop', 'Chord.png'),
+    dpi=300, transparent=False, facecolor='#ffffff', 
+    bbox_inches='tight'
+)
 
 # TESTS  ----------------------------------------------------------------------
 (up, lo) = (np.triu(matrix, k=0), np.tril(matrix, k=0))
