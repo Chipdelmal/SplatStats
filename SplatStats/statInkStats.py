@@ -101,3 +101,5 @@ def plotStackedBar(
     ax.set_xlim(-w/2, w/2)
     ax.set_ylim(0, np.sum(data))
     return (fig, ax)
+
+
