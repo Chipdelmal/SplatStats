@@ -21,7 +21,7 @@ import matplotlib.colors as colors
 
 USR='dsk'
 # ['Drizzle Season 2022', 'Chill Season 2022', 'Fresh Season 2023']
-SEASON = 'Drizzle Season 2022'
+SEASON = 'Chill Season 2022'
 TOP = 20
 ###############################################################################
 # Get files and set font
@@ -55,14 +55,18 @@ tups = [(names[i], winsDiff[i]) for i in range(len(matrix))]
 tups.sort(key = lambda x: x[1])
 (totalW, totalL) = (np.sum(matrix, axis=1), np.sum(matrix, axis=0))
 totalM = totalW + totalL
-#
+# Compile wins matrix ---------------------------------------------------------
 tauW = np.zeros((len(matrix), len(matrix)))
 for (ix, wp) in enumerate(names):
     winsDiff = matrix[ix]/matrix[:,ix]
     tauW[ix] = winsDiff
-
+###############################################################################
+# MatPlot
+###############################################################################
+# Unsorted --------------------------------------------------------------------
+pal = splat.colorPaletteFromHexList(['#000000', '#FFFFFF', '#1D07AC'])
 (fig, ax) = plt.subplots(figsize=(20, 20))
-ax.matshow(tauW, vmin=.5, vmax=1.5, cmap='bwr')
+ax.matshow(tauW, vmin=.5, vmax=1.5, cmap=pal)
 ax.set_xticks(np.arange(0, len(names)))
 ax.set_yticks(np.arange(0, len(names)))
 ax.set_xticklabels(names, rotation=90)
@@ -72,16 +76,19 @@ plt.savefig(
     dpi=300, transparent=False, facecolor='#ffffff', 
     bbox_inches='tight'
 )
-
-
-
+# Sorted ----------------------------------------------------------------------
 tauX = np.copy(tauW)
+# Most popular
 sorting = list(np.argsort(totalM))[::-1]
+# Most over
+sorting = list(np.argsort([np.sum(r>=1) for r in tauX]))[::-1]
+
 tauS = tauX[sorting][:,sorting]
 namS = [names[i] for i in sorting]
 
+pal = splat.colorPaletteFromHexList(['#000000', '#FFFFFF', '#1D07AC'])
 (fig, ax) = plt.subplots(figsize=(20, 20))
-ax.matshow(tauS, vmin=0.5, vmax=1.5, cmap='bwr')
+ax.matshow(tauS, vmin=0.5, vmax=1.5, cmap=pal)
 ax.set_xticks(np.arange(0, len(namS)))
 ax.set_yticks(np.arange(0, len(namS)))
 ax.set_xticklabels(namS, rotation=90)
@@ -91,8 +98,18 @@ plt.savefig(
     dpi=300, transparent=False, facecolor='#ffffff', 
     bbox_inches='tight'
 )
-
-
+# Sliced ----------------------------------------------------------------------
+pal = splat.colorPaletteFromHexList(['#000000', '#FFFFFF', '#1D07AC'])
+fig, ax = plt.subplots()
+data1 = tauS.copy()
+data1[6, :] = float('nan')
+data2 = tauS.copy()
+data2[:6, :] = float('nan')
+im_1 = ax.imshow(data1, cmap='Reds')
+im_2 = ax.imshow(data2, cmap='Blues')
+im = np.vstack((im_1, im_2))
+plt.show()
+# Unknown ---------------------------------------------------------------------
 tauW[tauW<=1]=0
 
 pad = 1.5
@@ -116,14 +133,12 @@ plt.savefig(
     dpi=300, transparent=False, facecolor='#ffffff', 
     bbox_inches='tight'
 )
-
 # TESTS  ----------------------------------------------------------------------
 (up, lo) = (np.triu(matrix, k=0), np.tril(matrix, k=0))
 mat = np.copy(matrix)
 np.fill_diagonal(mat, 0)
 np.fill_diagonal(up, 0)
 np.fill_diagonal(lo, 0)
-
 ###############################################################################
 # Chord Analysis
 ###############################################################################
