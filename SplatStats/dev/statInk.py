@@ -18,9 +18,9 @@ import SplatStats as splat
 import chord as chd
 
 
-USR='dsk'
+USR='lab'
 # ['Drizzle Season 2022', 'Chill Season 2022', 'Fresh Season 2023']
-SEASON = 'Fresh Season 2023'
+SEASON = 'Chill Season 2022'
 TOP = 20
 ###############################################################################
 # Get files and set font
@@ -112,7 +112,7 @@ data = [[i[0]/1000] for i in data]
     show_values=True, 
     value_format="{:.0f}k",
     colors=[
-        '#413BBA', '#C83D79', '#8ED11E', '#FDFF00', '#03C1CD', '#C70864'
+        '#2E0CB5', '#B400FF', '#6BFF00', '#525CF5', '#FDFF00', '#D01D79'
     ],
     fontsize=8.5, xTickOffset=0.7
 )
@@ -157,7 +157,7 @@ x = xys[0][0]
 ax.stackplot(
     xys[0][0], *[-y[1] for y in xys], 
     labels=gModes, baseline='zero',
-    colors=['#CD2D7E', '#FFFF00', '#435BF3', '#8ACF47', '#3D1F7A']
+    colors=['#DE0B64', '#FFFF00', '#525CF5', '#6BFF00', '#311AA8']
 )
 ax.legend(loc='upper left').remove()
 ax.set_xlim(0, x[-1])
