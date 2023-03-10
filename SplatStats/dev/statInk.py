@@ -20,7 +20,7 @@ import chord as chd
 
 USR='lab'
 # ['Drizzle Season 2022', 'Chill Season 2022', 'Fresh Season 2023']
-SEASON = 'Chill Season 2022'
+SEASON = 'Fresh Season 2023'
 TOP = 20
 ###############################################################################
 # Get files and set font
