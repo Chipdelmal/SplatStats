@@ -3,7 +3,6 @@
 # https://github.com/fetus-hina/stat.ink/wiki/Spl3-%EF%BC%8D-CSV-Schema-%EF%BC%8D-Battle
 # https://stat.ink/api-info/weapon3
 
-import fileinput
 from os import path, system
 from glob import glob
 import pandas as pd

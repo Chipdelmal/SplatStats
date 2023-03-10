@@ -19,7 +19,7 @@ import chord as chd
 import matplotlib.colors as colors
 
 
-USR='lap'
+USR='dsk'
 # ['Drizzle Season 2022', 'Chill Season 2022', 'Fresh Season 2023']
 SEASON = 'Drizzle Season 2022'
 TOP = 20
@@ -48,7 +48,7 @@ btlsFiltered = btls[fltrBool]
 ###############################################################################
 # Matrices
 ###############################################################################
-(names, matrix) = splat.calculateDominanceMatrixWins(btlsFiltered)
+(names, matrix) = splat.calculateDominanceMatrixWins(btls)
 ix = names.index("Splattershot")
 winsDiff = matrix[ix]/matrix[:,ix]
 tups = [(names[i], winsDiff[i]) for i in range(len(matrix))]
@@ -68,7 +68,7 @@ ax.set_yticks(np.arange(0, len(names)))
 ax.set_xticklabels(names, rotation=90)
 ax.set_yticklabels(names)
 plt.savefig(
-    path.join('/Users/sanchez.hmsc/Desktop', 'Matrix.png'),
+    path.join(DATA_PATH, 'statInk/'+'Matrix.png'),
     dpi=300, transparent=False, facecolor='#ffffff', 
     bbox_inches='tight'
 )
@@ -87,7 +87,7 @@ ax.set_yticks(np.arange(0, len(namS)))
 ax.set_xticklabels(namS, rotation=90)
 ax.set_yticklabels(namS)
 plt.savefig(
-    path.join('/Users/sanchez.hmsc/Desktop', 'MatrixSorted.png'),
+    path.join(DATA_PATH, 'statInk/'+'MatrixSorted.png'),
     dpi=300, transparent=False, facecolor='#ffffff', 
     bbox_inches='tight'
 )
