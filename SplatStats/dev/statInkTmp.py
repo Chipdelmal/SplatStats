@@ -17,7 +17,7 @@ from collections import Counter
 import SplatStats as splat
 import chord as chd
 import matplotlib.colors as colors
-
+from scipy.stats import entropy
 
 USR='dsk'
 # ['Drizzle Season 2022', 'Chill Season 2022', 'Fresh Season 2023']
@@ -42,13 +42,14 @@ btls = statInk.battlesResults
 ###############################################################################
 # Filter by Constraints
 ###############################################################################
-fltrs = (btls['season']==SEASON, )
+# for gmode in ('Tower Control', 'Splat Zones', 'Turf War', 'Clam Blitz', 'Rainmaker'):
+fltrs = (btls['season']==SEASON, ) # btls['mode']==gmode)
 fltrBool = [all(i) for i in zip(*fltrs)]
 btlsFiltered = btls[fltrBool]
 ###############################################################################
 # Matrices
 ###############################################################################
-(names, matrix) = splat.calculateDominanceMatrixWins(btls)
+(names, matrix) = splat.calculateDominanceMatrixWins(btlsFiltered)
 ix = names.index("Splattershot")
 winsDiff = matrix[ix]/matrix[:,ix]
 tups = [(names[i], winsDiff[i]) for i in range(len(matrix))]
@@ -60,6 +61,12 @@ tauW = np.zeros((len(matrix), len(matrix)))
 for (ix, wp) in enumerate(names):
     winsDiff = matrix[ix]/matrix[:,ix]
     tauW[ix] = winsDiff
+# np.nanmean(entropy(tauW, axis=1))
+sds = [np.nanstd(r[~np.isinf(r)]) for r in tauW]
+(fig, ax) = plt.subplots(figsize=(2, 6))
+ax.violinplot(sds, showmeans=True, showmedians=False, showextrema=False)
+# ax.set_title(gmode)
+ax.set_ylim(0, 1)
 ###############################################################################
 # MatPlot
 ###############################################################################
@@ -85,6 +92,7 @@ sorting = list(np.argsort([np.sum(r>=1) for r in tauX]))[::-1]
 
 tauS = tauX[sorting][:,sorting]
 namS = [names[i] for i in sorting]
+
 
 pal = splat.colorPaletteFromHexList(['#000000', '#FFFFFF', '#1D07AC'])
 (fig, ax) = plt.subplots(figsize=(20, 20))

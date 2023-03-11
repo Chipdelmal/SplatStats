@@ -17,9 +17,9 @@ import SplatStats as splat
 import chord as chd
 
 
-USR='lab'
+USR='dsk'
 # ['Drizzle Season 2022', 'Chill Season 2022', 'Fresh Season 2023']
-SEASON = 'Fresh Season 2023'
+SEASON = 'Chill Season 2022'
 TOP = 20
 ###############################################################################
 # Get files and set font
@@ -76,7 +76,7 @@ shuffle(COLORS)
         'color': '#000000DD', 'fontsize': 1, 'fmt': '{:.1e}'
     },
     labelFmt={
-        'color': '#000000EE', 'fontsize': 4.25, 
+        'color': '#000000EE', 'fontsize': 3.75, 
         'ha': 'left', 'fmt': '{:.1f}'
     }
 )
@@ -87,8 +87,33 @@ for txt in xlabels:
     lab = txt.get_text()
     txt.set_text('{:.2f}M'.format(float(lab)/1e6))
 # labels[0].set_text('')
-ax.set_xticklabels(xlabels, rotation=0, fontsize=7.5)
+ax.set_xticklabels(xlabels, rotation=0, fontsize=8)
 fName = 'Polar - {}.png'.format(SEASON)
+plt.savefig(
+    path.join(DATA_PATH, 'statInk/'+fName),
+    dpi=350, transparent=False, facecolor='#ffffff', 
+    bbox_inches='tight'
+)
+plt.close('all')
+###########################################################################
+# Weapon Matrix
+###########################################################################
+tauW = np.zeros((len(matrix), len(matrix)))
+for (ix, wp) in enumerate(names):
+    winsDiff = matrix[ix]/matrix[:,ix]
+    tauW[ix] = winsDiff
+tauX = np.copy(tauW)
+sorting = list(np.argsort([np.sum(r>=1) for r in tauX]))[::-1]
+tauS = tauX[sorting][:,sorting]
+namS = [names[i] for i in sorting]
+pal = splat.colorPaletteFromHexList(['#D01D79', '#FFFFFF', '#1D07AC'])
+(fig, ax) = plt.subplots(figsize=(20, 20))
+ax.matshow(tauS, vmin=0.25, vmax=1.75, cmap=pal)
+ax.set_xticks(np.arange(0, len(namS)))
+ax.set_yticks(np.arange(0, len(namS)))
+ax.set_xticklabels(namS, rotation=90, fontsize=12.5)
+ax.set_yticklabels(namS, fontsize=12.5)
+fName = 'GMMatrix - {}.png'.format(SEASON)
 plt.savefig(
     path.join(DATA_PATH, 'statInk/'+fName),
     dpi=350, transparent=False, facecolor='#ffffff', 
@@ -152,11 +177,13 @@ xys = [
     splat.gaussianSmooth(list(df[gm]), gridSize=1000, sd=0.75) for gm in gModes
 ]
 x = xys[0][0]
+gModesCols = ['#DE0B64FF', '#FDFF00FF', '#0D37C3FF', '#71DA0CFF', '#531BBAFF']
+gModesColsB= ['#71DA0CFF', '#0D37C3FF', '#FDFF00FF', '#531BBAFF', '#DE0B64FF']
 (fig, ax) = (plt.figure(figsize=(20, 5)), plt.axes())
 ax.stackplot(
     xys[0][0], *[-y[1] for y in xys], 
     labels=gModes, baseline='zero',
-    colors=['#DE0B64', '#FFFF00', '#525CF5', '#6BFF00', '#311AA8']
+    colors=gModesCols
 )
 ax.legend(loc='upper left').remove()
 ax.set_xlim(0, x[-1])
@@ -190,7 +217,7 @@ COLORS = [c+'DD' for c in splat.ALL_COLORS]
 # Iterate through modes -------------------------------------------------------
 gModes = sorted(list(btlsFiltered['mode'].unique()))
 gMode = gModes[0]
-for gMode in gModes:
+for (gix, gMode) in enumerate(gModes):
     shuffle(COLORS)
     fltrs = (btlsFiltered['mode']==gMode, )
     fltrBool = [all(i) for i in zip(*fltrs)]
@@ -231,7 +258,7 @@ for gMode in gModes:
             'color': '#000000DD', 'fontsize': 1, 'fmt': '{:.1e}'
         },
         labelFmt={
-            'color': '#000000EE', 'fontsize': 12, 
+            'color': '#000000EE', 'fontsize': 14, 
             'ha': 'left', 'fmt': '{:.1f}'
         }
     )
@@ -240,7 +267,7 @@ for gMode in gModes:
         lab = txt.get_text()
         txt.set_text('{:.0f}k'.format(float(lab)/1e3))
     xlabels[0] = ''
-    ax.set_xticklabels(xlabels, rotation=0, fontsize=12.5)
+    ax.set_xticklabels(xlabels, rotation=0, fontsize=12)
     fName = 'GMFrequencyPolar {} - {}.png'.format(gMode, SEASON)
     ax.text(
         0.5, 0.48, 
@@ -300,6 +327,33 @@ for gMode in gModes:
         rotation=90
     )
     fName = 'GMFrequency {} - {}.png'.format(gMode, SEASON)
+    plt.savefig(
+        path.join(DATA_PATH, 'statInk/'+fName),
+        dpi=350, transparent=False, facecolor='#ffffff', 
+        bbox_inches='tight'
+    )
+    plt.close('all')
+    ###########################################################################
+    # Weapon Matrix
+    ###########################################################################
+    tauW = np.zeros((len(matrix), len(matrix)))
+    for (ix, wp) in enumerate(names):
+        winsDiff = matrix[ix]/matrix[:,ix]
+        tauW[ix] = winsDiff
+    tauX = np.copy(tauW)
+    sorting = list(np.argsort([np.sum(r>=1) for r in tauX]))[::-1]
+    tauS = tauX[sorting][:,sorting]
+    namS = [names[i] for i in sorting]
+    col = gModesCols[gix]
+    colB= gModesColsB[gix]
+    pal = splat.colorPaletteFromHexList([colB, '#FFFFFFFF', col])
+    (fig, ax) = plt.subplots(figsize=(20, 20))
+    ax.matshow(tauS, vmin=0, vmax=2, cmap=pal)
+    ax.set_xticks(np.arange(0, len(namS)))
+    ax.set_yticks(np.arange(0, len(namS)))
+    ax.set_xticklabels(namS, rotation=90, fontsize=12.5)
+    ax.set_yticklabels(namS, fontsize=12.5)
+    fName = 'GMMatrix {} - {}.png'.format(gMode, SEASON)
     plt.savefig(
         path.join(DATA_PATH, 'statInk/'+fName),
         dpi=350, transparent=False, facecolor='#ffffff', 
