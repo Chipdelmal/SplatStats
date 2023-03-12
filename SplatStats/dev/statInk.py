@@ -17,7 +17,7 @@ import SplatStats as splat
 import chord as chd
 
 
-USR='dsk'
+USR='lap'
 # ['Drizzle Season 2022', 'Chill Season 2022', 'Fresh Season 2023']
 SEASON = 'Chill Season 2022'
 TOP = 20
@@ -26,6 +26,8 @@ TOP = 20
 ###############################################################################
 if USR=='lab':
     DATA_PATH = '/Users/sanchez.hmsc/Sync/BattlesDocker/'
+elif USR=='lap':
+    DATA_PATH = '/Users/sanchez.hmsc/Documents/SyncMega/BattlesDocker'
 else:
     DATA_PATH = '/home/chipdelmal/Documents/Sync/BattlesDocker/'
 FPATHS = glob(path.join(DATA_PATH, 'battle-results-csv', '*-*-*.csv'))
@@ -98,7 +100,7 @@ plt.close('all')
 ###########################################################################
 # Weapon Matrix
 ###########################################################################
-TITLE = True
+TITLE = False
 RAN = 0.75
 tauW = np.zeros((len(matrix), len(matrix)))
 for (ix, wp) in enumerate(names):
@@ -109,29 +111,20 @@ sorting = list(np.argsort([np.sum(r>0) for r in tauX]))[::-1]
 tauS = tauX[sorting][:,sorting]
 namS = [names[i] for i in sorting]
 counts = [np.sum(r>0) for r in tauS]
-(tot, mns, sds) = (np.sum(tauS, axis=1), np.mean(tauS, axis=1), np.std(tauS, axis=1))
-lLabs = ['{}'.format(n, c) for (n, c) in zip(namS, counts)]
-rLabs = ['{:02d} ({:.2f}, {:.2f})'.format(t, m, s) for (t, m, s) in zip(counts, mns, sds)]
+(tot, mns, sds) = (
+    np.sum(tauS, axis=1), np.mean(tauS, axis=1), np.std(tauS, axis=1)
+)
+totMat = totalM[sorting]
+lLabs = ['{} ({})'.format(n, c) for (n, c) in zip(namS, counts)]
+tLabs = ['({}k) {}'.format(c, n) for (n, c) in zip(namS, [int(i) for i in totMat/1e3])]
 pal = splat.colorPaletteFromHexList(['#D01D79', '#FFFFFF', '#1D07AC'])
 (fig, ax) = plt.subplots(figsize=(20, 20))
 im = ax.matshow(tauS, vmin=-RAN, vmax=RAN, cmap=pal)
 ax.set_xticks(np.arange(0, len(namS)))
 ax.set_yticks(np.arange(0, len(namS)))
-ax.set_xticklabels(namS, rotation=90, fontsize=12.5)
+ax.set_xticklabels(tLabs, rotation=90, fontsize=12.5)
 ax.set_yticklabels(lLabs, fontsize=12.5)
 yLims = ax.get_ylim()
-# ax2 = ax.twinx()
-ax2 = fig.add_subplot(111, sharex=ax, frameon=False)
-ax2.matshow(tauS, vmin=-RAN, vmax=RAN, cmap=pal)
-ax2.yaxis.tick_right()
-# ax2.set_ylim(*yLims)
-ax2.set_xticks(np.arange(0, len(namS)))
-ax2.set_xticklabels(namS, rotation=90, fontsize=12.5)
-ax2.set_yticks(np.arange(0, len(namS)))
-ax2.set_yticklabels(rLabs, fontsize=12.5)
-# fig.colorbar(im, ax=ax, orientation="horizontal", pad=0.2)
-if TITLE:
-    ax.set_title(SEASON, fontsize=50, y=-.06)
 fName = 'GMMatrix - {}.png'.format(SEASON)
 plt.savefig(
     path.join(DATA_PATH, 'statInk/'+fName),

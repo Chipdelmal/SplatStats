@@ -3,12 +3,9 @@
 # https://github.com/fetus-hina/stat.ink/wiki/Spl3-%EF%BC%8D-CSV-Schema-%EF%BC%8D-Battle
 # https://stat.ink/api-info/weapon3
 
-import fileinput
-from os import path, system
+from os import path
 from glob import glob
-import pandas as pd
 import numpy as np
-from random import shuffle
 import matplotlib.pyplot as plt
 from colour import Color
 from matplotlib.ticker import EngFormatter
@@ -19,9 +16,9 @@ import chord as chd
 import matplotlib.colors as colors
 from scipy.stats import entropy
 
-USR='dsk'
-# ['Drizzle Season 2022', 'Chill Season 2022', 'Fresh Season 2023']
-SEASON = 'Chill Season 2022'
+(six, USR) = (0, 'lap')
+SSON = ['Drizzle Season 2022', 'Chill Season 2022', 'Fresh Season 2023']
+SEASON = SSON[six]
 TOP = 20
 ###############################################################################
 # Get files and set font
@@ -46,21 +43,66 @@ btls = statInk.battlesResults
 fltrs = (btls['season']==SEASON, ) # btls['mode']==gmode)
 fltrBool = [all(i) for i in zip(*fltrs)]
 btlsFiltered = btls[fltrBool]
-###############################################################################
-# Matrices
-###############################################################################
 (names, matrix) = splat.calculateDominanceMatrixWins(btlsFiltered)
-ix = names.index("Splattershot")
-winsDiff = matrix[ix]/matrix[:,ix]
-tups = [(names[i], winsDiff[i]) for i in range(len(matrix))]
-tups.sort(key = lambda x: x[1])
-(totalW, totalL) = (np.sum(matrix, axis=1), np.sum(matrix, axis=0))
-totalM = totalW + totalL
-# Compile wins matrix ---------------------------------------------------------
 tauW = np.zeros((len(matrix), len(matrix)))
 for (ix, wp) in enumerate(names):
     winsDiff = matrix[ix]/matrix[:,ix]
     tauW[ix] = winsDiff
+(totalW, totalL) = (np.sum(matrix, axis=1), np.sum(matrix, axis=0))
+totalM = totalW + totalL
+###############################################################################
+# Matrices
+###############################################################################
+(TITLE, RAN) = (True, 0.75)
+COLS = (
+    ('#B400FF', '#1D07AC'), ('#D01D79', '#1D07AC'), ('#6BFF00', '#1D07AC')
+)
+# Re-Arrange Stuff ------------------------------------------------------------
+tauX = np.copy(tauW)-1
+sorting = list(np.argsort([np.sum(r>0) for r in tauX]))[::-1]
+# sorting = list(np.argsort([np.sum(r) for r in tauX]))[::-1]
+tauS = tauX[sorting][:,sorting]
+namS = [names[i] for i in sorting]
+counts = [np.sum(r>0) for r in tauS]
+(tot, mns, sds) = (
+    np.sum(tauS, axis=1), np.mean(tauS, axis=1), np.std(tauS, axis=1)
+)
+totMat = totalM[sorting]
+lLabs = ['{} ({})'.format(n, c) for (n, c) in zip(namS, counts)]
+tLabs = ['({:03d}k) {}'.format(c, n) for (n, c) in zip(namS, [int(i) for i in totMat/1e3])]
+# rLabs = ['{:02d} ({:03d}k)'.format(t, s) for (t, s) in zip(counts, [int(i) for i in totMat/1e3])]
+pal = splat.colorPaletteFromHexList([COLS[six][0], '#FFFFFF', COLS[six][1]])
+(fig, ax) = plt.subplots(figsize=(20, 20))
+im = ax.matshow(tauS, vmin=-RAN, vmax=RAN, cmap=pal)
+ax.set_xticks(np.arange(0, len(namS)))
+ax.set_yticks(np.arange(0, len(namS)))
+ax.set_xticklabels(tLabs, rotation=90, fontsize=12.5)
+ax.set_yticklabels(lLabs, fontsize=12.5)
+yLims = ax.get_ylim()
+# ax2 = ax.twinx()
+# ax2 = fig.add_subplot(111, sharex=ax, frameon=False)
+# ax2.matshow(tauS, vmin=-RAN, vmax=RAN, cmap=pal)
+# ax2.yaxis.tick_right()
+# ax2.set_ylim(*yLims)
+# ax2.set_xticks(np.arange(0, len(namS)))
+# ax2.set_xticklabels(namS, rotation=90, fontsize=12.5)
+# ax2.set_yticks(np.arange(0, len(namS)))
+# ax2.set_yticklabels(rLabs, fontsize=12.5)
+# fig.colorbar(im, ax=ax, orientation="horizontal", pad=0.2)
+if TITLE:
+    ax.set_title(SEASON, fontsize=50, y=-.06)
+fName = '{} Weapon Matrix.png'.format(SEASON)
+plt.savefig(
+    path.join(DATA_PATH, 'statInk/'+fName),
+    dpi=350, transparent=False, facecolor='#ffffff', 
+    bbox_inches='tight'
+)
+plt.close('all')
+
+
+
+
+
 # np.nanmean(entropy(tauW, axis=1))
 sds = [np.nanstd(r[~np.isinf(r)]) for r in tauW]
 (fig, ax) = plt.subplots(figsize=(2, 6))
