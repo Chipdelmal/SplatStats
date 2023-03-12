@@ -98,21 +98,40 @@ plt.close('all')
 ###########################################################################
 # Weapon Matrix
 ###########################################################################
+TITLE = True
+RAN = 0.75
 tauW = np.zeros((len(matrix), len(matrix)))
 for (ix, wp) in enumerate(names):
     winsDiff = matrix[ix]/matrix[:,ix]
     tauW[ix] = winsDiff
-tauX = np.copy(tauW)
-sorting = list(np.argsort([np.sum(r>=1) for r in tauX]))[::-1]
+tauX = np.copy(tauW)-1
+sorting = list(np.argsort([np.sum(r>0) for r in tauX]))[::-1]
 tauS = tauX[sorting][:,sorting]
 namS = [names[i] for i in sorting]
+counts = [np.sum(r>0) for r in tauS]
+(tot, mns, sds) = (np.sum(tauS, axis=1), np.mean(tauS, axis=1), np.std(tauS, axis=1))
+lLabs = ['{}'.format(n, c) for (n, c) in zip(namS, counts)]
+rLabs = ['{:02d} ({:.2f}, {:.2f})'.format(t, m, s) for (t, m, s) in zip(counts, mns, sds)]
 pal = splat.colorPaletteFromHexList(['#D01D79', '#FFFFFF', '#1D07AC'])
 (fig, ax) = plt.subplots(figsize=(20, 20))
-ax.matshow(tauS, vmin=0.25, vmax=1.75, cmap=pal)
+im = ax.matshow(tauS, vmin=-RAN, vmax=RAN, cmap=pal)
 ax.set_xticks(np.arange(0, len(namS)))
 ax.set_yticks(np.arange(0, len(namS)))
 ax.set_xticklabels(namS, rotation=90, fontsize=12.5)
-ax.set_yticklabels(namS, fontsize=12.5)
+ax.set_yticklabels(lLabs, fontsize=12.5)
+yLims = ax.get_ylim()
+# ax2 = ax.twinx()
+ax2 = fig.add_subplot(111, sharex=ax, frameon=False)
+ax2.matshow(tauS, vmin=-RAN, vmax=RAN, cmap=pal)
+ax2.yaxis.tick_right()
+# ax2.set_ylim(*yLims)
+ax2.set_xticks(np.arange(0, len(namS)))
+ax2.set_xticklabels(namS, rotation=90, fontsize=12.5)
+ax2.set_yticks(np.arange(0, len(namS)))
+ax2.set_yticklabels(rLabs, fontsize=12.5)
+# fig.colorbar(im, ax=ax, orientation="horizontal", pad=0.2)
+if TITLE:
+    ax.set_title(SEASON, fontsize=50, y=-.06)
 fName = 'GMMatrix - {}.png'.format(SEASON)
 plt.savefig(
     path.join(DATA_PATH, 'statInk/'+fName),
@@ -179,7 +198,7 @@ xys = [
 x = xys[0][0]
 gModesCols = ['#DE0B64FF', '#FDFF00FF', '#0D37C3FF', '#71DA0CFF', '#531BBAFF']
 gModesColsB= ['#71DA0CFF', '#0D37C3FF', '#FDFF00FF', '#531BBAFF', '#DE0B64FF']
-(fig, ax) = (plt.figure(figsize=(20, 5)), plt.axes())
+(fig, ax) = (plt.figure(figsize=(20, 3)), plt.axes())
 ax.stackplot(
     xys[0][0], *[-y[1] for y in xys], 
     labels=gModes, baseline='zero',
