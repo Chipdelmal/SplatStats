@@ -16,7 +16,7 @@ import chord as chd
 import matplotlib.colors as colors
 from scipy.stats import entropy
 
-(six, USR) = (2, 'lap')
+(six, USR) = (2, 'dsk')
 SSON = ['Drizzle Season 2022', 'Chill Season 2022', 'Fresh Season 2023']
 SEASON = SSON[six]
 TOP = 20

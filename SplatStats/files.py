@@ -29,7 +29,11 @@ def dumpBattlesFromJSONS(historyFilepaths, oPath, overwrite=True):
     for fName in tqdm(hFiles):
         # Load JSON ----------------------------------------------------------
         with open(fName, 'r') as file:
-            data = json.load(file)
+            try:
+                data = json.load(file)
+            except:
+                print("Corrupted json file! Skipping {}".format(file))
+                pass
         # Process battles in file --------------------------------------------
         histSize = len(data)
         if histSize > 1:

@@ -44,6 +44,7 @@ bFilepaths = splat.getBattleFilepaths(bPath)
 ###############################################################################
 plyr = splat.Player(plyrName, bFilepaths, timezone='America/Los_Angeles')
 playerHistory = plyr.battlesHistory
+playerHistory = playerHistory[playerHistory['match mode']!='PRIVATE']
 # Weapon filter ---------------------------------------------------------------
 if weapon != 'All':
     pHist = playerHistory[playerHistory['main weapon']==weapon]

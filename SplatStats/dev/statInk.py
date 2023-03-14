@@ -17,9 +17,9 @@ import SplatStats as splat
 import chord as chd
 
 
-USR='lap'
-# ['Drizzle Season 2022', 'Chill Season 2022', 'Fresh Season 2023']
-SEASON = 'Chill Season 2022'
+(six, USR) = (2, 'dsk')
+SSON = ['Drizzle Season 2022', 'Chill Season 2022', 'Fresh Season 2023']
+SEASON = SSON[six]
 TOP = 20
 ###############################################################################
 # Get files and set font
@@ -100,8 +100,10 @@ plt.close('all')
 ###########################################################################
 # Weapon Matrix
 ###########################################################################
-TITLE = False
 RAN = 0.75
+COLS = (
+    ('#B400FF', '#1D07AC'), ('#D01D79', '#1D07AC'), ('#6BFF00', '#1D07AC')
+)
 tauW = np.zeros((len(matrix), len(matrix)))
 for (ix, wp) in enumerate(names):
     winsDiff = matrix[ix]/matrix[:,ix]
@@ -117,7 +119,7 @@ counts = [np.sum(r>0) for r in tauS]
 totMat = totalM[sorting]
 lLabs = ['{} ({})'.format(n, c) for (n, c) in zip(namS, counts)]
 tLabs = ['({}k) {}'.format(c, n) for (n, c) in zip(namS, [int(i) for i in totMat/1e3])]
-pal = splat.colorPaletteFromHexList(['#D01D79', '#FFFFFF', '#1D07AC'])
+pal = splat.colorPaletteFromHexList([COLS[six][0], '#FFFFFF', COLS[six][1]])
 (fig, ax) = plt.subplots(figsize=(20, 20))
 im = ax.matshow(tauS, vmin=-RAN, vmax=RAN, cmap=pal)
 ax.set_xticks(np.arange(0, len(namS)))
