@@ -20,9 +20,11 @@ def calculateDominanceMatrixWins(statInkBattles):
     winrs = list(btls['win'])
     # Vectorize (encode) the weapons used by each team in the battles ---------
     vct = DictVectorizer(sparse=False)
-    wpnsDA = [dict(Counter(alpha.iloc[i])) for i in range(alpha.shape[0])]
-    wpnsDB = [dict(Counter(bravo.iloc[i])) for i in range(bravo.shape[0])]
-    (wpnsVA, wpnsVB) = (vct.fit_transform(wpnsDA), vct.fit_transform(wpnsDA))
+    (wpnsDA, wpnsDB) = (
+        [dict(Counter(alpha.iloc[i])) for i in range(alpha.shape[0])],
+        [dict(Counter(bravo.iloc[i])) for i in range(bravo.shape[0])]
+    )
+    (wpnsVA, wpnsVB) = (vct.fit_transform(wpnsDA), vct.fit_transform(wpnsDB))
     wpnsNames = list(vct.get_feature_names_out())
     # Assemble matrix ---------------------------------------------------------
     domMtx = np.zeros((len(wpnsNames), len(wpnsNames)))
