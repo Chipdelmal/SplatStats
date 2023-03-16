@@ -1,16 +1,12 @@
 # !/usr/bin/env python3
 
-# https://github.com/fetus-hina/stat.ink/wiki/Spl3-%EF%BC%8D-CSV-Schema-%EF%BC%8D-Battle
-# https://stat.ink/api-info/weapon3
-
-import numpy as np
 from os import path
 from glob import glob
 from random import shuffle
 import SplatStats as splat
 import matplotlib.pyplot as plt
 
-(six, USR) = (0, 'dsk')
+(six, USR) = (0, 'lab')
 SSON = ['Drizzle Season 2022', 'Chill Season 2022', 'Fresh Season 2023']
 SEASON = SSON[six]
 ###############################################################################
@@ -138,3 +134,100 @@ plt.savefig(
 )
 plt.close('all')
 
+
+###############################################################################
+# Code Dominance Matrix
+###############################################################################
+wpnsNames = None
+btls = btlsFiltered.iloc[0:3]
+btlsNum = btls.shape[0]
+# Get weapons used by each team, and who won ---------------------------------
+(alpha, bravo, winAlpha) = (
+    btls[[f'A{i}-weapon' for i in range(1, 5)]],
+    btls[[f'B{i}-weapon' for i in range(1, 5)]],
+    list(btls['win'])
+)
+# Get all the weapons used, and sort them if needed --------------------------
+if not wpnsNames:
+    wpnsSet = (set(alpha.stack()) | set(bravo.stack()))
+    wpnsNames = sorted(list(wpnsSet))
+wpnsNumbr = len(wpnsNames)
+# Generate matrix ------------------------------------------------------------
+domMtx = np.zeros((wpnsNumbr, wpnsNumbr))
+bix = 0
+for bix in range(btlsNum):
+    # Get names for weapons in both teams ------------------------------------
+    (wpnsNmA, wpnsNmB) = (list(alpha.iloc[bix]), list(bravo.iloc[bix]))
+    # Get indices for weapons in both teams ----------------------------------
+    (wpnsIxA, wpnsIxB) = (
+        [wpnsNames.index(w) for w in wpnsNmA],
+        [wpnsNames.index(w) for w in wpnsNmB]
+    )
+    if winAlpha[ix]:
+        # Team Alpha won -----------------------------------------------------
+        for ixA in wpnsIxA:
+            for ixB in wpnsIxB:
+                domMtx[ixA, ixB] = domMtx[ixA, ixB] + 1
+    else:
+        # Team Bravo won -----------------------------------------------------
+        for ixB in wpnsIxB:
+            for ixA in wpnsIxA:
+                domMtx[ixB, ixA] = domMtx[ixB, ixA] + 1
+domMtx.T
+
+
+# Vectorize (encode) the weapons used by each team in the battles ---------
+vct = DictVectorizer(sparse=False)
+
+(wpnsDA, wpnsDB) = (
+    [dict(Counter(alpha.iloc[i])) for i in range(alpha.shape[0])],
+    [dict(Counter(bravo.iloc[i])) for i in range(bravo.shape[0])]
+)
+
+
+wpnsDA
+
+(wpnsVA, wpnsVB) = (
+    vct.fit_transform(wpnsDA), 
+    vct.fit_transform(wpnsDB)
+)
+
+wpnsNames = list(vct.get_feature_names_out())
+wpnsNumbr = len(wpnsNames)
+
+
+ix = 0
+
+alpha.iloc[ix]
+wpnsDA[ix]
+wpix = [jx for (jx, i) in enumerate(wpnsVA[ix]) if (i>=1)]
+[wpnsNames[n] for n in wpix]
+
+bravo.iloc[ix]
+wpnsDB[ix]
+wpnsVB[ix]
+wpix = [jx for (jx, i) in enumerate(wpnsVB[ix]) if (i>=1)]
+[wpnsNames[n] for n in wpix]
+
+
+(bAWpns, bBWpns) = (wpnsDA[ix], wpnsDB[ix])
+(bAVctr, bBVctr) = (wpnsVA[ix], wpnsVB[ix])
+
+domMtx = np.zeros((wpnsNumbr, wpnsNumbr))
+for ix in range(btlsNum):
+    (bAWpns, bBWpns) = (wpnsDA[ix], wpnsDB[ix])
+    (bAVctr, bBVctr) = (wpnsVA[ix], wpnsVB[ix])
+    if winAlpha[ix]:
+        # Alpha won -------------------------------------------------------
+        rxs = splat.flatten([[wpnsNames.index(wpn)]*bBWpns[wpn] for wpn in bBWpns])
+        # rxs = [wpnsNames.index(wpn) for wpn in bBWpns]
+        for rx in rxs:
+            domMtx[rx] = domMtx[rx]+bAVctr
+    else:
+        # Bravo won -------------------------------------------------------
+        rxs = splat.flatten([[wpnsNames.index(wpn)]*bAWpns[wpn] for wpn in bAWpns])
+        # rxs = [wpnsNames.index(wpn) for wpn in bAWpns]
+        for rx in rxs:
+            domMtx[rx] = domMtx[rx]+bBVctr
+# Transpose and return ----------------------------------------------------
+domMtx = domMtx.T 
