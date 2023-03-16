@@ -3,23 +3,16 @@
 # https://github.com/fetus-hina/stat.ink/wiki/Spl3-%EF%BC%8D-CSV-Schema-%EF%BC%8D-Battle
 # https://stat.ink/api-info/weapon3
 
+import numpy as np
 from os import path
 from glob import glob
-import numpy as np
-import matplotlib.pyplot as plt
-from colour import Color
-from matplotlib.ticker import EngFormatter
-from sklearn.feature_extraction import DictVectorizer
-from collections import Counter
+from random import shuffle
 import SplatStats as splat
-import chord as chd
-import matplotlib.colors as colors
-from scipy.stats import entropy
+import matplotlib.pyplot as plt
 
-(six, USR) = (2, 'dsk')
+(six, USR) = (0, 'dsk')
 SSON = ['Drizzle Season 2022', 'Chill Season 2022', 'Fresh Season 2023']
 SEASON = SSON[six]
-TOP = 20
 ###############################################################################
 # Get files and set font
 ###############################################################################
@@ -98,5 +91,50 @@ plt.savefig(
     bbox_inches='tight'
 )
 plt.close('all')
-
+###############################################################################
+# Frequency Analysis
+###############################################################################
+wpnsTriplets = zip(names, totalM, totalW, totalL)
+wpnSortZip = zip(totalM, wpnsTriplets)
+wpnsDict = {x[0]: (x[1], x[2], x[3]) for (_, x) in sorted(wpnSortZip)[::]}
+wlRatio = [i[1]/i[0] for i in wpnsDict.values()]
+# Polar barchart --------------------------------------------------------------
+nItems = len(wlRatio)
+itr = zip(
+    [nItems-i for i in range(nItems)], wpnsDict.keys(), wlRatio
+)
+labels = ['{:02d}. {} ({}%)'.format(ix, n, int(f*100)) for (ix, n, f) in itr]
+COLORS = splat.ALL_COLORS
+shuffle(COLORS)
+(fig, ax) = plt.subplots(
+    figsize=(12, 12), subplot_kw={"projection": "polar"}
+)
+(fig, ax) = splat.polarBarChart(
+    labels, [i[0] for i in wpnsDict.values()],
+    yRange=(0, 1e6), rRange=(0, 90), ticksStep=4,
+    colors=[c+'DD' for c in COLORS],
+    edgecolor='#00000088', linewidth=0,
+    figAx=(fig, ax),
+    ticksFmt={
+        'lw': 1, 'range': (-.2, 1), 
+        'color': '#000000DD', 'fontsize': 1, 'fmt': '{:.1e}'
+    },
+    labelFmt={
+        'color': '#000000EE', 'fontsize': 3.75, 
+        'ha': 'left', 'fmt': '{:.1f}'
+    }
+)
+xlabels = ax.get_xticklabels()
+for txt in xlabels:
+    lab = txt.get_text()
+    txt.set_text('{:.2f}M'.format(float(lab)/1e6))
+ax.set_xticklabels(xlabels, rotation=0, fontsize=8)
+ax.set_title(SEASON, fontsize=25, x=.25, y=.5)
+fName = 'PolarHalf - {}.png'.format(SEASON)
+plt.savefig(
+    path.join(DATA_PATH, 'statInk/'+fName),
+    dpi=350, transparent=False, facecolor='#ffffff', 
+    bbox_inches='tight'
+)
+plt.close('all')
 
