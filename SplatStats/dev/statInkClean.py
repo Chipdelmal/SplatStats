@@ -11,7 +11,6 @@ from random import shuffle
 import matplotlib.pyplot as plt
 from collections import Counter, OrderedDict
 import SplatStats as splat
-import chord as chd
 
 
 (six, USR) = (0, 'lab')
@@ -41,23 +40,30 @@ fltrs = (btls['season']==SEASON, )
 fltrBool = [all(i) for i in zip(*fltrs)]
 btlsFiltered = btls[fltrBool]
 ###############################################################################
-# Get Frequencies
+# Get Total Season Frequencies
 ###############################################################################
-(wpnFreq, lbyFreq) = (
+(wpnFreq, wpnWLT, lbyFreq) = (
     splat.getWeaponsFrequencies(btlsFiltered),
+    splat.getWeaponsWLT(btlsFiltered),
     splat.getLobbyFrequencies(btlsFiltered)
 )
-assert(np.sum(list(wpnFreq.values()))/8 == btlsFiltered.shape[0])
-assert(np.sum(list(lbyFreq.values()))   == btlsFiltered.shape[0])
+# Checks for consistency ------------------------------------------------------
+tests = [
+    np.sum(list(wpnFreq.values()))/8 == btlsFiltered.shape[0],
+    np.sum(list(lbyFreq.values())) == btlsFiltered.shape[0],
+    np.sum(np.sum(wpnWLT[1][:,2])) == np.sum(list(wpnFreq.values()))
+]
+assert(all(tests))
 
 
-tmsWps = splat.getTeamsWeapons(btlsFiltered)
-names = splat.getWeaponsSet(btlsFiltered)
-for (bix, btle) in btlsFiltered:
-    list(tmsWps['alpha'].iloc[bix])
+
+
 
 
 (names, matrix) = splat.calculateDominanceMatrixWins(btlsFiltered)
+np.sum(np.sum(matrix, axis=1))/16
+
+
 ix = names.index('.52 Gal')
 np.sum(matrix[:,ix])
 
