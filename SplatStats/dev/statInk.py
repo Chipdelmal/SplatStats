@@ -17,7 +17,7 @@ import SplatStats as splat
 import chord as chd
 
 
-(six, USR) = (2, 'dsk')
+(six, USR) = (2, 'lab')
 SSON = ['Drizzle Season 2022', 'Chill Season 2022', 'Fresh Season 2023']
 SEASON = SSON[six]
 TOP = 20
