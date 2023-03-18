@@ -1,12 +1,13 @@
 # !/usr/bin/env python3
 
+import numpy as np
 from os import path
 from glob import glob
 from random import shuffle
 import SplatStats as splat
 import matplotlib.pyplot as plt
 
-(six, USR) = (0, 'lab')
+(six, USR) = (1, 'dsk')
 SSON = ['Drizzle Season 2022', 'Chill Season 2022', 'Fresh Season 2023']
 SEASON = SSON[six]
 ###############################################################################
@@ -174,60 +175,3 @@ for bix in range(btlsNum):
             for ixA in wpnsIxA:
                 domMtx[ixB, ixA] = domMtx[ixB, ixA] + 1
 domMtx.T
-
-
-# Vectorize (encode) the weapons used by each team in the battles ---------
-vct = DictVectorizer(sparse=False)
-
-(wpnsDA, wpnsDB) = (
-    [dict(Counter(alpha.iloc[i])) for i in range(alpha.shape[0])],
-    [dict(Counter(bravo.iloc[i])) for i in range(bravo.shape[0])]
-)
-
-
-wpnsDA
-
-(wpnsVA, wpnsVB) = (
-    vct.fit_transform(wpnsDA), 
-    vct.fit_transform(wpnsDB)
-)
-
-wpnsNames = list(vct.get_feature_names_out())
-wpnsNumbr = len(wpnsNames)
-
-
-ix = 0
-
-alpha.iloc[ix]
-wpnsDA[ix]
-wpix = [jx for (jx, i) in enumerate(wpnsVA[ix]) if (i>=1)]
-[wpnsNames[n] for n in wpix]
-
-bravo.iloc[ix]
-wpnsDB[ix]
-wpnsVB[ix]
-wpix = [jx for (jx, i) in enumerate(wpnsVB[ix]) if (i>=1)]
-[wpnsNames[n] for n in wpix]
-
-
-(bAWpns, bBWpns) = (wpnsDA[ix], wpnsDB[ix])
-(bAVctr, bBVctr) = (wpnsVA[ix], wpnsVB[ix])
-
-domMtx = np.zeros((wpnsNumbr, wpnsNumbr))
-for ix in range(btlsNum):
-    (bAWpns, bBWpns) = (wpnsDA[ix], wpnsDB[ix])
-    (bAVctr, bBVctr) = (wpnsVA[ix], wpnsVB[ix])
-    if winAlpha[ix]:
-        # Alpha won -------------------------------------------------------
-        rxs = splat.flatten([[wpnsNames.index(wpn)]*bBWpns[wpn] for wpn in bBWpns])
-        # rxs = [wpnsNames.index(wpn) for wpn in bBWpns]
-        for rx in rxs:
-            domMtx[rx] = domMtx[rx]+bAVctr
-    else:
-        # Bravo won -------------------------------------------------------
-        rxs = splat.flatten([[wpnsNames.index(wpn)]*bAWpns[wpn] for wpn in bAWpns])
-        # rxs = [wpnsNames.index(wpn) for wpn in bAWpns]
-        for rx in rxs:
-            domMtx[rx] = domMtx[rx]+bBVctr
-# Transpose and return ----------------------------------------------------
-domMtx = domMtx.T 

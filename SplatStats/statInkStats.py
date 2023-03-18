@@ -10,46 +10,42 @@ from sklearn.feature_extraction import DictVectorizer
 ###############################################################################
 # Stats
 ###############################################################################
-def calculateDominanceMatrixWins(statInkBattles):
+def calculateDominanceMatrixWins(statInkBattles, wpnsNames=None):
     btls = statInkBattles
     btlsNum = btls.shape[0]
-    # Get the weapons dataframes for each team --------------------------------
-    (alpha, bravo) = (
+    # Get weapons used by each team, and who won ------------------------------
+    (alpha, bravo, winAlpha) = (
         btls[[f'A{i}-weapon' for i in range(1, 5)]],
-        btls[[f'B{i}-weapon' for i in range(1, 5)]]
+        btls[[f'B{i}-weapon' for i in range(1, 5)]],
+        list(btls['win'])
     )
-    winAlpha = list(btls['win'])
-    # Vectorize (encode) the weapons used by each team in the battles ---------
-    (wpnsDA, wpnsDB) = (
-        [dict(Counter(alpha.iloc[i])) for i in range(alpha.shape[0])],
-        [dict(Counter(bravo.iloc[i])) for i in range(bravo.shape[0])]
-    )
-    vct = DictVectorizer(sparse=False)
-    (wpnsVA, wpnsVB) = (
-        vct.fit_transform(wpnsDA), 
-        vct.fit_transform(wpnsDB)
-    )
-    wpnsNames = list(vct.get_feature_names_out())
+    # Get all the weapons used, and sort them if needed -----------------------
+    if not wpnsNames:
+        wpnsSet = (set(alpha.stack()) | set(bravo.stack()))
+        wpnsNames = sorted(list(wpnsSet))
     wpnsNumbr = len(wpnsNames)
-    # Assemble matrix ---------------------------------------------------------
+    # Generate matrix ---------------------------------------------------------
     domMtx = np.zeros((wpnsNumbr, wpnsNumbr))
-    for ix in range(btlsNum):
-        (bAWpns, bBWpns) = (wpnsDA[ix], wpnsDB[ix])
-        (bAVctr, bBVctr) = (wpnsVA[ix], wpnsVB[ix])
-        if winAlpha[ix]:
-            # Alpha won -------------------------------------------------------
-            rxs = flatten([[wpnsNames.index(wpn)]*bBWpns[wpn] for wpn in bBWpns])
-            # rxs = [wpnsNames.index(wpn) for wpn in bBWpns]
-            for rx in rxs:
-                domMtx[rx] = domMtx[rx]+bAVctr
+    bix = 0
+    for bix in range(btlsNum):
+        # Get names for weapons in both teams ---------------------------------
+        (wpnsNmA, wpnsNmB) = (list(alpha.iloc[bix]), list(bravo.iloc[bix]))
+        # Get indices for weapons in both teams -------------------------------
+        (wpnsIxA, wpnsIxB) = (
+            [wpnsNames.index(w) for w in wpnsNmA],
+            [wpnsNames.index(w) for w in wpnsNmB]
+        )
+        if winAlpha[bix]:
+            # Team Alpha won --------------------------------------------------
+            for ixA in wpnsIxA:
+                for ixB in wpnsIxB:
+                    domMtx[ixA, ixB] = domMtx[ixA, ixB] + 1
         else:
-            # Bravo won -------------------------------------------------------
-            rxs = flatten([[wpnsNames.index(wpn)]*bAWpns[wpn] for wpn in bAWpns])
-            # rxs = [wpnsNames.index(wpn) for wpn in bAWpns]
-            for rx in rxs:
-                domMtx[rx] = domMtx[rx]+bBVctr
+            # Team Bravo won --------------------------------------------------
+            for ixB in wpnsIxB:
+                for ixA in wpnsIxA:
+                    domMtx[ixB, ixA] = domMtx[ixB, ixA] + 1
     # Transpose and return ----------------------------------------------------
-    domMtx = domMtx.T  
     return (wpnsNames, domMtx)
 
 
