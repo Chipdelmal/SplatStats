@@ -1,8 +1,5 @@
 # !/usr/bin/env python3
 
-# https://github.com/fetus-hina/stat.ink/wiki/Spl3-%EF%BC%8D-CSV-Schema-%EF%BC%8D-Battle
-# https://stat.ink/api-info/weapon3
-
 from os import path, system
 from glob import glob
 import numpy as np
@@ -13,7 +10,7 @@ from collections import Counter, OrderedDict
 import SplatStats as splat
 
 
-(six, USR) = (2, 'dsk')
+(six, USR) = (1, 'dsk')
 SSON = ['Drizzle Season 2022', 'Chill Season 2022', 'Fresh Season 2023']
 SEASON = SSON[six]
 TOP = 20
@@ -42,11 +39,13 @@ btlsFiltered = btls[fltrBool]
 ###############################################################################
 # Get Total Season Frequencies and Dominance Matrix
 ###############################################################################
-(wpnFreq, wpnWLT, lbyFreq) = (
+(wpnFreq, wpnWLT, lbyFreq, lbyDaily) = (
     splat.getWeaponsFrequencies(btlsFiltered),
     splat.getWeaponsWLT(btlsFiltered),
-    splat.getLobbyFrequencies(btlsFiltered)
+    splat.getLobbyFrequencies(btlsFiltered),
+    splat.countDailyLobbies(btlsFiltered)
 )
+lbyGaussDaily = splat.smoothCountDailyLobbies(lbyDaily)
 (mNames, mMatrix) = splat.calculateDominanceMatrixWins(btlsFiltered)
 (mWpnWins, mWpnLoss) = (np.sum(mMatrix, axis=1)/4, np.sum(mMatrix, axis=0)/4)
 # Checks for consistency ------------------------------------------------------
@@ -101,8 +100,7 @@ ax.set_xticklabels(xlabels, rotation=0, fontsize=8)
 fName = 'Polar - {}.png'.format(SEASON)
 plt.savefig(
     path.join(DATA_PATH, 'statInk/'+fName),
-    dpi=350, transparent=False, facecolor='#ffffff', 
-    bbox_inches='tight'
+    dpi=350, transparent=False, facecolor='#ffffff', bbox_inches='tight'
 )
 plt.close('all')
 ###########################################################################
@@ -138,7 +136,77 @@ yLims = ax.get_ylim()
 fName = 'Matrix - {}.png'.format(SEASON)
 plt.savefig(
     path.join(DATA_PATH, 'statInk/'+fName),
-    dpi=350, transparent=False, facecolor='#ffffff', 
-    bbox_inches='tight'
+    dpi=350, transparent=False, facecolor='#ffffff', bbox_inches='tight'
+)
+plt.close('all')
+###############################################################################
+# Type of Lobby
+###############################################################################
+(fig, ax) = plt.subplots(figsize=(0.4, 20))
+(series, data) = (
+    list(lbyFreq.keys()), 
+    [[int(i)] for i in list(lbyFreq.values())]
+)
+data = [[i[0]/1000] for i in data]
+(fig, ax) = splat.plotStackedBar(
+    data, series, 
+    labels=[i.replace(' ', '\n') for i in list(lbyFreq.keys())],
+    figAx=(fig, ax),
+    category_labels=False, 
+    show_values=True, 
+    value_format="{:.0f}k",
+    colors=[
+        '#2E0CB5', '#B400FF', '#6BFF00', '#525CF5', '#FDFF00', '#D01D79'
+    ],
+    fontsize=8.5, xTickOffset=0.7
+)
+ax.axis('off')
+ax.spines['top'].set_visible(False)
+ax.spines['bottom'].set_visible(False)
+ax.text(
+    -2.25, 0.5, 'Total matches: {:.0f}k'.format(np.sum(data)),
+    fontsize=20,
+    horizontalalignment='center',
+    verticalalignment='center',
+    transform=ax.transAxes,
+    rotation=90
+)
+fName = 'Lobby - {}.png'.format(SEASON)
+plt.savefig(
+    path.join(DATA_PATH, 'statInk/'+fName),
+    dpi=350, transparent=False, facecolor='#ffffff', bbox_inches='tight'
+)
+plt.close('all')
+###############################################################################
+# Gaussian Lobby
+###############################################################################
+gModes = list(lbyDaily.columns)
+gModesCols = ['#DE0B64FF', '#FDFF00FF', '#0D37C3FF', '#71DA0CFF', '#531BBAFF']
+(fig, ax) = (plt.figure(figsize=(20, 3)), plt.axes())
+ax.stackplot(
+    lbyGaussDaily[0][0], *[-y[1] for y in lbyGaussDaily], 
+    labels=gModes, baseline='zero',
+    colors=gModesCols
+)
+ax.legend(loc='upper left').remove()
+ax.set_xlim(0, lbyGaussDaily[0][0][-1])
+ax.set_ylim(0, -1250)
+xtickRan = np.arange(0, lbyGaussDaily[0][0][-1], 15)
+ax.set_ylim(ax.get_ylim()[::-1])
+ax.xaxis.tick_top()
+ax.set_xticks(
+    xtickRan, 
+    ['{}/{}'.format(lbyDaily.index[i].month, lbyDaily.index[i].day) for i in xtickRan],
+    ha='left', va='bottom', rotation=0, fontsize=12.5
+)
+ax.set_yticks([], [])
+ax.spines['top'].set_visible(False)
+ax.spines['bottom'].set_visible(False)
+ax.spines['left'].set_visible(False)
+ax.spines['right'].set_visible(False)
+fName = 'Stacked - {}.png'.format(SEASON)
+plt.savefig(
+    path.join(DATA_PATH, 'statInk/'+fName),
+    dpi=350, transparent=False, facecolor='#ffffff', bbox_inches='tight'
 )
 plt.close('all')

@@ -2,9 +2,10 @@
 # -*- coding: utf-8 -*-
 
 import numpy as np
+import pandas as pd
 import matplotlib.pyplot as plt
 from collections import Counter, OrderedDict
-from sklearn.feature_extraction import DictVectorizer
+import SplatStats.stats as stt
 
 ###############################################################################
 # Stats
@@ -105,6 +106,31 @@ def getWeaponsWLT(btls, wpnsNames=None):
             wpnWL[lix[ix],2] = wpnWL[lix[ix],2]+1
     return (wNames, wpnWL)
 
+
+def countDailyLobbies(btls):
+    btlsFiltered = btls.copy()
+    btlsFiltered['dummy'] = [1]*btlsFiltered.shape[0]
+    gModes = sorted(list(btlsFiltered['mode'].unique()))
+    counts = []
+    for gMode in gModes:
+        fltrs = (btlsFiltered['mode']==gMode, )
+        fltrBool = [all(i) for i in zip(*fltrs)]
+        btlsMode = btlsFiltered[fltrBool]
+        c = btlsMode.groupby([btlsMode['period'].dt.date]).count()['dummy']
+        c.name = gMode
+        counts.append(c)
+    df = pd.DataFrame(counts).fillna(0).T
+    df.sort_index(inplace=True)
+    return df
+
+
+def smoothCountDailyLobbies(lbyDaily, gridSize=1000, sd=0.75):
+    gModes = list(lbyDaily.columns)
+    xys = [
+        stt.gaussianSmooth(list(lbyDaily[gm]), gridSize=gridSize, sd=sd) 
+        for gm in gModes
+    ]
+    return xys
 
 ###############################################################################
 # Plots
