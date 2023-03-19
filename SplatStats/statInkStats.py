@@ -6,7 +6,6 @@ import matplotlib.pyplot as plt
 from collections import Counter, OrderedDict
 from sklearn.feature_extraction import DictVectorizer
 
-
 ###############################################################################
 # Stats
 ###############################################################################
@@ -104,7 +103,7 @@ def getWeaponsWLT(btls, wpnsNames=None):
             # Add one to losing -----------------------------------------------
             wpnWL[lix[ix],1] = wpnWL[lix[ix],1]+1
             wpnWL[lix[ix],2] = wpnWL[lix[ix],2]+1
-    return (wwNamesNmes, wpnWL)
+    return (wNames, wpnWL)
 
 
 ###############################################################################
