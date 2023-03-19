@@ -13,7 +13,7 @@ from collections import Counter, OrderedDict
 import SplatStats as splat
 
 
-(six, USR) = (1, 'dsk')
+(six, USR) = (2, 'dsk')
 SSON = ['Drizzle Season 2022', 'Chill Season 2022', 'Fresh Season 2023']
 SEASON = SSON[six]
 TOP = 20
@@ -69,8 +69,7 @@ wpnWinRatio = wpnWLT[1][:,0]/wpnWLT[1][:,2]
 # Plot Total Frequencies
 ###############################################################################
 itr = zip(
-    [wpnsNum-i for i in range(wpnsNum)], 
-    wpnFreq.keys(),
+    [wpnsNum-i for i in range(wpnsNum)], wpnFreq.keys(),
     [wpnWinRatio[ix] for ix in freqSorting]
 )
 labels = ['{:02d}. {} ({}%)'.format(ix, n, int(f*100)) for (ix, n, f) in itr]
@@ -100,6 +99,43 @@ for txt in xlabels:
     txt.set_text('{:.0f}k'.format(float(lab)/1e3))
 ax.set_xticklabels(xlabels, rotation=0, fontsize=8)
 fName = 'Polar - {}.png'.format(SEASON)
+plt.savefig(
+    path.join(DATA_PATH, 'statInk/'+fName),
+    dpi=350, transparent=False, facecolor='#ffffff', 
+    bbox_inches='tight'
+)
+plt.close('all')
+###########################################################################
+# Weapon Matrix
+###########################################################################
+RAN = 0.75
+COLS = (
+    ('#B400FF', '#1D07AC'), ('#D01D79', '#1D07AC'), ('#6BFF00', '#1D07AC')
+)
+tauW = np.zeros((len(mMatrix), len(mMatrix)))
+for (ix, wp) in enumerate(mNames):
+    winsDiff = mMatrix[ix]/mMatrix[:,ix]
+    tauW[ix] = winsDiff
+tauX = np.copy(tauW)-1
+sorting = list(np.argsort([np.sum(r>0) for r in tauX]))[::-1]
+tauS = tauX[sorting][:,sorting]
+namS = [mNames[i] for i in sorting]
+counts = [np.sum(r>0) for r in tauS]
+(tot, mns, sds) = (
+    np.sum(tauS, axis=1), np.mean(tauS, axis=1), np.std(tauS, axis=1)
+)
+totMat = (mWpnWins+mWpnLoss)[sorting]
+lLabs = ['{} ({})'.format(n, c) for (n, c) in zip(namS, counts)]
+tLabs = ['({}k) {}'.format(c, n) for (n, c) in zip(namS, [int(i) for i in totMat/1e3])]
+pal = splat.colorPaletteFromHexList([COLS[six][0], '#FFFFFF', COLS[six][1]])
+(fig, ax) = plt.subplots(figsize=(20, 20))
+im = ax.matshow(tauS, vmin=-RAN, vmax=RAN, cmap=pal)
+ax.set_xticks(np.arange(0, len(namS)))
+ax.set_yticks(np.arange(0, len(namS)))
+ax.set_xticklabels(tLabs, rotation=90, fontsize=12.5)
+ax.set_yticklabels(lLabs, fontsize=12.5)
+yLims = ax.get_ylim()
+fName = 'Matrix - {}.png'.format(SEASON)
 plt.savefig(
     path.join(DATA_PATH, 'statInk/'+fName),
     dpi=350, transparent=False, facecolor='#ffffff', 
