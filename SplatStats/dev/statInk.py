@@ -10,7 +10,7 @@ from collections import Counter, OrderedDict
 import SplatStats as splat
 
 
-(six, USR) = (1, 'dsk')
+(six, USR) = (2, 'dsk')
 SSON = ['Drizzle Season 2022', 'Chill Season 2022', 'Fresh Season 2023']
 SEASON = SSON[six]
 TOP = 20
@@ -64,6 +64,17 @@ assert(all(tests))
 wpnsNum = len(mNames)
 freqSorting = [mNames.index(w) for w in wpnFreq.keys()]
 wpnWinRatio = wpnWLT[1][:,0]/wpnWLT[1][:,2]
+###############################################################################
+# Type of Lobby
+###############################################################################
+(fig, ax) = plt.subplots(figsize=(0.4, 20))
+(fig, ax) = splat.barChartLobby(lbyFreq)
+fName = 'Lobby - {}.png'.format(SEASON)
+plt.savefig(
+    path.join(DATA_PATH, 'statInk/'+fName), dpi=350, 
+    transparent=False, facecolor='#ffffff', bbox_inches='tight'
+)
+plt.close('all')
 ###############################################################################
 # Plot Total Frequencies
 ###############################################################################
@@ -134,44 +145,6 @@ ax.set_xticklabels(tLabs, rotation=90, fontsize=12.5)
 ax.set_yticklabels(lLabs, fontsize=12.5)
 yLims = ax.get_ylim()
 fName = 'Matrix - {}.png'.format(SEASON)
-plt.savefig(
-    path.join(DATA_PATH, 'statInk/'+fName),
-    dpi=350, transparent=False, facecolor='#ffffff', bbox_inches='tight'
-)
-plt.close('all')
-###############################################################################
-# Type of Lobby
-###############################################################################
-(fig, ax) = plt.subplots(figsize=(0.4, 20))
-(series, data) = (
-    list(lbyFreq.keys()), 
-    [[int(i)] for i in list(lbyFreq.values())]
-)
-data = [[i[0]/1000] for i in data]
-(fig, ax) = splat.plotStackedBar(
-    data, series, 
-    labels=[i.replace(' ', '\n') for i in list(lbyFreq.keys())],
-    figAx=(fig, ax),
-    category_labels=False, 
-    show_values=True, 
-    value_format="{:.0f}k",
-    colors=[
-        '#2E0CB5', '#B400FF', '#6BFF00', '#525CF5', '#FDFF00', '#D01D79'
-    ],
-    fontsize=8.5, xTickOffset=0.7
-)
-ax.axis('off')
-ax.spines['top'].set_visible(False)
-ax.spines['bottom'].set_visible(False)
-ax.text(
-    -2.25, 0.5, 'Total matches: {:.0f}k'.format(np.sum(data)),
-    fontsize=20,
-    horizontalalignment='center',
-    verticalalignment='center',
-    transform=ax.transAxes,
-    rotation=90
-)
-fName = 'Lobby - {}.png'.format(SEASON)
 plt.savefig(
     path.join(DATA_PATH, 'statInk/'+fName),
     dpi=350, transparent=False, facecolor='#ffffff', bbox_inches='tight'

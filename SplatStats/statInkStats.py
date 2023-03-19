@@ -3,13 +3,10 @@
 
 import numpy as np
 import pandas as pd
-import matplotlib.pyplot as plt
 from collections import Counter, OrderedDict
 import SplatStats.stats as stt
 
-###############################################################################
-# Stats
-###############################################################################
+
 def calculateDominanceMatrixWins(btls, wpnsNames=None):
     btlsNum = btls.shape[0]
     # Get weapons used by each team, and who won ------------------------------
@@ -41,6 +38,24 @@ def calculateDominanceMatrixWins(btls, wpnsNames=None):
                 for ixA in wpnsIxA:
                     domMtx[ixB, ixA] = domMtx[ixB, ixA] + 1
     return (wNames, domMtx)
+
+
+
+def calculateDominanceMatrixRatio(domMatrix, sorted=True):
+    (mNames, mMatrix) = domMatrix
+    tauW = np.zeros((len(mMatrix), len(mMatrix)))
+    for (ix, _) in enumerate(mNames):
+        winsDiff = mMatrix[ix]/mMatrix[:,ix]
+        tauW[ix] = winsDiff
+    tauX = np.copy(tauW)-1
+    if sorted:
+        sorting = list(np.argsort([np.sum(r>0) for r in tauX]))[::-1]
+        tauS = tauX[sorting][:,sorting]
+        namS = [mNames[i] for i in sorting]
+    else:
+        tauS = tauX
+        namS = mNames
+    return (namS, tauS)
 
 
 def getTeamsWeapons(btls):
@@ -131,58 +146,4 @@ def smoothCountDailyLobbies(lbyDaily, gridSize=1000, sd=0.75):
         for gm in gModes
     ]
     return xys
-
-###############################################################################
-# Plots
-###############################################################################
-def plotStackedBar(
-        data, series_labels, labels=None, figAx=None, category_labels=None, 
-        show_values=False, value_format="{}", y_label=None, 
-        colors=None, textColor='#000000', fontsize=12,
-        xTickOffset=5
-    ):
-    if not figAx:
-        (fig, ax) = plt.figure(figsize=(2, 20))
-    else:
-        (fig, ax) = figAx
-
-    ny = len(data[0])
-    ind = list(range(ny))
-    axes = []
-    (cum_size, data) = (np.zeros(ny), np.array(data))
-
-    for i, row_data in enumerate(data):
-        color = colors[i] if colors is not None else None
-        axes.append(plt.bar(
-            ind, row_data, bottom=cum_size, 
-            label=series_labels[i], color=color
-        ))
-        cum_size += row_data
-
-    if category_labels:
-        ax.xticks(ind, category_labels)
-
-    if show_values:
-        for (ix, axis) in enumerate(axes):
-            for (_, bar) in enumerate(axis):
-                w, h = bar.get_width(), bar.get_height()
-                if not labels:
-                    ax.text(
-                        bar.get_x()+w/2, bar.get_y()+h/2, 
-                        value_format.format(h), 
-                        ha="center", va="center", 
-                        color=textColor, fontsize=fontsize
-                    )
-                else:
-                    ax.text(
-                        bar.get_x()-xTickOffset,# +w/2, 
-                        bar.get_y()+h/2, 
-                        '{}\n{}'.format(labels[ix], value_format.format(h)), 
-                        ha="center", va="center",
-                        color=textColor, fontsize=fontsize
-                    )
-    ax.set_xlim(-w/2, w/2)
-    ax.set_ylim(0, np.sum(data))
-    return (fig, ax)
-
 
