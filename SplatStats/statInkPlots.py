@@ -131,8 +131,6 @@ def plotDominanceMatrix(
     return (fig, ax)
 
 
-
-
 def plotPolarFrequencies(
         wpnFreq, wpnRank,
         figAx=None,
@@ -170,3 +168,38 @@ def plotPolarFrequencies(
     return (fig, ax)
 
 
+def plotGaussianLobby(
+        lbyDaily, lbyGaussDaily,
+        figAx=None,
+        gModesColors = ['#DE0B64FF', '#FDFF00FF', '#0D37C3FF', '#71DA0CFF', '#531BBAFF']
+    ):
+    gModes = list(lbyDaily.columns)
+    if not figAx:
+        (fig, ax) = (plt.figure(figsize=(20, 3)), plt.axes())
+    else:
+        (fig, ax) = figAx
+    ax.stackplot(
+        lbyGaussDaily[0][0], *[-y[1] for y in lbyGaussDaily], 
+        labels=gModes, baseline='zero',
+        colors=gModesColors
+    )
+    ax.legend(loc='upper left').remove()
+    ax.set_xlim(0, lbyGaussDaily[0][0][-1])
+    ax.set_ylim(0, -1250)
+    xtickRan = np.arange(0, lbyGaussDaily[0][0][-1], 15)
+    ax.set_ylim(ax.get_ylim()[::-1])
+    ax.xaxis.tick_top()
+    ax.set_xticks(
+        xtickRan, 
+        [
+            '{}/{}'.format(lbyDaily.index[i].month, lbyDaily.index[i].day)
+            for i in xtickRan
+        ],
+        ha='left', va='bottom', rotation=0, fontsize=12.5
+    )
+    ax.set_yticks([], [])
+    ax.spines['top'].set_visible(False)
+    ax.spines['bottom'].set_visible(False)
+    ax.spines['left'].set_visible(False)
+    ax.spines['right'].set_visible(False)
+    return (fig, ax)
