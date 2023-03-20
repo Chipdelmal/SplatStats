@@ -40,6 +40,27 @@ def calculateDominanceMatrixWins(btls, wpnsNames=None):
     return (wNames, domMtx)
 
 
+def normalizeDominanceMatrix(
+        wNames, domMtx, 
+        sorted=True
+    ):
+    # Initialize matrix -------------------------------------------------------
+    mSize = len(domMtx)
+    tauW = np.zeros((mSize, mSize))
+    # Iterate through rows ----------------------------------------------------
+    for (ix, _) in enumerate(wNames):
+        winsDiff = domMtx[ix]/domMtx[:,ix]
+        tauW[ix] = winsDiff
+    tauX = np.copy(tauW)-1
+    # Get sorting for most dominant -------------------------------------------
+    if sorted:
+        sorting = list(np.argsort([np.sum(r>0) for r in tauX]))[::-1]
+        (tauS, namS) = (tauX[sorting][:,sorting], [wNames[i] for i in sorting])
+    else:
+        sorting = list(range(mSize))
+        (tauS, namS) = (tauX, wNames)
+    return (namS, tauS, sorting)
+
 
 def calculateDominanceMatrixRatio(domMatrix, sorted=True):
     (mNames, mMatrix) = domMatrix
@@ -146,4 +167,18 @@ def smoothCountDailyLobbies(lbyDaily, gridSize=1000, sd=0.75):
         for gm in gModes
     ]
     return xys
+
+
+def rankWeaponsFrequency(wpnFreq, wpnWLT):
+    mNames = wpnWLT[0]
+    wpnsNum = len(mNames)
+    freqSorting = [mNames.index(w) for w in wpnFreq.keys()]
+    wpnWinRatio = wpnWLT[1][:,0]/wpnWLT[1][:,2]
+    # Weapons ranks triplets --------------------------------------------------
+    wpnRanks = zip(
+        [wpnsNum-i for i in range(wpnsNum)], 
+        wpnFreq.keys(),
+        [wpnWinRatio[ix] for ix in freqSorting]
+    )
+    return list(wpnRanks)
 

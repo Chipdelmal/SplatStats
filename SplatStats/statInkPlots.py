@@ -61,7 +61,8 @@ def plotStackedBar(
 def barChartLobby(
         lbyFreq,
         figAx=None,
-        scaler=1e3,
+        scaler=('k', 1e3),
+        fontSizes=(8.5, 20),
         colors=[
             '#2E0CB5', '#B400FF', '#6BFF00', '#525CF5', '#FDFF00', '#D01D79'
         ]
@@ -69,7 +70,7 @@ def barChartLobby(
     (series, data) = (
         list(lbyFreq.keys()), [[int(i)] for i in list(lbyFreq.values())]
     )
-    data = [[i[0]/scaler] for i in data]
+    data = [[i[0]/scaler[1]] for i in data]
     if figAx:
         (fig, ax) = figAx
     else:
@@ -81,15 +82,15 @@ def barChartLobby(
         category_labels=False, 
         show_values=True, 
         colors=colors,
-        value_format="{:.0f}k",
-        fontsize=8.5, xTickOffset=0.7
+        value_format="{:.0f}"+scaler[0],
+        fontsize=fontSizes[0], xTickOffset=0.7
     )
     ax.axis('off')
     ax.spines['top'].set_visible(False)
     ax.spines['bottom'].set_visible(False)
     ax.text(
-        -2.25, 0.5, 'Total matches: {:.0f}k'.format(np.sum(data)),
-        fontsize=20,
+        -2.25, 0.5, 'Total matches: {:.0f}{}'.format(np.sum(data), scaler[0]),
+        fontsize=fontSizes[1],
         horizontalalignment='center',
         verticalalignment='center',
         transform=ax.transAxes,
@@ -99,17 +100,73 @@ def barChartLobby(
 
 
 def plotDominanceMatrix(
-        matrix, 
-        figAx=None, range=(-1, 1), 
+        sNames, sMatrix, sSort, mMatrix,
+        figAx=None, vRange=(-1, 1), scaler=('k', 1e3),
         cmap=clr.colorPaletteFromHexList(['#D01D79', '#FFFFFF', '#1D07AC'])
     ):
+    counts = [np.sum(r>0) for r in sMatrix]
+    (mWpnWins, mWpnLoss) = (
+        np.sum(mMatrix, axis=1)/4, 
+        np.sum(mMatrix, axis=0)/4
+    )
+    tVect = (mWpnWins+mWpnLoss)[sSort]
+    lLabs = [
+        '{} ({})'.format(n, c) 
+        for (n, c) in zip(sNames, counts)
+    ]
+    tLabs = [
+        '({}{}) {}'.format(c, scaler[0], n)
+        for (n, c) in zip(sNames, [int(i) for i in tVect/scaler[1]])
+    ]
+    # Generating matrix ------------------------------------------------------
     if not figAx:
         (fig, ax) = plt.subplots(figsize=(20, 20))
     else:
         (fig, ax) = figAx
-    im = ax.matshow(matrix, vmin=range[0], vmax=range[1], cmap=cmap)
-    ax.set_xticks(np.arange(0, len(matrix.shape[0])))
-    ax.set_yticks(np.arange(0, len(matrix.shape[0])))
-    # ax.set_xticklabels(tLabs, rotation=90, fontsize=12.5)
-    # ax.set_yticklabels(lLabs, fontsize=12.5)
+    ax.matshow(sMatrix, vmin=vRange[0], vmax=vRange[1], cmap=cmap)
+    ax.set_xticks(np.arange(0, len(sNames)))
+    ax.set_yticks(np.arange(0, len(sNames)))
+    ax.set_xticklabels(tLabs, rotation=90, fontsize=12.5)
+    ax.set_yticklabels(lLabs, fontsize=12.5)
     return (fig, ax)
+
+
+
+
+def plotPolarFrequencies(
+        wpnFreq, wpnRank,
+        figAx=None,
+        colors=clr.ALL_COLORS
+    ):
+    if not figAx:
+        (fig, ax) = plt.subplots(
+            figsize=(12, 12), subplot_kw={"projection": "polar"}
+        )
+    else:
+        (fig, ax) = figAx
+    labels = [
+        '{:02d}. {} ({}%)'.format(ix, n, int(f*100)) for (ix, n, f) in wpnRank
+    ]
+    (fig, ax) = pts.polarBarChart(
+        labels[::-1], list(wpnFreq.values())[::-1],
+        yRange=(0, 3.0e5), rRange=(0, 180), ticksStep=4,
+        colors=[c+'DD' for c in colors],
+        edgecolor='#00000088', linewidth=0,
+        figAx=(fig, ax),
+        ticksFmt={
+            'lw': 1, 'range': (-.2, 1), 
+            'color': '#000000DD', 'fontsize': 1, 'fmt': '{:.1e}'
+        },
+        labelFmt={
+            'color': '#000000EE', 'fontsize': 3.75, 
+            'ha': 'left', 'fmt': '{:.1f}'
+        }
+    )
+    xlabels = ax.get_xticklabels()
+    for txt in xlabels:
+        lab = txt.get_text()
+        txt.set_text('{:.0f}k'.format(float(lab)/1e3))
+    ax.set_xticklabels(xlabels, rotation=0, fontsize=8)
+    return (fig, ax)
+
+
