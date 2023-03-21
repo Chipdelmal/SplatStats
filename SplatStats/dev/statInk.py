@@ -2,29 +2,51 @@
 
 import numpy as np
 from os import path
+from sys import argv
 from glob import glob
 from random import shuffle
 import matplotlib.pyplot as plt
 import SplatStats as splat
 
 
-(six, USR) = (0, 'dsk')
-GMODE = 'All'
+if splat.isNotebook():
+    (six, USR) = (2, 'dsk')
+    GMODE = 'All'
+else:
+    (six, GMODE) = argv[1:]
+    six = int(six)
 SSON = ['Drizzle Season 2022', 'Chill Season 2022', 'Fresh Season 2023']
 SEASON = SSON[six]
 ###############################################################################
 # Constants
 ###############################################################################
-TOP = 20
 GMODES = {'Clam Blitz', 'Splat Zones', 'Tower Control', 'Turf War', 'Rainmaker'}
 FNSTR = '{} ({}) - '.format(SEASON, GMODE)
+if GMODE in GMODES:
+    POLAR = {
+        'fontSizes': (12, 10), 'ticksStep': 1,
+        'yRange': (0, 75e3), 'rRange': (0, 90)
+    }
+    PART_SCALER = ['k', 1e3]
+    TITLES = True
+else:
+    POLAR = {
+        'fontSizes': (12, 3.75), 'ticksStep': 4,
+        'yRange': (0, 300e3), 'rRange': (0, 180),
+        'topRank': None
+    }
+    PART_SCALER = ['M', 1e6]
+    TITLES = True
 ###############################################################################
 # Get files and set font
 ###############################################################################
-if USR=='lab':
-    DATA_PATH = '/Users/sanchez.hmsc/Sync/BattlesDocker/'
-elif USR=='lap':
-    DATA_PATH = '/Users/sanchez.hmsc/Documents/SyncMega/BattlesDocker'
+if splat.isNotebook():
+    if USR=='lab':
+        DATA_PATH = '/Users/sanchez.hmsc/Sync/BattlesDocker/'
+    elif USR=='lap':
+        DATA_PATH = '/Users/sanchez.hmsc/Documents/SyncMega/BattlesDocker'
+    else:
+        DATA_PATH = '/home/chipdelmal/Documents/Sync/BattlesDocker/'
 else:
     DATA_PATH = '/home/chipdelmal/Documents/Sync/BattlesDocker/'
 FPATHS = glob(path.join(DATA_PATH, 'battle-results-csv', '*-*-*.csv'))
@@ -77,22 +99,32 @@ tests = [
 ]
 assert(all(tests))
 ###############################################################################
-# Lobby Type
-###############################################################################
-fName = FNSTR+'Lobby.png'
-(fig, ax) = plt.subplots(figsize=(0.4, 20))
-(fig, ax) = splat.barChartLobby(lbyFreq)
-plt.savefig(
-    path.join(DATA_PATH, 'statInk/'+fName), dpi=350, 
-    transparent=False, facecolor='#ffffff', bbox_inches='tight'
-)
-plt.close('all')
-###############################################################################
 # Plot Total Frequencies
 ###############################################################################
 fName = FNSTR+'Polar.png'
+if GMODE in GMODES:
+    POLAR['topRank'] = (len(wpnRank)-20, len(wpnRank))
 (fig, ax) = plt.subplots(figsize=(12, 12), subplot_kw={"projection": "polar"})
-(fig, ax) = splat.plotPolarFrequencies(wpnFreq, wpnRank, figAx=(fig, ax))
+(fig, ax) = splat.plotPolarFrequencies(
+    wpnFreq, wpnRank, figAx=(fig, ax),
+    fontSizes=POLAR['fontSizes'], ticksStep=POLAR['ticksStep'],
+    yRange=POLAR['yRange'], rRange=POLAR['rRange'],
+    topRank=POLAR['topRank']
+)
+if TITLES:
+    partp = np.sum(list(wpnFreq.values()))
+    if GMODE in GMODES:
+        fstr = '{} ({:.0f}{})'.format(GMODE, partp/PART_SCALER[1], PART_SCALER[0])
+    else:
+        fstr = 'Participation: {:.2f}{}'.format(partp/PART_SCALER[1], PART_SCALER[0])
+    ax.text(
+        0.5, 0.48, fstr,
+        fontsize=20,
+        horizontalalignment='right',
+        verticalalignment='top',
+        rotation=0,
+        transform=ax.transAxes
+    )
 plt.savefig(
     path.join(DATA_PATH, 'statInk/'+fName),
     dpi=350, transparent=False, facecolor='#ffffff', bbox_inches='tight'
@@ -103,9 +135,9 @@ plt.close('all')
 ###########################################################################
 fName = FNSTR+'Matrix.png'
 COLS = (
-    ('#FFFF00', '#1D07AC'), 
     ('#D01D79', '#1D07AC'), 
-    ('#6BFF00', '#1D07AC')
+    ('#6BFF00', '#1D07AC'),
+    ('#DACD12', '#1D07AC'),
 )
 cPal = splat.colorPaletteFromHexList([COLS[six][0], '#FFFFFF', COLS[six][1]])
 (fig, ax) = plt.subplots(figsize=(20, 20))
@@ -128,5 +160,17 @@ if GMODE not in GMODES:
     plt.savefig(
         path.join(DATA_PATH, 'statInk/'+fName),
         dpi=350, transparent=False, facecolor='#ffffff', bbox_inches='tight'
+    )
+    plt.close('all')
+###############################################################################
+# Lobby Type
+###############################################################################
+if GMODE not in GMODES:
+    fName = FNSTR+'Lobby.png'
+    (fig, ax) = plt.subplots(figsize=(0.4, 20))
+    (fig, ax) = splat.barChartLobby(lbyFreq)
+    plt.savefig(
+        path.join(DATA_PATH, 'statInk/'+fName), dpi=350, 
+        transparent=False, facecolor='#ffffff', bbox_inches='tight'
     )
     plt.close('all')

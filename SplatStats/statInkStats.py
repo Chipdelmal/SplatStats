@@ -176,7 +176,7 @@ def rankWeaponsFrequency(wpnFreq, wpnWLT):
     wpnWinRatio = wpnWLT[1][:,0]/wpnWLT[1][:,2]
     # Weapons ranks triplets --------------------------------------------------
     wpnRanks = zip(
-        [wpnsNum-i for i in range(wpnsNum)], 
+        [i+1 for i in range(wpnsNum)], 
         wpnFreq.keys(),
         [wpnWinRatio[ix] for ix in freqSorting]
     )

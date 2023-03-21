@@ -132,31 +132,45 @@ def plotDominanceMatrix(
 
 
 def plotPolarFrequencies(
-        wpnFreq, wpnRank,
-        figAx=None,
+        wpnFreq, wpnRank, 
+        figAx=None, topRank=None,
+        yRange=(0, 3e5), rRange=(0, 180), 
+        ticksStep=4, fontSizes=(1, 3.75), direction=1,
         colors=clr.ALL_COLORS
     ):
+    # Generate figAx if needed ------------------------------------------------
     if not figAx:
-        (fig, ax) = plt.subplots(
-            figsize=(12, 12), subplot_kw={"projection": "polar"}
-        )
+        (fig, ax) = plt.subplots(figsize=(12, 12), subplot_kw={"projection": "polar"})
     else:
         (fig, ax) = figAx
+    # Get labels and freqs ----------------------------------------------------
     labels = [
         '{:02d}. {} ({}%)'.format(ix, n, int(f*100)) for (ix, n, f) in wpnRank
     ]
+    (labs, freqs) = (
+        labels[::-1], 
+        list(wpnFreq.values())[::-1]
+    )
+    # Get top if needed -------------------------------------------------------
+    if topRank:
+        (labs, freqs) = (
+            labs[topRank[0]:topRank[1]], 
+            freqs[topRank[0]:topRank[1]]
+        )
+    # Generate plot -----------------------------------------------------------
     (fig, ax) = pts.polarBarChart(
-        labels[::-1], list(wpnFreq.values())[::-1],
-        yRange=(0, 3.0e5), rRange=(0, 180), ticksStep=4,
+        labs, freqs,
+        direction=direction, ticksStep=ticksStep,
+        yRange=yRange, rRange=rRange, 
         colors=[c+'DD' for c in colors],
         edgecolor='#00000088', linewidth=0,
         figAx=(fig, ax),
         ticksFmt={
             'lw': 1, 'range': (-.2, 1), 
-            'color': '#000000DD', 'fontsize': 1, 'fmt': '{:.1e}'
+            'color': '#000000DD', 'fontsize': fontSizes[0], 'fmt': '{:.1e}'
         },
         labelFmt={
-            'color': '#000000EE', 'fontsize': 3.75, 
+            'color': '#000000EE', 'fontsize': fontSizes[1], 
             'ha': 'left', 'fmt': '{:.1f}'
         }
     )
@@ -164,7 +178,7 @@ def plotPolarFrequencies(
     for txt in xlabels:
         lab = txt.get_text()
         txt.set_text('{:.0f}k'.format(float(lab)/1e3))
-    ax.set_xticklabels(xlabels, rotation=0, fontsize=8)
+    ax.set_xticklabels(xlabels, rotation=0, fontsize=fontSizes[0])
     return (fig, ax)
 
 
