@@ -10,11 +10,13 @@ import SplatStats as splat
 
 
 if splat.isNotebook():
-    (six, USR) = (2, 'dsk')
+    (six, USR) = (2, 'lab')
     GMODE = 'All'
+    SSN_TITLE = True
 else:
     (six, GMODE) = argv[1:]
     six = int(six)
+    SSN_TITLE = False
 SSON = ['Drizzle Season 2022', 'Chill Season 2022', 'Fresh Season 2023']
 SEASON = SSON[six]
 ###############################################################################
@@ -104,6 +106,10 @@ assert(all(tests))
 fName = FNSTR+'Polar.png'
 if GMODE in GMODES:
     POLAR['topRank'] = (len(wpnRank)-20, len(wpnRank))
+if SSN_TITLE:
+    fName = FNSTR+'Polar_S.png'
+    POLAR['rRange'] = (0, 90)
+    POLAR['ticksStep'] = 2
 (fig, ax) = plt.subplots(figsize=(12, 12), subplot_kw={"projection": "polar"})
 (fig, ax) = splat.plotPolarFrequencies(
     wpnFreq, wpnRank, figAx=(fig, ax),
@@ -111,7 +117,7 @@ if GMODE in GMODES:
     yRange=POLAR['yRange'], rRange=POLAR['rRange'],
     topRank=POLAR['topRank']
 )
-if TITLES:
+if TITLES and not SSN_TITLE:
     partp = np.sum(list(wpnFreq.values()))
     if GMODE in GMODES:
         fstr = '{} ({:.0f}{})'.format(GMODE, partp/PART_SCALER[1], PART_SCALER[0])
@@ -125,6 +131,8 @@ if TITLES:
         rotation=0,
         transform=ax.transAxes
     )
+if SSN_TITLE:
+    ax.set_title(SEASON, fontsize=35, y=0.5-.1, ha='right')
 plt.savefig(
     path.join(DATA_PATH, 'statInk/'+fName),
     dpi=350, transparent=False, facecolor='#ffffff', bbox_inches='tight'
@@ -145,6 +153,13 @@ cPal = splat.colorPaletteFromHexList([COLS[six][0], '#FFFFFF', COLS[six][1]])
     sNames, sMatrix, sSort, mMatrix,
     figAx=(fig, ax), vRange=(-0.75, 0.75), cmap=cPal
 )
+plt.tick_params(
+    axis='x', which='both',
+    bottom=False, top=True, labelbottom=False
+)
+if SSN_TITLE:
+    fName = FNSTR+'Matrix_S.png'
+    ax.set_title(SEASON, fontsize=50, y=-.06)
 plt.savefig(
     path.join(DATA_PATH, 'statInk/'+fName),
     dpi=350, transparent=False, facecolor='#ffffff', bbox_inches='tight'
