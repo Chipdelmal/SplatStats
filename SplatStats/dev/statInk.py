@@ -10,18 +10,15 @@ import SplatStats as splat
 
 
 if splat.isNotebook():
-    (six, USR) = (2, 'dsk')
+    (six, USR) = (0, 'dsk')
     GMODE = 'All'
 else:
     (six, GMODE) = argv[1:]
     six = int(six)
-SSON = ['Drizzle Season 2022', 'Chill Season 2022', 'Fresh Season 2023']
-SEASON = SSON[six]
 ###############################################################################
 # Constants
 ###############################################################################
 GMODES = {'Clam Blitz', 'Splat Zones', 'Tower Control', 'Turf War', 'Rainmaker'}
-FNSTR = '{} ({}) - '.format(SEASON, GMODE)
 if GMODE in GMODES:
     POLAR = {
         'fontSizes': (12, 10), 'ticksStep': 1,
@@ -61,6 +58,8 @@ btls = statInk.battlesResults
 ###############################################################################
 # Filter by Constraints
 ###############################################################################
+SEASON = list(btls['season'].unique())[six]
+FNSTR = '{} ({}) - '.format(SEASON, GMODE)
 if GMODE in GMODES:
     fltrs = (btls['season']==SEASON, btls['mode']==GMODE)
     fltrBool = [all(i) for i in zip(*fltrs)]
@@ -134,11 +133,7 @@ plt.close('all')
 # Weapon Matrix
 ###########################################################################
 fName = FNSTR+'Matrix.png'
-COLS = (
-    ('#D01D79', '#1D07AC'), 
-    ('#6BFF00', '#1D07AC'),
-    ('#DACD12', '#1D07AC'),
-)
+COLS = splat.SEASON_COLORS
 cPal = splat.colorPaletteFromHexList([COLS[six][0], '#FFFFFF', COLS[six][1]])
 (fig, ax) = plt.subplots(figsize=(20, 20))
 (fig, ax) = splat.plotDominanceMatrix(

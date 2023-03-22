@@ -10,8 +10,6 @@ if splat.isNotebook():
     (six, USR) = (0, 'dsk')
 else:
     six = int(argv[1])
-SSON = ['Drizzle Season 2022', 'Chill Season 2022', 'Fresh Season 2023']
-SEASON = SSON[six]
 ###############################################################################
 # Get files and set font
 ###############################################################################
@@ -26,6 +24,12 @@ else:
     DATA_PATH = '/home/chipdelmal/Documents/Sync/BattlesDocker/'
 FPATHS = glob(path.join(DATA_PATH, 'battle-results-csv', '*-*-*.csv'))
 splat.setSplatoonFont(DATA_PATH, fontName="Splatfont 2")
+###############################################################################
+# Parse Data Object
+###############################################################################
+statInk = splat.StatInk(path.join(DATA_PATH, 'battle-results-csv'))
+btls = statInk.battlesResults
+SEASON = list(btls['season'].unique())[six]
 ###############################################################################
 # Export Panel
 ###############################################################################
