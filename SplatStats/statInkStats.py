@@ -51,7 +51,7 @@ def normalizeDominanceMatrix(
     for (ix, _) in enumerate(wNames):
         winsDiff = domMtx[ix]/domMtx[:,ix]
         tauW[ix] = winsDiff
-    tauX = np.copy(tauW)-1
+    tauX = np.nan_to_num(tauW, 0)-1
     # Get sorting for most dominant -------------------------------------------
     if sorted:
         sorting = list(np.argsort([np.sum(r>0) for r in tauX]))[::-1]
