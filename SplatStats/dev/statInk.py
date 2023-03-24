@@ -10,7 +10,7 @@ import SplatStats as splat
 
 
 if splat.isNotebook():
-    (six, USR) = (2, 'lab')
+    (six, USR) = (2, 'dsk')
     GMODE = 'All'
     SSN_TITLE = True
 else:
@@ -80,7 +80,7 @@ else:
     splat.countDailyLobbies(btlsFiltered)
 )
 lbyGaussDaily = splat.smoothCountDailyLobbies(lbyDaily)
-(mNames, mMatrix) = splat.calculateDominanceMatrixWins(btlsFiltered)
+(mNames, mMatrix) = splat.calculateDominanceMatrix(btlsFiltered)
 (sNames, sMatrix, sSort) = splat.normalizeDominanceMatrix(mNames, mMatrix)
 # Calculate auxiliary metrics -------------------------------------------------
 wpnRank = splat.rankWeaponsFrequency(wpnFreq, wpnWLT)

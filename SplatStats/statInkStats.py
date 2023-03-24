@@ -7,7 +7,7 @@ from collections import Counter, OrderedDict
 import SplatStats.stats as stt
 
 
-def calculateDominanceMatrixWins(btls, wpnsNames=None):
+def calculateDominanceMatrix(btls, wpnsNames=None, dtype=np.uint32):
     btlsNum = btls.shape[0]
     # Get weapons used by each team, and who won ------------------------------
     winAlpha = list(btls['win'])
@@ -17,7 +17,7 @@ def calculateDominanceMatrixWins(btls, wpnsNames=None):
     wNames = (getWeaponsSet(btls) if not wpnsNames else wpnsNames)
     wpnsNumbr = len(wNames)
     # Generate matrix ---------------------------------------------------------
-    domMtx = np.zeros((wpnsNumbr, wpnsNumbr))
+    domMtx = np.zeros((wpnsNumbr, wpnsNumbr), dtype=dtype)
     bix = 0
     for bix in range(btlsNum):
         # Get names for weapons in both teams ---------------------------------
