@@ -51,15 +51,15 @@ conda_export:
 	- conda env export | cut -f 1 -d '=' | grep -v "prefix" > ./requirements.yml
 
 ###############################################################################
-# Docker
+# Docker SplatStats
 ###############################################################################
 docker_build:
 	- docker rmi splatstats:dev -f
-	- docker build -t splatstats:dev .
+	- docker build -f Dockerfile.splatstats -t splatstats:dev .
 
 docker_build_force:
 	- docker rmi splatstats:dev -f
-	- docker build --no-cache -t splatstats:dev .
+	- docker build -f Dockerfile.splatstats --no-cache -t splatstats:dev .
 
 docker_run:
 	- docker run -v "$(pwd)":/data/ splatstats:dev  --download "True" --upload "True" --player 'čħîþ ウナギ'
@@ -74,10 +74,39 @@ docker_exec:
 	- docker run -v "$(pwd)":/data/ -it splatstats:dev bash
 
 docker_release:
-	- docker build -t chipdelmal/splatstats:$(version) .
+	- docker build -f Dockerfile.splat -t chipdelmal/splatstats:$(version) .
 	- docker push chipdelmal/splatstats:$(version)
-	- docker build -t chipdelmal/splatstats:latest .
+	- docker build -f Dockerfile.splat -t chipdelmal/splatstats:latest .
 	- docker push chipdelmal/splatstats:latest
+
+###############################################################################
+# Docker InkStats
+###############################################################################
+docker_build_ink:
+	- docker rmi inkstats:dev -f
+	- docker build -f Dockerfile.inkstats -t inkstats:dev .
+
+docker_build_force_ink:
+	- docker rmi inkstats:dev -f
+	- docker build -f Dockerfile.inkstats --no-cache -t inkstats:dev .
+
+docker_run_ink:
+	- docker run -v "$(pwd)":/data/ inkstats:dev  --download "True" --upload "True" --player 'čħîþ ウナギ'
+
+docker_run_python_ink:
+	- docker run -it inkstats:dev python
+
+docker_run_bash_ink:
+	- docker run -it --entrypoint /bin/bash inkstats:dev
+
+docker_exec_ink:
+	- docker run -v "$(pwd)":/data/ -it inkstats:dev bash
+
+docker_release_ink:
+	- docker build -f Dockerfile.splat -t chipdelmal/inkstats:$(version) .
+	- docker push chipdelmal/inkstats:$(version)
+	- docker build -f Dockerfile.splat -t chipdelmal/inkstats:latest .
+	- docker push chipdelmal/inkstats:latest
 
 ###############################################################################
 # Full version release
