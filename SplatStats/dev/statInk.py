@@ -7,10 +7,11 @@ from glob import glob
 from random import shuffle
 import matplotlib.pyplot as plt
 import SplatStats as splat
+from datetime import datetime
 
 
 if splat.isNotebook():
-    (six, USR) = (2, 'dsk')
+    (six, USR) = (0, 'lab')
     GMODE = 'All'
     SSN_TITLE = True
 else:
@@ -88,6 +89,7 @@ wpnRank = splat.rankWeaponsFrequency(wpnFreq, wpnWLT)
     np.sum(mMatrix, axis=1)/4, 
     np.sum(mMatrix, axis=0)/4
 )
+period = (min(btlsFiltered['period']), max(btlsFiltered['period']))
 # Checks for consistency ------------------------------------------------------
 tests = [
     np.sum(list(wpnFreq.values()))/8 == btlsFiltered.shape[0],
@@ -153,7 +155,14 @@ plt.tick_params(
 )
 if SSN_TITLE:
     fName = FNSTR+'Matrix_S.png'
-    ax.set_title(SEASON, fontsize=50, y=-.06)
+    ax.set_title(
+        '{}\n({} matches from {} to {})'.format(
+            SEASON, btlsFiltered.shape[0],
+            period[0].strftime("%b %d"), 
+            period[1].strftime("%b %d")
+        )
+        , fontsize=35, y=-.085
+    )
 plt.savefig(
     path.join(DATA_PATH, 'statInk/'+fName),
     dpi=350, transparent=False, facecolor='#ffffff', bbox_inches='tight'
