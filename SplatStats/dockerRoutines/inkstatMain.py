@@ -116,7 +116,14 @@ plt.tick_params(
 )
 if SSN_TITLE:
     fName = FNSTR+'Matrix_S.png'
-    ax.set_title(SEASON, fontsize=50, y=-.06)
+    ax.set_title(
+        '{}\n({} matches from {} to {})'.format(
+            SEASON, btlsFiltered.shape[0],
+            period[0].strftime("%b %d"), 
+            period[1].strftime("%b %d")
+        )
+        , fontsize=35, y=-.085
+    )
 plt.savefig(
     path.join(DATA_PATH, 'statInk/'+fName),
     dpi=350, transparent=False, facecolor='#ffffff', bbox_inches='tight'
