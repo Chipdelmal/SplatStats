@@ -11,7 +11,7 @@ from datetime import datetime
 
 
 if splat.isNotebook():
-    (six, USR) = (2, 'dsk')
+    (six, USR) = (1, 'dsk')
     GMODE = 'All'
     SSN_TITLE = False
 else:
@@ -106,7 +106,7 @@ assert(all(tests))
 ###########################################################################
 fName = FNSTR+'Matrix.png'
 COLS = splat.SEASON_COLORS
-cPal = splat.colorPaletteFromHexList([COLS[six][0], '#FFFFFF', COLS[six][1]])
+cPal = splat.colorPaletteFromHexList([COLS[six][0]+'DD', '#FFFFFF99', COLS[six][1]+'DD'])
 (fig, ax) = plt.subplots(figsize=(20, 20))
 (fig, ax) = splat.plotDominanceMatrix(
     sNames, sMatrix, sSort, mMatrix,
@@ -126,14 +126,16 @@ if SSN_TITLE:
         )
         , fontsize=35, y=-.085
     )
+    (transp, fc) = (False, '#ffffff')
 else:
     ax.set_title(
         'Matches: {}'.format(btlsFiltered.shape[0])
         , fontsize=35, y=-.045
     )
+    (transp, fc) = (True, '#ffffff00')
 plt.savefig(
     path.join(DATA_PATH, 'statInk/'+fName),
-    dpi=350, transparent=False, facecolor='#ffffff', bbox_inches='tight'
+    dpi=350, transparent=transp, facecolor=fc, bbox_inches='tight'
 )
 plt.close('all')
 ###############################################################################

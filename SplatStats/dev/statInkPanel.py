@@ -7,7 +7,7 @@ import SplatStats as splat
 
 
 if splat.isNotebook():
-    (six, USR) = (0, 'dsk')
+    (six, USR) = (1, 'dsk')
 else:
     six = int(argv[1])
 ###############################################################################
