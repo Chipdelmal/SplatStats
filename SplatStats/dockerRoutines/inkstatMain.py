@@ -89,6 +89,7 @@ wpnRank = splat.rankWeaponsFrequency(wpnFreq, wpnWLT)
     np.sum(mMatrix, axis=1)/4, 
     np.sum(mMatrix, axis=0)/4
 )
+period = (min(btlsFiltered['period']), max(btlsFiltered['period']))
 # Checks for consistency ------------------------------------------------------
 tests = [
     np.sum(list(wpnFreq.values()))/8 == btlsFiltered.shape[0],

@@ -13,11 +13,11 @@ from datetime import datetime
 if splat.isNotebook():
     (six, USR) = (2, 'dsk')
     GMODE = 'All'
-    SSN_TITLE = True
+    SSN_TITLE = False
 else:
-    (six, GMODE) = argv[1:]
+    (six, GMODE, ssn) = argv[1:]
     six = int(six)
-    SSN_TITLE = True
+    SSN_TITLE = int(ssn)
 ###############################################################################
 # Constants
 ###############################################################################
@@ -126,6 +126,11 @@ if SSN_TITLE:
         )
         , fontsize=35, y=-.085
     )
+else:
+    ax.set_title(
+        'Matches: {}'.format(btlsFiltered.shape[0])
+        , fontsize=35, y=-.045
+    )
 plt.savefig(
     path.join(DATA_PATH, 'statInk/'+fName),
     dpi=350, transparent=False, facecolor='#ffffff', bbox_inches='tight'
@@ -164,36 +169,6 @@ if TITLES and not SSN_TITLE:
     )
 if SSN_TITLE:
     ax.set_title(SEASON, fontsize=35, y=0.5-.1, ha='right')
-plt.savefig(
-    path.join(DATA_PATH, 'statInk/'+fName),
-    dpi=350, transparent=False, facecolor='#ffffff', bbox_inches='tight'
-)
-plt.close('all')
-###########################################################################
-# Weapon Matrix
-###########################################################################
-fName = FNSTR+'Matrix.png'
-COLS = splat.SEASON_COLORS
-cPal = splat.colorPaletteFromHexList([COLS[six][0], '#FFFFFF', COLS[six][1]])
-(fig, ax) = plt.subplots(figsize=(20, 20))
-(fig, ax) = splat.plotDominanceMatrix(
-    sNames, sMatrix, sSort, mMatrix,
-    figAx=(fig, ax), vRange=(-0.75, 0.75), cmap=cPal
-)
-plt.tick_params(
-    axis='x', which='both',
-    bottom=False, top=True, labelbottom=False
-)
-if SSN_TITLE:
-    fName = FNSTR+'Matrix_S.png'
-    ax.set_title(
-        '{}\n({} matches from {} to {})'.format(
-            SEASON, btlsFiltered.shape[0],
-            period[0].strftime("%b %d"), 
-            period[1].strftime("%b %d")
-        )
-        , fontsize=35, y=-.085
-    )
 plt.savefig(
     path.join(DATA_PATH, 'statInk/'+fName),
     dpi=350, transparent=False, facecolor='#ffffff', bbox_inches='tight'
