@@ -62,12 +62,12 @@ weapons = sorted(list(dfStats['weapon'].unique()))
 STATS = {
     'stat': ['kill', 'death', 'assist', 'special', 'paint'],
     'colors': [
-        '#1A1AAEDD', '#801AB3DD', '#C12D74DD', '#4F55EDDD', '#35BA49DD', 
+        '#1A1AAEDD', '#801AB3DD', '#C12D74DD', '#1FAFE8DD', '#35BA49DD', 
         '#EE8711DD', '#C12D74DD', '#D645C8DD', 
     ],
     'scalers': [
         lambda x: np.interp(x, [0, k/2, k], [0, .70, 0.95])
-        for k in [0.25, 0.25, 1.25, 2, 0.25]
+        for k in [0.25, 0.25, 1.25, 2, 0.2]
     ],
     'range': [15, 15, 10, 10, 20]
 }
