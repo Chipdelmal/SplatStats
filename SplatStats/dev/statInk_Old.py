@@ -11,6 +11,7 @@ import numpy as np
 from random import shuffle
 import matplotlib.pyplot as plt
 import SplatStats as splat
+import matplotlib.colors as mcolors
 from matplotlib.patches import Rectangle
 
 
@@ -39,10 +40,10 @@ btls = statInk.battlesResults
 ###############################################################################
 fltrs = (btls['season']==SEASON, )
 fltrBool = [all(i) for i in zip(*fltrs)]
-btlsFiltered = btls[fltrBool]
+btlsFiltered = btls # btls[fltrBool]
 btlsFiltered['matches'] = [1]*btlsFiltered.shape[0]
 ###############################################################################
-# Frequency Analysis
+# Get Frequencies
 ###############################################################################
 prepend = 'A1'
 dfs = []
@@ -55,15 +56,84 @@ dfStats = pd.concat(dfs)
 dfStats['kassist'] = dfStats['kill']+dfStats['assist']/2
 dfStats['paint'] = dfStats['inked']/100
 weapons = sorted(list(dfStats['weapon'].unique()))
-
-
+###############################################################################
+# Generate Plot
+###############################################################################
 STATS = {
     'stat': ['kill', 'death', 'assist', 'special', 'paint'],
-    'colors': ['#1A1AAEDD', '#C12D74DD', '#35BA49DD', '#801AB3DD', '#EE8711DD']
+    'colors': [
+        '#1A1AAEDD', '#801AB3DD', '#C12D74DD', '#4F55EDDD', '#35BA49DD', 
+        '#EE8711DD', '#C12D74DD', '#D645C8DD', 
+    ],
+    'scalers': [
+        lambda x: np.interp(x, [0, k/2, k], [0, .70, 0.95])
+        for k in [0.25, 0.25, 1.25, 2, 0.25]
+    ],
+    'range': [15, 15, 10, 10, 20]
 }
 STATS['cmaps'] = [
     splat.colorPaletteFromHexList(['#ffffff00', c]) for c in STATS['colors']
 ]
+
+six = 3
+stat = STATS['stat'][six]
+weaponsList = weapons[::-1] # ['Splattershot', 'Tentatek Splattershot', 'Hero Shot Replica'] #  # 
+(xRan, binSize) = ((0, STATS['range'][six]), 1)
+kFreqs = [
+    splat.calcBinnedFrequencies(
+        dfStats[dfStats['weapon']==wpn][stat], 
+        xRan[0], xRan[1], normalized=True
+    )
+    for wpn in weaponsList
+]
+kMeans = [
+    np.mean(dfStats[dfStats['weapon']==wpn][stat])
+    for wpn in weaponsList
+]
+# kMedians = [
+#     np.median(dfStats[dfStats['weapon']==wpn][stat])
+#     for wpn in weaponsList
+# ]
+cconv = mcolors.ColorConverter().to_rgba
+bCol = cconv(STATS['colors'][six])
+(fig, ax) = plt.subplots(figsize=(5, 20))
+for (ix, wFreq) in enumerate(kFreqs):
+    for (x, k) in enumerate(wFreq):
+        scaled = STATS['scalers'][six](k)
+        ax.add_patch(
+            Rectangle(
+                (x, ix), binSize, 1, 
+                # facecolor=STATS['cmaps'][ix%len(STATS['colors'])](scaled),
+                facecolor=(bCol[0], bCol[1], bCol[2], STATS['scalers'][six](k)),
+                edgecolor='#000000AA',
+                # alpha=STATS['scalers'][six](k)
+            )
+        )
+for (ix, wMean) in enumerate(kMeans):
+    ax.vlines(
+        wMean, ix+0.25, ix+0.75,
+        colors='#000000AA',
+        lw=2.5, ls='-'
+    )
+# for (ix, wMedian) in enumerate(kMedians):
+#     ax.vlines(
+#         wMedian, ix+0.5, ix+1,
+#         colors='#00000088',
+#         lw=2.5, ls='-'
+#     )
+ax.set_ylim(0, len(weaponsList))
+ax.set_yticks(np.arange(0.5, len(weaponsList), 1))
+ax.set_yticklabels(weaponsList)
+ax.set_xlim(*xRan)
+# ax.xaxis.tick_top()
+ax.set_xticks(np.arange(0, STATS['range'][six]+1, 5))
+ax.set_title('{}'.format(stat), fontdict={'fontsize': 20})
+plt.savefig(
+    path.join(DATA_PATH, 'statInk/Weapons-'+stat),
+    dpi=350, transparent=False, facecolor='#ffffff', bbox_inches='tight'
+)
+
+
 
 
 (xRan, binSize) = ((0, 20), 1)
@@ -78,7 +148,7 @@ for (ix, st) in enumerate(fltrdStat):
         ax.add_patch(
             Rectangle(
                 (x, ix), binSize, 1, 
-                facecolor=STATS['cmaps'][ix](k*10), edgecolor='#000000',
+                facecolor=STATS['cmaps'][ix](k), edgecolor='#000000',
             )
         )
 ax.set_title(wpn)
@@ -90,7 +160,7 @@ ax.set_ylim(0, len(STATS['stat']))
 
 
 
-
+kFreqs = splat.calcBinnedFrequencies(fltrd['paint'], 0, 20, normalized=True)
 
 
 
