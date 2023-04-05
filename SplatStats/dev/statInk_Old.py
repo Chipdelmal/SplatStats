@@ -49,7 +49,7 @@ weapons = sorted(list(dfStats['weapon'].unique()))
 # dfStats['kassist'] = dfStats['kill']+dfStats['assist']/2
 dfStats['paint'] = dfStats['inked']/100
 
-xRan = (0, 30)
+xRan = (0, 25)
 stats = ['kill', 'death', 'assist', 'special', 'paint']
 (kFreqs, kMeans) = ({}, {})
 for wpn in weapons[:10]:
