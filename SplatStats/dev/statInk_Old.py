@@ -41,21 +41,35 @@ btls = statInk.battlesResults
 fltrs = (btls['season']==SEASON, )
 fltrBool = [all(i) for i in zip(*fltrs)]
 btlsFiltered = btls # btls[fltrBool]
-btlsFiltered['matches'] = [1]*btlsFiltered.shape[0]
 ###############################################################################
 # Get Frequencies
 ###############################################################################
-prepend = 'A1'
-dfs = []
-for prepend in ['A1', 'A2', 'A3', 'A4', 'B1', 'B2', 'B3', 'B4']:
-    cols = ['weapon', 'kill', 'assist', 'death', 'inked', 'special']
-    df = btlsFiltered[[prepend+'-{}'.format(c) for c in cols]+['matches']]
-    df.columns = [c[3:] for c in df.columns[:-1]]+['matches']
-    dfs.append(df)
-dfStats = pd.concat(dfs)
-dfStats['kassist'] = dfStats['kill']+dfStats['assist']/2
-dfStats['paint'] = dfStats['inked']/100
+dfStats = splat.getWeaponsDataframe(btlsFiltered)
 weapons = sorted(list(dfStats['weapon'].unique()))
+# dfStats['kassist'] = dfStats['kill']+dfStats['assist']/2
+dfStats['paint'] = dfStats['inked']/100
+
+xRan = (0, 30)
+stats = ['kill', 'death', 'assist', 'special', 'paint']
+kFreqs = {}
+for wpn in weapons:
+    wpnDF = dfStats[dfStats['weapon']==wpn]
+    kFreqs[wpn] = {
+        stat: splat.calcBinnedFrequencies(
+            wpnDF[stat], 
+            xRan[0], xRan[1], normalized=True
+        )
+        for stat in stats
+    }
+
+kFreqs = [
+    splat.calcBinnedFrequencies(
+        dfStats[dfStats['weapon']==wpn][stat], 
+        xRan[0], xRan[1], normalized=True
+    )
+    for wpn in weapons
+]
+
 ###############################################################################
 # Generate Plot
 ###############################################################################

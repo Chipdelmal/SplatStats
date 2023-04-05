@@ -55,3 +55,4 @@ class StatInk:
         # Coherce into data types and return dataframe -----------------------
         df.astype(ink.SPLATSTATS_DTYPES, copy=False)
         return df
+    

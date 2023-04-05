@@ -182,3 +182,15 @@ def rankWeaponsFrequency(wpnFreq, wpnWLT):
     )
     return list(wpnRanks)
 
+
+def getWeaponsDataframe(
+        battlesResults,
+        stats=['weapon', 'kill', 'assist', 'death', 'inked', 'special']
+    ):
+    dfs = []
+    for prepend in ['A1', 'A2', 'A3', 'A4', 'B1', 'B2', 'B3', 'B4']:
+        df = battlesResults[[prepend+'-{}'.format(c) for c in stats]]
+        df.columns = [c[3:] for c in df.columns]
+        dfs.append(df)
+    dfStats = pd.concat(dfs)
+    return dfStats
