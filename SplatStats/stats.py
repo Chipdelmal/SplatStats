@@ -100,13 +100,19 @@ def calcBinnedFrequencies(array, xMin, xMax, binSize=1, normalized=False):
     Returns:
         array: Frequencies of ocurrences in the defined ranges.
     """    
-    freqs = np.array([
-        frequencyInRange(array, i, i+binSize) for i in 
-        range(xMin, xMax, binSize)
-    ])
-    total = np.sum(freqs)
+    # freqs = np.array([
+    #     frequencyInRange(array, i, i+binSize) for i in 
+    #     range(xMin, xMax, binSize)
+    # ])
+    # total = np.sum(freqs)
+    # if normalized:
+    #     freqs = freqs/total
+    rans = np.arange(xMin, xMax+binSize, binSize)
+    sArray = sorted(np.copy(array))
+    sortedIxs = np.searchsorted(sArray, rans, side='left')
+    freqs = np.diff(sortedIxs)
     if normalized:
-        freqs = freqs/total
+        freqs = freqs/np.sum(freqs)
     return freqs
 
 
