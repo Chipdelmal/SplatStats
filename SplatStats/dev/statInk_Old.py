@@ -15,7 +15,7 @@ import matplotlib.colors as mcolors
 from matplotlib.patches import Rectangle
 
 
-(six, USR) = (1, 'dsk')
+(six, USR) = (1, 'lab')
 SSON = ['Drizzle Season 2022', 'Chill Season 2022', 'Fresh Season 2023']
 SEASON = SSON[six]
 TOP = 20
@@ -51,17 +51,20 @@ dfStats['paint'] = dfStats['inked']/100
 
 xRan = (0, 30)
 stats = ['kill', 'death', 'assist', 'special', 'paint']
-kFreqs = {}
-for wpn in weapons:
+(kFreqs, kMeans) = ({}, {})
+for wpn in weapons[:10]:
     wpnDF = dfStats[dfStats['weapon']==wpn]
-    kFreqs[wpn] = {
-        stat: splat.calcBinnedFrequencies(
-            wpnDF[stat], 
-            xRan[0], xRan[1], normalized=True
-        )
-        for stat in stats
-    }
+    kFreqs[wpn] = splat.getWeaponStatsHistograms(wpnDF, xRan, stats=stats)
+    kMeans[wpn] = splat.getWeaponStatsMean(wpnDF, stats=stats, mFun=np.mean)
 
+
+six = 0
+stat = stats[six]
+
+
+###############################################################################
+# Generate Plot
+###############################################################################
 kFreqs = [
     splat.calcBinnedFrequencies(
         dfStats[dfStats['weapon']==wpn][stat], 
@@ -69,10 +72,6 @@ kFreqs = [
     )
     for wpn in weapons
 ]
-
-###############################################################################
-# Generate Plot
-###############################################################################
 STATS = {
     'stat': ['kill', 'death', 'assist', 'special', 'paint'],
     'colors': [

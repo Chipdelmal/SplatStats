@@ -194,3 +194,26 @@ def getWeaponsDataframe(
         dfs.append(df)
     dfStats = pd.concat(dfs)
     return dfStats
+
+
+def getWeaponStatsHistograms(
+        weaponDF, range,
+        stats=['kill', 'death', 'assist', 'special', 'inked'],
+        normalized=True, binSize=1
+    ):
+    wpnHists = {
+        stat: stt.calcBinnedFrequencies(
+            weaponDF[stat], range[0], range[1], 
+            normalized=normalized, binSize=binSize
+        )
+        for stat in stats
+    }
+    return wpnHists
+
+def getWeaponStatsMean(
+        weaponDF,
+        stats=['kill', 'death', 'assist', 'special', 'inked'],
+        mFun=np.mean
+    ):
+    wpnMeans = {stat: mFun(weaponDF[stat]) for stat in stats}
+    return wpnMeans
