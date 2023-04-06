@@ -1,5 +1,7 @@
 
+import numpy as np
 # import json
+
 # with open('./InkStat/weapon.json', 'r') as f:
 #   WEAPONS = json.load(f)
 # wpnKeys = [i['key'] for i in WEAPONS]
@@ -232,4 +234,31 @@ SPLATSTATS_DTYPES = {
   'medal1-name': 'string', 'medal1-grade': 'string',
   'medal2-name': 'string', 'medal2-grade': 'string',
   'medal3-name': 'string', 'medal3-grade': 'string'
+}
+
+
+INKSTATS_STYLE = {
+    'kill': {
+        'color': '#1A1AAEDD', 'range': (0, 15),
+        'scaler': lambda x: np.interp(x, [0, 0.125, 0.25], [0, .70, 0.95]),
+        'range': (0, 15)
+    },
+    'death': {
+        'color': '#801AB3DD', 'range': (0, 15),
+        'scaler': lambda x: np.interp(x, [0, 0.125, 0.25], [0, .70, 0.95]),
+        'range': (0, 15)
+    },
+    'assist': {
+        'color': '#C12D74DD', 'range': (0, 10),
+        'scaler': lambda x: np.interp(x, [0, 0.625, 1.25], [0, .70, 0.95]),
+        
+    },
+    'special': {
+        'color': '#1FAFE8DD', 'range': (0, 10),
+        'scaler': lambda x: np.interp(x, [0, 1,  2], [0, .70, 0.95]),
+    },
+    'paint': {
+        'color': '#35BA49DD', 'range': (0, 20),
+        'scaler': lambda x: np.interp(x, [0, 0.1, 0.2], [0, .70, 0.95]),
+    }
 }

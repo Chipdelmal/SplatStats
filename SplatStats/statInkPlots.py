@@ -3,6 +3,8 @@
 
 import numpy as np
 import matplotlib.pyplot as plt
+import matplotlib.colors as mcolors
+from matplotlib.patches import Rectangle
 import SplatStats.colors as clr
 import SplatStats.plots as pts
 
@@ -219,3 +221,44 @@ def plotGaussianLobby(
     return (fig, ax)
 
 
+def plotWeaponsStrips(
+        weaponsHists, weaponsList, stat,
+        figAx=None,
+        weaponsSummary=None,
+        color='#1A1AAEDD', range=(0, 50),
+        cScaler=lambda x: np.interp(x, [0, 1], [0, 1]),
+        binSize=1
+    ):
+    wpnList = weaponsList[::-1]
+    bCol = mcolors.ColorConverter().to_rgba(color)
+    if figAx:
+        (fig, ax) = figAx
+    else:
+        (fig, ax) = plt.subplots(figsize=(5, 20))
+    for (ix, wpn) in enumerate(wpnList):
+        wpnData = weaponsHists[wpn][stat]
+        for (x, k) in enumerate(wpnData):
+            alpha = cScaler(k)
+            ax.add_patch(
+                Rectangle(
+                    (x, ix), binSize, 1,
+                    facecolor=(bCol[0], bCol[1], bCol[2], alpha),
+                    edgecolor='#000000AA',
+                )
+            )
+    if weaponsSummary:
+        for (ix, wpn) in enumerate(wpnList):
+            wpnData = weaponsSummary[wpn][stat]
+            ax.vlines(
+                wpnData, ix+0.25, ix+0.75,
+                colors='#000000AA',
+                lw=2.5, ls='-'
+            )
+    ax.set_ylim(0, len(wpnList))
+    ax.set_yticks(np.arange(0.5, len(wpnList), 1))
+    ax.set_yticklabels(wpnList)
+    ax.set_xlim(range[0], range[1])
+    # ax.xaxis.tick_top()
+    ax.set_xticks(np.arange(range[0], range[1]+1, 5))
+    ax.set_title('{}'.format(stat), fontdict={'fontsize': 20})
+    return (fig, ax)

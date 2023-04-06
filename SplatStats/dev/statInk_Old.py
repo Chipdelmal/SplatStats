@@ -47,41 +47,98 @@ btlsFiltered = btls # btls[fltrBool]
 ###############################################################################
 dfStats = splat.getWeaponsDataframe(btlsFiltered)
 weapons = sorted(list(dfStats['weapon'].unique()))
-# dfStats['kassist'] = dfStats['kill']+dfStats['assist']/2
+dfStats['kassist'] = dfStats['kill']+dfStats['assist']/2
 dfStats['paint'] = dfStats['inked']/100
 
-(xRan, binSize) = ((0, 25), 1)
 stats = ['kill', 'death', 'assist', 'special', 'paint']
-(kFreqs, kMeans) = ({}, {})
+wpnHists = splat.getWeaponsStatsHistograms(
+    dfStats, weapons, (0, 30), binSize=1, stats=stats
+)
+wpnMeans = splat.getWeaponsStatsSummary(
+    dfStats, weapons, summaryFunction=np.mean, stats=stats
+)
+stat = 'death'
+statPars = splat.INKSTATS_STYLE[stat]
+(fig, ax) = splat.plotWeaponsStrips(
+    wpnHists, weapons, stat,
+    figAx=None,
+    weaponsSummary=wpnMeans,
+    color=statPars['color'], range=statPars['range'],
+    cScaler=statPars['scaler'],
+    binSize=1
+)
+
+
+INKSTATS_STYLE = {
+    'kill': {
+        'color': '#1A1AAEDD', 'range': (0, 15),
+        'scaler': lambda x: np.interp(x, [0, 0.125, 0.25], [0, .70, 0.95]),
+        'range': (0, 15)
+    },
+    'death': {
+        'color': '#801AB3DD', 'range': (0, 15),
+        'scaler': lambda x: np.interp(x, [0, 0.125, 0.25], [0, .70, 0.95]),
+        'range': (0, 15)
+    },
+    'assist': {
+        'color': '#C12D74DD', 'range': (0, 10),
+        'scaler': lambda x: np.interp(x, [0, 0.625, 1.25], [0, .70, 0.95]),
+        
+    },
+    'special': {
+        'color': '#1FAFE8DD', 'range': (0, 10),
+        'scaler': lambda x: np.interp(x, [0, 1,  2], [0, .70, 0.95]),
+    },
+    'paint': {
+        'color': '#35BA49DD', 'range': (0, 20),
+        'scaler': lambda x: np.interp(x, [0, 0.1, 0.2], [0, .70, 0.95]),
+    }
+}
+
+stat = 'kill'
+statPars = INKSTATS_STYLE[stat]
+wpnsList = sorted(wpnHists.keys())[::-1]
+
+
+bCol = mcolors.ColorConverter().to_rgba(statPars['color'])
+(fig, ax) = plt.subplots(figsize=(5, 20))
+for (ix, wpn) in enumerate(wpnsList):
+    wpnData = wpnHists[wpn][stat]
+    for (x, k) in enumerate(wpnData):
+        alpha = statPars['scaler'](k)
+        ax.add_patch(
+            Rectangle(
+                (x, ix), binSize, 1,
+                facecolor=(bCol[0], bCol[1], bCol[2], alpha),
+                edgecolor='#000000AA',
+            )
+        )
+for (ix, wpn) in enumerate(wpnsList):
+    wpnData = wpnMeans[wpn][stat]
+    ax.vlines(
+        wpnData, ix+0.25, ix+0.75,
+        colors='#000000AA',
+        lw=2.5, ls='-'
+    )
+ax.set_ylim(0, len(weapons))
+ax.set_yticks(np.arange(0.5, len(weapons), 1))
+ax.set_yticklabels(wpnsList)
+ax.set_xlim(statPars['range'][0], statPars['range'][1])
+# ax.xaxis.tick_top()
+ax.set_xticks(np.arange(statPars['range'][0], statPars['range'][1]+1, 5))
+ax.set_title('{}'.format(stat), fontdict={'fontsize': 20})
+plt.savefig(
+    path.join(DATA_PATH, 'statInk/Weapons-'+stat),
+    dpi=350, transparent=False, facecolor='#ffffff', bbox_inches='tight'
+)
+
+
 for wpn in weapons:
     wpnDF = dfStats[dfStats['weapon']==wpn]
     kFreqs[wpn] = splat.getWeaponStatsHistograms(
         wpnDF, xRan, stats=stats, binSize=binSize
     )
     kMeans[wpn] = splat.getWeaponStatsMean(wpnDF, stats=stats, mFun=np.mean)
-
-STATS = {
-    'kill': {
-        'color': '#1A1AAEDD', 'range': (0, 15),
-        'scaler': lambda x: np.interp(x, [0, 0.125, 0.25], [0, .70, 0.95]),
-        'range': (0, 15)
-    },
-    'kill': {
-        'color': '#1A1AAEDD', 'range': (0, 15),
-        'scaler': lambda x: np.interp(x, [0, 0.125, 0.25], [0, .70, 0.95]),
-        'range': (0, 15)
-    },
-    'kill': {
-        'color': '#1A1AAEDD', 'range': (0, 15),
-        'scaler': lambda x: np.interp(x, [0, 0.125, 0.25], [0, .70, 0.95]),
-        
-    },
-    'kill': {
-        'color': '#1A1AAEDD', 'range': (0, 15),
-        'scaler': lambda x: np.interp(x, [0, 0.125, 0.25], [0, .70, 0.95]),
-    }
-}
-
 STATS = {
     'stat': stats,
     'colors': [

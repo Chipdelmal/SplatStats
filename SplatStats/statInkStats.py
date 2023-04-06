@@ -225,3 +225,29 @@ def getWeaponStatsMean(
     return wpnMeans
 
 
+def getWeaponsStatsHistograms(
+        weaponsDF, weapons, range,
+        stats=['kill', 'death', 'assist', 'special', 'inked'],
+        normalized=True, binSize=1
+    ):
+    kFreqs = {}
+    for wpn in weapons:
+        wpnDF = weaponsDF[weaponsDF['weapon']==wpn]
+        kFreqs[wpn] = getWeaponStatsHistograms(
+            wpnDF, range, stats=stats, binSize=binSize, normalized=normalized
+        )
+    return kFreqs
+
+
+def getWeaponsStatsSummary(
+        weaponsDF, weapons, 
+        summaryFunction=np.mean,
+        stats=['kill', 'death', 'assist', 'special', 'inked']
+    ):
+    kMeans = {}
+    for wpn in weapons:
+        wpnDF = weaponsDF[weaponsDF['weapon']==wpn]
+        kMeans[wpn] = getWeaponStatsMean(
+            wpnDF, stats=stats, mFun=summaryFunction
+        )
+    return kMeans
