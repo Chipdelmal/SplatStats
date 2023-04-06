@@ -202,18 +202,26 @@ def getWeaponStatsHistograms(
         normalized=True, binSize=1
     ):
     wpnHists = {
-        stat: stt.calcBinnedFrequencies(
-            weaponDF[stat], range[0], range[1], 
-            normalized=normalized, binSize=binSize
+        stat: np.nan_to_num(
+            stt.calcBinnedFrequencies(
+                weaponDF[stat], range[0], range[1], 
+                normalized=normalized, binSize=binSize
+            ), 0
         )
         for stat in stats
     }
     return wpnHists
+
 
 def getWeaponStatsMean(
         weaponDF,
         stats=['kill', 'death', 'assist', 'special', 'inked'],
         mFun=np.mean
     ):
-    wpnMeans = {stat: mFun(weaponDF[stat]) for stat in stats}
+    if weaponDF.shape[0] > 0:
+        wpnMeans = {stat: mFun(weaponDF[stat]) for stat in stats}
+    else:
+        wpnMeans = {stat: 0 for stat in stats}
     return wpnMeans
+
+

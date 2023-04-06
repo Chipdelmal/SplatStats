@@ -161,11 +161,11 @@ plt.close(g.fig)
 ###############################################################################
 # Waffle
 ###############################################################################
-(fig, ax) = plt.subplots(figsize=(12, 3.4))
+(fig, ax) = plt.subplots(figsize=(8, 8))
 (fig, ax) = splat.plotWaffleStat(
     (fig, ax), playerHistory,
     function=sum, grouping='main weapon', stat='kassist',
-    rows=30, columns=100, vertical=False,
+    rows=50, columns=50, vertical=False,
     colors=splat.CLR_CLS_LONG
 )
 ax.set_title(f'(Kills+0.5*Assists) = {killsTotal}\n', fontsize=18)

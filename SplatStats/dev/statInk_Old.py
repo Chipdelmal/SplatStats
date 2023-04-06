@@ -13,9 +13,10 @@ import matplotlib.pyplot as plt
 import SplatStats as splat
 import matplotlib.colors as mcolors
 from matplotlib.patches import Rectangle
+from collections import Counter
 
 
-(six, USR) = (1, 'lab')
+(six, USR) = (1, 'dsk')
 SSON = ['Drizzle Season 2022', 'Chill Season 2022', 'Fresh Season 2023']
 SEASON = SSON[six]
 TOP = 20
@@ -49,29 +50,109 @@ weapons = sorted(list(dfStats['weapon'].unique()))
 # dfStats['kassist'] = dfStats['kill']+dfStats['assist']/2
 dfStats['paint'] = dfStats['inked']/100
 
-xRan = (0, 25)
+(xRan, binSize) = ((0, 25), 1)
 stats = ['kill', 'death', 'assist', 'special', 'paint']
 (kFreqs, kMeans) = ({}, {})
-for wpn in weapons[:10]:
+for wpn in weapons:
     wpnDF = dfStats[dfStats['weapon']==wpn]
-    kFreqs[wpn] = splat.getWeaponStatsHistograms(wpnDF, xRan, stats=stats)
+    kFreqs[wpn] = splat.getWeaponStatsHistograms(
+        wpnDF, xRan, stats=stats, binSize=binSize
+    )
     kMeans[wpn] = splat.getWeaponStatsMean(wpnDF, stats=stats, mFun=np.mean)
+
+STATS = {
+    'kill': {
+        'color': '#1A1AAEDD', 'range': (0, 15),
+        'scaler': lambda x: np.interp(x, [0, 0.125, 0.25], [0, .70, 0.95]),
+        'range': (0, 15)
+    },
+    'kill': {
+        'color': '#1A1AAEDD', 'range': (0, 15),
+        'scaler': lambda x: np.interp(x, [0, 0.125, 0.25], [0, .70, 0.95]),
+        'range': (0, 15)
+    },
+    'kill': {
+        'color': '#1A1AAEDD', 'range': (0, 15),
+        'scaler': lambda x: np.interp(x, [0, 0.125, 0.25], [0, .70, 0.95]),
+        
+    },
+    'kill': {
+        'color': '#1A1AAEDD', 'range': (0, 15),
+        'scaler': lambda x: np.interp(x, [0, 0.125, 0.25], [0, .70, 0.95]),
+    }
+}
+
+STATS = {
+    'stat': stats,
+    'colors': [
+        '#1A1AAEDD', '#801AB3DD', '#C12D74DD', '#1FAFE8DD', '#35BA49DD', 
+        '#EE8711DD', '#C12D74DD', '#D645C8DD', 
+    ],
+    'scalers': [
+        lambda x: np.interp(x, [0, k/2, k], [0, .70, 0.95])
+        for k in [0.25, 0.25, 1.25, 2, 0.2]
+    ],
+    'range': [15, 15, 10, 10, 20]
+}
+STATS['cmaps'] = [
+    splat.colorPaletteFromHexList(['#ffffff00', c]) for c in STATS['colors']
+]
+cconv = mcolors.ColorConverter().to_rgba
+bCol = cconv(STATS['colors'][six])
+(fig, ax) = plt.subplots(figsize=(5, 20))
+for (ix, wFreq) in enumerate(kFreqs):
+    for (x, k) in enumerate(wFreq):
+        scaled = STATS['scalers'][six](k)
+        ax.add_patch(
+            Rectangle(
+                (x, ix), binSize, 1,
+                facecolor=(bCol[0], bCol[1], bCol[2], STATS['scalers'][six](k)),
+                edgecolor='#000000AA',
+            )
+        )
+for (ix, wMean) in enumerate(kMeans):
+    ax.vlines(
+        wMean, ix+0.25, ix+0.75,
+        colors='#000000AA',
+        lw=2.5, ls='-'
+    )
+# for (ix, wMedian) in enumerate(kMedians):
+#     ax.vlines(
+#         wMedian, ix+0.5, ix+1,
+#         colors='#00000088',
+#         lw=2.5, ls='-'
+#     )
+ax.set_ylim(0, len(weaponsList))
+ax.set_yticks(np.arange(0.5, len(weaponsList), 1))
+ax.set_yticklabels(weaponsList)
+ax.set_xlim(*xRan)
+# ax.xaxis.tick_top()
+ax.set_xticks(np.arange(0, STATS['range'][six]+1, 5))
+ax.set_title('{}'.format(stat), fontdict={'fontsize': 20})
+plt.savefig(
+    path.join(DATA_PATH, 'statInk/Weapons-'+stat),
+    dpi=350, transparent=False, facecolor='#ffffff', bbox_inches='tight'
+)
+
+
 
 
 six = 0
 stat = stats[six]
 
+wk = wpnDF['kill']
+splat.calcBinnedFrequencies(wk, 0, 10, 1)
+
+(xMin, xMax, binSize) = (0, 30, 1)
+rans = np.arange(xMin, xMax+binSize, binSize)
+dSort = sorted(wpnDF['kill'])
+ss = np.searchsorted(dSort, rans, side='left')
+
+Counter(dSort)
 
 ###############################################################################
 # Generate Plot
 ###############################################################################
-kFreqs = [
-    splat.calcBinnedFrequencies(
-        dfStats[dfStats['weapon']==wpn][stat], 
-        xRan[0], xRan[1], normalized=True
-    )
-    for wpn in weapons
-]
 STATS = {
     'stat': ['kill', 'death', 'assist', 'special', 'paint'],
     'colors': [
@@ -88,7 +169,7 @@ STATS['cmaps'] = [
     splat.colorPaletteFromHexList(['#ffffff00', c]) for c in STATS['colors']
 ]
 
-six = 3
+six = 0
 stat = STATS['stat'][six]
 weaponsList = weapons[::-1] # ['Splattershot', 'Tentatek Splattershot', 'Hero Shot Replica'] #  # 
 (xRan, binSize) = ((0, STATS['range'][six]), 1)

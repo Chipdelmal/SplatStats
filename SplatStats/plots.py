@@ -1,6 +1,7 @@
 
 
 import squarify
+import pandas as pd
 import numpy as np
 import seaborn as sns
 from pywaffle import Waffle
@@ -810,7 +811,7 @@ def plotWaffleStat(
     """    
     (fig, ax) = figAx
     # Aggregate ---------------------------------------------------------------
-    df = playerHistory.groupby(grouping).agg(function)
+    df = playerHistory[[grouping, stat]].groupby(grouping).agg(function)
     cols = [
         i+aux.alphaToHex(alpha) for i in colors[:len(df.index)]
     ]
@@ -873,7 +874,7 @@ def plotCircularBarchartStat(
         (fix, ax): Matplotlib's fig and ax objects.
     """
     # Gather data -------------------------------------------------------------
-    df = playerHistory.groupby(cat).agg(aggFun)
+    df = playerHistory[[cat, stat]].groupby(cat).agg(aggFun)
     df.sort_values(by=[stat], inplace=True)
     catVals = list(df[stat])
     # Generate chart ----------------------------------------------------------

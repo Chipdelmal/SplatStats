@@ -116,6 +116,16 @@ def calcBinnedFrequencies(array, xMin, xMax, binSize=1, normalized=False):
     return freqs
 
 
+# def calcBinnedFrequenciesFast(array, xMin, xMax, binSize=1, normalized=False):
+#     rans = np.arange(xMin, xMax+binSize, binSize)
+#     sArray = sorted(np.copy(array))
+#     sortedIxs = np.searchsorted(sArray, rans, side='left')
+#     freqs = np.diff(sortedIxs)
+#     if normalized:
+#         freqs = freqs/np.sum(freqs)
+#     return freqs
+
+
 def calcStatsByKey(bHist, key, sortBy='win ratio', ascending=False):
     """Given a battle history dataframe, this function calculates stats broken down by the supplied key (column).
 
