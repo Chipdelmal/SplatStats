@@ -226,7 +226,7 @@ def plotWeaponsStrips(
         figAx=None,
         weaponsSummary=None,
         color='#1A1AAEDD', range=(0, 50),
-        cScaler=lambda x: np.interp(x, [0, 1], [0, 1]),
+        cScaler=(lambda x: np.interp(x, [0, 0.125, 0.25], [0, .70, 1])),
         binSize=1
     ):
     wpnList = weaponsList[::-1]
@@ -243,7 +243,7 @@ def plotWeaponsStrips(
                 Rectangle(
                     (x, ix), binSize, 1,
                     facecolor=(bCol[0], bCol[1], bCol[2], alpha),
-                    edgecolor='#000000AA',
+                    edgecolor='#00000088',
                 )
             )
     if weaponsSummary:
@@ -257,8 +257,9 @@ def plotWeaponsStrips(
     ax.set_ylim(0, len(wpnList))
     ax.set_yticks(np.arange(0.5, len(wpnList), 1))
     ax.set_yticklabels(wpnList)
-    ax.set_xlim(range[0], range[1])
+    ax.set_xlim(range[0], range[1]+binSize)
     # ax.xaxis.tick_top()
-    ax.set_xticks(np.arange(range[0], range[1]+1, 5))
+    ax.set_xticks(np.arange(range[0]+binSize/2, range[1]+binSize/2+1/2, 5))
+    ax.set_xticklabels(np.arange(range[0], range[1]+1, 5))
     ax.set_title('{}'.format(stat), fontdict={'fontsize': 20})
     return (fig, ax)

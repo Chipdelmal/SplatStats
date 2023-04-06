@@ -100,6 +100,20 @@ tests = [
     all(wpnWLT[1][:,2] == mWpnWins+mWpnLoss)
 ]
 assert(all(tests))
+###############################################################################
+# Get Frequencies for Strips
+###############################################################################
+dfStats = splat.getWeaponsDataframe(btlsFiltered)
+weapons = sorted(list(dfStats['weapon'].unique()))
+dfStats['kassist'] = dfStats['kill']+dfStats['assist']/2
+dfStats['paint'] = dfStats['inked']/100
+wpnStats = ['kill', 'death', 'assist', 'special', 'paint']
+wpnHists = splat.getWeaponsStatsHistograms(
+    dfStats, weapons, (0, 30), binSize=1, stats=wpnStats
+)
+wpnMeans = splat.getWeaponsStatsSummary(
+    dfStats, weapons, summaryFunction=np.mean, stats=wpnStats
+)
 ###########################################################################
 # Weapon Matrix
 ###########################################################################
@@ -192,3 +206,62 @@ if GMODE not in GMODES:
         transparent=False, facecolor='#ffffff', bbox_inches='tight'
     )
     plt.close('all')
+###############################################################################
+# Weapons Strips
+###############################################################################
+INKSTATS_STYLE = {
+    'kill': {
+        'color': '#1A1AAEDD', 'range': (0, 15),
+        'scaler': lambda x: np.interp(x, [0, 0.125, 0.25], [0, .70, 0.95]),
+        'range': (0, 15)
+    },
+    'death': {
+        'color': '#801AB3DD', 'range': (0, 15),
+        'scaler': lambda x: np.interp(x, [0, 0.125, 0.25], [0, .70, 0.95]),
+        'range': (0, 15)
+    },
+    'assist': {
+        'color': '#C12D74DD', 'range': (0, 10),
+        'scaler': lambda x: np.interp(x, [0, 0.25, 0.65], [0, .70, 0.95]),
+        
+    },
+    'special': {
+        'color': '#1FAFE8DD', 'range': (0, 10),
+        'scaler': lambda x: np.interp(x, [0, 0.25, 0.65], [0, .70, 0.95]),
+    },
+    'paint': {
+        'color': '#35BA49DD', 'range': (0, 20),
+        'scaler': lambda x: np.interp(x, [0, 0.1, 0.2], [0, .70, 0.95]),
+    }
+}
+# (fig, axs) = plt.subplots(1, 5, figsize=(5*5, 20), sharey=True)
+fName = FNSTR+'Strips.png'
+fig = plt.figure(figsize=(5*5, 20))
+gs = fig.add_gridspec(1, 5, hspace=1, wspace=0.04)
+axs = gs.subplots()# sharex='col', sharey='row')
+for (ix, stat) in enumerate(wpnStats):
+    statPars = INKSTATS_STYLE[stat]
+    (_, ax) = splat.plotWeaponsStrips(
+        wpnHists, weapons, stat,
+        figAx=(fig, axs[ix]),
+        weaponsSummary=wpnMeans,
+        color=statPars['color'], range=statPars['range'],
+        cScaler=statPars['scaler']
+    )
+    axs[ix].xaxis.set_tick_params(labelsize=11)
+    axs[ix].yaxis.set_tick_params(labelsize=11)
+    axs[ix].yaxis.set_ticks_position('both')
+    if (ix>0) and (ix<len(wpnStats)-1):
+        axs[ix].set_yticklabels([])
+    if ix == (len(wpnStats)-1):
+        axs[ix].yaxis.tick_right()
+        lbs = [i.get_text() for i in axs[0].get_yticklabels()]
+        axs[ix].set_yticklabels(lbs)
+        lbs = [int(i.get_text())*100 for i in axs[ix].get_xticklabels()]
+        axs[ix].set_xticklabels(lbs)
+        axs[ix].yaxis.set_ticks_position('both')
+plt.savefig(
+    path.join(DATA_PATH, 'statInk/'+fName), dpi=350, 
+    transparent=False, facecolor='#ffffff', bbox_inches='tight'
+)
+plt.close('all')

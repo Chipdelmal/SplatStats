@@ -250,12 +250,12 @@ INKSTATS_STYLE = {
     },
     'assist': {
         'color': '#C12D74DD', 'range': (0, 10),
-        'scaler': lambda x: np.interp(x, [0, 0.625, 1.25], [0, .70, 0.95]),
+        'scaler': lambda x: np.interp(x, [0, 0.25, 0.65], [0, .70, 0.95]),
         
     },
     'special': {
         'color': '#1FAFE8DD', 'range': (0, 10),
-        'scaler': lambda x: np.interp(x, [0, 1,  2], [0, .70, 0.95]),
+        'scaler': lambda x: np.interp(x, [0, 0.25, 0.65], [0, .70, 0.95]),
     },
     'paint': {
         'color': '#35BA49DD', 'range': (0, 20),
