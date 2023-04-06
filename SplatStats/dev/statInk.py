@@ -11,7 +11,7 @@ from datetime import datetime
 
 
 if splat.isNotebook():
-    (six, USR) = (0, 'dsk')
+    (six, USR) = (2, 'dsk')
     GMODE = 'All'
     SSN_TITLE = False
 else:
@@ -268,6 +268,13 @@ for (ix, stat) in enumerate(wpnStats):
         lbs = [int(i.get_text())*100 for i in axs[ix].get_xticklabels()]
         axs[ix].set_xticklabels(lbs)
         axs[ix].yaxis.set_ticks_position('both')
+if SSN_TITLE:
+    fName = FNSTR+'Strips_S.png'
+    axs[2].text(
+        0.5, 1.025, SEASON, 
+        ha='center', va='bottom', 
+        transform=axs[2].transAxes, fontsize=35
+    )
 plt.savefig(
     path.join(DATA_PATH, 'statInk/'+fName), dpi=350, 
     transparent=False, facecolor='#ffffff', bbox_inches='tight'

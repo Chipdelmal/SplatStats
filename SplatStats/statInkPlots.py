@@ -248,7 +248,7 @@ def plotWeaponsStrips(
             )
     if weaponsSummary:
         for (ix, wpn) in enumerate(wpnList):
-            wpnData = weaponsSummary[wpn][stat]
+            wpnData = weaponsSummary[wpn][stat] + binSize/2
             ax.vlines(
                 wpnData, ix+0.25, ix+0.75,
                 colors='#000000AA',
