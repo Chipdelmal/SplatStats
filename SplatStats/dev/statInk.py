@@ -11,7 +11,7 @@ from datetime import datetime
 
 
 if splat.isNotebook():
-    (six, USR) = (2, 'dsk')
+    (six, USR) = (10, 'lab')
     GMODE = 'All'
     SSN_TITLE = False
 else:
@@ -48,7 +48,7 @@ if splat.isNotebook():
     else:
         DATA_PATH = '/home/chipdelmal/Documents/Sync/BattlesDocker/'
 else:
-    DATA_PATH = '/home/chipdelmal/Documents/Sync/BattlesDocker/'
+    DATA_PATH = '/Users/sanchez.hmsc/Sync/BattlesDocker/'
 FPATHS = glob(path.join(DATA_PATH, 'battle-results-csv', '*-*-*.csv'))
 splat.setSplatoonFont(DATA_PATH, fontName="Splatfont 2")
 COLORS = splat.ALL_COLORS
@@ -61,17 +61,31 @@ btls = statInk.battlesResults
 ###############################################################################
 # Filter by Constraints
 ###############################################################################
-SEASON = list(btls['season'].unique())[six]
+try:
+    SEASON = list(btls['season'].unique())[six]
+    FREQ_SCALER = 1
+except:
+    SEASON = 'All Seasons'
+    FREQ_SCALER = 2
+POLAR['yRange'] = (POLAR['yRange'][0], POLAR['yRange'][1]*FREQ_SCALER)
 FNSTR = '{} ({}) - '.format(SEASON, GMODE)
-if GMODE in GMODES:
-    fltrs = (btls['season']==SEASON, btls['mode']==GMODE)
-    fltrBool = [all(i) for i in zip(*fltrs)]
-    btlsFiltered = btls[fltrBool]
+if SEASON!='All Seasons':
+    if GMODE in GMODES:
+        fltrs = (btls['season']==SEASON, btls['mode']==GMODE)
+        fltrBool = [all(i) for i in zip(*fltrs)]
+        btlsFiltered = btls[fltrBool]
+    else:
+        GMODE = 'All'
+        fltrs = (btls['season']==SEASON, )
+        fltrBool = [all(i) for i in zip(*fltrs)]
+        btlsFiltered = btls[fltrBool]
 else:
-    GMODE = 'All'
-    fltrs = (btls['season']==SEASON, )
-    fltrBool = [all(i) for i in zip(*fltrs)]
-    btlsFiltered = btls[fltrBool] 
+    if GMODE in GMODES:
+        fltrs = (btls['mode']==GMODE, )
+        fltrBool = [all(i) for i in zip(*fltrs)]
+        btlsFiltered = btls[fltrBool]
+    else:
+        btlsFiltered = btls
 ###############################################################################
 # Get Total Season Frequencies and Dominance Matrix
 ###############################################################################

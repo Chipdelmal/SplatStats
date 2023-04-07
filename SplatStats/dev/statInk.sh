@@ -1,6 +1,6 @@
 #!/bin/bash
 
-for six in {0..2}
+for six in 10 0 1 2
 do
     echo "No Titles..."
     for gmod in "All" "Clam Blitz" "Splat Zones" "Tower Control" "Turf War" "Rainmaker"
