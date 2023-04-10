@@ -11,7 +11,7 @@ from datetime import datetime
 
 
 if splat.isNotebook():
-    (six, USR) = (10, 'lab')
+    (six, USR) = (10, 'dsk')
     GMODE = 'All'
     SSN_TITLE = False
 else:
@@ -48,7 +48,7 @@ if splat.isNotebook():
     else:
         DATA_PATH = '/home/chipdelmal/Documents/Sync/BattlesDocker/'
 else:
-    DATA_PATH = '/Users/sanchez.hmsc/Sync/BattlesDocker/'
+    DATA_PATH = '/home/chipdelmal/Documents/Sync/BattlesDocker/'
 FPATHS = glob(path.join(DATA_PATH, 'battle-results-csv', '*-*-*.csv'))
 splat.setSplatoonFont(DATA_PATH, fontName="Splatfont 2")
 COLORS = splat.ALL_COLORS
@@ -207,10 +207,17 @@ plt.close('all')
 ###############################################################################
 # Gaussian Lobby
 ###############################################################################
+YLIM = (0, -1250)
+if SEASON=='All Seasons':
+    YLIM = (0, -3000)
 if GMODE not in GMODES:
     fName = FNSTR+'Mode.png'
     (fig, ax) = (plt.figure(figsize=(20, 3)), plt.axes())
-    (fig, ax) = splat.plotGaussianLobby(lbyDaily, lbyGaussDaily)
+    (fig, ax) = splat.plotGaussianLobby(
+        lbyDaily, lbyGaussDaily, figAx=(fig, ax), ylim=YLIM
+    )
+    ax.set_ylim(*YLIM)
+    ax.set_ylim(ax.get_ylim()[::-1])
     plt.savefig(
         path.join(DATA_PATH, 'statInk/'+fName),
         dpi=350, transparent=False, facecolor='#ffffff', bbox_inches='tight'

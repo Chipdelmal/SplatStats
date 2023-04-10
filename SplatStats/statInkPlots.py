@@ -186,7 +186,7 @@ def plotPolarFrequencies(
 
 def plotGaussianLobby(
         lbyDaily, lbyGaussDaily,
-        figAx=None,
+        figAx=None, ylim=(0, -1250), xticksDelta=30,
         gModesColors = ['#DE0B64FF', '#FDFF00FF', '#0D37C3FF', '#71DA0CFF', '#531BBAFF']
     ):
     gModes = list(lbyDaily.columns)
@@ -201,9 +201,9 @@ def plotGaussianLobby(
     )
     ax.legend(loc='upper left').remove()
     ax.set_xlim(0, lbyGaussDaily[0][0][-1])
-    ax.set_ylim(0, -1250)
-    xtickRan = np.arange(0, lbyGaussDaily[0][0][-1], 15)
-    ax.set_ylim(ax.get_ylim()[::-1])
+    ax.set_ylim(ylim[0], ylim[1])
+    xtickRan = np.arange(0, lbyGaussDaily[0][0][-1], xticksDelta)
+    # ax.set_ylim(ax.get_ylim()[::-1])
     ax.xaxis.tick_top()
     ax.set_xticks(
         xtickRan, 

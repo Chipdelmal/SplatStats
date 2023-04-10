@@ -29,7 +29,10 @@ splat.setSplatoonFont(DATA_PATH, fontName="Splatfont 2")
 ###############################################################################
 statInk = splat.StatInk(path.join(DATA_PATH, 'battle-results-csv'))
 btls = statInk.battlesResults
-SEASON = list(btls['season'].unique())[six]
+try:
+    SEASON = list(btls['season'].unique())[six]
+except:
+    SEASON = 'All Seasons'
 ###############################################################################
 # Export Panel
 ###############################################################################
