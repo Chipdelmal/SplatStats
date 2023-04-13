@@ -85,6 +85,7 @@ wColors = [
     '#4B25C9', '#830B9C', '#C6D314', '#0D37C3', '#C920B7', 
     '#571DB1', '#14BBE7', '#38377A', '#990F2B', '#7F7F99',
 ][::-1]
+wColors = wColors*10
 (fig, ax) = splat.plotCircularBarchartStat(
     playerHistory, cat='main weapon', stat='kassist', aggFun=np.sum,
     colors=wColors, # yRange=(0, 10e3), 
@@ -161,11 +162,11 @@ plt.close(g.fig)
 ###############################################################################
 # Waffle
 ###############################################################################
-(fig, ax) = plt.subplots(figsize=(8, 8))
+(fig, ax) = plt.subplots(figsize=(10, 10))
 (fig, ax) = splat.plotWaffleStat(
     (fig, ax), playerHistory,
     function=sum, grouping='main weapon', stat='kassist',
-    rows=50, columns=50, vertical=False,
+    rows=75, columns=75, vertical=True,
     colors=splat.CLR_CLS_LONG
 )
 ax.set_title(f'(Kills+0.5*Assists) = {killsTotal}\n', fontsize=18)
