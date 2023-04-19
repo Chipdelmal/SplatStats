@@ -301,3 +301,11 @@ plt.savefig(
     transparent=False, facecolor='#ffffff', bbox_inches='tight'
 )
 plt.close('all')
+
+
+# splat.plotWeaponStrip(
+#         wpnHists, 'Splattershot', wpnStats,
+#         figAx=plt.subplots(figsize=(20, 2)),
+#         weaponsSummary=wpnMeans,
+#         binSize=1
+#     )

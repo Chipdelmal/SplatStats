@@ -7,6 +7,7 @@ import matplotlib.colors as mcolors
 from matplotlib.patches import Rectangle
 import SplatStats.colors as clr
 import SplatStats.plots as pts
+import SplatStats.statInkConstants as cst
 
 
 def plotStackedBar(
@@ -262,4 +263,55 @@ def plotWeaponsStrips(
     ax.set_xticks(np.arange(range[0]+binSize/2, range[1]+binSize/2+1/2, 5))
     ax.set_xticklabels(np.arange(range[0], range[1]+1, 5))
     ax.set_title('{}'.format(stat), fontdict={'fontsize': 20})
+    return (fig, ax)
+
+
+
+def plotWeaponStrip(
+        weaponsHists, weaponName, wpnStats,
+        figAx=None,
+        weaponsSummary=None,
+        styleDictionary=cst.INKSTATS_STYLE,
+        binSize=1
+    ):
+    ranges = np.array([styleDictionary[c]['range'] for c in wpnStats]).T
+    range = (min(ranges[0]), max(ranges[1]))
+    bCols = [
+        mcolors.ColorConverter().to_rgba(styleDictionary[c]['color']) 
+        for c in wpnStats
+    ]
+    cScalers = [styleDictionary[c]['scaler'] for c in wpnStats]
+    if figAx:
+        (fig, ax) = figAx
+    else:
+        (fig, ax) = plt.subplots(figsize=(20, 2))
+    wpnFullData = weaponsHists[weaponName]
+    for (ix, stat) in enumerate(wpnStats):
+        wpnData = wpnFullData[stat]
+        for (x, k) in enumerate(wpnData):
+            alpha = cScalers[ix](k)
+            bCol = bCols[ix]
+            ax.add_patch(
+                Rectangle(
+                    (x, ix), binSize, 1,
+                    facecolor=(bCol[0], bCol[1], bCol[2], alpha),
+                    edgecolor='#00000088',
+                )
+            )
+    if weaponsSummary:
+        wpnFullSummary = weaponsSummary[weaponName]
+        for (ix, sta) in enumerate(wpnStats):
+            wpnData = wpnFullSummary[sta] + binSize/2
+            ax.vlines(
+                wpnData, ix+0.25, ix+0.75,
+                colors='#000000AA',
+                lw=2.5, ls='-'
+            )
+    ax.set_xticks(np.arange(range[0]+binSize/2, range[1]+binSize/2+1/2, 5))
+    ax.set_xticklabels(np.arange(range[0], range[1]+1, 5))
+    ax.set_xlim(range[0], range[1]+binSize)
+    ax.set_ylim(0, len(wpnStats))
+    ax.set_yticks(np.arange(0.5, len(wpnStats), 1))
+    ax.set_yticklabels(wpnStats)
+    ax.set_title('{}'.format(weaponName), fontdict={'fontsize': 20})
     return (fig, ax)
