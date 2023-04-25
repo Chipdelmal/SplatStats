@@ -74,9 +74,9 @@ docker_exec:
 	- docker run -v "$(pwd)":/data/ -it splatstats:dev bash
 
 docker_release:
-	- docker build -f Dockerfile.splat -t chipdelmal/splatstats:$(version) .
+	- docker build -f Dockerfile.splatstats -t chipdelmal/splatstats:$(version) .
 	- docker push chipdelmal/splatstats:$(version)
-	- docker build -f Dockerfile.splat -t chipdelmal/splatstats:latest .
+	- docker build -f Dockerfile.splatstats -t chipdelmal/splatstats:latest .
 	- docker push chipdelmal/splatstats:latest
 
 ###############################################################################

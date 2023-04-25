@@ -1,49 +1,53 @@
-#!/usr/bin/env python
-# -*- coding: utf-8 -*-
 
-from sys import argv
-from os import path
 import numpy as np
-import pandas as pd
-from math import radians, log10
-from collections import Counter
+from os import path
+from sys import argv
 import SplatStats as splat
-from pywaffle import Waffle
+import warnings
+warnings.filterwarnings("ignore")
 import matplotlib.pyplot as plt
-import seaborn as sns
-from matplotlib.colors import Normalize
-from matplotlib.collections import PatchCollection
-from matplotlib.patches import Rectangle
-from matplotlib import font_manager
-font_dirs = ['/home/chipdelmal/Documents/Sync/BattlesData/']
-font_files = font_manager.findSystemFonts(fontpaths=font_dirs)
-for font_file in font_files:
-    font_manager.fontManager.addfont(font_file)
-plt.rcParams["font.family"]="Splatfont 2"
-
 
 if splat.isNotebook():
-    (iPath, oPath) = (
-        path.expanduser('~/Documents/GitHub/s3s/'),
-        path.expanduser('~/Documents/Sync/BattlesData/')
+    (plyrName, weapon, mode, overwrite) = ('čħîþ ウナギ', 'All', 'All', 'True')
+    (iPath, bPath, oPath) = (
+        path.expanduser('~/Documents/Sync/BattlesDocker/jsons'),
+        path.expanduser('~/Documents/Sync/BattlesDocker/battles'),
+        path.expanduser('~/Documents/Sync/BattlesDocker/out')
     )
+    fontPath = '/home/chipdelmal/Documents/GitHub/SplatStats/other/'
 else:
-    (iPath, oPath) = argv[1:]
+    (plyrName, weapon, mode, overwrite) = argv[1:]
+    (iPath, bPath, oPath) = (
+        '/data/jsons', 
+        '/data/battles', 
+        '/data/out'
+    )
+    fontPath = '/other/'
+overwrite = (True if overwrite=="True"  else False)
+LEN_LIMIT = 400
 ###############################################################################
-# Create Player Objects
+# Auxiliary 
 ###############################################################################
-historyFilepaths = splat.getDataFilepaths(iPath, filePat='results.json')
-# bPaths = splat.dumpBattlesFromJSONS(historyFilepaths, oPath)
-bPaths = splat.getBattleFilepaths(oPath)
+title = '(Kills+0.5*Assists)/Deaths'
+fNameID = f'{plyrName}-{weapon}'
+splat.setSplatoonFont(fontPath, fontName="Splatfont 2")
 ###############################################################################
-# Create Player Objects
+# Process JSON files into battle objects
 ###############################################################################
-NAMES = (
-    'čħîþ ウナギ', 'Yami ウナギ', 'Riché ウナギ', 'DantoNnoob',
-    'Oswal　ウナギ', 'April ウナギ', 'Murazee', 'Rei ウナギ'
-)
-plyr = splat.Player(NAMES[0], bPaths, timezone='America/Los_Angeles')
+hFilepaths = splat.getDataFilepaths(iPath, filePat='results.json')
+bPaths = splat.dumpBattlesFromJSONS(hFilepaths, bPath, overwrite=overwrite)
+bFilepaths = splat.getBattleFilepaths(bPath)
+###############################################################################
+# Create Player Object
+###############################################################################
+plyr = splat.Player(plyrName, bFilepaths, timezone='America/Los_Angeles')
 playerHistory = plyr.battlesHistory
+playerHistory = playerHistory[playerHistory['match mode']!='PRIVATE']
+# Weapon filter ---------------------------------------------------------------
+if weapon != 'All':
+    pHist = playerHistory[playerHistory['main weapon']==weapon]
+else:
+    pHist = playerHistory
 ###############################################################################
 # Streaks
 ###############################################################################
@@ -53,7 +57,7 @@ splat.longestRun(wins, elem='L')
 ###############################################################################
 # Windowed average
 ###############################################################################
-kSize = 10
+kSize = 8
 dHist = splat.aggregateStatsByPeriod(playerHistory, period='2H')
 winsArray = np.asarray((dHist['win'])/dHist['matches'])
 windowAvg = splat.windowAverage(winsArray, kernelSize=kSize, mode='valid')
@@ -67,88 +71,127 @@ ax.plot(
 ax.autoscale(enable=True, axis='x', tight=True)
 ax.set_ylim(0, max(winsArray))
 ###############################################################################
-# Circle Barchart
+# Circular History
 ###############################################################################
-wColors = [
-    '#2DD9B6', '#4F55ED', '#B14A8D', '#7F7F99', '#990F2B',
-    '#C70864', '#C6D314', '#4B25C9', '#830B9C', '#2CB721',
-    '#0D37C3', '#C920B7', '#571DB1', '#14BBE7', '#38377A'
-][::-1]
-(fig, ax) = splat.plotCircularBarchartStat(
-    playerHistory, cat='main weapon', stat='kassist', aggFun=np.sum,
-    colors=wColors, yRange=(0, 10), ticksStep=5, logScale=False,
-    ticksFmt={
-        'lw': 1, 'range': (-0.5, -0.25), 
-        'color': '#000000DD', 'fontsize': 8, 'fmt': '{:.2f}'
-    }
+kassist=True
+paint=True
+bottomArray=None
+barArray=None
+tbRange=(0, 55)
+bRange=(0, 2500) 
+lw=0.3
+alpha=1
+rScale='symlog'
+innerOffset=1.5
+clockwise=True
+colorsTop=(splat.CLR_STATS['kill'], splat.CLR_STATS['death'])
+colorBars=splat.CLR_PAINT
+innerText=None
+fontSize=20
+fontColor="#000000CC"
+innerGuides=(0, 6, 1)
+innerGuidesColor="#00000066"
+outerGuides=(0, 50, 10)
+outerGuidesColor="#00000088"
+frameColor="#00000011"
+
+
+mTypeColors = {
+    'Clam Blitz':           '#D60E6E',
+    'Rainmaker':            '#7D26B5',
+    'Splat Zones':          '#3D59DE',
+    'Tower Control':        '#8ACF47',
+    'Tricolor Turf War':    '#0118E3',
+    'Turf War':             '#D1D1D1'
+}
+winColors = {True: '#6BD52C', False: '#38377A'}
+kosColors = {True: '#A714D4', False: '#ffffff'}
+
+
+(fig, ax) = plt.subplots(figsize=(10, 10), subplot_kw={"projection": "polar"})
+(outer, inner) = (
+    np.array(playerHistory['kill']), 
+    np.array(playerHistory['death'])
 )
+if kassist:
+    outer = outer + (.5 * np.array(playerHistory['assist']))
+bar = (np.array(playerHistory['paint']) if paint else None)
+if innerText:
+    text = np.sum(outer)/np.sum(inner)
 
-
-###############################################################################
-# Divide BarChart
-###############################################################################
-cats = ['kill', 'death', 'assist', 'paint']
-dfRank = plyr.getPlayerFullRanking(cats=cats)
-
-splat.polarBarRanks(dfRank, 8)
-
-
-cats = ['kill', 'death', 'assist', 'paint']
-dfRank = plyr.getPlayerFullRanking(cats=cats)
-vals = {}
-for cat in cats:
-    vals[cat] = list(dfRank[cat].value_counts(sort=False, normalize=True).sort_index())[::-1]
-
-
-yRange = (0, 1)
-ranksNum = 8
-thetaRange = (0, 90)
-colors=['#EC0B68', '#3D59DE', '#6BFF00', '#38377A']
-
-fig = plt.figure(figsize=(10, 10))
-gs = fig.add_gridspec(
-    2, 2,  
-    width_ratios=(1, 1), height_ratios=(1, 1),
-    left=0.1, right=0.9, bottom=0.1, top=0.9,
-    wspace=0.075, hspace=0.075
+(topArray, bottomArray, barArray) = (outer, inner, bar)
+ax.set_theta_offset(np.pi/2)
+ax.set_rscale(rScale)
+# Calculate angles for marker lines ---------------------------------------
+DLEN = topArray.shape[0]
+(astart, aend) = ((2*np.pi, 0) if clockwise else (0, 2*np.pi))
+ANGLES = np.linspace(astart, aend, DLEN, endpoint=False)
+# Match type --------------------------------------------------------------
+ax.vlines(
+    ANGLES, innerOffset+40, innerOffset+50, 
+    lw=lw, colors=[mTypeColors[i] for i in playerHistory['match type']],
+    alpha=alpha
 )
-ax_k = fig.add_subplot(gs[0], projection='polar')
-ax_d = fig.add_subplot(gs[1], sharex=ax_k, projection='polar')
-ax_a = fig.add_subplot(gs[2], sharey=ax_d, projection='polar')
-ax_p = fig.add_subplot(gs[3], sharex=ax_a, projection='polar')
-# Plot Sectors ------------------------------------------------------------
-(fig, ax_k) = splat.polarBarChart(
-    range(1, ranksNum+1)[::-1], vals[cats[0]], figAx=(fig, ax_k),
-    logScale=False, rRange=(0, 90), yRange=yRange, labels=True,
-    origin='W', direction=-1, colors=[colors[0]]*ranksNum
+ax.vlines(
+    ANGLES, innerOffset+50, innerOffset+50+5, 
+    lw=lw, colors=[winColors[i] for i in playerHistory['winBool']],
+    alpha=alpha
 )
-ax_k.set_thetamin(thetaRange[0]); ax_k.set_thetamax(thetaRange[1])
-ax_k.text(.25, .9, cats[0], fontsize=15, ha='right', transform=ax_k.transAxes)
-[x.set_linewidth(1.5) for x in ax_k.spines.values()]
-# ax.set(frame_on=False)
-(fig, ax_d) = splat.polarBarChart(
-    range(1, ranksNum+1)[::-1], vals[cats[1]], figAx=(fig, ax_d),
-    logScale=False, rRange=(0, 90), yRange=yRange, labels=True,
-    origin='N', direction=-1, colors=[colors[1]]*ranksNum
+winKO = []
+for wko in list(zip(playerHistory['winBool'], playerHistory['ko'])):
+    if wko[-1]:
+        if wko[0]:
+            winKO.append('#5F0FB4')
+        else:
+            winKO.append('#E70F21')
+    else:
+        winKO.append('#ffffff')
+ax.vlines(
+    ANGLES, innerOffset+40, innerOffset+40-4, 
+    lw=lw, colors=winKO,
+    alpha=alpha
 )
-ax_d.set_thetamin(thetaRange[0]); ax_d.set_thetamax(thetaRange[1])
-ax_d.text(.75, .9, cats[1], fontsize=15, ha='left', transform=ax_d.transAxes)
-[x.set_linewidth(1.5) for x in ax_d.spines.values()]
-# ax.set(frame_on=False)
-(fig, ax_a) = splat.polarBarChart(
-    range(1, ranksNum+1)[::-1], vals[cats[2]], figAx=(fig, ax_a),
-    logScale=False, rRange=(0, 90), yRange=yRange, labels=True,
-    origin='S', direction=-1, colors=[colors[2]]*ranksNum
+# Draw top-bottom ---------------------------------------------------------
+if bottomArray is None:
+    bottomArray = np.zeros(topArray.shape)
+heights = topArray-bottomArray
+colors = [colorsTop[0] if (h>=0) else colorsTop[1] for h in heights]
+ax.vlines(
+    ANGLES, innerOffset+bottomArray, innerOffset+topArray, 
+    lw=lw, colors=colors, alpha=alpha
 )
-ax_a.set_thetamin(thetaRange[0]); ax_a.set_thetamax(thetaRange[1])
-ax_a.text(.25, .1, cats[3], fontsize=15, ha='right', transform=ax_a.transAxes)
-[x.set_linewidth(1.5) for x in ax_a.spines.values()]
-# ax.set(frame_on=False)
-(fig, ax_p) = splat.polarBarChart(
-    range(1, ranksNum+1)[::-1], vals[cats[3]], figAx=(fig, ax_p),
-    logScale=False, rRange=(0, 90), yRange=yRange, labels=True,
-    origin='E', direction=-1, colors=[colors[3]]*ranksNum
+# Draw bar ----------------------------------------------------------------
+if barArray is None:
+    barScaled = np.zeros(topArray.shape)
+else:
+    barScaled = np.interp(barArray, bRange, tbRange)
+ax.vlines(
+    ANGLES, innerOffset, innerOffset+barScaled,  
+    lw=1, colors=colorBars, alpha=.025
 )
-ax_p.set_thetamin(thetaRange[0]); ax_p.set_thetamax(thetaRange[1])
-ax_p.text(.75, .1, cats[2], fontsize=15, ha='left', transform=ax_p.transAxes)
-[x.set_linewidth(1.5) for x in ax_p.spines.values()]
+# Add inner text ----------------------------------------------------------
+if innerText:
+    ax.text(
+        x=0.5, y=0.5, 
+        s=innerText, fontsize=fontSize,
+        va="center", ha="center",  ma="center", 
+        color=fontColor, transform=ax.transAxes
+    )
+# Cleaning up axes --------------------------------------------------------
+circleAngles = np.linspace(0, 2*np.pi, 200)
+for r in range(*innerGuides):
+    ax.plot(
+        circleAngles, np.repeat(r+innerOffset, 200), 
+        color=innerGuidesColor, lw=0.1, ls='-.', zorder=-10
+    )
+ax.set_xticks([])
+ax.set_xticklabels([])
+ax.set_ylim(tbRange[0], tbRange[1]+innerOffset)
+ax.set_yticklabels([])
+yTicks = [0+innerOffset] + list(np.arange(
+    outerGuides[0]+innerOffset, outerGuides[1]+innerOffset, outerGuides[2]
+))
+ax.set_yticks(yTicks)
+ax.yaxis.grid(True, color=outerGuidesColor, ls='-', lw=0.2, zorder=-10)
+ax.spines["start"].set_color("none")
+ax.spines["polar"].set_color(frameColor)
