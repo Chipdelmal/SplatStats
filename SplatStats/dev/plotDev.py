@@ -12,7 +12,7 @@ warnings.filterwarnings("ignore")
 import matplotlib.pyplot as plt
 
 if splat.isNotebook():
-    (plyrName, weapon, mode, overwrite) = ('DantoNnoob', 'All', 'All', 'False') # ('čħîþ ウナギ', 'All', 'All', 'True')
+    (plyrName, weapon, mode, overwrite) = ('čħîþ ウナギ', 'All', 'All', 'False') # (, 'All', 'All', 'True')
     (iPath, bPath, oPath) = (
         path.expanduser('~/Documents/Sync/BattlesDocker/jsons'),
         path.expanduser('~/Documents/Sync/BattlesDocker/battles'),
