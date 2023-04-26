@@ -80,12 +80,12 @@ bottomArray=None
 barArray=None
 tbRange=(0, 55)
 bRange=(0, 2500) 
-lw=0.3
+lw=0.25
 alpha=1
 rScale='symlog'
-innerOffset=1.5
+innerOffset=2
 clockwise=True
-colorsTop=(splat.CLR_STATS['kill'], splat.CLR_STATS['death'])
+colorsTop=('#4E4EDDCC', '#CD2D7ECC')
 colorBars=splat.CLR_PAINT
 innerText=None
 fontSize=10
@@ -102,10 +102,10 @@ mTypeColors = {
     'Rainmaker':            '#7D26B5',
     'Splat Zones':          '#3D59DE',
     'Tower Control':        '#8ACF47',
-    'Tricolor Turf War':    '#0118E3',
+    'Tricolor Turf War':    '#E70F21',
     'Turf War':             '#D1D1D1'
 }
-winColors = {True: '#6BD52C', False: '#38377A'}
+winColors = {True: '#6BD52C', False: '#D1D1D1'}
 kosColors = {True: '#A714D4', False: '#ffffff'}
 
 
@@ -142,7 +142,7 @@ winKO = []
 for wko in list(zip(playerHistory['winBool'], playerHistory['ko'])):
     if wko[-1]:
         if wko[0]:
-            winKO.append('#5F0FB4')
+            winKO.append('#311AA8')
         else:
             winKO.append('#E70F21')
     else:
@@ -159,7 +159,7 @@ heights = topArray-bottomArray
 colors = [colorsTop[0] if (h>=0) else colorsTop[1] for h in heights]
 ax.vlines(
     ANGLES, innerOffset+bottomArray, innerOffset+topArray, 
-    lw=lw, colors=colors, alpha=alpha
+    lw=lw, colors=colors
 )
 # Draw bar ----------------------------------------------------------------
 if barArray is None:
@@ -168,19 +168,23 @@ else:
     barScaled = np.interp(barArray, bRange, tbRange)
 ax.vlines(
     ANGLES, innerOffset, innerOffset+barScaled,  
-    lw=1, colors=colorBars, alpha=.025
+    lw=lw, colors=colorBars, alpha=.1
 )
 # Add inner text ----------------------------------------------------------
-(kill, death, assist, paint) = (
+(kill, death, assist, paint, special) = (
     [np.sum(playerHistory['kill']), np.mean(playerHistory['kill'])],
     [np.sum(playerHistory['death']), np.mean(playerHistory['death'])],
     [np.sum(playerHistory['assist']), np.mean(playerHistory['assist'])],
     [np.sum(playerHistory['paint']), np.mean(playerHistory['paint'])],
+    [np.sum(playerHistory['special']), np.mean(playerHistory['special'])],
 )
+# np.quantile(playerHistory['kill'], [0.25, 0.5, 0.75])
 winNum = np.sum(playerHistory['winBool'])
 winRate = winNum/DLEN
-innerText = '{}\n\nMatches: {}\nWin: {} ({:.2f}%)\n\nKill: {} ({:.2f})\nAssist: {} ({:.2f})\nDeath: {} ({:.2f})\nPaint: {} ({:.2f})'.format(
-    plyrName, DLEN, winNum, winRate*100, 
+(sw, sl) = (splat.longestRun(wins, elem='W'), splat.longestRun(wins, elem='L'))
+strLng = 'Matches: {}\nWin: {} ({:.2f}%)\nLongest Streaks: W{}-L{}\n\n\n\n\n\nKill: {} ({:.2f})\nAssist: {} ({:.2f})\nDeath: {} ({:.2f})\nPaint: {} ({:.2f})'
+innerText = strLng.format(
+    DLEN, winNum, winRate*100, sw, sl,
     kill[0], kill[1], assist[0], assist[1], death[0], death[1], paint[0], paint[1]
 )
 ax.text(
@@ -189,11 +193,18 @@ ax.text(
     va="center", ha="center",  ma="center", 
     color=fontColor, transform=ax.transAxes
 )
+ax.text(
+    x=0.5, y=0.5,
+    s='{}'.format(plyrName),
+    fontsize=fontSize+7.5,
+    va="center", ha="center",  ma="center", 
+    color=fontColor, transform=ax.transAxes
+)
+# Cleaning up axes --------------------------------------------------------
 ax.vlines(
     np.arange(aend, astart, (astart+aend)/32), innerOffset, innerOffset+40,  
     lw=0.2, colors='#000000', alpha=1, zorder=10
 )
-# Cleaning up axes --------------------------------------------------------
 circleAngles = np.linspace(0, 2*np.pi, 200)
 for r in range(*innerGuides):
     ax.plot(
