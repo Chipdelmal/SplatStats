@@ -21,11 +21,13 @@ dependencies:
   - brotlipy
   - bzip2
   - ca-certificates
+  - cairo
   - certifi
   - cffi
   - charset-normalizer
   - cmarkgfm
   - colorama
+  - comm
   - commonmark
   - contourpy
   - cryptography
@@ -53,8 +55,10 @@ dependencies:
   - gettext
   - glib
   - glib-tools
+  - graphite2
   - gst-plugins-base
   - gstreamer
+  - harfbuzz
   - icu
   - idna
   - imagesize
@@ -74,6 +78,7 @@ dependencies:
   - keyutils
   - kiwisolver
   - krb5
+  - lame
   - lcms2
   - ld_impl_linux-64
   - lerc
@@ -90,16 +95,21 @@ dependencies:
   - libdeflate
   - libedit
   - libevent
+  - libexpat
   - libffi
   - libflac
   - libgcc-ng
+  - libgcrypt
   - libgfortran-ng
   - libgfortran5
   - libglib
   - libgomp
+  - libgpg-error
   - libiconv
+  - libjpeg-turbo
   - liblapack
   - libllvm14
+  - libllvm16
   - libnsl
   - libogg
   - libopenblas
@@ -110,6 +120,7 @@ dependencies:
   - libsodium
   - libsqlite
   - libstdcxx-ng
+  - libsystemd0
   - libtiff
   - libtool
   - libudev1
@@ -120,11 +131,15 @@ dependencies:
   - libxkbcommon
   - libxml2
   - libzlib
+  - lz4-c
+  - markdown-it-py
   - markupsafe
   - matplotlib
   - matplotlib-base
   - matplotlib-inline
+  - mdurl
   - more-itertools
+  - mpg123
   - munkres
   - mysql-common
   - mysql-libs
@@ -144,15 +159,20 @@ dependencies:
   - pickleshare
   - pillow
   - pip
+  - pixman
   - pkginfo
+  - platformdirs
   - plotly
   - ply
+  - pooch
   - portaudio
   - prompt-toolkit
+  - prompt_toolkit
   - psutil
   - pthread-stubs
   - ptyprocess
   - pulseaudio
+  - pulseaudio-client
   - pure_eval
   - pycodestyle
   - pycparser
@@ -164,6 +184,7 @@ dependencies:
   - pysocks
   - python
   - python-dateutil
+  - python-tzdata
   - python_abi
   - pytz
   - pyzmq
@@ -197,10 +218,12 @@ dependencies:
   - termcolor
   - tk
   - toml
+  - tomli
   - tornado
   - tqdm
   - traitlets
   - twine
+  - typing-extensions
   - typing_extensions
   - tzdata
   - unicodedata2
@@ -213,34 +236,47 @@ dependencies:
   - xcb-util-keysyms
   - xcb-util-renderutil
   - xcb-util-wm
+  - xkeyboard-config
+  - xorg-kbproto
+  - xorg-libice
+  - xorg-libsm
+  - xorg-libx11
   - xorg-libxau
   - xorg-libxdmcp
+  - xorg-libxext
+  - xorg-libxrender
+  - xorg-renderproto
+  - xorg-xextproto
+  - xorg-xf86vidmodeproto
+  - xorg-xproto
   - xz
   - zeromq
   - zipp
+  - zlib
   - zstd
   - pip:
-    - chardet
-    - colorlover
-    - colorutils
-    - cufflinks
-    - datetimerange
-    - fontawesomefree
-    - ipywidgets
-    - joblib
-    - jupyterlab-widgets
-    - karma-sphinx-theme
-    - mbstrdecoder
-    - msgpack
-    - piccolo-theme
-    - pywaffle
-    - scikit-learn
-    - sklearn
-    - sphinx-bootstrap-theme
-    - sphinx-press-theme
-    - splatstats
-    - squarify
-    - threadpoolctl
-    - typepy
-    - widgetsnbextension
-    - zerovm-sphinx-theme
+      - chardet
+      - colorlover
+      - colorutils
+      - colour
+      - cufflinks
+      - datetimerange
+      - fontawesomefree
+      - ipywidgets
+      - joblib
+      - jupyterlab-widgets
+      - karma-sphinx-theme
+      - mbstrdecoder
+      - msgpack
+      - piccolo-theme
+      - pywaffle
+      - scikit-learn
+      - sklearn
+      - sphinx-bootstrap-theme
+      - sphinx-press-theme
+      - splatstats
+      - squarify
+      - threadpoolctl
+      - typepy
+      - widgetsnbextension
+      - zerovm-sphinx-theme
