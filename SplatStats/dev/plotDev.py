@@ -87,7 +87,7 @@ clockwise=True
 colorsTop=(splat.CLR_STATS['kill'], splat.CLR_STATS['death'])
 colorBars=splat.CLR_PAINT
 innerText=None
-fontSize=20
+fontSize=10
 fontColor="#000000CC"
 innerGuides=(0, 6, 1)
 innerGuidesColor="#00000066"
@@ -170,13 +170,25 @@ ax.vlines(
     lw=1, colors=colorBars, alpha=.025
 )
 # Add inner text ----------------------------------------------------------
-if innerText:
-    ax.text(
-        x=0.5, y=0.5, 
-        s=innerText, fontsize=fontSize,
-        va="center", ha="center",  ma="center", 
-        color=fontColor, transform=ax.transAxes
-    )
+(kill, death, assist, paint) = (
+    [np.sum(playerHistory['kill']), np.mean(playerHistory['kill'])],
+    [np.sum(playerHistory['death']), np.mean(playerHistory['death'])],
+    [np.sum(playerHistory['assist']), np.mean(playerHistory['assist'])],
+    [np.sum(playerHistory['paint']), np.mean(playerHistory['paint'])],
+)
+innerText = '{}\nMatches: {}\n\nKill: {} ({:.2f})\nAssist: {} ({:.2f})\nDeath: {} ({:.2f})\nPaint: {} ({:.2f})'.format(
+    plyrName, DLEN, kill[0], kill[1], assist[0], assist[1], death[0], death[1], paint[0], paint[1]
+)
+ax.text(
+    x=0.5, y=0.5, 
+    s=innerText, fontsize=fontSize,
+    va="center", ha="center",  ma="center", 
+    color=fontColor, transform=ax.transAxes
+)
+ax.vlines(
+    np.arange(aend, astart, (astart+aend)/100), innerOffset, innerOffset+60,  
+    lw=0.1, colors='#000000', alpha=.75
+)
 # Cleaning up axes --------------------------------------------------------
 circleAngles = np.linspace(0, 2*np.pi, 200)
 for r in range(*innerGuides):
@@ -195,3 +207,7 @@ ax.set_yticks(yTicks)
 ax.yaxis.grid(True, color=outerGuidesColor, ls='-', lw=0.2, zorder=-10)
 ax.spines["start"].set_color("none")
 ax.spines["polar"].set_color(frameColor)
+fig.savefig(
+    path.join(oPath, f'DemoIris.png'), 
+    dpi=500, bbox_inches='tight', facecolor=fig.get_facecolor()
+)
