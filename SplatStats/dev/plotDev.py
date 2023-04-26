@@ -3,6 +3,7 @@ import numpy as np
 from os import path
 from sys import argv
 import SplatStats as splat
+from collections import Counter
 import warnings
 warnings.filterwarnings("ignore")
 import matplotlib.pyplot as plt
@@ -90,10 +91,10 @@ innerText=None
 fontSize=10
 fontColor="#000000CC"
 innerGuides=(0, 6, 1)
-innerGuidesColor="#00000066"
+innerGuidesColor="#00000088"
 outerGuides=(0, 50, 10)
 outerGuidesColor="#00000088"
-frameColor="#00000011"
+frameColor="#00000000"
 
 
 mTypeColors = {
@@ -128,14 +129,14 @@ DLEN = topArray.shape[0]
 ANGLES = np.linspace(astart, aend, DLEN, endpoint=False)
 # Match type --------------------------------------------------------------
 ax.vlines(
-    ANGLES, innerOffset+40, innerOffset+50, 
+    ANGLES, innerOffset+40, innerOffset+48, 
     lw=lw, colors=[mTypeColors[i] for i in playerHistory['match type']],
-    alpha=alpha
+    alpha=alpha, zorder=-5
 )
 ax.vlines(
-    ANGLES, innerOffset+50, innerOffset+50+5, 
+    ANGLES, innerOffset+48, innerOffset+52, 
     lw=lw, colors=[winColors[i] for i in playerHistory['winBool']],
-    alpha=alpha
+    alpha=alpha, zorder=-5
 )
 winKO = []
 for wko in list(zip(playerHistory['winBool'], playerHistory['ko'])):
@@ -147,9 +148,9 @@ for wko in list(zip(playerHistory['winBool'], playerHistory['ko'])):
     else:
         winKO.append('#ffffff')
 ax.vlines(
-    ANGLES, innerOffset+40, innerOffset+40-4, 
+    ANGLES, innerOffset+52, innerOffset+55, 
     lw=lw, colors=winKO,
-    alpha=alpha
+    alpha=alpha, zorder=-5
 )
 # Draw top-bottom ---------------------------------------------------------
 if bottomArray is None:
@@ -176,8 +177,11 @@ ax.vlines(
     [np.sum(playerHistory['assist']), np.mean(playerHistory['assist'])],
     [np.sum(playerHistory['paint']), np.mean(playerHistory['paint'])],
 )
-innerText = '{}\nMatches: {}\n\nKill: {} ({:.2f})\nAssist: {} ({:.2f})\nDeath: {} ({:.2f})\nPaint: {} ({:.2f})'.format(
-    plyrName, DLEN, kill[0], kill[1], assist[0], assist[1], death[0], death[1], paint[0], paint[1]
+winNum = np.sum(playerHistory['winBool'])
+winRate = winNum/DLEN
+innerText = '{}\n\nMatches: {}\nWin: {} ({:.2f}%)\n\nKill: {} ({:.2f})\nAssist: {} ({:.2f})\nDeath: {} ({:.2f})\nPaint: {} ({:.2f})'.format(
+    plyrName, DLEN, winNum, winRate*100, 
+    kill[0], kill[1], assist[0], assist[1], death[0], death[1], paint[0], paint[1]
 )
 ax.text(
     x=0.5, y=0.5, 
@@ -186,15 +190,16 @@ ax.text(
     color=fontColor, transform=ax.transAxes
 )
 ax.vlines(
-    np.arange(aend, astart, (astart+aend)/100), innerOffset, innerOffset+60,  
-    lw=0.1, colors='#000000', alpha=.75
+    np.arange(aend, astart, (astart+aend)/32), innerOffset, innerOffset+40,  
+    lw=0.2, colors='#000000', alpha=1, zorder=10
 )
 # Cleaning up axes --------------------------------------------------------
 circleAngles = np.linspace(0, 2*np.pi, 200)
 for r in range(*innerGuides):
     ax.plot(
         circleAngles, np.repeat(r+innerOffset, 200), 
-        color=innerGuidesColor, lw=0.1, ls='-.', zorder=-10
+        color=innerGuidesColor, lw=0.2, # ls='-.', 
+        zorder=10
     )
 ax.set_xticks([])
 ax.set_xticklabels([])
@@ -204,7 +209,7 @@ yTicks = [0+innerOffset] + list(np.arange(
     outerGuides[0]+innerOffset, outerGuides[1]+innerOffset, outerGuides[2]
 ))
 ax.set_yticks(yTicks)
-ax.yaxis.grid(True, color=outerGuidesColor, ls='-', lw=0.2, zorder=-10)
+ax.yaxis.grid(True, color=outerGuidesColor, ls='-', lw=0.2, zorder=10)
 ax.spines["start"].set_color("none")
 ax.spines["polar"].set_color(frameColor)
 fig.savefig(
