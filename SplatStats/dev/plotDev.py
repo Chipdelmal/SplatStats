@@ -1,63 +1,63 @@
 
-# import math
-# import numpy as np
-# from os import path
-# from sys import argv
-# from matplotlib.patches import Rectangle
-# import SplatStats as splat
-# import matplotlib.colors as mcolors
-# from collections import Counter
-# import warnings
-# warnings.filterwarnings("ignore")
-# import matplotlib.pyplot as plt
+import math
+import numpy as np
+from os import path
+from sys import argv
+from matplotlib.patches import Rectangle
+import SplatStats as splat
+import matplotlib.colors as mcolors
+from collections import Counter
+import warnings
+warnings.filterwarnings("ignore")
+import matplotlib.pyplot as plt
 
-# if splat.isNotebook():
-#     (plyrName, weapon, mode, overwrite) = ('čħîþ ウナギ', 'All', 'All', 'False')
-#     (iPath, bPath, oPath) = (
-#         path.expanduser('~/Documents/Sync/BattlesDocker/jsons'),
-#         path.expanduser('~/Documents/Sync/BattlesDocker/battles'),
-#         path.expanduser('~/Documents/Sync/BattlesDocker/out')
-#     )
-#     fontPath = '/home/chipdelmal/Documents/GitHub/SplatStats/other/'
-# else:
-#     (plyrName, weapon, mode, overwrite) = argv[1:]
-#     (iPath, bPath, oPath) = (
-#         '/data/jsons', 
-#         '/data/battles', 
-#         '/data/out'
-#     )
-#     fontPath = '/other/'
-# overwrite = (True if overwrite=="True"  else False)
-# LEN_LIMIT = 400
-# ###############################################################################
-# # Auxiliary 
-# ###############################################################################
-# title = '(Kills+0.5*Assists)/Deaths'
-# fNameID = f'{plyrName}-{weapon}'
-# splat.setSplatoonFont(fontPath, fontName="Splatfont 2")
-# ###############################################################################
-# # Process JSON files into battle objects
-# ###############################################################################
-# hFilepaths = splat.getDataFilepaths(iPath, filePat='results.json')
-# bPaths = splat.dumpBattlesFromJSONS(hFilepaths, bPath, overwrite=overwrite)
-# bFilepaths = splat.getBattleFilepaths(bPath)
-# ###############################################################################
-# # Create Player Object
-# ###############################################################################
-# plyr = splat.Player(plyrName, bFilepaths, timezone='America/Los_Angeles')
-# playerHistory = plyr.battlesHistory
-# playerHistory = playerHistory[playerHistory['match mode']!='PRIVATE']
-# # Weapon filter ---------------------------------------------------------------
-# if weapon != 'All':
-#     pHist = playerHistory[playerHistory['main weapon']==weapon]
-# else:
-#     pHist = playerHistory
-# ###############################################################################
-# # Streaks
-# ###############################################################################
-# wins = list(playerHistory['win'])
-# splat.longestRun(wins, elem='W')
-# splat.longestRun(wins, elem='L')
+if splat.isNotebook():
+    (plyrName, weapon, mode, overwrite) = ('čħîþ ウナギ', 'All', 'All', 'False')
+    (iPath, bPath, oPath) = (
+        path.expanduser('~/Documents/Sync/BattlesDocker/jsons'),
+        path.expanduser('~/Documents/Sync/BattlesDocker/battles'),
+        path.expanduser('~/Documents/Sync/BattlesDocker/out')
+    )
+    fontPath = '/home/chipdelmal/Documents/GitHub/SplatStats/other/'
+else:
+    (plyrName, weapon, mode, overwrite) = argv[1:]
+    (iPath, bPath, oPath) = (
+        '/data/jsons', 
+        '/data/battles', 
+        '/data/out'
+    )
+    fontPath = '/other/'
+overwrite = (True if overwrite=="True"  else False)
+LEN_LIMIT = 400
+###############################################################################
+# Auxiliary 
+###############################################################################
+title = '(Kills+0.5*Assists)/Deaths'
+fNameID = f'{plyrName}-{weapon}'
+splat.setSplatoonFont(fontPath, fontName="Splatfont 2")
+###############################################################################
+# Process JSON files into battle objects
+###############################################################################
+hFilepaths = splat.getDataFilepaths(iPath, filePat='results.json')
+bPaths = splat.dumpBattlesFromJSONS(hFilepaths, bPath, overwrite=overwrite)
+bFilepaths = splat.getBattleFilepaths(bPath)
+###############################################################################
+# Create Player Object
+###############################################################################
+plyr = splat.Player(plyrName, bFilepaths, timezone='America/Los_Angeles')
+playerHistory = plyr.battlesHistory
+playerHistory = playerHistory[playerHistory['match mode']!='PRIVATE']
+# Weapon filter ---------------------------------------------------------------
+if weapon != 'All':
+    pHist = playerHistory[playerHistory['main weapon']==weapon]
+else:
+    pHist = playerHistory
+###############################################################################
+# Streaks
+###############################################################################
+wins = list(playerHistory['win'])
+splat.longestRun(wins, elem='W')
+splat.longestRun(wins, elem='L')
 ###############################################################################
 # Windowed average
 ###############################################################################
@@ -141,13 +141,17 @@ mTypeColors = {
     'Rainmaker':            '#7D26B5',
     'Splat Zones':          '#3D59DE',
     'Tower Control':        '#8ACF47',
-    'Tricolor Turf War':    '#E70F21',
+    'Tricolor Turf War':    '#88214D',
     'Turf War':             '#D1D1D1'
 }
 winColors = {True: '#6BD52C', False: '#D1D1D1'}
 kosColors = {True: '#A714D4', False: '#ffffff'}
 
-
+lw = np.interp(
+    playerHistory.shape[0], 
+    [0, 50,  250,  500, 1000, 3000,   5000], 
+    [10, 3,    2,  1.5,  0.8, 0.25,  0.125]
+)
 
 
 (fig, ax) = plt.subplots(figsize=(10, 10), subplot_kw={"projection": "polar"})
@@ -280,38 +284,6 @@ ax.vlines(
     ANGLES, innerOffset, innerOffset+barScaled,  
     lw=lw, colors=colorBars, alpha=.1
 )
-# Add inner text ----------------------------------------------------------
-(kill, death, assist, paint, special) = (
-    [np.sum(playerHistory['kill']), np.mean(playerHistory['kill'])],
-    [np.sum(playerHistory['death']), np.mean(playerHistory['death'])],
-    [np.sum(playerHistory['assist']), np.mean(playerHistory['assist'])],
-    [np.sum(playerHistory['paint']), np.mean(playerHistory['paint'])],
-    [np.sum(playerHistory['special']), np.mean(playerHistory['special'])],
-)
-# np.quantile(playerHistory['kill'], [0.25, 0.5, 0.75])
-winNum = np.sum(playerHistory['winBool'])
-winRate = winNum/DLEN
-(sw, sl) = (splat.longestRun(wins, elem='W'), splat.longestRun(wins, elem='L'))
-strLng = 'Matches: {}\nWin: {} ({:.1f}%)\nLongest Streaks: W{}-L{}\n\n\n\n\nKill: {} ({:.1f})\nAssist: {} ({:.1f})\nDeath: {} ({:.1f})\nPaint: {} ({:.0f})\nSpecial: {} ({:.1f})'
-innerText = strLng.format(
-    DLEN, winNum, winRate*100, sw, sl,
-    kill[0], kill[1], assist[0], assist[1], 
-    death[0], death[1], paint[0], paint[1],
-    special[0], special[1],
-)
-ax.text(
-    x=0.5, y=0.5, 
-    s=innerText, fontsize=fontSize,
-    va="center", ha="center",  ma="center", 
-    color=fontColor, transform=ax.transAxes
-)
-ax.text(
-    x=0.5, y=0.52,
-    s='{}'.format(plyrName),
-    fontsize=fontSize+7.5,
-    va="center", ha="center",
-    color=fontColor, transform=ax.transAxes
-)
 # Cleaning up axes --------------------------------------------------------
 ax.vlines(
     np.arange(aend, astart, (astart+aend)/32), innerOffset, innerOffset+mTypeOff,  
@@ -345,7 +317,39 @@ ax.set_yticks(yTicks)
 ax.yaxis.grid(True, color=outerGuidesColor, ls='-', lw=0.2, zorder=10)
 ax.spines["start"].set_color("none")
 ax.spines["polar"].set_color(frameColor)
-plt.show()
+# Add inner text ----------------------------------------------------------
+(kill, death, assist, paint, special) = (
+    [np.sum(playerHistory['kill']), np.mean(playerHistory['kill'])],
+    [np.sum(playerHistory['death']), np.mean(playerHistory['death'])],
+    [np.sum(playerHistory['assist']), np.mean(playerHistory['assist'])],
+    [np.sum(playerHistory['paint']), np.mean(playerHistory['paint'])],
+    [np.sum(playerHistory['special']), np.mean(playerHistory['special'])],
+)
+# np.quantile(playerHistory['kill'], [0.25, 0.5, 0.75])
+winNum = np.sum(playerHistory['winBool'])
+winRate = winNum/DLEN
+(sw, sl) = (splat.longestRun(wins, elem='W'), splat.longestRun(wins, elem='L'))
+strLng = 'Matches: {}\nWin: {} ({:.1f}%)\nLongest Streaks: W{}-L{}\n\n\n\n\nKill: {} ({:.1f})\nAssist: {} ({:.1f})\nDeath: {} ({:.1f})\nPaint: {} ({:.0f})\nSpecial: {} ({:.1f})'
+innerText = strLng.format(
+    DLEN, winNum, winRate*100, sw, sl,
+    kill[0], kill[1], assist[0], assist[1], 
+    death[0], death[1], paint[0], paint[1],
+    special[0], special[1],
+)
+ax.text(
+    x=0.5, y=0.5, 
+    s=innerText, fontsize=fontSize,
+    va="center", ha="center",  ma="center", 
+    color=fontColor, transform=ax.transAxes
+)
+ax.text(
+    x=0.5, y=0.52,
+    s='{}'.format(plyrName),
+    fontsize=fontSize+7.5,
+    va="center", ha="center",
+    color=fontColor, transform=ax.transAxes
+)
+# Save -------------------------------------------------------------------
 fig.savefig(
     path.join(oPath, f'{plyrName}-HIris.png'), 
     dpi=500, bbox_inches='tight', facecolor=fig.get_facecolor()
