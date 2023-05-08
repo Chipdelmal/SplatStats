@@ -47,6 +47,6 @@ try:
         data = data.replace(bText.replace(' ', '%20'), rText)
     with open(fOutSVG, 'w') as file:
         file.write(data)
-    system(f"inkscape '{fOutSVG}' --export-filename='{fOutPNG}' --export-width=5500")
+    system(f"inkscape '{fOutSVG}' --export-filename='{fOutPNG}' --export-width=5000")
 except:
     pass

@@ -11,13 +11,14 @@ from datetime import datetime
 
 
 if splat.isNotebook():
-    (six, USR) = (10, 'dsk')
+    (six, USR) = (1, 'dsk')
     GMODE = 'All'
-    SSN_TITLE = False
+    SSN_TITLE = True
 else:
     (six, GMODE, ssn) = argv[1:]
     six = int(six)
     SSN_TITLE = int(ssn)
+DPI=300
 ###############################################################################
 # Constants
 ###############################################################################
@@ -163,7 +164,7 @@ else:
     (transp, fc) = (True, '#ffffff00')
 plt.savefig(
     path.join(DATA_PATH, 'statInk/'+fName),
-    dpi=350, transparent=transp, facecolor=fc, bbox_inches='tight'
+    dpi=DPI, transparent=transp, facecolor=fc, bbox_inches='tight'
 )
 plt.close('all')
 ###############################################################################
@@ -201,13 +202,13 @@ if SSN_TITLE:
     ax.set_title(SEASON, fontsize=35, y=0.5-.1, ha='right')
 plt.savefig(
     path.join(DATA_PATH, 'statInk/'+fName),
-    dpi=350, transparent=False, facecolor='#ffffff', bbox_inches='tight'
+    dpi=DPI, transparent=False, facecolor='#ffffff', bbox_inches='tight'
 )
 plt.close('all')
 ###############################################################################
 # Gaussian Lobby
 ###############################################################################
-YLIM = (0, -1250)
+YLIM = (0, -1500)
 if SEASON=='All Seasons':
     YLIM = (0, -3000)
 if GMODE not in GMODES:
@@ -220,7 +221,7 @@ if GMODE not in GMODES:
     ax.set_ylim(ax.get_ylim()[::-1])
     plt.savefig(
         path.join(DATA_PATH, 'statInk/'+fName),
-        dpi=350, transparent=False, facecolor='#ffffff', bbox_inches='tight'
+        dpi=DPI, transparent=False, facecolor='#ffffff', bbox_inches='tight'
     )
     plt.close('all')
 ###############################################################################
@@ -231,7 +232,7 @@ if GMODE not in GMODES:
     (fig, ax) = plt.subplots(figsize=(0.4, 20))
     (fig, ax) = splat.barChartLobby(lbyFreq)
     plt.savefig(
-        path.join(DATA_PATH, 'statInk/'+fName), dpi=350, 
+        path.join(DATA_PATH, 'statInk/'+fName), dpi=DPI, 
         transparent=False, facecolor='#ffffff', bbox_inches='tight'
     )
     plt.close('all')
@@ -297,7 +298,7 @@ if SSN_TITLE:
         transform=axs[2].transAxes, fontsize=35
     )
 plt.savefig(
-    path.join(DATA_PATH, 'statInk/'+fName), dpi=350, 
+    path.join(DATA_PATH, 'statInk/'+fName), dpi=DPI, 
     transparent=False, facecolor='#ffffff', bbox_inches='tight'
 )
 plt.close('all')
