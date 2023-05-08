@@ -1048,3 +1048,110 @@ def polarBarRanks(
     # ax.set(frame_on=False)
     # Return ------------------------------------------------------------------
     return (fig, (ax_k, ax_d, ax_a, ax_p))
+
+
+
+
+
+def plotIrisKDP(
+        playerHistory, figAx, 
+        kassist=True, paint=True, 
+        clockwise=True, innerOffset=2,
+        colorsKD=('#4E4EDDCC', '#CD2D7ECC'), colorP='#6A1EC111',
+        rangeKD=(0, 40), rangeP=(0, 3500),
+        lw=0.25
+    ):
+    (fig, ax) = figAx
+    # Calculate numbers -------------------------------------------------------
+    (outer, inner) = (
+        np.array(playerHistory['kill']), 
+        np.array(playerHistory['death'])
+    )
+    bar = (np.array(playerHistory['paint']) if paint else None)
+    if kassist:
+        outer = outer + (.5*np.array(playerHistory['assist']))
+    kdRatio = np.sum(outer)/np.sum(inner)
+    (topArray, bottomArray, barArray) = (outer, inner, bar)
+    # Calculate angles for marker lines ---------------------------------------
+    DLEN = topArray.shape[0]
+    (astart, aend) = ((2*np.pi, 0) if clockwise else (0, 2*np.pi))
+    ANGLES = np.linspace(astart, aend, DLEN, endpoint=False)
+    # Draw top-bottom (kill-death) --------------------------------------------
+    if bottomArray is None:
+        bottomArray = np.zeros(topArray.shape)
+    heights = topArray-bottomArray
+    colors = [colorsKD[0] if (h>=0) else colorsKD[1] for h in heights]
+    ax.vlines(
+        ANGLES, innerOffset+bottomArray, innerOffset+topArray, 
+        lw=lw, colors=colors
+    )
+    # Draw bar ----------------------------------------------------------------
+    if barArray is None:
+        barScaled = np.zeros(topArray.shape)
+    else:
+        barScaled = np.interp(barArray, rangeP, (rangeKD[0]*2, rangeKD[1]*2))
+    ax.vlines(
+        ANGLES, innerOffset, innerOffset+barScaled,  
+        lw=lw, colors=colorP
+    )
+    # Return figAx and stats --------------------------------------------------
+    return ((fig, ax), kdRatio)
+
+
+def plotIrisMatch(
+        playerHistory, figAx,
+        innerRadius=40, typeLineLength=10, lw=0.25,
+        colorsKO=('#311AA8', '#E70F21', '#ffffff'),
+        offsets=(2, 5, 7), clockwise=True,
+        mTypeColors = {
+            'Clam Blitz': '#D60E6E',
+            'Rainmaker': '#7D26B5',
+            'Splat Zones': '#3D59DE',
+            'Tower Control': '#8ACF47',
+            'Tricolor Turf War': '#88214D',
+            'Turf War': '#D1D1D1'
+        },
+        winColors={True: '#6BD52C', False: '#D1D1D1'}
+    ):
+    (fig, ax) = figAx
+    # Calculate angles for marker lines ---------------------------------------
+    DLEN = np.array(playerHistory['kill']).shape[0]
+    (astart, aend) = ((2*np.pi, 0) if clockwise else (0, 2*np.pi))
+    ANGLES = np.linspace(astart, aend, DLEN, endpoint=False)
+    # Match type --------------------------------------------------------------
+    (mTypeOff, mTypeHeight) = (innerRadius+offsets[0], typeLineLength)
+    (wBoolOff, wBoolHeight) = (
+        mTypeOff+mTypeHeight, 
+        mTypeOff+mTypeHeight+offsets[1]
+    )
+    (kBoolOff, kBoolHeight) = (
+        mTypeOff+mTypeHeight+offsets[1], 
+        mTypeOff+mTypeHeight+offsets[2]
+    )
+    ax.vlines(
+        ANGLES, mTypeOff, mTypeOff+mTypeHeight, 
+        colors=[mTypeColors[i] for i in playerHistory['match type']],
+        zorder=-5, lw=lw
+    )
+    # Win ---------------------------------------------------------------------
+    ax.vlines(
+        ANGLES, wBoolOff, wBoolHeight, 
+        colors=[winColors[i] for i in playerHistory['winBool']],
+        zorder=-5, lw=lw
+    )
+    # KO ----------------------------------------------------------------------
+    winKO = []
+    for wko in list(zip(playerHistory['winBool'], playerHistory['ko'])):
+        if wko[-1]:
+            if wko[0]:
+                winKO.append(colorsKO[0])
+            else:
+                winKO.append(colorsKO[1])
+        else:
+            winKO.append(colorsKO[2])
+    ax.vlines(
+        ANGLES, kBoolOff, kBoolHeight, 
+        lw=lw, colors=winKO, zorder=-5
+    )
+    ax.set_rscale('symlog')
+    return (fig, ax)

@@ -306,6 +306,8 @@ ax.plot(
     color='#000000FF', lw=0.25, # ls='-.', 
     zorder=10
 )
+ax.set_theta_offset(np.pi/2)
+ax.set_rscale(rScale)
 ax.set_xticks([])
 ax.set_xticklabels([])
 ax.set_ylim(tbRange[0], tbRange[1]+innerOffset)
@@ -354,3 +356,140 @@ fig.savefig(
     path.join(oPath, f'{plyrName}-HIris.png'), 
     dpi=500, bbox_inches='tight', facecolor=fig.get_facecolor()
 )
+
+
+
+
+
+
+lw = np.interp(
+    playerHistory.shape[0], 
+    [0, 50,  250,  500, 1000, 3000,   5000], 
+    [10, 3,    2,  1.5,  0.8, 0.25,  0.125]
+)
+
+
+(fig, ax) = plt.subplots(figsize=(10, 10), subplot_kw={"projection": "polar"})
+((fig, ax), kdRatio) = plotIrisKDP(playerHistory, (fig, ax), lw=lw)
+(fig, ax) = plotIrisMatch(playerHistory, (fig, ax), typeLineLength=20)
+
+
+
+ax.set_theta_offset(np.pi/2)
+ax.set_rscale(rScale)
+ax.set_xticks([])
+ax.set_xticklabels([])
+ax.set_yticklabels([])
+yTicks = [0+innerOffset] + list(np.arange(
+    outerGuides[0]+innerOffset, outerGuides[1]+innerOffset, outerGuides[2]
+))
+ax.set_yticks(yTicks)
+ax.yaxis.grid(True, color=outerGuidesColor, ls='-', lw=0.2, zorder=10)
+ax.spines["start"].set_color("none")
+ax.spines["polar"].set_color(frameColor)
+ax.set_ylim(0, 100)
+
+def plotIrisMatch(
+        playerHistory, figAx,
+        innerRadius=40, typeLineLength=10, lw=0.25,
+        colorsKO=('#311AA8', '#E70F21', '#ffffff'),
+        offsets=(2, 5, 7), clockwise=True,
+        mTypeColors = {
+            'Clam Blitz': '#D60E6E',
+            'Rainmaker': '#7D26B5',
+            'Splat Zones': '#3D59DE',
+            'Tower Control': '#8ACF47',
+            'Tricolor Turf War': '#88214D',
+            'Turf War': '#D1D1D1'
+        },
+        winColors={True: '#6BD52C', False: '#D1D1D1'}
+    ):
+    (fig, ax) = figAx
+    # Calculate angles for marker lines ---------------------------------------
+    DLEN = np.array(playerHistory['kill']).shape[0]
+    (astart, aend) = ((2*np.pi, 0) if clockwise else (0, 2*np.pi))
+    ANGLES = np.linspace(astart, aend, DLEN, endpoint=False)
+    # Match type --------------------------------------------------------------
+    (mTypeOff, mTypeHeight) = (innerRadius+offsets[0], typeLineLength)
+    (wBoolOff, wBoolHeight) = (
+        mTypeOff+mTypeHeight, 
+        mTypeOff+mTypeHeight+offsets[1]
+    )
+    (kBoolOff, kBoolHeight) = (
+        mTypeOff+mTypeHeight+offsets[1], 
+        mTypeOff+mTypeHeight+offsets[2]
+    )
+    ax.vlines(
+        ANGLES, mTypeOff, mTypeOff+mTypeHeight, 
+        lw=lw, colors=[mTypeColors[i] for i in playerHistory['match type']],
+        zorder=-5
+    )
+    # Win ---------------------------------------------------------------------
+    ax.vlines(
+        ANGLES, wBoolOff, wBoolHeight, 
+        lw=lw, colors=[winColors[i] for i in playerHistory['winBool']],
+        zorder=-5
+    )
+    # KO ----------------------------------------------------------------------
+    winKO = []
+    for wko in list(zip(playerHistory['winBool'], playerHistory['ko'])):
+        if wko[-1]:
+            if wko[0]:
+                winKO.append(colorsKO[0])
+            else:
+                winKO.append(colorsKO[1])
+        else:
+            winKO.append(colorsKO[2])
+    ax.vlines(
+        ANGLES, kBoolOff, kBoolHeight, 
+        lw=lw, colors=winKO,
+        zorder=-5
+    )
+    ax.set_rscale('symlog')
+    return (fig, ax)
+
+
+
+def plotIrisKDP(
+        playerHistory, figAx, 
+        kassist=True, paint=True, 
+        clockwise=True, innerOffset=2,
+        colorsKD=('#4E4EDDCC', '#CD2D7ECC'), colorP='#6A1EC111',
+        rangeKD=(0, 40), rangeP=(0, 3500),
+        lw=0.25
+    ):
+    (fig, ax) = figAx
+    # Calculate numbers -------------------------------------------------------
+    (outer, inner) = (
+        np.array(playerHistory['kill']), 
+        np.array(playerHistory['death'])
+    )
+    bar = (np.array(playerHistory['paint']) if paint else None)
+    if kassist:
+        outer = outer + (.5*np.array(playerHistory['assist']))
+    kdRatio = np.sum(outer)/np.sum(inner)
+    (topArray, bottomArray, barArray) = (outer, inner, bar)
+    # Calculate angles for marker lines ---------------------------------------
+    DLEN = topArray.shape[0]
+    (astart, aend) = ((2*np.pi, 0) if clockwise else (0, 2*np.pi))
+    ANGLES = np.linspace(astart, aend, DLEN, endpoint=False)
+    # Draw top-bottom (kill-death) --------------------------------------------
+    if bottomArray is None:
+        bottomArray = np.zeros(topArray.shape)
+    heights = topArray-bottomArray
+    colors = [colorsKD[0] if (h>=0) else colorsKD[1] for h in heights]
+    ax.vlines(
+        ANGLES, innerOffset+bottomArray, innerOffset+topArray, 
+        lw=lw, colors=colors
+    )
+    # Draw bar ----------------------------------------------------------------
+    if barArray is None:
+        barScaled = np.zeros(topArray.shape)
+    else:
+        barScaled = np.interp(barArray, rangeP, (rangeKD[0]*2, rangeKD[1]*2))
+    ax.vlines(
+        ANGLES, innerOffset, innerOffset+barScaled,  
+        lw=lw, colors=colorP
+    )
+    # Return figAx and stats --------------------------------------------------
+    return ((fig, ax), kdRatio)
