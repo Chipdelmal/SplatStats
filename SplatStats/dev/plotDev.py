@@ -12,7 +12,7 @@ warnings.filterwarnings("ignore")
 import matplotlib.pyplot as plt
 
 if splat.isNotebook():
-    (plyrName, weapon, mode, overwrite) = ('čħîþ ウナギ', 'All', 'All', 'True')
+    (plyrName, weapon, mode, overwrite) = ('čħîþ ウナギ', 'All', 'All', 'False')
     (iPath, bPath, oPath) = (
         path.expanduser('~/Documents/Sync/BattlesDocker/jsons'),
         path.expanduser('~/Documents/Sync/BattlesDocker/battles'),
@@ -285,10 +285,10 @@ ax.vlines(
     lw=lw, colors=colorBars, alpha=.1
 )
 # Cleaning up axes --------------------------------------------------------
-ax.vlines(
-    np.arange(aend, astart, (astart+aend)/32), innerOffset, innerOffset+mTypeOff,  
-    lw=0.2, colors='#000000', alpha=1, zorder=10
-)
+# ax.vlines(
+#     np.arange(aend, astart, (astart+aend)/8), innerOffset, innerOffset+mTypeOff,  
+#     lw=0.2, colors='#000000', alpha=1, zorder=10
+# )
 ax.vlines(
     [0], innerOffset-dHeight*len(STATS), innerOffset+mTypeOff, 
     lw=0.25, color='#000000CC',

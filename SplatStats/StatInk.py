@@ -17,12 +17,18 @@ class StatInk:
     battleResults: dataframe
         Clean dataframe containing results in human-readable form
     """
-    def __init__(self, resultsPaths, fNamePattern='*-*-*.csv'):
+    def __init__(
+            self, resultsPaths, 
+            fNamePattern='*-*-*.csv'
+        ):
         self.fPaths = glob(path.join(resultsPaths, fNamePattern))
         # Read csv's into a dataframe ----------------------------------------
         rawDFList = [
             pd.read_csv(
-                f, parse_dates=['period'], dtype=ink.STATINK_DTYPES, 
+                f, 
+                parse_dates=['period'], 
+                dtype=ink.STATINK_DTYPES, 
+                on_bad_lines='skip'
             ) for f in self.fPaths
         ]
         self.rawResults = pd.concat(rawDFList)
@@ -31,7 +37,8 @@ class StatInk:
         
     def cleanBattlesDataframe(
             self, rawResults,
-            naColor='#00000000', naBool=-1, naString='NA', naInt=0
+            naColor='#00000000', naBool=-1, naString='NA', 
+            naInt=0, ammendWeapons=True
         ):
         df = rawResults.copy()
         # Cleaning column names ----------------------------------------------
@@ -44,6 +51,9 @@ class StatInk:
         for i in range(1, 5):
             df[f'A{i}-weapon'] = [ink.WPNS_DICT[w] for w in df[f'A{i}-weapon']]
             df[f'B{i}-weapon'] = [ink.WPNS_DICT[w] for w in df[f'B{i}-weapon']]
+        # Ammend Duplicate Weapons (US standard) -----------------------------
+        if ammendWeapons:
+            df = df.replace('Hero Shot Replica', 'Splattershot')
         # Replace knockouts, ranks and wins ----------------------------------
         df['knockout'] = [int(k) if (type(k) is bool) else naBool for k in df['knockout']]
         df['rank'] = [r if type(r) is str else naString for r in df['rank']]
