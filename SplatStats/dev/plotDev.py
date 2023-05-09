@@ -153,6 +153,20 @@ lw = np.interp(
     [10, 3,    2,  1.5,  0.8, 0.25,  0.125]
 )
 
+(fig, ax) = plt.subplots(figsize=(10, 10), subplot_kw={"projection": "polar"})
+((fig, ax), kdRatio) = splat.plotIrisKDP(playerHistory, (fig, ax), lw=lw)
+(fig, ax) = splat.plotIrisMatch(playerHistory, (fig, ax), typeLineLength=10)
+((fig, ax), statQNT, statMNS) = splat.plotIrisStats(playerHistory, (fig, ax))
+(fig, ax) = splat.plotIrisAxes((fig, ax))
+
+
+
+
+
+
+
+
+
 
 (fig, ax) = plt.subplots(figsize=(10, 10), subplot_kw={"projection": "polar"})
 # Inner and outer -------------------------------------------------------------
@@ -371,12 +385,30 @@ lw = np.interp(
 
 (fig, ax) = plt.subplots(figsize=(10, 10), subplot_kw={"projection": "polar"})
 ((fig, ax), kdRatio) = plotIrisKDP(playerHistory, (fig, ax), lw=lw)
-(fig, ax) = plotIrisMatch(playerHistory, (fig, ax), typeLineLength=20)
+(fig, ax) = plotIrisMatch(playerHistory, (fig, ax), typeLineLength=10)
+((fig, ax), statQNT, statMNS) = plotIrisStats(playerHistory, (fig, ax))
+(fig, ax) = plotIrisAxes((fig, ax))
 
 
-
+dHeight=0.1
+ax.vlines(
+    [0], innerOffset-dHeight*5, innerOffset+50, 
+    lw=0.25, color='#000000CC',
+    zorder=10
+)
+circleAngles = np.linspace(0, 2*np.pi, 200)
+for r in range(*innerGuides):
+    ax.plot(
+        circleAngles, np.repeat(r+innerOffset, 200), 
+        color=innerGuidesColor, lw=0.1, # ls='-.', 
+        zorder=10
+    )
+ax.plot(
+    circleAngles, np.repeat(innerOffset-dHeight*5, 200), 
+    color='#000000FF', lw=0.25, # ls='-.', 
+    zorder=10
+)
 ax.set_theta_offset(np.pi/2)
-ax.set_rscale(rScale)
 ax.set_xticks([])
 ax.set_xticklabels([])
 ax.set_yticklabels([])
@@ -388,6 +420,146 @@ ax.yaxis.grid(True, color=outerGuidesColor, ls='-', lw=0.2, zorder=10)
 ax.spines["start"].set_color("none")
 ax.spines["polar"].set_color(frameColor)
 ax.set_ylim(0, 100)
+
+
+
+
+def plotIrisAxes(
+        figAx, innerOffset=2, outerGuides=(0, 50, 10), statsNum=5,
+        barWidth=0.1, yRange=(0, 100), frameColor="#00000000", rangeKD=(0, 40),
+        lw=0.25
+    ):
+    (fig, ax) = figAx
+    ax.vlines(
+        [0], innerOffset-barWidth*statsNum, innerOffset+rangeKD[1], 
+        lw=lw, color='#000000CC',
+        zorder=10
+    )
+    circleAngles = np.linspace(0, 2*np.pi, 200)
+    for r in range(*innerGuides):
+        ax.plot(
+            circleAngles, np.repeat(r+innerOffset, 200), 
+            color=innerGuidesColor, lw=0.1,
+            zorder=10
+        )
+    ax.plot(
+        circleAngles, np.repeat(innerOffset-barWidth*5, 200), 
+        color='#000000FF', lw=lw, # ls='-.', 
+        zorder=10
+    )
+    ax.set_theta_offset(np.pi/2)
+    ax.set_xticks([])
+    ax.set_xticklabels([])
+    ax.set_yticklabels([])
+    yTicks = [0+innerOffset] + list(np.arange(
+        outerGuides[0]+innerOffset, outerGuides[1]+innerOffset, outerGuides[2]
+    ))
+    ax.set_yticks(yTicks)
+    ax.yaxis.grid(True, color=outerGuidesColor, ls='-', lw=0.2, zorder=10)
+    ax.spines["start"].set_color("none")
+    ax.spines["polar"].set_color(frameColor)
+    ax.set_ylim(yRange[0], yRange[1])
+    return (fig, ax)
+
+
+
+def plotIrisStats(
+        playerHistory, figAx,
+        binSize=1, binMax=20, innerOffset=2, meanStat=True, barWidth=0.1,
+        stats=('kill', 'death', 'assist', 'ink', 'special'),
+        colorBarEdge='#00000033', linewidthEdge=0.1,
+        colorMean='#00000099', linewidthMean=0.5,
+        INKSTATS_STYLE = {
+            'kill': {
+                'color': '#1A1AAEDD', 'range': (0, 15),
+                'scaler': lambda x: np.interp(x, [0, 0.125, 0.25], [0, .50, 1]),
+                'range': (0, 15)
+            },
+            'death': {
+                'color': '#CD2D7EDD', 'range': (0, 15),
+                'scaler': lambda x: np.interp(x, [0, 0.125, 0.25], [0, .50, 1]),
+                'range': (0, 15)
+            },
+            'assist': {
+                'color': '#801AB3DD', 'range': (0, 10),
+                'scaler': lambda x: np.interp(x, [0, 0.250, 0.65], [0, .50, 1]),
+                
+            },
+            'special': {
+                'color': '#1FAFE8DD', 'range': (0, 10),
+                'scaler': lambda x: np.interp(x, [0, 0.250, 0.65], [0, .50, 1]),
+            },
+            'ink': {
+                'color': '#35BA49DD', 'range': (0, 20),
+                'scaler': lambda x: np.interp(x, [0, 0.100, 0.20], [0, .50, 1]),
+            }
+        }
+    ):
+    (fig, ax) = figAx
+    playerHistory['ink'] = playerHistory['paint']/100
+    statsHists = {
+        i: splat.calcBinnedFrequencies(
+            np.array(playerHistory[i]), 0, binMax, barWidth=0.1,
+            binSize=binSize, normalized=True
+        )
+        for i in stats
+    }
+    # Vspan for stats -------------------------------------------------------------
+    binsNum = statsHists['kill'].shape[0]
+    (dHeight, rWidth) = (barWidth, 2*math.pi/binsNum)
+    statsNames = list(stats)
+    # Iterate through stats
+    for (ix, stat) in enumerate(statsNames):
+        # Iterate through bins
+        (clr, sca) = (
+            mcolors.ColorConverter().to_rgba(INKSTATS_STYLE[stat]['color']),
+            INKSTATS_STYLE[stat]['scaler']
+        )
+        bins = statsHists[stat]
+        for (jx, h) in enumerate(range(binsNum)):
+            alpha = sca(bins[jx])
+            ax.add_patch(
+                Rectangle(
+                    (-jx*rWidth, innerOffset-ix*dHeight), -rWidth, -dHeight,
+                    facecolor=(clr[0], clr[1], clr[2], alpha),
+                    edgecolor=colorBarEdge, lw=linewidthEdge
+                )
+            )
+            ax.bar(0, 1).remove()
+    # Quantiles ---------------------------------------------------------------
+    statQNT = {s: np.quantile(playerHistory[s], [0.25, 0.50, 0.75]) for s in stats}
+    statMNS = {s: np.mean(playerHistory[s]) for s in stats}
+    rSca = 0.15
+    for (ix, stat) in enumerate(statsNames):
+        if meanStat:
+            rPos = np.interp(statMNS[stat], [0, binMax], [2*np.pi, 0])
+            ax.vlines(
+                rPos, 
+                innerOffset-(ix)*dHeight-rSca*dHeight, 
+                innerOffset-(1+ix)*dHeight+rSca*dHeight,  
+                lw=linewidthMean, colors=colorMean
+            )
+        else:
+            rPos = [
+                np.interp(x, [0, binMax], [2*np.pi, 0])-rWidth/2
+                for x in statQNT[stat]
+            ]
+            ax.vlines(
+                rPos[1], 
+                innerOffset-(ix)*dHeight-rSca*dHeight, 
+                innerOffset-(1+ix)*dHeight+rSca*dHeight,  
+                lw=linewidthMean, colors=colorMean
+            )
+            ax.vlines(
+                [rPos[0], rPos[2]], 
+                innerOffset-(ix)*dHeight-rSca*dHeight, 
+                innerOffset-(1+ix)*dHeight+rSca*dHeight,  
+                lw=linewidthMean*0.25, colors=colorMean
+            )
+    return ((fig, ax), statQNT, statMNS)
+
+
+
 
 def plotIrisMatch(
         playerHistory, figAx,
