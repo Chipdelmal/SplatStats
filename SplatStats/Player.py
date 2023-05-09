@@ -75,7 +75,7 @@ class Player:
     ###########################################################################
     # Get player history dataframe
     ###########################################################################
-    def parsePlayerHistoryFromBattles(self, validOnly=True):
+    def parsePlayerHistoryFromBattles(self, validOnly=True, ammendWeapons=True):
         """Extracts the player's history from the battle records by matching the name in the dataframes.
 
         Args:
@@ -90,7 +90,10 @@ class Player:
         )
         battlesHistory['winBool'] = [1 if i=='W' else 0 for i in battlesHistory['win']]
         battlesHistory['loseBool'] = [1 if i=='L' else 0 for i in battlesHistory['win']]
-        self.battlesHistory = battlesHistory
+        if ammendWeapons:
+            self.battlesHistory = battlesHistory.replace('Hero Shot Replica', 'Splattershot')
+        else:
+            self.battlesHistory = battlesHistory
         return self.battlesHistory
     
     def getPlayerHistoryByTypes(self):

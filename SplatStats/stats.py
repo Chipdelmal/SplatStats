@@ -348,3 +348,13 @@ def longestRun(myList, elem='W'):
         else:
             size = 0
     return max_size
+
+
+def statSummaries(playerHistory, stat, summaryFuns=(np.sum, np.mean)):
+    return [fun(playerHistory[stat]) for fun in summaryFuns]
+
+
+def statPerMinute(playerHistory, stat, summaryFun=None):
+    statPM = (playerHistory[stat]/(playerHistory['duration']/60))
+    stpm = summaryFun(statPM) if summaryFun else statPM
+    return stpm

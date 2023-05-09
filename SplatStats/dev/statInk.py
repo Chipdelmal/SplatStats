@@ -210,7 +210,7 @@ plt.close('all')
 ###############################################################################
 YLIM = (0, -1500)
 if SEASON=='All Seasons':
-    YLIM = (0, -3000)
+    YLIM = (0, -3500)
 if GMODE not in GMODES:
     fName = FNSTR+'Mode.png'
     (fig, ax) = (plt.figure(figsize=(20, 3)), plt.axes())

@@ -1292,3 +1292,29 @@ def plotIrisAxes(
     ax.spines["polar"].set_color(frameColor)
     ax.set_ylim(yRange[0], yRange[1])
     return (fig, ax)
+
+
+def plotIrisHistory(
+        playerHistory, figAx=None, 
+        kassist=True, paint=True, innerOffset=2, clockwise=True,
+        colorsKD=('#4E4EDDCC', '#CD2D7ECC'), colorP='#6A1EC111',
+        rangeKD=(0, 40), rangeP=(0, 3500),
+    ):
+    # Generate (fig, ax) if needed --------------------------------------------
+    if figAx is None:
+        (fig, ax) = plt.subplots(
+            figsize=(10, 10), subplot_kw={"projection": "polar"}
+        )
+    else:
+        (fig, ax) = figAx
+    # Plot kill/death/paint bars ----------------------------------------------
+    ((fig, ax), kdRatio) = plotIrisKDP(
+            playerHistory, figAx, 
+            kassist=kassist, paint=paint, 
+            clockwise=clockwise, innerOffset=innerOffset,
+            colorsKD=colorsKD, colorP=colorP,
+            rangeKD=rangeKD, rangeP=rangeP,
+            lw=0.25
+        )
+    # Return figAx ------------------------------------------------------------
+    return (fig, ax)

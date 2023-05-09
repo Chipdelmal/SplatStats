@@ -288,6 +288,51 @@ fig.savefig(
 )
 plt.close()
 ###############################################################################
+# Player History Iris
+###############################################################################
+(fontSize, fontColor) = (8, "#000000CC")
+lw = np.interp(
+    playerHistory.shape[0], 
+    [0, 50,  250,  500, 1000, 3000,   5000], 
+    [10, 3,    2,  1.5,  0.8, 0.25,  0.125]
+)
+(fig, ax) = plt.subplots(figsize=(10, 10), subplot_kw={"projection": "polar"})
+((fig, ax), kdRatio) = splat.plotIrisKDP(playerHistory, (fig, ax), lw=lw)
+(fig, ax) = splat.plotIrisMatch(playerHistory, (fig, ax), typeLineLength=10)
+((fig, ax), statQNT, statMNS) = splat.plotIrisStats(playerHistory, (fig, ax))
+(fig, ax) = splat.plotIrisAxes((fig, ax))
+# Add inner text ----------------------------------------------------------
+(kill, death, assist, paint, special, win) = [
+    splat.statSummaries(playerHistory, stat, summaryFuns=(np.sum, np.mean)) 
+    for stat in ('kill', 'death', 'assist', 'paint', 'special', 'winBool')
+]
+(sw, sl) = (splat.longestRun(playerHistory['win'], elem='W'), splat.longestRun(playerHistory['win'], elem='L'))
+strLng = 'Matches: {}\nWin: {} ({:.1f}%)\nLongest Streaks: W{}-L{}\n\n\n\n\nKill: {} ({:.1f})\nAssist: {} ({:.1f})\nDeath: {} ({:.1f})\nPaint: {} ({:.0f})\nSpecial: {} ({:.1f})'
+innerText = strLng.format(
+    playerHistory.shape[0], win[0], win[1]*100, sw, sl,
+    kill[0], kill[1], assist[0], assist[1], 
+    death[0], death[1], paint[0], paint[1],
+    special[0], special[1],
+)
+ax.text(
+    x=0.5, y=0.5, 
+    s=innerText, fontsize=fontSize,
+    va="center", ha="center",  ma="center", 
+    color=fontColor, transform=ax.transAxes
+)
+ax.text(
+    x=0.5, y=0.52,
+    s='{}'.format(plyrName),
+    fontsize=fontSize+7.5,
+    va="center", ha="center",
+    color=fontColor, transform=ax.transAxes
+)
+# Save -------------------------------------------------------------------
+fig.savefig(
+    path.join(oPath, f'{plyrName}-HIris.png'), 
+    dpi=500, bbox_inches='tight', facecolor=fig.get_facecolor()
+)
+###############################################################################
 # Player History to Disk
 ###############################################################################
 playerHistory.to_csv(path.join(oPath, f'{plyrName}.csv'))
