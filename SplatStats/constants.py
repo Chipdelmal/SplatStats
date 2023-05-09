@@ -98,16 +98,16 @@ CLR_WEAPON = {
     'Tentatek Splattershot': '#C920B7',
 }
 CLR_CLS_LONG = [
-    clr.LPINK_V_BLUE_S2[0], clr.LPINK_V_BLUE_S2[1],
-    clr.NPINK_V_NGREEN_S2[1], 
-    clr.RASPBERRY_V_NYELLOW_S2[1],
-    clr.WINNERW_V_WOUTERW_S2[0], clr.WINNERW_V_WOUTERW_S2[1], clr.WINNERW_V_WOUTERW_S2[2],
-    clr.YELLOW_V_LBLU_V_DBLU_LK_S3[1], clr.BLUE_FRYE_S3[2],
-    clr.GRAPE_V_TURQUOISE_S2[0], clr.GRAPE_V_TURQUOISE_S2[1],
     clr.TSUBUAN_V_KOSHIAN_S2[1],
     clr.FAM_V_FRIEND_S2[1],
     clr.DBLUE_V_YELLOW_S1[0],
-    clr.YELLOW_V_DTEAL_LK_S3[0], clr.YELLOW_V_DTEAL_LK_S3[1], clr.YELLOW_V_DTEAL_LK_S3[2]
+    clr.YELLOW_V_DTEAL_LK_S3[0], clr.YELLOW_V_DTEAL_LK_S3[1], clr.YELLOW_V_DTEAL_LK_S3[2],
+    clr.WINNERW_V_WOUTERW_S2[0], clr.WINNERW_V_WOUTERW_S2[1], clr.WINNERW_V_WOUTERW_S2[2],
+    clr.LPINK_V_BLUE_S2[0], clr.LPINK_V_BLUE_S2[1],
+    clr.NPINK_V_NGREEN_S2[1], 
+    clr.RASPBERRY_V_NYELLOW_S2[1],
+    clr.YELLOW_V_LBLU_V_DBLU_LK_S3[1], clr.BLUE_FRYE_S3[2],
+    clr.GRAPE_V_TURQUOISE_S2[0], clr.GRAPE_V_TURQUOISE_S2[1]
 ]
 CLR_BAR = clr.SMUSHROOM_V_SSTAR_S2[-1]
 ###############################################################################

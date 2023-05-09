@@ -1162,7 +1162,7 @@ def plotIrisMatch(
 def plotIrisStats(
         playerHistory, figAx,
         binSize=1, binMax=20, innerOffset=2, meanStat=True, barWidth=0.1,
-        pstats=('kill', 'death', 'assist', 'ink', 'special'),
+        pstats=('kill', 'death', 'assist', 'special', 'ink'),
         colorBarEdge='#00000033', linewidthEdge=0.1,
         colorMean='#00000099', linewidthMean=0.5,
         INKSTATS_STYLE = {

@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
+import time
 import numpy as np
 from os import path
 from sys import argv
@@ -9,8 +10,10 @@ import warnings
 warnings.filterwarnings("ignore")
 import matplotlib.pyplot as plt
 
+# 'čħîþ ウナギ'
+
 if splat.isNotebook():
-    (plyrName, weapon, mode, overwrite) = ('čħîþ ウナギ', 'All', 'All', 'True')
+    (plyrName, weapon, mode, overwrite) = ('Murazee', 'All', 'All', 'False')
     (iPath, bPath, oPath) = (
         path.expanduser('~/Documents/Sync/BattlesDocker/jsons'),
         path.expanduser('~/Documents/Sync/BattlesDocker/battles'),
@@ -46,80 +49,82 @@ plyr = splat.Player(plyrName, bFilepaths, timezone='America/Los_Angeles')
 playerHistory = plyr.battlesHistory
 playerHistory = playerHistory[playerHistory['match mode']!='PRIVATE']
 # Weapon filter ---------------------------------------------------------------
-if weapon != 'All':
-    pHist = playerHistory[playerHistory['main weapon']==weapon]
+if weapon!='All':
+    playerHistory = playerHistory[playerHistory['main weapon']==weapon]
 else:
-    pHist = playerHistory
+    playerHistory = playerHistory
 # Battle mode filter ----------------------------------------------------------
 ###############################################################################
 # Iris
 ###############################################################################
-(fig, ax) = plt.subplots(figsize=(10, 10), subplot_kw={"projection": "polar"})
-(fig, ax) = splat.plotkillDeathIris(
-    (fig, ax), pHist,
-    alpha=.9,
-    innerGuides=(0, 10, 1), outerGuides=(10, 50, 10),
-    fontColor='#000000CC', frameColor="#000000AA",
-    innerGuidesColor="#000000BB", outerGuidesColor="#000000BB",
-    innerTextFmt='{:.2f}'
-)
-ax.set_title(title+'\n', fontsize=18)
-ax.set_facecolor("w")
-ax.set_yticklabels(
-    ["", 10, 20, 30, 40], 
-    fontdict={'fontsize': 8.5, 'color': '#000000BB', 'ha': 'center'}
-)
-ax.set_rlabel_position(0)
-fig.savefig(
-    path.join(oPath, f'{fNameID}_Iris.png'), 
-    dpi=300, bbox_inches='tight',
-    facecolor=fig.get_facecolor()
-)
-plt.close()
+# (fig, ax) = plt.subplots(figsize=(10, 10), subplot_kw={"projection": "polar"})
+# (fig, ax) = splat.plotkillDeathIris(
+#     (fig, ax), playerHistory,
+#     alpha=.9,
+#     innerGuides=(0, 10, 1), outerGuides=(10, 50, 10),
+#     fontColor='#000000CC', frameColor="#000000AA",
+#     innerGuidesColor="#000000BB", outerGuidesColor="#000000BB",
+#     innerTextFmt='{:.2f}'
+# )
+# ax.set_title(title+'\n', fontsize=18)
+# ax.set_facecolor("w")
+# ax.set_yticklabels(
+#     ["", 10, 20, 30, 40], 
+#     fontdict={'fontsize': 8.5, 'color': '#000000BB', 'ha': 'center'}
+# )
+# ax.set_rlabel_position(0)
+# fig.savefig(
+#     path.join(oPath, f'{fNameID}_Iris.png'), 
+#     dpi=300, bbox_inches='tight',
+#     facecolor=fig.get_facecolor()
+# )
+# plt.close()
 ###############################################################################
 #  Circle Barchart Kills
 ###############################################################################
-killsTotal = playerHistory['kassist'].sum()
-wColors = [
-    '#2DD9B6', '#4F55ED', '#B14A8D', '#C70864', '#2CB721', 
-    '#4B25C9', '#830B9C', '#C6D314', '#0D37C3', '#C920B7', 
-    '#571DB1', '#14BBE7', '#38377A', '#990F2B', '#7F7F99',
-][::-1]
-wColors = wColors*10
-(fig, ax) = splat.plotCircularBarchartStat(
-    playerHistory, cat='main weapon', stat='kassist', aggFun=np.sum,
-    colors=wColors, # yRange=(0, 10e3), 
-    logScale=True, ticksStep=10,
-    ticksFmt={
-        'lw': 1, 'range': (-0.5, -0.25), 
-        'color': '#000000DD', 'fontsize': 8, 'fmt': '{:.0f}'
-    }
-)
-ax.set_title(f'(Kills+0.5*Assists) = {killsTotal}\n', fontsize=18)
-fig.savefig(
-    path.join(oPath, f'{fNameID}_Polar-Kill.png'), 
-    dpi=300, bbox_inches='tight', facecolor=fig.get_facecolor()
-)
-plt.close()
+if weapon=='All':
+    killsTotal = playerHistory['kassist'].sum()
+    wColors = [
+        '#2DD9B6', '#4F55ED', '#B14A8D', '#C70864', '#2CB721', 
+        '#4B25C9', '#830B9C', '#C6D314', '#0D37C3', '#C920B7', 
+        '#571DB1', '#14BBE7', '#38377A', '#990F2B', '#7F7F99',
+    ][::-1]
+    wColors = wColors*10
+    (fig, ax) = splat.plotCircularBarchartStat(
+        playerHistory, cat='main weapon', stat='kassist', aggFun=np.sum,
+        colors=wColors, # yRange=(0, 10e3), 
+        logScale=True, ticksStep=10,
+        ticksFmt={
+            'lw': 1, 'range': (-0.5, -0.25), 
+            'color': '#000000DD', 'fontsize': 8, 'fmt': '{:.0f}'
+        }
+    )
+    ax.set_title(f'(Kills+0.5*Assists) = {killsTotal}\n', fontsize=18)
+    fig.savefig(
+        path.join(oPath, f'{fNameID}_Polar-Kill.png'), 
+        dpi=300, bbox_inches='tight', facecolor=fig.get_facecolor()
+    )
+    plt.close()
 ###############################################################################
 #  Circle Barchart Wins
 ###############################################################################
-winsTotal = playerHistory['winBool'].sum()
-(fig, ax) = splat.plotCircularBarchartStat(
-    playerHistory, cat='main weapon', stat='winBool', aggFun=np.sum,
-    colors=wColors, # yRange=(0, 10e3), 
-    logScale=True, ticksStep=10,
-    ticksFmt={
-        'lw': 1, 'range': (-0.5, -0.25), 
-        'color': '#000000DD', 'fontsize': 8, 'fmt': '{:.0f}'
-    }
-)
-ax.set_title(f'Wins = {winsTotal}\n', fontsize=18)
-fig.savefig(
-    path.join(oPath, f'{fNameID}_Polar-Win.png'), 
-    dpi=300, bbox_inches='tight', facecolor=fig.get_facecolor()
-)
-plt.close()
+if weapon=='All':
+    winsTotal = playerHistory['winBool'].sum()
+    (fig, ax) = splat.plotCircularBarchartStat(
+        playerHistory, cat='main weapon', stat='winBool', aggFun=np.sum,
+        colors=wColors, # yRange=(0, 10e3), 
+        logScale=True, ticksStep=10,
+        ticksFmt={
+            'lw': 1, 'range': (-0.5, -0.25), 
+            'color': '#000000DD', 'fontsize': 8, 'fmt': '{:.0f}'
+        }
+    )
+    ax.set_title(f'Wins = {winsTotal}\n', fontsize=18)
+    fig.savefig(
+        path.join(oPath, f'{fNameID}_Polar-Win.png'), 
+        dpi=300, bbox_inches='tight', facecolor=fig.get_facecolor()
+    )
+    plt.close()
 ###############################################################################
 # Win Ratio
 ###############################################################################
@@ -127,7 +132,7 @@ winsTotal = playerHistory['winBool'].sum()
 matchesTotal = playerHistory.shape[0]
 winRatio = winsTotal/matchesTotal*100
 (metric, aggMetrics) = ('win ratio', ('win', 'total matches'))
-df = splat.calcStagesStatsByType(pHist)
+df = splat.calcStagesStatsByType(playerHistory)
 dfFlat = splat.ammendStagesStatsByType(df, matchModes=list(df.keys()))
 dfFlat.sort_values('match type', inplace=True)
 g = splat.plotMatchTypeBars(
@@ -162,19 +167,20 @@ plt.close(g.fig)
 ###############################################################################
 # Waffle
 ###############################################################################
-(fig, ax) = plt.subplots(figsize=(10, 10))
-(fig, ax) = splat.plotWaffleStat(
-    (fig, ax), playerHistory,
-    function=sum, grouping='main weapon', stat='kassist',
-    rows=75, columns=75, vertical=True,
-    colors=splat.CLR_CLS_LONG
-)
-ax.set_title(f'(Kills+0.5*Assists) = {killsTotal}\n', fontsize=18)
-fig.savefig(
-    path.join(oPath, f'{fNameID}_Waffle-Kill.png'), 
-    dpi=300, bbox_inches='tight', facecolor=fig.get_facecolor()
-)
-plt.close()
+if weapon=='All':
+    (fig, ax) = plt.subplots(figsize=(10, 10))
+    (fig, ax) = splat.plotWaffleStat(
+        (fig, ax), playerHistory,
+        function=sum, grouping='main weapon', stat='kassist',
+        rows=75, columns=75, vertical=True,
+        colors=splat.CLR_CLS_LONG, alpha=0.8
+    )
+    ax.set_title(f'(Kills+0.5*Assists) = {killsTotal}\n', fontsize=18)
+    fig.savefig(
+        path.join(oPath, f'{fNameID}_Waffle-Kill.png'), 
+        dpi=300, bbox_inches='tight', facecolor=fig.get_facecolor()
+    )
+    plt.close()
 ###############################################################################
 # Histogram
 ###############################################################################
@@ -190,7 +196,7 @@ ax.autoscale()
 (ymin, ymax) = ax.get_ylim()
 mxLim = max([abs(ymin), ymax])
 ax.set_ylim(-mxLim, mxLim)
-ax.set_xlim(0, 40)
+ax.set_xlim(0, 35)
 ax.set_aspect(.25/ax.get_data_ratio())
 plt.savefig(
     path.join(oPath, f'{fNameID}_Histogram-Kill.png'),  
@@ -200,30 +206,31 @@ plt.close()
 ###############################################################################
 # Awards
 ###############################################################################
-try:
-    awds = plyr.getAwardFrequencies()
-    (fig, ax) = splat.polarBarChart(
-        [i[0] for i in awds[::-1]], 
-        [i[1] for i in awds[::-1]],
-        labelFmt={
-            'color': '#000000EE', 'fontsize': 7.5, 
-            'ha': 'left', 'fmt': '{:.1f}'
-        },
-        colors=[
-            '#C70864', '#571DB1', '#C920B7', '#4F55ED', '#B14A8D', '#7F7F99', 
-            '#C70864', 
-            '#2CB721', '#4B25C9', '#830B9C', '#C6D314', '#0D37C3', 
-            '#14BBE7', '#38377A', '#C70864'
-        ][::-1]*10
-    )
-    ax.set_title(f'Awards\n', fontsize=18)
-    fig.savefig(
-        path.join(oPath, f'{fNameID}_Awards.png'), 
-        dpi=300, bbox_inches='tight', facecolor=fig.get_facecolor()
-    )
-    plt.close()
-except:
-    pass
+if weapon=='All':
+    try:
+        awds = plyr.getAwardFrequencies()
+        (fig, ax) = splat.polarBarChart(
+            [i[0] for i in awds[::-1]], 
+            [i[1] for i in awds[::-1]],
+            labelFmt={
+                'color': '#000000EE', 'fontsize': 7.5, 
+                'ha': 'left', 'fmt': '{:.1f}'
+            },
+            colors=[
+                '#C70864', '#571DB1', '#C920B7', '#4F55ED', '#B14A8D', '#7F7F99', 
+                '#C70864', 
+                '#2CB721', '#4B25C9', '#830B9C', '#C6D314', '#0D37C3', 
+                '#14BBE7', '#38377A', '#C70864'
+            ][::-1]*10
+        )
+        ax.set_title(f'Awards\n', fontsize=18)
+        fig.savefig(
+            path.join(oPath, f'{fNameID}_Awards.png'), 
+            dpi=300, bbox_inches='tight', facecolor=fig.get_facecolor()
+        )
+        plt.close()
+    except:
+        pass
 ###############################################################################
 # Battle History
 ###############################################################################
@@ -293,26 +300,29 @@ plt.close()
 (fontSize, fontColor) = (8, "#000000CC")
 lw = np.interp(
     playerHistory.shape[0], 
-    [0, 50,  250,  500, 1000, 3000,   5000], 
-    [10, 3,    2,  1.5,  0.8, 0.25,  0.125]
+    [0, 50,  100,  250,  500, 1000, 3000,   5000], 
+    [10, 3,    3,    2,  1.5,  0.8, 0.25,  0.125]
 )
 (fig, ax) = plt.subplots(figsize=(10, 10), subplot_kw={"projection": "polar"})
 ((fig, ax), kdRatio) = splat.plotIrisKDP(playerHistory, (fig, ax), lw=lw)
-(fig, ax) = splat.plotIrisMatch(playerHistory, (fig, ax), typeLineLength=10)
+(fig, ax) = splat.plotIrisMatch(playerHistory, (fig, ax), typeLineLength=10, lw=lw)
 ((fig, ax), statQNT, statMNS) = splat.plotIrisStats(playerHistory, (fig, ax))
-(fig, ax) = splat.plotIrisAxes((fig, ax))
+(fig, ax) = splat.plotIrisAxes((fig, ax), yRange=(0, 65))
 # Add inner text ----------------------------------------------------------
 (kill, death, assist, paint, special, win) = [
     splat.statSummaries(playerHistory, stat, summaryFuns=(np.sum, np.mean)) 
     for stat in ('kill', 'death', 'assist', 'paint', 'special', 'winBool')
 ]
 (sw, sl) = (splat.longestRun(playerHistory['win'], elem='W'), splat.longestRun(playerHistory['win'], elem='L'))
-strLng = 'Matches: {}\nWin: {} ({:.1f}%)\nLongest Streaks: W{}-L{}\n\n\n\n\nKill: {} ({:.1f})\nAssist: {} ({:.1f})\nDeath: {} ({:.1f})\nPaint: {} ({:.0f})\nSpecial: {} ({:.1f})'
+strLng = 'Matches: {}\nWin: {} ({:.0f}%)\nLongest Streaks: W{}-L{}\n(K+0.5A)/D: {:.2f}\n\n\n\n\n\nKill: {} ({:.1f})\nDeath: {} ({:.1f})\nAssist: {} ({:.1f})\nSpecial: {} ({:.1f})\nPaint: {} ({:.0f})'
 innerText = strLng.format(
-    playerHistory.shape[0], win[0], win[1]*100, sw, sl,
-    kill[0], kill[1], assist[0], assist[1], 
-    death[0], death[1], paint[0], paint[1],
+    playerHistory.shape[0], win[0], win[1]*100, sw, sl, kdRatio,
+    kill[0], kill[1], 
+    death[0], death[1],
+    assist[0], assist[1], 
     special[0], special[1],
+    paint[0], paint[1],
+    
 )
 ax.text(
     x=0.5, y=0.5, 
@@ -320,6 +330,7 @@ ax.text(
     va="center", ha="center",  ma="center", 
     color=fontColor, transform=ax.transAxes
 )
+wpnStr = '{}'.format(weapon) if weapon!='All' else 'All Weapons'
 ax.text(
     x=0.5, y=0.52,
     s='{}'.format(plyrName),
@@ -327,12 +338,21 @@ ax.text(
     va="center", ha="center",
     color=fontColor, transform=ax.transAxes
 )
+ax.text(
+    x=0.5, y=0.4925,
+    s=wpnStr,
+    fontsize=fontSize+2,
+    va="center", ha="center",
+    color=fontColor, transform=ax.transAxes
+)
 # Save -------------------------------------------------------------------
 fig.savefig(
-    path.join(oPath, f'{plyrName}-HIris.png'), 
+    path.join(oPath, f'{fNameID}_HistoryIris.png'), 
     dpi=500, bbox_inches='tight', facecolor=fig.get_facecolor()
 )
+plt.close()
 ###############################################################################
 # Player History to Disk
 ###############################################################################
-playerHistory.to_csv(path.join(oPath, f'{plyrName}.csv'))
+time.sleep(2)
+playerHistory.to_csv(path.join(oPath, f'{fNameID}.csv'))
