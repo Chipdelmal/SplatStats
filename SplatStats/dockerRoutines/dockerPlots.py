@@ -10,16 +10,15 @@ import warnings
 warnings.filterwarnings("ignore")
 import matplotlib.pyplot as plt
 
-# 'čħîþ ウナギ'
 
 if splat.isNotebook():
-    (plyrName, weapon, mode, overwrite) = ('Murazee', 'All', 'All', 'False')
+    (plyrName, weapon, mode, overwrite) = ('čħîþ ウナギ', 'All', 'All', 'False')
     (iPath, bPath, oPath) = (
-        path.expanduser('~/Documents/Sync/BattlesDocker/jsons'),
-        path.expanduser('~/Documents/Sync/BattlesDocker/battles'),
-        path.expanduser('~/Documents/Sync/BattlesDocker/out')
+        path.expanduser('/Users/sanchez.hmsc/Documents/BattlesDocker/jsons'),
+        path.expanduser('/Users/sanchez.hmsc/Documents/BattlesDocker/battles'),
+        path.expanduser('/Users/sanchez.hmsc/Documents/BattlesDocker/out')
     )
-    fontPath = '/home/chipdelmal/Documents/GitHub/SplatStats/other/'
+    fontPath = '/Users/sanchez.hmsc/Documents/GitHub/SplatStats/other/'
 else:
     (plyrName, weapon, mode, overwrite) = argv[1:]
     (iPath, bPath, oPath) = (
@@ -297,6 +296,19 @@ plt.close()
 ###############################################################################
 # Player History Iris
 ###############################################################################
+(kaZero, kZero, dZero) = (
+    playerHistory[(playerHistory['kill']+playerHistory['assist'])==0].shape[0],
+    playerHistory[(playerHistory['kill'])==0].shape[0],
+    playerHistory[(playerHistory['death'])==0].shape[0],
+)
+(kaMax, kMax, daMax, dMax) = (
+    max((playerHistory['kill']+playerHistory['assist'])-(playerHistory['death'])),
+    max((playerHistory['kill'])-(playerHistory['death'])),
+    abs(min((playerHistory['kill']+playerHistory['assist'])-(playerHistory['death']))),
+    abs(min((playerHistory['kill'])-(playerHistory['death'])))
+)
+tMatches = playerHistory.shape[0]
+# Plot ------------------------------------------------------------------------
 (fontSize, fontColor) = (8, "#000000CC")
 lw = np.interp(
     playerHistory.shape[0], 
@@ -314,9 +326,10 @@ lw = np.interp(
     for stat in ('kill', 'death', 'assist', 'paint', 'special', 'winBool')
 ]
 (sw, sl) = (splat.longestRun(playerHistory['win'], elem='W'), splat.longestRun(playerHistory['win'], elem='L'))
-strLng = 'Matches: {}\nWin: {} ({:.0f}%)\nLongest Streaks: W{}-L{}\n(K+0.5A)/D: {:.2f}\n\n\n\n\n\nKill: {} ({:.1f})\nDeath: {} ({:.1f})\nAssist: {} ({:.1f})\nSpecial: {} ({:.1f})\nPaint: {} ({:.0f})'
+strLng = 'Matches: {}\nWin: {} ({:.0f}%)\n(K+0.5A)/D: {:.2f}\n\n\n\n\n\n\nKill: {} ({:.1f})\nDeath: {} ({:.1f})\nAssist: {} ({:.1f})\nSpecial: {} ({:.1f})\nPaint: {} ({:.0f})'
 innerText = strLng.format(
-    playerHistory.shape[0], win[0], win[1]*100, sw, sl, kdRatio,
+    playerHistory.shape[0], win[0], win[1]*100, 
+    kdRatio,
     kill[0], kill[1], 
     death[0], death[1],
     assist[0], assist[1], 
@@ -332,17 +345,31 @@ ax.text(
 )
 wpnStr = '{}'.format(weapon) if weapon!='All' else 'All Weapons'
 ax.text(
-    x=0.5, y=0.52,
+    x=0.5, y=0.525,
     s='{}'.format(plyrName),
     fontsize=fontSize+7.5,
     va="center", ha="center",
     color=fontColor, transform=ax.transAxes
 )
 ax.text(
-    x=0.5, y=0.4925,
+    x=0.5, y=0.4975,
     s=wpnStr,
     fontsize=fontSize+2,
     va="center", ha="center",
+    color=fontColor, transform=ax.transAxes
+)
+extStats = 'Streaks: W {} | L {}\nMax Spread: KA/D {:.0f} | D/KA {:.0f}\nZero: D {:0.2f}% ({:.0f}) | K {:0.2f}% ({:.0f}) | KA {:0.2f}% ({:.0f})'.format(
+    sw, sl,
+    kaMax, daMax,
+    dZero/tMatches*100, dZero,
+    kZero/tMatches*100, kZero,
+    kaZero/tMatches*100, kaZero
+)
+ax.text(
+    x=0, y=0.025,
+    s=extStats,
+    fontsize=fontSize-3,
+    va="center", ha="left",
     color=fontColor, transform=ax.transAxes
 )
 # Save -------------------------------------------------------------------
@@ -356,3 +383,4 @@ plt.close()
 ###############################################################################
 time.sleep(2)
 playerHistory.to_csv(path.join(oPath, f'{fNameID}.csv'))
+
