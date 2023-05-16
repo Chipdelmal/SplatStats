@@ -45,11 +45,11 @@ if splat.isNotebook():
     if USR=='lab':
         DATA_PATH = '/Users/sanchez.hmsc/Sync/BattlesDocker/'
     elif USR=='lap':
-        DATA_PATH = '/Users/sanchez.hmsc/Documents/SyncMega/BattlesDocker'
+        DATA_PATH = '/Users/sanchez.hmsc/Documents/BattlesDocker/'
     else:
         DATA_PATH = '/home/chipdelmal/Documents/Sync/BattlesDocker/'
 else:
-    DATA_PATH = '/home/chipdelmal/Documents/Sync/BattlesDocker/'
+    DATA_PATH = '/Users/sanchez.hmsc/Documents/BattlesDocker/'
 FPATHS = glob(path.join(DATA_PATH, 'battle-results-csv', '*-*-*.csv'))
 splat.setSplatoonFont(DATA_PATH, fontName="Splatfont 2")
 COLORS = splat.ALL_COLORS

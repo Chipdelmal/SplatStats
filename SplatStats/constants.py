@@ -74,11 +74,13 @@ CLR_FEST = {
     False: clr.LMODEL_V_PMODEL_S2[-1]
 }
 CLR_STAGE = {
+    'Barnacle & Dime': clr.GHERKOUT_V_GHERKIN_S2[1],
     'Brinewater Springs': clr.GRAPE_V_TURQUOISE_S2[0], 
     'Eeltail Alley': clr.PINK_V_ORANGE_S1[1],
     'Flounder Heights': clr.SWEATER_V_SOCKS_S2[0],
     'Hagglefish Market': clr.LPINK_V_BLUE_S2[1],
     'Hammerhead Bridge': clr.MAYO_V_KETCHUP_S2[1],
+    'Humpback Pump Track': clr.CALLIE_V_MARIE_S1[1],
     'Inkblot Art Academy': clr.LPINK_V_BLUE_S2[0],
     'Mahi-Mahi Resort': clr.CHAOS_V_ORDER_S2[1],
     'MakoMart': clr.PINK_V_GREEN_S1[2],
