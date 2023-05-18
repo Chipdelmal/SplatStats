@@ -13,13 +13,15 @@ import SplatStats as splat
 
 
 if splat.isNotebook():
-    (six, USR) = (2, 'dsk')
-    GMODE = 'All'
-    SSN_TITLE = True
+    (SEASON, GMODE, TITLES, OVERWRITE, DPI) = (
+        'All', 'All', 'True', 'True', '500'
+    )
 else:
-    (six, GMODE) = argv[1:]
-    six = int(six)
-    SSN_TITLE = True
+    (SEASON, GMODE, TITLES, OVERWRITE, DPI) = argv[1:]
+dpi = int(DPI)
+overwrite = (True if OVERWRITE=="True"  else False)
+titles = (True if TITLES=="True"  else False)
+prepFnme = ('Titled_' if titles else '')
 ###############################################################################
 # Constants
 ###############################################################################
@@ -43,16 +45,12 @@ else:
 # Get files and set font
 ###############################################################################
 if splat.isNotebook():
-    if USR=='lab':
-        DATA_PATH = '/Users/sanchez.hmsc/Sync/BattlesDocker/'
-    elif USR=='lap':
-        DATA_PATH = '/Users/sanchez.hmsc/Documents/SyncMega/BattlesDocker'
-    else:
-        DATA_PATH = '/home/chipdelmal/Documents/Sync/BattlesDocker/'
+    DATA_PATH = '/Users/sanchez.hmsc/Documents/BattlesDocker/'
+    splat.setSplatoonFont(DATA_PATH, fontName="Splatfont 2")
 else:
-    DATA_PATH = '/home/chipdelmal/Documents/Sync/BattlesDocker/'
+    DATA_PATH = '/data/'
+    splat.setSplatoonFont('/other/', fontName="Splatfont 2")
 FPATHS = glob(path.join(DATA_PATH, 'battle-results-csv', '*-*-*.csv'))
-splat.setSplatoonFont(DATA_PATH, fontName="Splatfont 2")
 COLORS = splat.ALL_COLORS
 shuffle(COLORS)
 ###############################################################################
@@ -60,20 +58,32 @@ shuffle(COLORS)
 ###############################################################################
 statInk = splat.StatInk(path.join(DATA_PATH, 'battle-results-csv'))
 btls = statInk.battlesResults
-###############################################################################
-# Filter by Constraints
-###############################################################################
-SEASON = list(btls['season'].unique())[six]
+try:
+    six = list(set(btls['season'])).index(SEASON)
+    FREQ_SCALER = 1
+except:
+    six = -1
+    SEASON = 'All Seasons'
+    FREQ_SCALER = 2
+POLAR['yRange'] = (POLAR['yRange'][0], POLAR['yRange'][1]*FREQ_SCALER)
 FNSTR = '{} ({}) - '.format(SEASON, GMODE)
-if GMODE in GMODES:
-    fltrs = (btls['season']==SEASON, btls['mode']==GMODE)
-    fltrBool = [all(i) for i in zip(*fltrs)]
-    btlsFiltered = btls[fltrBool]
+if SEASON!='All Seasons':
+    if GMODE in GMODES:
+        fltrs = (btls['season']==SEASON, btls['mode']==GMODE)
+        fltrBool = [all(i) for i in zip(*fltrs)]
+        btlsFiltered = btls[fltrBool]
+    else:
+        GMODE = 'All'
+        fltrs = (btls['season']==SEASON, )
+        fltrBool = [all(i) for i in zip(*fltrs)]
+        btlsFiltered = btls[fltrBool]
 else:
-    GMODE = 'All'
-    fltrs = (btls['season']==SEASON, )
-    fltrBool = [all(i) for i in zip(*fltrs)]
-    btlsFiltered = btls[fltrBool] 
+    if GMODE in GMODES:
+        fltrs = (btls['mode']==GMODE, )
+        fltrBool = [all(i) for i in zip(*fltrs)]
+        btlsFiltered = btls[fltrBool]
+    else:
+        btlsFiltered = btls
 ###############################################################################
 # Get Total Season Frequencies and Dominance Matrix
 ###############################################################################
@@ -120,9 +130,9 @@ wpnMeans = splat.getWeaponsStatsSummary(
 ###########################################################################
 # Weapon Matrix
 ###########################################################################
-fName = FNSTR+'Matrix.png'
+fName = FNSTR+prepFnme+'Matrix.png'
 COLS = splat.SEASON_COLORS
-cPal = splat.colorPaletteFromHexList([COLS[six][0], '#FFFFFF', COLS[six][1]])
+cPal = splat.colorPaletteFromHexList([COLS[six][0]+'DD', '#FFFFFF99', COLS[six][1]+'DD'])
 (fig, ax) = plt.subplots(figsize=(20, 20))
 (fig, ax) = splat.plotDominanceMatrix(
     sNames, sMatrix, sSort, mMatrix,
@@ -132,8 +142,7 @@ plt.tick_params(
     axis='x', which='both',
     bottom=False, top=True, labelbottom=False
 )
-if SSN_TITLE:
-    fName = FNSTR+'Matrix_S.png'
+if TITLES:
     ax.set_title(
         '{}\n({} matches from {} to {})'.format(
             SEASON, btlsFiltered.shape[0],
@@ -142,19 +151,25 @@ if SSN_TITLE:
         )
         , fontsize=35, y=-.085
     )
+    (transp, fc) = (False, '#ffffff')
+else:
+    ax.set_title(
+        'Matches: {}'.format(btlsFiltered.shape[0])
+        , fontsize=35, y=-.045
+    )
+    (transp, fc) = (True, '#ffffff00')
 plt.savefig(
     path.join(DATA_PATH, 'statInk/'+fName),
-    dpi=350, transparent=False, facecolor='#ffffff', bbox_inches='tight'
+    dpi=dpi, transparent=transp, facecolor=fc, bbox_inches='tight'
 )
 plt.close('all')
 ###############################################################################
 # Plot Total Frequencies
 ###############################################################################
-fName = FNSTR+'Polar.png'
+fName = FNSTR+prepFnme+'Polar.png'
 if GMODE in GMODES:
     POLAR['topRank'] = (len(wpnRank)-20, len(wpnRank))
-if SSN_TITLE:
-    fName = FNSTR+'Polar_S.png'
+if TITLES:
     POLAR['rRange'] = (0, 90)
     POLAR['ticksStep'] = 2
 (fig, ax) = plt.subplots(figsize=(12, 12), subplot_kw={"projection": "polar"})
@@ -164,7 +179,7 @@ if SSN_TITLE:
     yRange=POLAR['yRange'], rRange=POLAR['rRange'],
     topRank=POLAR['topRank']
 )
-if TITLES and not SSN_TITLE:
+if TITLES:
     partp = np.sum(list(wpnFreq.values()))
     if GMODE in GMODES:
         fstr = '{} ({:.0f}{})'.format(GMODE, partp/PART_SCALER[1], PART_SCALER[0])
@@ -178,34 +193,41 @@ if TITLES and not SSN_TITLE:
         rotation=0,
         transform=ax.transAxes
     )
-if SSN_TITLE:
+if TITLES:
     ax.set_title(SEASON, fontsize=35, y=0.5-.1, ha='right')
 plt.savefig(
     path.join(DATA_PATH, 'statInk/'+fName),
-    dpi=350, transparent=False, facecolor='#ffffff', bbox_inches='tight'
+    dpi=dpi, transparent=False, facecolor='#ffffff', bbox_inches='tight'
 )
 plt.close('all')
 ###############################################################################
 # Gaussian Lobby
 ###############################################################################
+YLIM = (0, -1500)
+if SEASON=='All Seasons':
+    YLIM = (0, -3500)
 if GMODE not in GMODES:
-    fName = FNSTR+'Mode.png'
+    fName = FNSTR+prepFnme+'Mode.png'
     (fig, ax) = (plt.figure(figsize=(20, 3)), plt.axes())
-    (fig, ax) = splat.plotGaussianLobby(lbyDaily, lbyGaussDaily)
+    (fig, ax) = splat.plotGaussianLobby(
+        lbyDaily, lbyGaussDaily, figAx=(fig, ax), ylim=YLIM
+    )
+    ax.set_ylim(*YLIM)
+    ax.set_ylim(ax.get_ylim()[::-1])
     plt.savefig(
         path.join(DATA_PATH, 'statInk/'+fName),
-        dpi=350, transparent=False, facecolor='#ffffff', bbox_inches='tight'
+        dpi=dpi, transparent=False, facecolor='#ffffff', bbox_inches='tight'
     )
     plt.close('all')
 ###############################################################################
 # Lobby Type
 ###############################################################################
 if GMODE not in GMODES:
-    fName = FNSTR+'Lobby.png'
+    fName = FNSTR+prepFnme+'Lobby.png'
     (fig, ax) = plt.subplots(figsize=(0.4, 20))
     (fig, ax) = splat.barChartLobby(lbyFreq)
     plt.savefig(
-        path.join(DATA_PATH, 'statInk/'+fName), dpi=350, 
+        path.join(DATA_PATH, 'statInk/'+fName), dpi=dpi, 
         transparent=False, facecolor='#ffffff', bbox_inches='tight'
     )
     plt.close('all')
@@ -238,9 +260,9 @@ INKSTATS_STYLE = {
     }
 }
 # (fig, axs) = plt.subplots(1, 5, figsize=(5*5, 20), sharey=True)
-fName = FNSTR+'Strips.png'
+fName = FNSTR+prepFnme+'Strips.png'
 fig = plt.figure(figsize=(5*5, 20))
-gs = fig.add_gridspec(1, 5, hspace=1, wspace=0.04)
+gs = fig.add_gridspec(1, 5, hspace=1, wspace=0.05)
 axs = gs.subplots()# sharex='col', sharey='row')
 for (ix, stat) in enumerate(wpnStats):
     statPars = INKSTATS_STYLE[stat]
@@ -263,8 +285,15 @@ for (ix, stat) in enumerate(wpnStats):
         lbs = [int(i.get_text())*100 for i in axs[ix].get_xticklabels()]
         axs[ix].set_xticklabels(lbs)
         axs[ix].yaxis.set_ticks_position('both')
+if TITLES:
+    axs[2].text(
+        0.5, 1.025, SEASON, 
+        ha='center', va='bottom', 
+        transform=axs[2].transAxes, fontsize=35
+    )
 plt.savefig(
-    path.join(DATA_PATH, 'statInk/'+fName), dpi=350, 
+    path.join(DATA_PATH, 'statInk/'+fName), dpi=dpi, 
     transparent=False, facecolor='#ffffff', bbox_inches='tight'
 )
 plt.close('all')
+

@@ -28,4 +28,4 @@ RUN pip install SplatStats/.
 ###############################################################################
 # Run
 ###############################################################################
-ENTRYPOINT ["/bin/bash", "./SplatStats/SplatStats/dockerRoutines/dockerMain.sh"]
+ENTRYPOINT ["/bin/bash", "./SplatStats/SplatStats/dockerRoutines/inkstatMain.sh"]

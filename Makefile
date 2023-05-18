@@ -62,7 +62,7 @@ docker_build_force:
 	- docker build -f Dockerfile.splatstats --no-cache -t splatstats:dev .
 
 docker_run:
-	- docker run -v "$(pwd)":/data/ splatstats:dev  --download "True" --upload "True" --player 'čħîþ ウナギ'
+	- docker run --mount type=bind,source=${PWD},target=/data splatstats:dev  --download "True" --upload "True" --player 'čħîþ ウナギ'
 
 docker_run_python:
 	- docker run -it splatstats:dev python
@@ -71,7 +71,7 @@ docker_run_bash:
 	- docker run -it --entrypoint /bin/bash splatstats:dev
 
 docker_exec:
-	- docker run -v "$(pwd)":/data/ -it splatstats:dev bash
+	- docker run --mount type=bind,source=${PWD},target=/data -it splatstats:dev bash
 
 docker_release:
 	- docker build -f Dockerfile.splatstats -t chipdelmal/splatstats:$(version) .
@@ -91,7 +91,7 @@ docker_build_force_ink:
 	- docker build -f Dockerfile.inkstats --no-cache -t inkstats:dev .
 
 docker_run_ink:
-	- docker run -v "$(pwd)":/data/ inkstats:dev  --download "True" --upload "True" --player 'čħîþ ウナギ'
+	- docker run --mount type=bind,source=${PWD},target=/data inkstats:dev --season "All" --titles "True" --gmode 'All' --overwrite 'False' --dpi '500'
 
 docker_run_python_ink:
 	- docker run -it inkstats:dev python
@@ -100,7 +100,7 @@ docker_run_bash_ink:
 	- docker run -it --entrypoint /bin/bash inkstats:dev
 
 docker_exec_ink:
-	- docker run -v "$(pwd)":/data/ -it inkstats:dev bash
+	- docker run --mount type=bind,source=${PWD},target=/data -it inkstats:dev bash
 
 docker_release_ink:
 	- docker build -f Dockerfile.splat -t chipdelmal/inkstats:$(version) .
@@ -108,6 +108,7 @@ docker_release_ink:
 	- docker build -f Dockerfile.splat -t chipdelmal/inkstats:latest .
 	- docker push chipdelmal/inkstats:latest
 
+# 
 ###############################################################################
 # Full version release
 ###############################################################################
