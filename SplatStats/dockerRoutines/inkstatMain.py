@@ -1,5 +1,8 @@
 # !/usr/bin/env python3
 
+import os    
+import tempfile
+os.environ['MPLCONFIGDIR'] = tempfile.mkdtemp()
 import numpy as np
 from os import path
 from sys import argv

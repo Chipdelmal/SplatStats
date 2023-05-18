@@ -1,6 +1,9 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
+import os    
+import tempfile
+os.environ['MPLCONFIGDIR'] = tempfile.mkdtemp()
 import time
 import numpy as np
 from os import path
