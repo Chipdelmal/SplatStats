@@ -171,8 +171,7 @@ fName = FNSTR+prepFnme+'Polar.png'
 if GMODE in GMODES:
     POLAR['topRank'] = (len(wpnRank)-20, len(wpnRank))
 if TITLES:
-    POLAR['rRange'] = (0, 90)
-    POLAR['ticksStep'] = 2
+    POLAR['ticksStep'] = 4
 (fig, ax) = plt.subplots(figsize=(12, 12), subplot_kw={"projection": "polar"})
 (fig, ax) = splat.plotPolarFrequencies(
     wpnFreq, wpnRank, figAx=(fig, ax),
