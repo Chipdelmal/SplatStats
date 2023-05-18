@@ -103,9 +103,9 @@ docker_exec_ink:
 	- docker run --mount type=bind,source=${PWD},target=/data -it inkstats:dev bash
 
 docker_release_ink:
-	- docker build -f Dockerfile.splat -t chipdelmal/inkstats:$(version) .
+	- docker build -f Dockerfile.inkstats -t chipdelmal/inkstats:$(version) .
 	- docker push chipdelmal/inkstats:$(version)
-	- docker build -f Dockerfile.splat -t chipdelmal/inkstats:latest .
+	- docker build -f Dockerfile.inkstats -t chipdelmal/inkstats:latest .
 	- docker push chipdelmal/inkstats:latest
 
 # 

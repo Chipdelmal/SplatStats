@@ -37,12 +37,12 @@ printf "${RED}******************************************************************
 ###############################################################################
 # Run SplatStats scripts
 ###############################################################################
-printf "\n${BLUE}* Processing data with SplatStats...${CLEAR}\n"
+printf "${BLUE}* Processing https://stat.ink/downloads data with SplatStats...${CLEAR}\n"
 printf "${BLUE}\t Season: ${season}${CLEAR}\n"
 printf "${BLUE}\t Game Mode: ${gmode}${CLEAR}\n"
 printf "${BLUE}\t Titles: ${titles}${CLEAR}\n"
-printf "${BLUE}\t Overwrite: ${overwrite}${CLEAR}\n\n"
-printf "${BLUE}\t DPI: ${dpi}${CLEAR}\n\n"
+printf "${BLUE}\t Overwrite: ${overwrite}${CLEAR}\n"
+printf "${BLUE}\t DPI: ${dpi}${CLEAR}\n"
 # Analyze the data --------------------------------------------------------
 mkdir -p /data/battle-results-csv
 mkdir -p /data/statInk

@@ -9,19 +9,20 @@ from sys import argv
 from glob import glob
 from random import shuffle
 import matplotlib.pyplot as plt
+from matplotlib.transforms import Bbox
 import SplatStats as splat
 
 
 if splat.isNotebook():
     (SEASON, GMODE, TITLES, OVERWRITE, DPI) = (
-        'All', 'All', 'True', 'True', '500'
+        'Fresh Season 2022', 'All', 'True', 'True', '500'
     )
 else:
     (SEASON, GMODE, TITLES, OVERWRITE, DPI) = argv[1:]
 dpi = int(DPI)
 overwrite = (True if OVERWRITE=="True"  else False)
 titles = (True if TITLES=="True"  else False)
-prepFnme = ('Titled_' if titles else '')
+prepFnme = ('' if titles else 'Untitled_')
 ###############################################################################
 # Constants
 ###############################################################################
