@@ -214,6 +214,7 @@ if GMODE not in GMODES:
     )
     ax.set_ylim(*YLIM)
     ax.set_ylim(ax.get_ylim()[::-1])
+    ax.legend(loc='lower left', frameon=False, fancybox=False, fontsize=12)
     plt.savefig(
         path.join(DATA_PATH, 'statInk/'+fName),
         dpi=dpi, transparent=False, facecolor='#ffffff', bbox_inches='tight'

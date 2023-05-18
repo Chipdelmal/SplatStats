@@ -209,13 +209,14 @@ def plotGaussianLobby(
     ax.set_xticks(
         xtickRan, 
         [
-            '{}/{}'.format(
+            '{}/{}/{}'.format(
+                lbyDaily.index[int(i)].day,
                 lbyDaily.index[int(i)].month, 
-                lbyDaily.index[int(i)].day
+                lbyDaily.index[int(i)].year
             )
             for i in xtickRan
         ],
-        ha='left', va='bottom', rotation=0, fontsize=12.5
+        ha='left', va='bottom', rotation=0, fontsize=8
     )
     ax.set_yticks([], [])
     ax.spines['top'].set_visible(False)
