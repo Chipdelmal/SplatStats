@@ -180,19 +180,28 @@ if titles:
     topRank=POLAR['topRank']
 )
 partp = np.sum(list(wpnFreq.values()))
-fstr = 'Participation {:.2f}{}'.format(partp/PART_SCALER[1], PART_SCALER[0])
-ax.text(
-    0.5, 0.48, fstr,
-    fontsize=20,
-    horizontalalignment='right',
-    verticalalignment='top',
-    rotation=0,
-    transform=ax.transAxes
-)
+fstr = 'Participation: {:.2f}{}'.format(partp/PART_SCALER[1], PART_SCALER[0])
 if titles:
     ax.text(
-        0.5, 0.44, f'{SEASON} ({GMODE})', 
+        0.5, 0.48, f'{SEASON} ({GMODE})', 
         fontsize=25, 
+        horizontalalignment='right',
+        verticalalignment='top',
+        rotation=0,
+        transform=ax.transAxes
+    )
+    ax.text(
+        0.5, 0.44, fstr,
+        fontsize=20,
+        horizontalalignment='right',
+        verticalalignment='top',
+        rotation=0,
+        transform=ax.transAxes
+    )
+else:
+    ax.text(
+        0.5, 0.48, fstr,
+        fontsize=20,
         horizontalalignment='right',
         verticalalignment='top',
         rotation=0,
