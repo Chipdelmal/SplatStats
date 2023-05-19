@@ -15,7 +15,7 @@ import matplotlib.pyplot as plt
 
 
 if splat.isNotebook():
-    (plyrName, weapon, mode, overwrite) = ('čħîþ ウナギ', 'All', 'All', 'False')
+    (plyrName, weapon, mode, overwrite) = ('čħîþ ウナギ', 'All', 'All', 'True')
     (iPath, bPath, oPath) = (
         path.expanduser('/Users/sanchez.hmsc/Documents/BattlesDocker/jsons'),
         path.expanduser('/Users/sanchez.hmsc/Documents/BattlesDocker/battles'),
@@ -311,6 +311,14 @@ plt.close()
     abs(min((playerHistory['kill'])-(playerHistory['death'])))
 )
 tMatches = playerHistory.shape[0]
+AMODES = {'Clam Blitz', 'Rainmaker', 'Splat Zones', 'Tower Control'}
+koSS = [list(playerHistory['match type'].isin(AMODES)), ]
+koST = np.sum([all(i) for i in zip(*koSS)])
+(koWS, koLS) = (
+    [list(playerHistory['ko']), list(playerHistory['match type'].isin(AMODES)), list(playerHistory['win']=='W')],
+    [list(playerHistory['ko']), list(playerHistory['match type'].isin(AMODES)), list(playerHistory['win']=='L')],
+)
+(koWT, koLT) = [np.sum([all(i) for i in zip(*j)]) for j in (koWS, koLS)]
 # Plot ------------------------------------------------------------------------
 (fontSize, fontColor) = (8, "#000000CC")
 lw = np.interp(
@@ -361,7 +369,8 @@ ax.text(
     va="center", ha="center",
     color=fontColor, transform=ax.transAxes
 )
-extStats = 'Streaks: W {} | L {}\nMax Spread: KA/D {:.0f} | D/KA {:.0f}\nZero: D {:0.2f}% ({:.0f}) | K {:0.2f}% ({:.0f}) | KA {:0.2f}% ({:.0f})'.format(
+extStats = 'KOs: W {} ({:.0f}%) | L {} ({:.0f}%)\nStreaks: W {} | L {}\nMax Spread: KA/D {:.0f} | D/KA {:.0f}\nZero: D {:0.2f}% ({:.0f}) | K {:0.2f}% ({:.0f}) | KA {:0.2f}% ({:.0f})'.format(
+    koWT, koWT/koST*100, koLT, koLT/koST*100,
     sw, sl,
     kaMax, daMax,
     dZero/tMatches*100, dZero,
