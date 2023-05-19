@@ -15,7 +15,7 @@ import SplatStats as splat
 
 if splat.isNotebook():
     (SEASON, GMODE, TITLES, OVERWRITE, DPI) = (
-        'Fresh Season 2022', 'All', 'True', 'True', '500'
+        'Fresh Season 2022', 'All Modes', 'False', 'True', '500'
     )
 else:
     (SEASON, GMODE, TITLES, OVERWRITE, DPI) = argv[1:]
@@ -143,10 +143,10 @@ plt.tick_params(
     axis='x', which='both',
     bottom=False, top=True, labelbottom=False
 )
-if TITLES:
+if titles:
     ax.set_title(
-        '{}\n({} matches from {} to {})'.format(
-            SEASON, btlsFiltered.shape[0],
+        '{}\n{} matches from {} to {}'.format(
+            f'{SEASON} ({GMODE})', btlsFiltered.shape[0],
             period[0].strftime("%b %d"), 
             period[1].strftime("%b %d")
         )
@@ -170,7 +170,7 @@ plt.close('all')
 fName = FNSTR+prepFnme+'Polar.png'
 if GMODE in GMODES:
     POLAR['topRank'] = (len(wpnRank)-20, len(wpnRank))
-if TITLES:
+if titles:
     POLAR['ticksStep'] = 4
 (fig, ax) = plt.subplots(figsize=(12, 12), subplot_kw={"projection": "polar"})
 (fig, ax) = splat.plotPolarFrequencies(
@@ -179,22 +179,25 @@ if TITLES:
     yRange=POLAR['yRange'], rRange=POLAR['rRange'],
     topRank=POLAR['topRank']
 )
-if TITLES:
-    partp = np.sum(list(wpnFreq.values()))
-    if GMODE in GMODES:
-        fstr = '{} ({:.0f}{})'.format(GMODE, partp/PART_SCALER[1], PART_SCALER[0])
-    else:
-        fstr = 'Participation: {:.2f}{}'.format(partp/PART_SCALER[1], PART_SCALER[0])
+partp = np.sum(list(wpnFreq.values()))
+fstr = 'Participation {:.2f}{}'.format(partp/PART_SCALER[1], PART_SCALER[0])
+ax.text(
+    0.5, 0.48, fstr,
+    fontsize=20,
+    horizontalalignment='right',
+    verticalalignment='top',
+    rotation=0,
+    transform=ax.transAxes
+)
+if titles:
     ax.text(
-        0.5, 0.48, fstr,
-        fontsize=20,
+        0.5, 0.44, f'{SEASON} ({GMODE})', 
+        fontsize=25, 
         horizontalalignment='right',
         verticalalignment='top',
         rotation=0,
         transform=ax.transAxes
     )
-if TITLES:
-    ax.set_title(SEASON, fontsize=35, y=0.5-.1, ha='right')
 plt.savefig(
     path.join(DATA_PATH, 'statInk/'+fName),
     dpi=dpi, transparent=False, facecolor='#ffffff', bbox_inches='tight'
@@ -286,9 +289,9 @@ for (ix, stat) in enumerate(wpnStats):
         lbs = [int(i.get_text())*100 for i in axs[ix].get_xticklabels()]
         axs[ix].set_xticklabels(lbs)
         axs[ix].yaxis.set_ticks_position('both')
-if TITLES:
+if titles:
     axs[2].text(
-        0.5, 1.025, SEASON, 
+        0.5, 1.025, f'{SEASON} ({GMODE})',
         ha='center', va='bottom', 
         transform=axs[2].transAxes, fontsize=35
     )
