@@ -15,7 +15,7 @@ import SplatStats as splat
 
 if splat.isNotebook():
     (SEASON, GMODE, TITLES, OVERWRITE, DPI) = (
-        'Fresh Season 2022', 'All Modes', 'False', 'True', '500'
+        'Drizzle Season 2022', 'All Modes', 'False', 'True', '500'
     )
 else:
     (SEASON, GMODE, TITLES, OVERWRITE, DPI) = argv[1:]
@@ -160,7 +160,7 @@ else:
     )
     (transp, fc) = (True, '#ffffff00')
 plt.savefig(
-    path.join(DATA_PATH, 'statInk/'+fName),
+    path.join(DATA_PATH, 'inkstats/'+fName),
     dpi=dpi, transparent=transp, facecolor=fc, bbox_inches='tight'
 )
 plt.close('all')
@@ -208,7 +208,7 @@ else:
         transform=ax.transAxes
     )
 plt.savefig(
-    path.join(DATA_PATH, 'statInk/'+fName),
+    path.join(DATA_PATH, 'inkstats/'+fName),
     dpi=dpi, transparent=False, facecolor='#ffffff', bbox_inches='tight'
 )
 plt.close('all')
@@ -226,9 +226,10 @@ if GMODE not in GMODES:
     )
     ax.set_ylim(*YLIM)
     ax.set_ylim(ax.get_ylim()[::-1])
-    ax.legend(loc='lower left', frameon=False, fancybox=False, fontsize=12)
+    if titles:
+        ax.legend(loc='lower left', frameon=False, fancybox=False, fontsize=12)
     plt.savefig(
-        path.join(DATA_PATH, 'statInk/'+fName),
+        path.join(DATA_PATH, 'inkstats/'+fName),
         dpi=dpi, transparent=False, facecolor='#ffffff', bbox_inches='tight'
     )
     plt.close('all')
@@ -240,7 +241,7 @@ if GMODE not in GMODES:
     (fig, ax) = plt.subplots(figsize=(0.4, 20))
     (fig, ax) = splat.barChartLobby(lbyFreq)
     plt.savefig(
-        path.join(DATA_PATH, 'statInk/'+fName), dpi=dpi, 
+        path.join(DATA_PATH, 'inkstats/'+fName), dpi=dpi, 
         transparent=False, facecolor='#ffffff', bbox_inches='tight'
     )
     plt.close('all')
@@ -305,7 +306,7 @@ if titles:
         transform=axs[2].transAxes, fontsize=35
     )
 plt.savefig(
-    path.join(DATA_PATH, 'statInk/'+fName), dpi=dpi, 
+    path.join(DATA_PATH, 'inkstats/'+fName), dpi=dpi, 
     transparent=False, facecolor='#ffffff', bbox_inches='tight'
 )
 plt.close('all')
