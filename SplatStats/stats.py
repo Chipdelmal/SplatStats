@@ -33,16 +33,27 @@ def calcBattleHistoryStats(bHist, kassistWeight=0.5):
     # Win/lose stats (NA are loss) ----------------------------------------
     win  = [True if i=='W' else False for i in bHist['win']]
     wins = sum(win)
-    winR = wins/len(win)
+    winR = (wins/len(win) if len(win) > 0 else 0)
     loss = len(win)-wins
     # Ratios --------------------------------------------------------------
-    killRatio = kTot/dTot
-    kallRatio = kaTot/dTot
+    killRatio = (kTot/dTot if dTot > 0 else 0)
+    kallRatio = (kaTot/dTot if dTot > 0 else 0)
     (kpm, dpm, apm, spm, ppm) = [
-        np.mean(bHist[i]/matchDuration) for i in cats
+        np.mean(
+            np.divide(
+                bHist[i], matchDuration, 
+                out=np.zeros_like(bHist[i]), 
+                where=matchDuration!=0
+            )
+        ) 
+        for i in cats
     ]
     kallpm = np.mean(
-        (bHist['kill']+kassistWeight*bHist['assist'])/matchDuration
+        np.divide(
+            (bHist['kill']+kassistWeight*bHist['assist']), matchDuration, 
+            out=np.zeros_like((bHist['kill']+kassistWeight*bHist['assist'])), 
+            where=matchDuration!=0
+        )
     )
     # Stats dictionary ----------------------------------------------------
     pStats = {

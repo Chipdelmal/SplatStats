@@ -45,6 +45,6 @@ printf "${BLUE}\t Overwrite: ${overwrite}${CLEAR}\n"
 printf "${BLUE}\t DPI: ${dpi}${CLEAR}\n"
 # Analyze the data --------------------------------------------------------
 mkdir -p /data/battle-results-csv
-mkdir -p /data/statInk
+mkdir -p /data/inkstats
 cd ~
 python /SplatStats/SplatStats/dockerRoutines/inkstatMain.py "$season" "$gmode" "$titles" "$overwrite" "$dpi"

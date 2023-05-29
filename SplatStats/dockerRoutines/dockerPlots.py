@@ -15,7 +15,7 @@ import matplotlib.pyplot as plt
 
 
 if splat.isNotebook():
-    (plyrName, weapon, mode, overwrite) = ('čħîþ ウナギ', 'All', 'All', 'True')
+    (plyrName, weapon, mode, overwrite) = ('čħîþ ウナギ', 'Splatana Wiper', 'All', 'True')
     (iPath, bPath, oPath) = (
         path.expanduser('/Users/sanchez.hmsc/Documents/BattlesDocker/jsons'),
         path.expanduser('/Users/sanchez.hmsc/Documents/BattlesDocker/battles'),
