@@ -139,7 +139,7 @@ dfFlat = splat.ammendStagesStatsByType(df, matchModes=list(df.keys()))
 dfFlat.sort_values('match type', inplace=True)
 g = splat.plotMatchTypeBars(
     dfFlat, metric, aggMetrics, digs=4,
-    yRange=(0, 1), countsLegend={'color': '#00000077', 'fontsize': 6.5},
+    yRange=(0, 1), countsLegend={'color': '#00000077', 'fontsize': 5},
     textOffset=0.005, alpha=.98, fontsize=7
 )
 g.fig.subplots_adjust(top=0.8)
@@ -156,7 +156,7 @@ kassistTotal = np.sum(playerHistory['kassist'])/np.sum(playerHistory['death'])
 (metric, aggMetrics) = ('kassists ratio', ('kassists', 'deaths'))
 g = splat.plotMatchTypeBars(
     dfFlat, metric, aggMetrics, yRange=(0, 4), digs=4,
-    countsLegend={'color': '#00000077', 'fontsize': 6.5},
+    countsLegend={'color': '#00000077', 'fontsize': 5},
     percentage=False, textOffset=0.005, alpha=0.98, fontsize=7
 )
 g.fig.subplots_adjust(top=0.8)
