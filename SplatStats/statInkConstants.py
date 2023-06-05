@@ -21,7 +21,8 @@ LOBBY_MODE = {
   'bankara_open': 'Anarchy (Open)',
   'xmatch': 'X Battle',
   'splatfest_challenge': 'Splatfest (Pro)',
-  'splatfest_open': 'Splatfest (Open)'
+  'splatfest_open': 'Splatfest (Open)',
+  'event': 'Event'
 }
 
 WPNS_DICT = {

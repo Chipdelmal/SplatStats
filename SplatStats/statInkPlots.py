@@ -67,7 +67,9 @@ def barChartLobby(
         scaler=('k', 1e3),
         fontSizes=(8.5, 20),
         colors=[
-            '#2E0CB5', '#B400FF', '#6BFF00', '#525CF5', '#FDFF00', '#D01D79'
+            '#2E0CB5', '#B400FF', '#6BFF00', 
+            '#525CF5', '#FDFF00', '#D01D79', 
+            '#E2E2E2'
         ]
     ):
     (series, data) = (
