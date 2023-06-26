@@ -99,6 +99,10 @@ if weapon=='All':
         ticksFmt={
             'lw': 1, 'range': (-0.5, -0.25), 
             'color': '#000000DD', 'fontsize': 8, 'fmt': '{:.0f}'
+        },
+        labelFmt={
+            'color': '#000000EE', 'fontsize': 6, 
+            'ha': 'left', 'fmt': '{:.1f}'
         }
     )
     ax.set_title(f'(Kills+0.5*Assists) = {killsTotal}\n', fontsize=18)
@@ -119,6 +123,10 @@ if weapon=='All':
         ticksFmt={
             'lw': 1, 'range': (-0.5, -0.25), 
             'color': '#000000DD', 'fontsize': 8, 'fmt': '{:.0f}'
+        },
+        labelFmt={
+            'color': '#000000EE', 'fontsize': 6, 
+            'ha': 'left', 'fmt': '{:.1f}'
         }
     )
     ax.set_title(f'Wins = {winsTotal}\n', fontsize=18)
