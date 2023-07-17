@@ -22,7 +22,7 @@ from splatnet3_scraper.scraper import SplatNet_Scraper
 ###############################################################################
 session_token = load('./session.bz')
 scraper = SplatNet_Scraper(session_token)
-scraper.get_vs_battles(mode="anarchy", detail=False)
+summary, battles = scraper.get_vs_battles(mode="turf")
 
 handler = QueryHandler.from_session_token(session_token)
 response = handler.query("StageScheduleQuery")
