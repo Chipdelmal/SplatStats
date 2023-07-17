@@ -28,7 +28,7 @@ class StatInk:
                 f, 
                 parse_dates=['period'], 
                 dtype=ink.STATINK_DTYPES, 
-                on_bad_lines='skip'
+                on_bad_lines='warn'
             ) for f in self.fPaths
         ]
         self.rawResults = pd.concat(rawDFList)

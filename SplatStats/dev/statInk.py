@@ -11,7 +11,7 @@ from datetime import datetime
 
 
 if splat.isNotebook():
-    (six, USR) = (10, 'lap')
+    (six, USR) = (2, 'lap')
     GMODE = 'Rainmaker'
     SSN_TITLE = True
 else:
