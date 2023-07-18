@@ -65,7 +65,7 @@ try:
 except:
     six = -1
     SEASON = 'All Seasons'
-    FREQ_SCALER = 2
+    FREQ_SCALER = 4
 POLAR['yRange'] = (POLAR['yRange'][0], POLAR['yRange'][1]*FREQ_SCALER)
 FNSTR = '{} ({}) - '.format(SEASON, GMODE)
 if SEASON!='All Seasons':
@@ -217,7 +217,7 @@ plt.close('all')
 ###############################################################################
 YLIM = (0, -1500)
 if SEASON=='All Seasons':
-    YLIM = (0, -3500)
+    YLIM = (0, -5000)
 if GMODE not in GMODES:
     fName = FNSTR+prepFnme+'Mode.png'
     (fig, ax) = (plt.figure(figsize=(20, 3)), plt.axes())
