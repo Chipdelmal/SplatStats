@@ -6,6 +6,7 @@ from sys import argv
 from matplotlib.patches import Rectangle
 import SplatStats as splat
 from scipy import interpolate
+from os import path
 import matplotlib.colors as mcolors
 from collections import Counter
 import warnings
@@ -33,7 +34,6 @@ LEN_LIMIT = 400
 ###############################################################################
 # Auxiliary 
 ###############################################################################
-title = '(Kills+0.5*Assists)/Deaths'
 fNameID = f'{plyrName}-{weapon}'
 splat.setSplatoonFont(fontPath, fontName="Splatfont 2")
 ###############################################################################
@@ -53,7 +53,9 @@ if weapon != 'All':
     pHist = playerHistory[playerHistory['main weapon']==weapon]
 else:
     pHist = playerHistory
-pHist['pCount'] = [1]*pHist.shape[0]
+pHist['kassist'] = (pHist['kill']+0.5*pHist['assist'])/pHist['death']
+pHist.replace([np.inf, -np.inf], 0, inplace=True)
+pHist['participation'] = [1]*pHist.shape[0]
 ###############################################################################
 # Bumpchart
 ###############################################################################
@@ -70,7 +72,7 @@ dteSlice = pHist['datetime'].apply(
 ).copy()
 pHist.insert(3, 'DateGroup', dteSlice)
 # Dated Counts ---------------------------------------------------------------
-STAT = 'kill'
+STAT = 'kassist'
 RANKS = len(weapons)
 HIGHLIGHT = wpnSet
 (WIN_W, WIN_M) = (4, 1)
@@ -83,7 +85,7 @@ dfCountsR = dfCounts.rolling(window=WIN_W, min_periods=WIN_M, axis=1).mean()
 dfRanksR = dfCountsR.rank(ascending=False, method='first', axis=0)
 cmap = splat.colorPaletteFromHexList([
     '#bde0fe', '#ff0054', '#0a369d', '#33a1fd', '#5465ff', 
-    '#f0a6ca', '#ff499e', '#b79ced', '#aaf683', '#ffffff'
+    '#f0a6ca', '#ff499e', '#b79ced', '#aaf683', '#f1c0e8'
 ])
 
 
@@ -120,16 +122,14 @@ for i in range(len(artists)):
         xs, interpolate.pchip(x, y)(xs), 
         lw=lw, color=colors[i]
     )
-ax.vlines(
-    years, 0, 1, 
-    lw=.5, ls=':', transform=ax.get_xaxis_transform(),
-    color='w'
-)
-ax.vlines(
-    [i-6 for i in years[1:]], 0, 1, 
-    lw=.25, ls=':', transform=ax.get_xaxis_transform(),
-    color='w'
-)
+# ax.vlines(
+#     years, 0, 1, 
+#     lw=.5, ls=':', transform=ax.get_xaxis_transform(), color='w'
+# )
+# ax.vlines(
+#     [i-6 for i in years[1:]], 0, 1, 
+#     lw=.25, ls=':', transform=ax.get_xaxis_transform(), color='w'
+# )
 for (art, pos) in zip(artistsT0, ranksT0):
     ax.text(
         -1, RANKS-ySpace*(int(pos)-1)-ySpace*.2, art, 
@@ -137,7 +137,7 @@ for (art, pos) in zip(artistsT0, ranksT0):
     )
 for (art, pos) in zip(artistsT0, ranksTF):
     ax.text(
-        len(dates)-1+xExtend+1, RANKS-ySpace*(int(pos)-1)-ySpace*.2, art, 
+        len(dates)-WIN_W+xExtend, RANKS-ySpace*(int(pos)-1)-ySpace*.2, art, 
         ha='left', color='k', fontsize=fontSize
     )
 ax.spines['top'].set_visible(False)
@@ -150,9 +150,18 @@ a = ax.get_xticks().tolist()
 years = np.arange(int(dteTicks[0]), int(dteTicks[-1])+1, 1)
 for i in range(len(a)):
     a[i] = years[i]
+# ax.text(t[-1]/2, -1, STAT, va='center')
 ax.get_xaxis().set_ticklabels(a)
 ax.get_yaxis().set_ticks([])
 ax.spines['bottom'].set_color('white')
 ax.tick_params(axis='x', colors='white')
 ax.set_xlim(ax.get_xlim()[0], len(dates)-1+xExtend)
+ax.set_ylim(0, ax.get_ylim()[1])
 ax.set_aspect(aspect/ax.get_data_ratio(), adjustable='box')
+plt.savefig(
+    path.expanduser('~/Desktop/weaponRank.png'),
+    dpi=300, orientation='portrait', format=None,
+    facecolor='w', edgecolor='w',
+    transparent=True,
+    bbox_inches='tight', pad_inches=0, metadata=None
+)
