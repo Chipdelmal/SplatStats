@@ -5,6 +5,7 @@ from os import path
 from sys import argv
 from matplotlib.patches import Rectangle
 import SplatStats as splat
+from scipy import interpolate
 import matplotlib.colors as mcolors
 from collections import Counter
 import warnings
@@ -14,11 +15,11 @@ import matplotlib.pyplot as plt
 if splat.isNotebook():
     (plyrName, weapon, mode, overwrite) = ('čħîþ ウナギ', 'All', 'All', 'False')
     (iPath, bPath, oPath) = (
-        path.expanduser('~/Documents/Sync/BattlesDocker/jsons'),
-        path.expanduser('~/Documents/Sync/BattlesDocker/battles'),
-        path.expanduser('~/Documents/Sync/BattlesDocker/out')
+        path.expanduser('~/Documents/BattlesDocker/jsons'),
+        path.expanduser('~/Documents/BattlesDocker/battles'),
+        path.expanduser('~/Documents/BattlesDocker/out')
     )
-    fontPath = '/home/chipdelmal/Documents/GitHub/SplatStats/other/'
+    fontPath = '~/Documents/BattlesDocker/'
 else:
     (plyrName, weapon, mode, overwrite) = argv[1:]
     (iPath, bPath, oPath) = (
@@ -52,639 +53,106 @@ if weapon != 'All':
     pHist = playerHistory[playerHistory['main weapon']==weapon]
 else:
     pHist = playerHistory
+pHist['pCount'] = [1]*pHist.shape[0]
 ###############################################################################
-# Windowed average
+# Bumpchart
 ###############################################################################
-# kSize = 8
-# dHist = splat.aggregateStatsByPeriod(playerHistory, period='2H')
-# winsArray = np.asarray((dHist['win'])/dHist['matches'])
-# windowAvg = splat.windowAverage(winsArray, kernelSize=kSize, mode='valid')
+wpnHist = pHist[['main weapon', 'datetime']]
+wpnSet = set(pHist['main weapon'].unique())
+# Weapon stats DF ------------------------------------------------------------
+wpnGrpBy = pHist.groupby('main weapon').sum('kill').reset_index()
+# Weapons frequencies --------------------------------------------------------
+weapons = sorted(list(wpnSet))
+weaponsCount = pHist.groupby('main weapon').size().sort_values(ascending=False)
+# Dates slicer ---------------------------------------------------------------
+dteSlice = pHist['datetime'].apply(
+    lambda x: "{}/{:02d}".format(x.year, x.week)
+).copy()
+pHist.insert(3, 'DateGroup', dteSlice)
+# Dated Counts ---------------------------------------------------------------
+STAT = 'kill'
+RANKS = len(weapons)
+HIGHLIGHT = wpnSet
+(WIN_W, WIN_M) = (4, 1)
+grpd = pHist.groupby(['main weapon', 'DateGroup']).sum('kill')
+dfTable = grpd.unstack().reset_index().set_index("main weapon")[STAT]
+dfCounts = dfTable.replace(np.nan,0)
+# Rank counts ----------------------------------------------------------------
+dfRanks = dfCounts.rank(ascending=False, method='dense', axis=0)
+dfCountsR = dfCounts.rolling(window=WIN_W, min_periods=WIN_M, axis=1).mean()
+dfRanksR = dfCountsR.rank(ascending=False, method='first', axis=0)
+cmap = splat.colorPaletteFromHexList([
+    '#bde0fe', '#ff0054', '#0a369d', '#33a1fd', '#5465ff', 
+    '#f0a6ca', '#ff499e', '#b79ced', '#aaf683', '#ffffff'
+])
 
-# (fig, ax) = plt.subplots(figsize=(10, 4))
-# ax.plot(winsArray, lw=5, color=splat.LUMIGREEN_V_DFUCHSIA_S1[-1], alpha=.15)
-# ax.plot(
-#     [i+kSize/2 for i in range(len(windowAvg))], windowAvg,
-#     lw=4, color=splat.PINK_V_GREEN_S1[0], alpha=.85
-# )
-# ax.autoscale(enable=True, axis='x', tight=True)
-# ax.set_ylim(0, max(winsArray))
-###############################################################################
-# Circular History
-###############################################################################
-kassist=True
-paint=True
-bottomArray=None
-barArray=None
-tbRange=(0, 75)
-bRange=(0, 3500) 
-lw=0.25
-alpha=1
-rScale='symlog'
-innerOffset=2
-clockwise=True
-colorsTop=('#4E4EDDCC', '#CD2D7ECC')
-colorBars=splat.CLR_PAINT
-innerText=None
-fontSize=8
-fontColor="#000000CC"
-innerGuides=(0, 6, 1)
-innerGuidesColor="#00000088"
-outerGuides=(0, 50, 10)
-outerGuidesColor="#00000088"
-frameColor="#00000000"
-binMax = 20
-binSize = 1
-meanStat = True
 
-playerHistory['ink'] = playerHistory['paint']/100
-statsHists = {
-    i: splat.calcBinnedFrequencies(
-        np.array(playerHistory[i]), 0, binMax, binSize=binSize, normalized=True
+dates = sorted(list(dfCounts.columns))
+artists = sorted(list(dfCounts.index))
+(aspect, fontSize, lw) = (.2, 5, 1.75)
+(hiCol, loCol) = (.85, .15)
+(ySpace, colors) = (1, cmap(np.linspace(0, 1, len(artists))))
+# random.shuffle(colors)
+xExtend = 4
+# Stats -----------------------------------------------------------------------
+artistsT0 = list(dfRanksR.index)
+ranksDate = list(dfRanksR.columns)[WIN_M]
+ranksT0 = list(dfRanksR[ranksDate])
+ranksDateF = list(dfRanksR.columns)[-1]
+ranksTF = list(dfRanksR[ranksDateF])
+# Ranks Plot ------------------------------------------------------------------
+t = list(range(0, len(dates)+xExtend, 1))
+xnew = np.linspace(0, max(t), 500)
+yearTicks = [i for i, s in enumerate(dates) if '/01' in s]
+years = np.arange(yearTicks[0], yearTicks[-1]+12, 12)
+dteTicks = [item[:4] for item in dates if '/01' in item]
+(fig, ax) = plt.subplots(1, 1, figsize=(15, 3.5))
+for i in range(len(artists)):
+    y = RANKS-(np.asarray(dfRanksR.iloc[i])-1)*ySpace
+    y[np.isnan(y)]=y[WIN_M]
+    z = np.append(y, [y[-1]]*xExtend)
+    colors[i][-1] = loCol
+    if artists[i] in HIGHLIGHT:
+        colors[i][-1] = hiCol
+    x = np.arange(y.shape[0])
+    xs = np.linspace(0, x[-1], num=1024)
+    plt.plot(
+        xs, interpolate.pchip(x, y)(xs), 
+        lw=lw, color=colors[i]
     )
-    for i in ('kill', 'death', 'assist', 'ink', 'special')
-}
-
-INKSTATS_STYLE = {
-    'kill': {
-        'color': '#1A1AAEDD', 'range': (0, 15),
-        'scaler': lambda x: np.interp(x, [0, 0.125, 0.25], [0, .50, 1]),
-        'range': (0, 15)
-    },
-    'death': {
-        'color': '#CD2D7EDD', 'range': (0, 15),
-        'scaler': lambda x: np.interp(x, [0, 0.125, 0.25], [0, .50, 1]),
-        'range': (0, 15)
-    },
-    'assist': {
-        'color': '#801AB3DD', 'range': (0, 10),
-        'scaler': lambda x: np.interp(x, [0, 0.250, 0.65], [0, .50, 1]),
-        
-    },
-    'special': {
-        'color': '#1FAFE8DD', 'range': (0, 10),
-        'scaler': lambda x: np.interp(x, [0, 0.250, 0.65], [0, .50, 1]),
-    },
-    'ink': {
-        'color': '#35BA49DD', 'range': (0, 20),
-        'scaler': lambda x: np.interp(x, [0, 0.100, 0.20], [0, .50, 1]),
-    }
-}
-
-mTypeColors = {
-    'Clam Blitz':           '#D60E6E',
-    'Rainmaker':            '#7D26B5',
-    'Splat Zones':          '#3D59DE',
-    'Tower Control':        '#8ACF47',
-    'Tricolor Turf War':    '#88214D',
-    'Turf War':             '#D1D1D1'
-}
-winColors = {True: '#6BD52C', False: '#D1D1D1'}
-kosColors = {True: '#A714D4', False: '#ffffff'}
-
-lw = np.interp(
-    playerHistory.shape[0], 
-    [0, 50,  250,  500, 1000, 3000,   5000], 
-    [10, 3,    2,  1.5,  0.8, 0.25,  0.125]
-)
-(fig, ax) = plt.subplots(figsize=(10, 10), subplot_kw={"projection": "polar"})
-((fig, ax), kdRatio) = splat.plotIrisKDP(playerHistory, (fig, ax), lw=lw)
-(fig, ax) = splat.plotIrisMatch(playerHistory, (fig, ax), typeLineLength=10)
-((fig, ax), statQNT, statMNS) = splat.plotIrisStats(playerHistory, (fig, ax))
-(fig, ax) = splat.plotIrisAxes((fig, ax))
-# Add inner text ----------------------------------------------------------
-(kill, death, assist, paint, special, win) = [
-    splat.statSummaries(playerHistory, stat, summaryFuns=(np.sum, np.mean)) 
-    for stat in ('kill', 'death', 'assist', 'paint', 'special', 'winBool')
-]
-(sw, sl) = (splat.longestRun(playerHistory['win'], elem='W'), splat.longestRun(playerHistory['win'], elem='L'))
-strLng = 'Matches: {}\nWin: {} ({:.1f}%)\nLongest Streaks: W{}-L{}\n\n\n\n\nKill: {} ({:.1f})\nAssist: {} ({:.1f})\nDeath: {} ({:.1f})\nPaint: {} ({:.0f})\nSpecial: {} ({:.1f})'
-innerText = strLng.format(
-    playerHistory.shape[0], win[0], win[1]*100, sw, sl,
-    kill[0], kill[1], assist[0], assist[1], 
-    death[0], death[1], paint[0], paint[1],
-    special[0], special[1],
-)
-ax.text(
-    x=0.5, y=0.5, 
-    s=innerText, fontsize=fontSize,
-    va="center", ha="center",  ma="center", 
-    color=fontColor, transform=ax.transAxes
-)
-ax.text(
-    x=0.5, y=0.52,
-    s='{}'.format(plyrName),
-    fontsize=fontSize+7.5,
-    va="center", ha="center",
-    color=fontColor, transform=ax.transAxes
-)
-# Save -------------------------------------------------------------------
-fig.savefig(
-    path.join(oPath, f'{plyrName}-HIris2.png'), 
-    dpi=500, bbox_inches='tight', facecolor=fig.get_facecolor()
-)
-
-
-
-
-
-
-
-
-
-(fig, ax) = plt.subplots(figsize=(10, 10), subplot_kw={"projection": "polar"})
-# Inner and outer -------------------------------------------------------------
-(outer, inner) = (np.array(playerHistory['kill']), np.array(playerHistory['death']))
-if kassist:
-    outer = outer + (.5 * np.array(playerHistory['assist']))
-bar = (np.array(playerHistory['paint']) if paint else None)
-if innerText:
-    text = np.sum(outer)/np.sum(inner)
-
-(topArray, bottomArray, barArray) = (outer, inner, bar)
-ax.set_theta_offset(np.pi/2)
-ax.set_rscale(rScale)
-(outer, inner) = (np.array(playerHistory['kill']), np.array(playerHistory['death']))
-if kassist:
-    outer = outer + (.5 * np.array(playerHistory['assist']))
-bar = (np.array(playerHistory['paint']) if paint else None)
-if innerText:
-    text = np.sum(outer)/np.sum(inner)
-(topArray, bottomArray, barArray) = (outer, inner, bar)
-ax.set_theta_offset(np.pi/2)
-ax.set_rscale(rScale)
-# Calculate angles for marker lines ---------------------------------------
-DLEN = topArray.shape[0]
-(astart, aend) = ((2*np.pi, 0) if clockwise else (0, 2*np.pi))
-ANGLES = np.linspace(astart, aend, DLEN, endpoint=False)
-# Match type --------------------------------------------------------------
-(mTypeOff, mTypeHeight) = (40, 8)
-(wBoolOff, wBoolHeight) = (mTypeOff+mTypeHeight+2, mTypeOff+mTypeHeight+5)
-(kBoolOff, kBoolHeight) = (mTypeOff+mTypeHeight+5, mTypeOff+mTypeHeight+7)
 ax.vlines(
-    ANGLES, innerOffset+mTypeOff, innerOffset+mTypeOff+mTypeHeight, 
-    lw=lw, colors=[mTypeColors[i] for i in playerHistory['match type']],
-    alpha=alpha, zorder=-5
+    years, 0, 1, 
+    lw=.5, ls=':', transform=ax.get_xaxis_transform(),
+    color='w'
 )
 ax.vlines(
-    ANGLES, wBoolOff, wBoolHeight, 
-    lw=lw, colors=[winColors[i] for i in playerHistory['winBool']],
-    alpha=alpha, zorder=-5
+    [i-6 for i in years[1:]], 0, 1, 
+    lw=.25, ls=':', transform=ax.get_xaxis_transform(),
+    color='w'
 )
-winKO = []
-for wko in list(zip(playerHistory['winBool'], playerHistory['ko'])):
-    if wko[-1]:
-        if wko[0]:
-            winKO.append('#311AA8')
-        else:
-            winKO.append('#E70F21')
-    else:
-        winKO.append('#ffffff')
-ax.vlines(
-    ANGLES, kBoolOff, kBoolHeight, 
-    lw=lw, colors=winKO,
-    alpha=alpha, zorder=-5
-)
-# Vspan for stats -------------------------------------------------------------
-STATS = ('kill', 'death', 'assist', 'ink', 'special', )
-binsNum = statsHists['kill'].shape[0]
-(dHeight, rWidth) = (0.1, 2*math.pi/binsNum)
-statsNames = list(STATS)
-# Iterate through stats
-for (ix, stat) in enumerate(statsNames):
-    # Iterate through bins
-    (clr, sca) = (
-        mcolors.ColorConverter().to_rgba(INKSTATS_STYLE[stat]['color']),
-        INKSTATS_STYLE[stat]['scaler']
+for (art, pos) in zip(artistsT0, ranksT0):
+    ax.text(
+        -1, RANKS-ySpace*(int(pos)-1)-ySpace*.2, art, 
+        ha='right', color='k', fontsize=fontSize
     )
-    bins = statsHists[stat]
-    for (jx, h) in enumerate(range(binsNum)):
-        alpha = sca(bins[jx])
-        ax.add_patch(
-            Rectangle(
-                (-jx*rWidth, innerOffset-ix*dHeight), -rWidth, -dHeight,
-                facecolor=(clr[0], clr[1], clr[2], alpha),
-                edgecolor='#00000033', lw=0.1
-            )
-        )
-        ax.bar(0, 1).remove()
-# Quantiles ---------------------------------------------------------------
-statQNT = {s: np.quantile(playerHistory[s], [0.25, 0.50, 0.75]) for s in STATS}
-statMNS = {s: np.mean(playerHistory[s]) for s in STATS}
-rSca = 0.15
-for (ix, stat) in enumerate(statsNames):
-    if meanStat:
-        rPos = np.interp(statMNS[stat], [0, binMax], [2*np.pi, 0])
-        ax.vlines(
-            rPos, 
-            innerOffset-(ix)*dHeight-rSca*dHeight, 
-            innerOffset-(1+ix)*dHeight+rSca*dHeight,  
-            lw=.5, colors='#00000099'
-        )
-    else:
-        rPos = [
-            np.interp(x, [0, binMax], [2*np.pi, 0])-rWidth/2
-            for x in statQNT[stat]
-        ]
-        ax.vlines(
-            rPos[1], 
-            innerOffset-(ix)*dHeight-rSca*dHeight, 
-            innerOffset-(1+ix)*dHeight+rSca*dHeight,  
-            lw=.5, colors='#00000099'
-        )
-        ax.vlines(
-            [rPos[0], rPos[-1]], 
-            innerOffset-(ix)*dHeight-rSca*dHeight, 
-            innerOffset-(1+ix)*dHeight+rSca*dHeight,  
-            lw=.1, colors='#00000000'
-        )
-# Draw top-bottom ---------------------------------------------------------
-if bottomArray is None:
-    bottomArray = np.zeros(topArray.shape)
-heights = topArray-bottomArray
-colors = [colorsTop[0] if (h>=0) else colorsTop[1] for h in heights]
-ax.vlines(
-    ANGLES, innerOffset+bottomArray, innerOffset+topArray, 
-    lw=lw, colors=colors
-)
-# Special and assist ------------------------------------------------------
-# ax.scatter(
-#     ANGLES, playerHistory['assist']+innerOffset, 
-#     marker="1", s=0.2, linewidths=0.2,
-#     color=INKSTATS_STYLE['assist']['color'], 
-# )
-# Draw bar ----------------------------------------------------------------
-if barArray is None:
-    barScaled = np.zeros(topArray.shape)
-else:
-    barScaled = np.interp(barArray, bRange, tbRange)
-ax.vlines(
-    ANGLES, innerOffset, innerOffset+barScaled,  
-    lw=lw, colors=colorBars, alpha=.1
-)
-# Cleaning up axes --------------------------------------------------------
-# ax.vlines(
-#     np.arange(aend, astart, (astart+aend)/8), innerOffset, innerOffset+mTypeOff,  
-#     lw=0.2, colors='#000000', alpha=1, zorder=10
-# )
-ax.vlines(
-    [0], innerOffset-dHeight*len(STATS), innerOffset+mTypeOff, 
-    lw=0.25, color='#000000CC',
-    zorder=10
-)
-circleAngles = np.linspace(0, 2*np.pi, 200)
-for r in range(*innerGuides):
-    ax.plot(
-        circleAngles, np.repeat(r+innerOffset, 200), 
-        color=innerGuidesColor, lw=0.1, # ls='-.', 
-        zorder=10
+for (art, pos) in zip(artistsT0, ranksTF):
+    ax.text(
+        len(dates)-1+xExtend+1, RANKS-ySpace*(int(pos)-1)-ySpace*.2, art, 
+        ha='left', color='k', fontsize=fontSize
     )
-ax.plot(
-    circleAngles, np.repeat(innerOffset-dHeight*len(STATS), 200), 
-    color='#000000FF', lw=0.25, # ls='-.', 
-    zorder=10
-)
-ax.set_theta_offset(np.pi/2)
-ax.set_rscale(rScale)
-ax.set_xticks([])
-ax.set_xticklabels([])
-ax.set_ylim(tbRange[0], tbRange[1]+innerOffset)
-ax.set_yticklabels([])
-yTicks = [0+innerOffset] + list(np.arange(
-    outerGuides[0]+innerOffset, outerGuides[1]+innerOffset, outerGuides[2]
-))
-ax.set_yticks(yTicks)
-ax.yaxis.grid(True, color=outerGuidesColor, ls='-', lw=0.2, zorder=10)
-ax.spines["start"].set_color("none")
-ax.spines["polar"].set_color(frameColor)
-# Add inner text ----------------------------------------------------------
-(kill, death, assist, paint, special) = (
-    [np.sum(playerHistory['kill']), np.mean(playerHistory['kill'])],
-    [np.sum(playerHistory['death']), np.mean(playerHistory['death'])],
-    [np.sum(playerHistory['assist']), np.mean(playerHistory['assist'])],
-    [np.sum(playerHistory['paint']), np.mean(playerHistory['paint'])],
-    [np.sum(playerHistory['special']), np.mean(playerHistory['special'])],
-)
-# np.quantile(playerHistory['kill'], [0.25, 0.5, 0.75])
-winNum = np.sum(playerHistory['winBool'])
-winRate = winNum/DLEN
-(sw, sl) = (splat.longestRun(wins, elem='W'), splat.longestRun(wins, elem='L'))
-strLng = 'Matches: {}\nWin: {} ({:.1f}%)\nLongest Streaks: W{}-L{}\n\n\n\n\nKill: {} ({:.1f})\nAssist: {} ({:.1f})\nDeath: {} ({:.1f})\nPaint: {} ({:.0f})\nSpecial: {} ({:.1f})'
-innerText = strLng.format(
-    DLEN, winNum, winRate*100, sw, sl,
-    kill[0], kill[1], assist[0], assist[1], 
-    death[0], death[1], paint[0], paint[1],
-    special[0], special[1],
-)
-ax.text(
-    x=0.5, y=0.5, 
-    s=innerText, fontsize=fontSize,
-    va="center", ha="center",  ma="center", 
-    color=fontColor, transform=ax.transAxes
-)
-ax.text(
-    x=0.5, y=0.52,
-    s='{}'.format(plyrName),
-    fontsize=fontSize+7.5,
-    va="center", ha="center",
-    color=fontColor, transform=ax.transAxes
-)
-# Save -------------------------------------------------------------------
-fig.savefig(
-    path.join(oPath, f'{plyrName}-HIris.png'), 
-    dpi=500, bbox_inches='tight', facecolor=fig.get_facecolor()
-)
-
-
-
-
-
-
-lw = np.interp(
-    playerHistory.shape[0], 
-    [0, 50,  250,  500, 1000, 3000,   5000], 
-    [10, 3,    2,  1.5,  0.8, 0.25,  0.125]
-)
-
-
-(fig, ax) = plt.subplots(figsize=(10, 10), subplot_kw={"projection": "polar"})
-((fig, ax), kdRatio) = plotIrisKDP(playerHistory, (fig, ax), lw=lw)
-(fig, ax) = plotIrisMatch(playerHistory, (fig, ax), typeLineLength=10)
-((fig, ax), statQNT, statMNS) = plotIrisStats(playerHistory, (fig, ax))
-(fig, ax) = plotIrisAxes((fig, ax))
-
-
-dHeight=0.1
-ax.vlines(
-    [0], innerOffset-dHeight*5, innerOffset+50, 
-    lw=0.25, color='#000000CC',
-    zorder=10
-)
-circleAngles = np.linspace(0, 2*np.pi, 200)
-for r in range(*innerGuides):
-    ax.plot(
-        circleAngles, np.repeat(r+innerOffset, 200), 
-        color=innerGuidesColor, lw=0.1, # ls='-.', 
-        zorder=10
-    )
-ax.plot(
-    circleAngles, np.repeat(innerOffset-dHeight*5, 200), 
-    color='#000000FF', lw=0.25, # ls='-.', 
-    zorder=10
-)
-ax.set_theta_offset(np.pi/2)
-ax.set_xticks([])
-ax.set_xticklabels([])
-ax.set_yticklabels([])
-yTicks = [0+innerOffset] + list(np.arange(
-    outerGuides[0]+innerOffset, outerGuides[1]+innerOffset, outerGuides[2]
-))
-ax.set_yticks(yTicks)
-ax.yaxis.grid(True, color=outerGuidesColor, ls='-', lw=0.2, zorder=10)
-ax.spines["start"].set_color("none")
-ax.spines["polar"].set_color(frameColor)
-ax.set_ylim(0, 100)
-
-
-
-
-def plotIrisAxes(
-        figAx, innerOffset=2, outerGuides=(0, 50, 10), statsNum=5,
-        barWidth=0.1, yRange=(0, 100), frameColor="#00000000", rangeKD=(0, 40),
-        lw=0.25
-    ):
-    (fig, ax) = figAx
-    ax.vlines(
-        [0], innerOffset-barWidth*statsNum, innerOffset+rangeKD[1], 
-        lw=lw, color='#000000CC',
-        zorder=10
-    )
-    circleAngles = np.linspace(0, 2*np.pi, 200)
-    for r in range(*innerGuides):
-        ax.plot(
-            circleAngles, np.repeat(r+innerOffset, 200), 
-            color=innerGuidesColor, lw=0.1,
-            zorder=10
-        )
-    ax.plot(
-        circleAngles, np.repeat(innerOffset-barWidth*5, 200), 
-        color='#000000FF', lw=lw, # ls='-.', 
-        zorder=10
-    )
-    ax.set_theta_offset(np.pi/2)
-    ax.set_xticks([])
-    ax.set_xticklabels([])
-    ax.set_yticklabels([])
-    yTicks = [0+innerOffset] + list(np.arange(
-        outerGuides[0]+innerOffset, outerGuides[1]+innerOffset, outerGuides[2]
-    ))
-    ax.set_yticks(yTicks)
-    ax.yaxis.grid(True, color=outerGuidesColor, ls='-', lw=0.2, zorder=10)
-    ax.spines["start"].set_color("none")
-    ax.spines["polar"].set_color(frameColor)
-    ax.set_ylim(yRange[0], yRange[1])
-    return (fig, ax)
-
-
-
-def plotIrisStats(
-        playerHistory, figAx,
-        binSize=1, binMax=20, innerOffset=2, meanStat=True, barWidth=0.1,
-        stats=('kill', 'death', 'assist', 'ink', 'special'),
-        colorBarEdge='#00000033', linewidthEdge=0.1,
-        colorMean='#00000099', linewidthMean=0.5,
-        INKSTATS_STYLE = {
-            'kill': {
-                'color': '#1A1AAEDD', 'range': (0, 15),
-                'scaler': lambda x: np.interp(x, [0, 0.125, 0.25], [0, .50, 1]),
-                'range': (0, 15)
-            },
-            'death': {
-                'color': '#CD2D7EDD', 'range': (0, 15),
-                'scaler': lambda x: np.interp(x, [0, 0.125, 0.25], [0, .50, 1]),
-                'range': (0, 15)
-            },
-            'assist': {
-                'color': '#801AB3DD', 'range': (0, 10),
-                'scaler': lambda x: np.interp(x, [0, 0.250, 0.65], [0, .50, 1]),
-                
-            },
-            'special': {
-                'color': '#1FAFE8DD', 'range': (0, 10),
-                'scaler': lambda x: np.interp(x, [0, 0.250, 0.65], [0, .50, 1]),
-            },
-            'ink': {
-                'color': '#35BA49DD', 'range': (0, 20),
-                'scaler': lambda x: np.interp(x, [0, 0.100, 0.20], [0, .50, 1]),
-            }
-        }
-    ):
-    (fig, ax) = figAx
-    playerHistory['ink'] = playerHistory['paint']/100
-    statsHists = {
-        i: splat.calcBinnedFrequencies(
-            np.array(playerHistory[i]), 0, binMax, barWidth=0.1,
-            binSize=binSize, normalized=True
-        )
-        for i in stats
-    }
-    # Vspan for stats -------------------------------------------------------------
-    binsNum = statsHists['kill'].shape[0]
-    (dHeight, rWidth) = (barWidth, 2*math.pi/binsNum)
-    statsNames = list(stats)
-    # Iterate through stats
-    for (ix, stat) in enumerate(statsNames):
-        # Iterate through bins
-        (clr, sca) = (
-            mcolors.ColorConverter().to_rgba(INKSTATS_STYLE[stat]['color']),
-            INKSTATS_STYLE[stat]['scaler']
-        )
-        bins = statsHists[stat]
-        for (jx, h) in enumerate(range(binsNum)):
-            alpha = sca(bins[jx])
-            ax.add_patch(
-                Rectangle(
-                    (-jx*rWidth, innerOffset-ix*dHeight), -rWidth, -dHeight,
-                    facecolor=(clr[0], clr[1], clr[2], alpha),
-                    edgecolor=colorBarEdge, lw=linewidthEdge
-                )
-            )
-            ax.bar(0, 1).remove()
-    # Quantiles ---------------------------------------------------------------
-    statQNT = {s: np.quantile(playerHistory[s], [0.25, 0.50, 0.75]) for s in stats}
-    statMNS = {s: np.mean(playerHistory[s]) for s in stats}
-    rSca = 0.15
-    for (ix, stat) in enumerate(statsNames):
-        if meanStat:
-            rPos = np.interp(statMNS[stat], [0, binMax], [2*np.pi, 0])
-            ax.vlines(
-                rPos, 
-                innerOffset-(ix)*dHeight-rSca*dHeight, 
-                innerOffset-(1+ix)*dHeight+rSca*dHeight,  
-                lw=linewidthMean, colors=colorMean
-            )
-        else:
-            rPos = [
-                np.interp(x, [0, binMax], [2*np.pi, 0])-rWidth/2
-                for x in statQNT[stat]
-            ]
-            ax.vlines(
-                rPos[1], 
-                innerOffset-(ix)*dHeight-rSca*dHeight, 
-                innerOffset-(1+ix)*dHeight+rSca*dHeight,  
-                lw=linewidthMean, colors=colorMean
-            )
-            ax.vlines(
-                [rPos[0], rPos[2]], 
-                innerOffset-(ix)*dHeight-rSca*dHeight, 
-                innerOffset-(1+ix)*dHeight+rSca*dHeight,  
-                lw=linewidthMean*0.25, colors=colorMean
-            )
-    return ((fig, ax), statQNT, statMNS)
-
-
-
-
-def plotIrisMatch(
-        playerHistory, figAx,
-        innerRadius=40, typeLineLength=10, lw=0.25,
-        colorsKO=('#311AA8', '#E70F21', '#ffffff'),
-        offsets=(2, 5, 7), clockwise=True,
-        mTypeColors = {
-            'Clam Blitz': '#D60E6E',
-            'Rainmaker': '#7D26B5',
-            'Splat Zones': '#3D59DE',
-            'Tower Control': '#8ACF47',
-            'Tricolor Turf War': '#88214D',
-            'Turf War': '#D1D1D1'
-        },
-        winColors={True: '#6BD52C', False: '#D1D1D1'}
-    ):
-    (fig, ax) = figAx
-    # Calculate angles for marker lines ---------------------------------------
-    DLEN = np.array(playerHistory['kill']).shape[0]
-    (astart, aend) = ((2*np.pi, 0) if clockwise else (0, 2*np.pi))
-    ANGLES = np.linspace(astart, aend, DLEN, endpoint=False)
-    # Match type --------------------------------------------------------------
-    (mTypeOff, mTypeHeight) = (innerRadius+offsets[0], typeLineLength)
-    (wBoolOff, wBoolHeight) = (
-        mTypeOff+mTypeHeight, 
-        mTypeOff+mTypeHeight+offsets[1]
-    )
-    (kBoolOff, kBoolHeight) = (
-        mTypeOff+mTypeHeight+offsets[1], 
-        mTypeOff+mTypeHeight+offsets[2]
-    )
-    ax.vlines(
-        ANGLES, mTypeOff, mTypeOff+mTypeHeight, 
-        lw=lw, colors=[mTypeColors[i] for i in playerHistory['match type']],
-        zorder=-5
-    )
-    # Win ---------------------------------------------------------------------
-    ax.vlines(
-        ANGLES, wBoolOff, wBoolHeight, 
-        lw=lw, colors=[winColors[i] for i in playerHistory['winBool']],
-        zorder=-5
-    )
-    # KO ----------------------------------------------------------------------
-    winKO = []
-    for wko in list(zip(playerHistory['winBool'], playerHistory['ko'])):
-        if wko[-1]:
-            if wko[0]:
-                winKO.append(colorsKO[0])
-            else:
-                winKO.append(colorsKO[1])
-        else:
-            winKO.append(colorsKO[2])
-    ax.vlines(
-        ANGLES, kBoolOff, kBoolHeight, 
-        lw=lw, colors=winKO,
-        zorder=-5
-    )
-    ax.set_rscale('symlog')
-    return (fig, ax)
-
-
-
-def plotIrisKDP(
-        playerHistory, figAx, 
-        kassist=True, paint=True, 
-        clockwise=True, innerOffset=2,
-        colorsKD=('#4E4EDDCC', '#CD2D7ECC'), colorP='#6A1EC111',
-        rangeKD=(0, 40), rangeP=(0, 3500),
-        lw=0.25
-    ):
-    (fig, ax) = figAx
-    # Calculate numbers -------------------------------------------------------
-    (outer, inner) = (
-        np.array(playerHistory['kill']), 
-        np.array(playerHistory['death'])
-    )
-    bar = (np.array(playerHistory['paint']) if paint else None)
-    if kassist:
-        outer = outer + (.5*np.array(playerHistory['assist']))
-    kdRatio = np.sum(outer)/np.sum(inner)
-    (topArray, bottomArray, barArray) = (outer, inner, bar)
-    # Calculate angles for marker lines ---------------------------------------
-    DLEN = topArray.shape[0]
-    (astart, aend) = ((2*np.pi, 0) if clockwise else (0, 2*np.pi))
-    ANGLES = np.linspace(astart, aend, DLEN, endpoint=False)
-    # Draw top-bottom (kill-death) --------------------------------------------
-    if bottomArray is None:
-        bottomArray = np.zeros(topArray.shape)
-    heights = topArray-bottomArray
-    colors = [colorsKD[0] if (h>=0) else colorsKD[1] for h in heights]
-    ax.vlines(
-        ANGLES, innerOffset+bottomArray, innerOffset+topArray, 
-        lw=lw, colors=colors
-    )
-    # Draw bar ----------------------------------------------------------------
-    if barArray is None:
-        barScaled = np.zeros(topArray.shape)
-    else:
-        barScaled = np.interp(barArray, rangeP, (rangeKD[0]*2, rangeKD[1]*2))
-    ax.vlines(
-        ANGLES, innerOffset, innerOffset+barScaled,  
-        lw=lw, colors=colorP
-    )
-    # Return figAx and stats --------------------------------------------------
-    return ((fig, ax), kdRatio)
+ax.spines['top'].set_visible(False)
+ax.spines['right'].set_visible(False)
+ax.spines['bottom'].set_visible(False)
+ax.spines['left'].set_visible(False)
+ax.set_facecolor('w')
+ax.get_xaxis().set_ticks(years)
+a = ax.get_xticks().tolist()
+years = np.arange(int(dteTicks[0]), int(dteTicks[-1])+1, 1)
+for i in range(len(a)):
+    a[i] = years[i]
+ax.get_xaxis().set_ticklabels(a)
+ax.get_yaxis().set_ticks([])
+ax.spines['bottom'].set_color('white')
+ax.tick_params(axis='x', colors='white')
+ax.set_xlim(ax.get_xlim()[0], len(dates)-1+xExtend)
+ax.set_aspect(aspect/ax.get_data_ratio(), adjustable='box')
