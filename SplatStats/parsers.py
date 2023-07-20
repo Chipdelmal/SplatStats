@@ -245,3 +245,12 @@ def boolToInt(entry, naValue=-1):
         return naValue
     else:
         return int(entry)
+    
+
+def addDateGroup(
+        playerHistory, 
+        slicer=(lambda x: "{}/{:02d}".format(x.year, x.week))
+    ):
+    dteSlice = playerHistory['datetime'].apply(slicer).copy()
+    playerHistory.insert(3, 'DateGroup', dteSlice)
+    return playerHistory

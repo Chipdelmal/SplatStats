@@ -53,6 +53,9 @@ if weapon != 'All':
     pHist = playerHistory[playerHistory['main weapon']==weapon]
 else:
     pHist = playerHistory
+splat.addDateGroup(
+    pHist, slicer=(lambda x: "{}/{:02d}/{:02d}".format(x.year, x.month, x.week))
+)
 ###############################################################################
 # Bumpchart
 ###############################################################################
@@ -63,11 +66,6 @@ wpnGrpBy = pHist.groupby('main weapon').sum('kill').reset_index()
 # Weapons frequencies --------------------------------------------------------
 weapons = sorted(list(wpnSet))
 weaponsCount = pHist.groupby('main weapon').size().sort_values(ascending=False)
-# Dates slicer ---------------------------------------------------------------
-dteSlice = pHist['datetime'].apply(
-    lambda x: "{}/{:02d}".format(x.year, x.week)
-).copy()
-pHist.insert(3, 'DateGroup', dteSlice)
 # Dated Counts ---------------------------------------------------------------
 STAT = 'participation'
 RANKS = len(weapons)
@@ -145,8 +143,8 @@ ax.set_facecolor('w')
 ax.get_xaxis().set_ticks(years)
 a = ax.get_xticks().tolist()
 years = np.arange(int(dteTicks[0]), int(dteTicks[-1])+1, 1)
-for i in range(len(a)):
-    a[i] = years[i]
+# for i in range(len(a)):
+#     a[i] = years[i]
 # ax.text(t[-1]/2, -1, STAT, va='center')
 ax.get_xaxis().set_ticklabels(a)
 ax.get_yaxis().set_ticks([])
