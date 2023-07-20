@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
+import numpy as np
 import pandas as pd
 from tqdm import tqdm
 from termcolor import colored
@@ -90,6 +91,10 @@ class Player:
         )
         battlesHistory['winBool'] = [1 if i=='W' else 0 for i in battlesHistory['win']]
         battlesHistory['loseBool'] = [1 if i=='L' else 0 for i in battlesHistory['win']]
+        battlesHistory['participation'] = [1]*battlesHistory.shape[0]
+        battlesHistory['kassist'] = (battlesHistory['kill']+0.5*battlesHistory['assist'])
+        battlesHistory['kad'] = battlesHistory['kassist']/battlesHistory['death']
+        battlesHistory.replace([np.inf, -np.inf], 0, inplace=True)
         if ammendWeapons:
             self.battlesHistory = battlesHistory.replace('Hero Shot Replica', 'Splattershot')
         else:
