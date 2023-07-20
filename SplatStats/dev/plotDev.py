@@ -53,7 +53,10 @@ if weapon != 'All':
     pHist = playerHistory[playerHistory['main weapon']==weapon]
 else:
     pHist = playerHistory
-splat.addDateGroup(pHist)
+splat.addDateGroup(
+    pHist, 
+    slicer=(lambda x: "{}/{}".format(x.isocalendar().year, x.isocalendar().week))
+)
 ###############################################################################
 # Bumpchart
 ###############################################################################
@@ -65,10 +68,11 @@ wpnGrpBy = pHist.groupby('main weapon').sum('kill').reset_index()
 weapons = sorted(list(wpnSet))
 weaponsCount = pHist.groupby('main weapon').size().sort_values(ascending=False)
 # Constants ------------------------------------------------------------------
-STAT = 'kad'
+STAT = 'participation'
 RANKS = len(weapons)
-HIGHLIGHT = wpnSet
-(WIN_W, WIN_M) = (4, 1)
+# HIGHLIGHT = {'Tentatek Splattershot', 'Splattershot', 'Neo Splash-o-matic'}
+HIGHLIGHT = set(weapons)
+(WIN_W, WIN_M) = (4, 4)
 # Weapon groups --------------------------------------------------------------
 grpd = pHist.groupby(['main weapon', 'DateGroup']).sum('kill')
 grpd['kad'] = grpd['kassist']/grpd['death']
@@ -83,15 +87,14 @@ cmap = splat.colorPaletteFromHexList([
     '#bde0fe', '#ff0054', '#0a369d', '#33a1fd', '#5465ff', 
     '#f0a6ca', '#ff499e', '#b79ced', '#aaf683', '#f1c0e8'
 ])
-
-
+# pHist[pHist['DateGroup']=='2023/52'][['DateGroup', 'datetime']]
 dates = sorted(list(dfCounts.columns))
 artists = sorted(list(dfCounts.index))
 (aspect, fontSize, lw) = (.2, 5, 1.75)
 (hiCol, loCol) = (.85, .15)
 (ySpace, colors) = (1, cmap(np.linspace(0, 1, len(artists))))
 # random.shuffle(colors)
-xExtend = 4
+xExtend = 1
 # Stats -----------------------------------------------------------------------
 artistsT0 = list(dfRanksR.index)
 ranksDate = list(dfRanksR.columns)[WIN_M]
@@ -101,8 +104,8 @@ ranksTF = list(dfRanksR[ranksDateF])
 # Ranks Plot ------------------------------------------------------------------
 t = list(range(0, len(dates)+xExtend, 1))
 xnew = np.linspace(0, max(t), 500)
-yearTicks = [i for i, s in enumerate(dates) if '/01' in s]
-years = np.arange(yearTicks[0], yearTicks[-1]+12, 12)
+# yearTicks = [i for i, s in enumerate(dates) if '/01' in s]
+# years = np.arange(yearTicks[0], yearTicks[-1]+12, 12)
 dteTicks = [item[:4] for item in dates if '/01' in item]
 (fig, ax) = plt.subplots(1, 1, figsize=(15, 3.5))
 for i in range(len(artists)):
@@ -133,7 +136,7 @@ for (art, pos) in zip(artistsT0, ranksT0):
     )
 for (art, pos) in zip(artistsT0, ranksTF):
     ax.text(
-        len(dates)-WIN_W+xExtend, RANKS-ySpace*(int(pos)-1)-ySpace*.2, art, 
+        len(dates), RANKS-ySpace*(int(pos)-1)-ySpace*.2, art, 
         ha='left', color='k', fontsize=fontSize
     )
 ax.spines['top'].set_visible(False)
@@ -141,13 +144,13 @@ ax.spines['right'].set_visible(False)
 ax.spines['bottom'].set_visible(False)
 ax.spines['left'].set_visible(False)
 ax.set_facecolor('w')
-ax.get_xaxis().set_ticks(years)
-a = ax.get_xticks().tolist()
-years = np.arange(int(dteTicks[0]), int(dteTicks[-1])+1, 1)
+# ax.get_xaxis().set_ticks(years)
+# a = ax.get_xticks().tolist()
+# years = np.arange(int(dteTicks[0]), int(dteTicks[-1])+1, 1)
 # for i in range(len(a)):
 #     a[i] = years[i]
 # ax.text(t[-1]/2, -1, STAT, va='center')
-ax.get_xaxis().set_ticklabels(a)
+# ax.get_xaxis().set_ticklabels(a)
 ax.get_yaxis().set_ticks([])
 ax.spines['bottom'].set_color('white')
 ax.tick_params(axis='x', colors='white')

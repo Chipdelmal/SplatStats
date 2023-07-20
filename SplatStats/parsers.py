@@ -249,7 +249,9 @@ def boolToInt(entry, naValue=-1):
 
 def addDateGroup(
         playerHistory, 
-        slicer=(lambda x: "{}/{:02d}".format(x.year, x.week))
+        slicer=(lambda x: "{}/{:02d}".format(
+            x.isocalendar().year, x.isocalendar().week
+        ))
     ):
     dteSlice = playerHistory['datetime'].apply(slicer).copy()
     playerHistory.insert(3, 'DateGroup', dteSlice)
