@@ -94,7 +94,7 @@ class Player:
         battlesHistory['participation'] = [1]*battlesHistory.shape[0]
         battlesHistory['kassist'] = (battlesHistory['kill']+0.5*battlesHistory['assist'])
         battlesHistory['kad'] = battlesHistory['kassist']/battlesHistory['death']
-        battlesHistory.replace([np.inf, -np.inf], 0, inplace=True)
+        battlesHistory.replace([np.inf, np.nan, -np.inf], 0, inplace=True)
         if ammendWeapons:
             self.battlesHistory = battlesHistory.replace('Hero Shot Replica', 'Splattershot')
         else:

@@ -53,9 +53,7 @@ if weapon != 'All':
     pHist = playerHistory[playerHistory['main weapon']==weapon]
 else:
     pHist = playerHistory
-splat.addDateGroup(
-    pHist, slicer=(lambda x: "{}/{:02d}/{:02d}".format(x.year, x.month, x.week))
-)
+splat.addDateGroup(pHist)
 ###############################################################################
 # Bumpchart
 ###############################################################################
@@ -66,12 +64,15 @@ wpnGrpBy = pHist.groupby('main weapon').sum('kill').reset_index()
 # Weapons frequencies --------------------------------------------------------
 weapons = sorted(list(wpnSet))
 weaponsCount = pHist.groupby('main weapon').size().sort_values(ascending=False)
-# Dated Counts ---------------------------------------------------------------
-STAT = 'participation'
+# Constants ------------------------------------------------------------------
+STAT = 'kad'
 RANKS = len(weapons)
 HIGHLIGHT = wpnSet
 (WIN_W, WIN_M) = (4, 1)
+# Weapon groups --------------------------------------------------------------
 grpd = pHist.groupby(['main weapon', 'DateGroup']).sum('kill')
+grpd['kad'] = grpd['kassist']/grpd['death']
+grpd.replace([np.inf, np.nan, -np.inf], 0, inplace=True)
 dfTable = grpd.unstack().reset_index().set_index("main weapon")[STAT]
 dfCounts = dfTable.replace(np.nan, 0)
 # Rank counts ----------------------------------------------------------------
