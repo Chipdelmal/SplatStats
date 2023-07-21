@@ -4,7 +4,6 @@
 import os    
 import tempfile
 os.environ['MPLCONFIGDIR'] = tempfile.mkdtemp()
-import time
 import numpy as np
 from os import path
 from sys import argv
@@ -15,7 +14,7 @@ import matplotlib.pyplot as plt
 
 
 if splat.isNotebook():
-    (plyrName, weapon, mode, overwrite) = ('čħîþ ウナギ', 'Splatana Wiper', 'All', 'True')
+    (plyrName, weapon, mode, overwrite) = ('čħîþ ウナギ', 'All', 'All', 'False')
     (iPath, bPath, oPath) = (
         path.expanduser('/Users/sanchez.hmsc/Documents/BattlesDocker/jsons'),
         path.expanduser('/Users/sanchez.hmsc/Documents/BattlesDocker/battles'),
@@ -55,6 +54,15 @@ if weapon!='All':
     playerHistory = playerHistory[playerHistory['main weapon']==weapon]
 else:
     playerHistory = playerHistory
+    # splat.addDateGroup(
+    #     playerHistory, slicer=(lambda x: "{}/{}".format(
+    #         x.isocalendar().year, x.isocalendar().week
+    #     ))
+    # )
+    # grpd = playerHistory.groupby(['main weapon', 'DateGroup']).sum('kill')
+    # grpd['kad'] = grpd['kassist']/grpd['death']
+    # grpd.replace([np.inf, np.nan, -np.inf], 0, inplace=True)
+    # grpd.reset_index()
 # Battle mode filter ----------------------------------------------------------
 ###############################################################################
 # Iris
@@ -403,4 +411,3 @@ plt.close()
 ###############################################################################
 # time.sleep(2)
 playerHistory.to_csv(path.join(oPath, f'{fNameID}.csv'))
-

@@ -7,6 +7,7 @@ from matplotlib.patches import Rectangle
 import SplatStats as splat
 from scipy import interpolate
 from os import path
+from matplotlib import colors
 import matplotlib.colors as mcolors
 from collections import Counter
 import warnings
@@ -54,8 +55,9 @@ if weapon != 'All':
 else:
     pHist = playerHistory
 splat.addDateGroup(
-    pHist, 
-    slicer=(lambda x: "{}/{}".format(x.isocalendar().year, x.isocalendar().week))
+    pHist, slicer=(lambda x: "{}/{:02d}".format(
+        x.isocalendar().year, x.isocalendar().week
+    ))
 )
 ###############################################################################
 # Bumpchart
@@ -164,3 +166,35 @@ plt.savefig(
     transparent=True,
     bbox_inches='tight', pad_inches=0, metadata=None
 )
+###############################################################################
+# Strips
+###############################################################################
+STAT = 'duration'
+# Weapon groups --------------------------------------------------------------
+grpd = pHist.groupby(['main weapon', 'DateGroup']).sum('kill')
+grpd['kad'] = grpd['kassist']/grpd['death']
+grpd.replace([np.inf, np.nan, -np.inf], 0, inplace=True)
+dfTable = grpd.unstack().reset_index().set_index("main weapon")[STAT]
+dfCounts = dfTable.replace(np.nan, 0)
+# Auxiliary variables --------------------------------------------------------
+(minDate, maxDate) = (sorted(dfCounts.columns)[0], sorted(dfCounts.columns)[-1])
+wpnSorting = pHist.groupby('main weapon').sum(STAT)[STAT].sort_values(
+    ascending=False
+)
+(minYear, minWeek) = (int(minDate[:4]), int(minDate[5:]))
+(maxYear, maxWeek) = (int(maxDate[:4]), int(maxDate[5:]))
+
+
+maxValue = max(dfCounts.max())
+
+
+(fig, ax) = plt.subplots(figsize=(10, 3), dpi=300)
+wpnCurrent = wpnSorting.index[0]
+
+# Get weapon values and dates ------------------------------------------------
+rowValues = dfCounts.loc[wpnCurrent]
+(rowDates, rowMagnitudes) = (list(rowValues.index), list(rowValues.values))
+# Convert dates to x coordinates ---------------------------------------------
+dateTuples = [[int(x) for x in d.split('/')] for d in rowDates]
+weekNumber = [(y%minYear)*52+w for (y, w) in dateTuples]
+# Convert values to colors ---------------------------------------------------
