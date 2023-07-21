@@ -169,7 +169,7 @@ dfRanksR = dfCountsR.rank(ascending=False, method='first', axis=0)
 ###############################################################################
 # Strips
 ###############################################################################
-STAT = 'kill'
+STAT = 'duration'
 # Weapon groups --------------------------------------------------------------
 grpd = pHist.groupby(['main weapon', 'DateGroup']).sum('kill')
 grpd['kad'] = grpd['kassist']/grpd['death']
@@ -212,9 +212,13 @@ for wpix in range(wpnsNumber):
             (week-width, wpix-height), 2*width, 2*height,
             color=clr(norm(value))
         ))
-ax.set_yticks(range(0, wpnsNumber), list(wpnSorting.index[::-1]))
 ax.set_xlim(min(weekNumber)-0.5, max(weekNumber)+0.5)
 ax.set_ylim(-1-height, wpnsNumber+height)
 ax.spines[['right', 'left', 'bottom', 'top']].set_visible(False)
-ax.tick_params(left=False, bottom=False)
 ax.set_xticklabels([])
+ax.set_yticks(range(0, wpnsNumber), list(wpnSorting.index[::-1]))
+ax.set_yticklabels([])
+ax.tick_params(left=False, bottom=False)
+for (row, label) in enumerate(list(wpnSorting.index[::-1])):
+    ax.text(0, row, label, va='center', ha='right')
+    ax.text(weekNumber[-1]+1, row, label, va='center', ha='left')
