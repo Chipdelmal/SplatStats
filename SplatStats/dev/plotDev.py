@@ -169,7 +169,7 @@ dfRanksR = dfCountsR.rank(ascending=False, method='first', axis=0)
 ###############################################################################
 # Strips
 ###############################################################################
-STAT = 'kad'
+STAT = 'kill'
 # Weapon groups --------------------------------------------------------------
 grpd = pHist.groupby(['main weapon', 'DateGroup']).sum('kill')
 grpd['kad'] = grpd['kassist']/grpd['death']
@@ -190,7 +190,7 @@ SAT_CATS = [
     '#311AA8AA', '#DE0B64AA', '#6BFF00AA', '#B62EA7AA', '#9030FF55',
 ]
 OTHER = '#101044'
-MAPS = [splat.colorPaletteFromHexList([c, '#ffffff99']) for c in SAT_CATS]
+MAPS = [splat.colorPaletteFromHexList(['#ffffff99', c]) for c in SAT_CATS]
 
 wpnsNumber = len(wpnSorting)
 (width, height) = (0.4, 0.4)
@@ -215,3 +215,6 @@ for wpix in range(wpnsNumber):
 ax.set_yticks(range(0, wpnsNumber), list(wpnSorting.index[::-1]))
 ax.set_xlim(min(weekNumber)-0.5, max(weekNumber)+0.5)
 ax.set_ylim(-1-height, wpnsNumber+height)
+ax.spines[['right', 'left', 'bottom', 'top']].set_visible(False)
+ax.tick_params(left=False, bottom=False)
+ax.set_xticklabels([])
