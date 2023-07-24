@@ -20,6 +20,14 @@ SplatStats.Player module
    :undoc-members:
    :show-inheritance:
 
+SplatStats.StatInk module
+-------------------------
+
+.. automodule:: SplatStats.StatInk
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 SplatStats.Team module
 ----------------------
 
@@ -88,6 +96,30 @@ SplatStats.plotsTeam module
 ---------------------------
 
 .. automodule:: SplatStats.plotsTeam
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+SplatStats.statInkConstants module
+----------------------------------
+
+.. automodule:: SplatStats.statInkConstants
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+SplatStats.statInkPlots module
+------------------------------
+
+.. automodule:: SplatStats.statInkPlots
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+SplatStats.statInkStats module
+------------------------------
+
+.. automodule:: SplatStats.statInkStats
    :members:
    :undoc-members:
    :show-inheritance:

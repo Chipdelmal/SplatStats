@@ -2,7 +2,7 @@
 <html  lang="en">
   <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width,initial-scale=1"><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+    <meta name="viewport" content="width=device-width,initial-scale=1"><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
       <title>SplatStats</title>
     
@@ -11,9 +11,6 @@
       
       <!-- sphinx script_files -->
         <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
-        <script src="_static/jquery.js"></script>
-        <script src="_static/underscore.js"></script>
-        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="_static/doctools.js"></script>
         <script src="_static/sphinx_highlight.js"></script>
 
@@ -210,6 +207,16 @@
 </li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="SplatStats.html#module-SplatStats.StatInk">SplatStats.StatInk module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="SplatStats.html#SplatStats.StatInk.StatInk"><code class="docutils literal notranslate"><span class="pre">StatInk</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="SplatStats.html#SplatStats.StatInk.StatInk.fPaths"><code class="docutils literal notranslate"><span class="pre">StatInk.fPaths</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="SplatStats.html#SplatStats.StatInk.StatInk.rawResults"><code class="docutils literal notranslate"><span class="pre">StatInk.rawResults</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="SplatStats.html#SplatStats.StatInk.StatInk.battleResults"><code class="docutils literal notranslate"><span class="pre">StatInk.battleResults</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="SplatStats.html#SplatStats.StatInk.StatInk.cleanBattlesDataframe"><code class="docutils literal notranslate"><span class="pre">StatInk.cleanBattlesDataframe()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="SplatStats.html#module-SplatStats.Team">SplatStats.Team module</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="SplatStats.html#SplatStats.Team.Team"><code class="docutils literal notranslate"><span class="pre">Team</span></code></a><ul>
 <li class="toctree-l4"><a class="reference internal" href="SplatStats.html#SplatStats.Team.Team.assembleTeamHistoryFromBattles"><code class="docutils literal notranslate"><span class="pre">Team.assembleTeamHistoryFromBattles()</span></code></a></li>
@@ -235,7 +242,10 @@
 <li class="toctree-l3"><a class="reference internal" href="SplatStats.html#SplatStats.auxiliary.setSplatoonFont"><code class="docutils literal notranslate"><span class="pre">setSplatoonFont()</span></code></a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="SplatStats.html#module-SplatStats.colors">SplatStats.colors module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="SplatStats.html#module-SplatStats.colors">SplatStats.colors module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="SplatStats.html#SplatStats.colors.colorPaletteFromHexList"><code class="docutils literal notranslate"><span class="pre">colorPaletteFromHexList()</span></code></a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="SplatStats.html#module-SplatStats.constants">SplatStats.constants module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="SplatStats.html#module-SplatStats.files">SplatStats.files module</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="SplatStats.html#SplatStats.files.dumpBattlesFromJSONS"><code class="docutils literal notranslate"><span class="pre">dumpBattlesFromJSONS()</span></code></a></li>
@@ -244,6 +254,8 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="SplatStats.html#module-SplatStats.parsers">SplatStats.parsers module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="SplatStats.html#SplatStats.parsers.addDateGroup"><code class="docutils literal notranslate"><span class="pre">addDateGroup()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="SplatStats.html#SplatStats.parsers.boolToInt"><code class="docutils literal notranslate"><span class="pre">boolToInt()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="SplatStats.html#SplatStats.parsers.getGear"><code class="docutils literal notranslate"><span class="pre">getGear()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="SplatStats.html#SplatStats.parsers.getGearUnit"><code class="docutils literal notranslate"><span class="pre">getGearUnit()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="SplatStats.html#SplatStats.parsers.getMatchScore"><code class="docutils literal notranslate"><span class="pre">getMatchScore()</span></code></a></li>
@@ -260,6 +272,11 @@
 <li class="toctree-l3"><a class="reference internal" href="SplatStats.html#SplatStats.plots.plotAwardFrequencies"><code class="docutils literal notranslate"><span class="pre">plotAwardFrequencies()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="SplatStats.html#SplatStats.plots.plotCircularBarchartStat"><code class="docutils literal notranslate"><span class="pre">plotCircularBarchartStat()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="SplatStats.html#SplatStats.plots.plotIris"><code class="docutils literal notranslate"><span class="pre">plotIris()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="SplatStats.html#SplatStats.plots.plotIrisAxes"><code class="docutils literal notranslate"><span class="pre">plotIrisAxes()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="SplatStats.html#SplatStats.plots.plotIrisHistory"><code class="docutils literal notranslate"><span class="pre">plotIrisHistory()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="SplatStats.html#SplatStats.plots.plotIrisKDP"><code class="docutils literal notranslate"><span class="pre">plotIrisKDP()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="SplatStats.html#SplatStats.plots.plotIrisMatch"><code class="docutils literal notranslate"><span class="pre">plotIrisMatch()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="SplatStats.html#SplatStats.plots.plotIrisStats"><code class="docutils literal notranslate"><span class="pre">plotIrisStats()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="SplatStats.html#SplatStats.plots.plotKillsAndDeathsHistogram"><code class="docutils literal notranslate"><span class="pre">plotKillsAndDeathsHistogram()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="SplatStats.html#SplatStats.plots.plotMatchHistory"><code class="docutils literal notranslate"><span class="pre">plotMatchHistory()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="SplatStats.html#SplatStats.plots.plotMatchTypeBars"><code class="docutils literal notranslate"><span class="pre">plotMatchTypeBars()</span></code></a></li>
@@ -282,6 +299,38 @@
 <li class="toctree-l3"><a class="reference internal" href="SplatStats.html#SplatStats.plotsTeam.plotStreamTeam"><code class="docutils literal notranslate"><span class="pre">plotStreamTeam()</span></code></a></li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="SplatStats.html#module-SplatStats.statInkConstants">SplatStats.statInkConstants module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="SplatStats.html#module-SplatStats.statInkPlots">SplatStats.statInkPlots module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="SplatStats.html#SplatStats.statInkPlots.barChartLobby"><code class="docutils literal notranslate"><span class="pre">barChartLobby()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="SplatStats.html#SplatStats.statInkPlots.plotDominanceMatrix"><code class="docutils literal notranslate"><span class="pre">plotDominanceMatrix()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="SplatStats.html#SplatStats.statInkPlots.plotGaussianLobby"><code class="docutils literal notranslate"><span class="pre">plotGaussianLobby()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="SplatStats.html#SplatStats.statInkPlots.plotPolarFrequencies"><code class="docutils literal notranslate"><span class="pre">plotPolarFrequencies()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="SplatStats.html#SplatStats.statInkPlots.plotStackedBar"><code class="docutils literal notranslate"><span class="pre">plotStackedBar()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="SplatStats.html#SplatStats.statInkPlots.plotWeaponStrip"><code class="docutils literal notranslate"><span class="pre">plotWeaponStrip()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="SplatStats.html#SplatStats.statInkPlots.plotWeaponsStrips"><code class="docutils literal notranslate"><span class="pre">plotWeaponsStrips()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="SplatStats.html#module-SplatStats.statInkStats">SplatStats.statInkStats module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="SplatStats.html#SplatStats.statInkStats.calculateDominanceMatrix"><code class="docutils literal notranslate"><span class="pre">calculateDominanceMatrix()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="SplatStats.html#SplatStats.statInkStats.calculateDominanceMatrixRatio"><code class="docutils literal notranslate"><span class="pre">calculateDominanceMatrixRatio()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="SplatStats.html#SplatStats.statInkStats.countDailyLobbies"><code class="docutils literal notranslate"><span class="pre">countDailyLobbies()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="SplatStats.html#SplatStats.statInkStats.flatten"><code class="docutils literal notranslate"><span class="pre">flatten()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="SplatStats.html#SplatStats.statInkStats.getLobbyFrequencies"><code class="docutils literal notranslate"><span class="pre">getLobbyFrequencies()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="SplatStats.html#SplatStats.statInkStats.getModeFrequencies"><code class="docutils literal notranslate"><span class="pre">getModeFrequencies()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="SplatStats.html#SplatStats.statInkStats.getTeamsWeapons"><code class="docutils literal notranslate"><span class="pre">getTeamsWeapons()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="SplatStats.html#SplatStats.statInkStats.getWeaponStatsHistograms"><code class="docutils literal notranslate"><span class="pre">getWeaponStatsHistograms()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="SplatStats.html#SplatStats.statInkStats.getWeaponStatsMean"><code class="docutils literal notranslate"><span class="pre">getWeaponStatsMean()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="SplatStats.html#SplatStats.statInkStats.getWeaponsDataframe"><code class="docutils literal notranslate"><span class="pre">getWeaponsDataframe()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="SplatStats.html#SplatStats.statInkStats.getWeaponsFrequencies"><code class="docutils literal notranslate"><span class="pre">getWeaponsFrequencies()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="SplatStats.html#SplatStats.statInkStats.getWeaponsSet"><code class="docutils literal notranslate"><span class="pre">getWeaponsSet()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="SplatStats.html#SplatStats.statInkStats.getWeaponsStatsHistograms"><code class="docutils literal notranslate"><span class="pre">getWeaponsStatsHistograms()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="SplatStats.html#SplatStats.statInkStats.getWeaponsStatsSummary"><code class="docutils literal notranslate"><span class="pre">getWeaponsStatsSummary()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="SplatStats.html#SplatStats.statInkStats.getWeaponsWLT"><code class="docutils literal notranslate"><span class="pre">getWeaponsWLT()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="SplatStats.html#SplatStats.statInkStats.normalizeDominanceMatrix"><code class="docutils literal notranslate"><span class="pre">normalizeDominanceMatrix()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="SplatStats.html#SplatStats.statInkStats.rankWeaponsFrequency"><code class="docutils literal notranslate"><span class="pre">rankWeaponsFrequency()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="SplatStats.html#SplatStats.statInkStats.smoothCountDailyLobbies"><code class="docutils literal notranslate"><span class="pre">smoothCountDailyLobbies()</span></code></a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="SplatStats.html#module-SplatStats.stats">SplatStats.stats module</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="SplatStats.html#SplatStats.stats.aggregateStatsByPeriod"><code class="docutils literal notranslate"><span class="pre">aggregateStatsByPeriod()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="SplatStats.html#SplatStats.stats.ammendStagesStatsByType"><code class="docutils literal notranslate"><span class="pre">ammendStagesStatsByType()</span></code></a></li>
@@ -295,6 +344,8 @@
 <li class="toctree-l3"><a class="reference internal" href="SplatStats.html#SplatStats.stats.getTeamRanks"><code class="docutils literal notranslate"><span class="pre">getTeamRanks()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="SplatStats.html#SplatStats.stats.getTeamTotals"><code class="docutils literal notranslate"><span class="pre">getTeamTotals()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="SplatStats.html#SplatStats.stats.longestRun"><code class="docutils literal notranslate"><span class="pre">longestRun()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="SplatStats.html#SplatStats.stats.statPerMinute"><code class="docutils literal notranslate"><span class="pre">statPerMinute()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="SplatStats.html#SplatStats.stats.statSummaries"><code class="docutils literal notranslate"><span class="pre">statSummaries()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="SplatStats.html#SplatStats.stats.windowAverage"><code class="docutils literal notranslate"><span class="pre">windowAverage()</span></code></a></li>
 </ul>
 </li>
@@ -312,7 +363,7 @@
 </ul><div class="footer" role="contentinfo">
       &#169; Copyright 2022, chipdelmal.
     <br>
-    Created using <a href="http://sphinx-doc.org/">Sphinx</a> 5.2.3 with <a href="https://github.com/schettino72/sphinx_press_theme">Press Theme</a> 0.8.0.
+    Created using <a href="http://sphinx-doc.org/">Sphinx</a> 6.2.1 with <a href="https://github.com/schettino72/sphinx_press_theme">Press Theme</a> 0.8.0.
 </div>
             </div>
           </div>

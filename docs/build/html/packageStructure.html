@@ -2,7 +2,7 @@
 <html  lang="en">
   <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width,initial-scale=1"><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+    <meta name="viewport" content="width=device-width,initial-scale=1"><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
       <title>Pkg and Data Structures</title>
     
@@ -11,9 +11,6 @@
       
       <!-- sphinx script_files -->
         <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
-        <script src="_static/jquery.js"></script>
-        <script src="_static/underscore.js"></script>
-        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="_static/doctools.js"></script>
         <script src="_static/sphinx_highlight.js"></script>
         <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
@@ -191,12 +188,12 @@ The <strong>Player</strong> one being a wrapper that contains information about 
 </ul>
 <a class="reference internal image-reference" href="_images/playerDF.png"><img alt="_images/playerDF.png" src="_images/playerDF.png" style="width: 100%;" /></a>
 <p>The full list of current dataframe columns is:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="s1">&#39;main weapon&#39;</span>, <span class="s1">&#39;sub weapon&#39;</span>, <span class="s1">&#39;special weapon&#39;</span>, <span class="s1">&#39;kill&#39;</span>, <span class="s1">&#39;death&#39;</span>,
-<span class="s1">&#39;assist&#39;</span>, <span class="s1">&#39;special&#39;</span>, <span class="s1">&#39;paint&#39;</span>, <span class="s1">&#39;head name&#39;</span>, <span class="s1">&#39;head main&#39;</span>, <span class="s1">&#39;head sub_0&#39;</span>,
-<span class="s1">&#39;head sub_1&#39;</span>, <span class="s1">&#39;head sub_2&#39;</span>, <span class="s1">&#39;shirt name&#39;</span>, <span class="s1">&#39;shirt main&#39;</span>, <span class="s1">&#39;shirt sub_0&#39;</span>,
-<span class="s1">&#39;shirt sub_1&#39;</span>, <span class="s1">&#39;shirt sub_2&#39;</span>, <span class="s1">&#39;shoes name&#39;</span>, <span class="s1">&#39;shoes main&#39;</span>, <span class="s1">&#39;shoes sub_0&#39;</span>,
-<span class="s1">&#39;shoes sub_1&#39;</span>, <span class="s1">&#39;shoes sub_2&#39;</span>, <span class="s1">&#39;win&#39;</span>, <span class="s1">&#39;score&#39;</span>, <span class="s1">&#39;datetime&#39;</span>, <span class="s1">&#39;ko&#39;</span>, <span class="s1">&#39;stage&#39;</span>,
-<span class="s1">&#39;match type&#39;</span>, <span class="s1">&#39;duration&#39;</span>, <span class="s1">&#39;splatfest&#39;</span>, <span class="s1">&#39;award_0&#39;</span>, <span class="s1">&#39;award_1&#39;</span>, <span class="s1">&#39;award_2&#39;</span>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="s1">&#39;main weapon&#39;</span>,<span class="w"> </span><span class="s1">&#39;sub weapon&#39;</span>,<span class="w"> </span><span class="s1">&#39;special weapon&#39;</span>,<span class="w"> </span><span class="s1">&#39;kill&#39;</span>,<span class="w"> </span><span class="s1">&#39;death&#39;</span>,
+<span class="s1">&#39;assist&#39;</span>,<span class="w"> </span><span class="s1">&#39;special&#39;</span>,<span class="w"> </span><span class="s1">&#39;paint&#39;</span>,<span class="w"> </span><span class="s1">&#39;head name&#39;</span>,<span class="w"> </span><span class="s1">&#39;head main&#39;</span>,<span class="w"> </span><span class="s1">&#39;head sub_0&#39;</span>,
+<span class="s1">&#39;head sub_1&#39;</span>,<span class="w"> </span><span class="s1">&#39;head sub_2&#39;</span>,<span class="w"> </span><span class="s1">&#39;shirt name&#39;</span>,<span class="w"> </span><span class="s1">&#39;shirt main&#39;</span>,<span class="w"> </span><span class="s1">&#39;shirt sub_0&#39;</span>,
+<span class="s1">&#39;shirt sub_1&#39;</span>,<span class="w"> </span><span class="s1">&#39;shirt sub_2&#39;</span>,<span class="w"> </span><span class="s1">&#39;shoes name&#39;</span>,<span class="w"> </span><span class="s1">&#39;shoes main&#39;</span>,<span class="w"> </span><span class="s1">&#39;shoes sub_0&#39;</span>,
+<span class="s1">&#39;shoes sub_1&#39;</span>,<span class="w"> </span><span class="s1">&#39;shoes sub_2&#39;</span>,<span class="w"> </span><span class="s1">&#39;win&#39;</span>,<span class="w"> </span><span class="s1">&#39;score&#39;</span>,<span class="w"> </span><span class="s1">&#39;datetime&#39;</span>,<span class="w"> </span><span class="s1">&#39;ko&#39;</span>,<span class="w"> </span><span class="s1">&#39;stage&#39;</span>,
+<span class="s1">&#39;match type&#39;</span>,<span class="w"> </span><span class="s1">&#39;duration&#39;</span>,<span class="w"> </span><span class="s1">&#39;splatfest&#39;</span>,<span class="w"> </span><span class="s1">&#39;award_0&#39;</span>,<span class="w"> </span><span class="s1">&#39;award_1&#39;</span>,<span class="w"> </span><span class="s1">&#39;award_2&#39;</span>
 </pre></div>
 </div>
 <p>This <code class="code docutils literal notranslate"><span class="pre">battlesHistory</span></code> dataframe contains similar information to the one stored in the <a class="reference external" href="./packageStructure.html#team-enemy-dataframe">AlliedTeam/EnemyTeams dataframes</a> in the <a class="reference external" href="./packageStructure.html#battle">Battle class</a>, but with some of the class’ attributes added to the rows so that they can be analyzed easily (such as match type, date, score, etc).</p>
@@ -210,19 +207,19 @@ The <strong>Player</strong> one being a wrapper that contains information about 
 <section id="battle">
 <h2>Battle<a class="headerlink" href="#battle" title="Permalink to this heading">¶</a></h2>
 <p>Ideally, we would access our be accessing our battle objects from within the <strong>Player</strong> class. To do this, we would run:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nv">hPaths</span> <span class="o">=</span> splat.getDataFilepaths<span class="o">(</span>IN_PATH, <span class="nv">filePat</span><span class="o">=</span><span class="s1">&#39;results.json&#39;</span><span class="o">)</span>
-<span class="nv">bPaths</span> <span class="o">=</span> splat.dumpBattlesFromJSONS<span class="o">(</span>OUT_PATH, oPath<span class="o">)</span>
-<span class="nv">plyr</span> <span class="o">=</span> splat.Player<span class="o">(</span>PLAYER_NAME, bPaths, <span class="nv">timezone</span><span class="o">=</span><span class="s1">&#39;America/Los_Angeles&#39;</span><span class="o">)</span>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nv">hPaths</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>splat.getDataFilepaths<span class="o">(</span>IN_PATH,<span class="w"> </span><span class="nv">filePat</span><span class="o">=</span><span class="s1">&#39;results.json&#39;</span><span class="o">)</span>
+<span class="nv">bPaths</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>splat.dumpBattlesFromJSONS<span class="o">(</span>OUT_PATH,<span class="w"> </span>oPath<span class="o">)</span>
+<span class="nv">plyr</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>splat.Player<span class="o">(</span>PLAYER_NAME,<span class="w"> </span>bPaths,<span class="w"> </span><span class="nv">timezone</span><span class="o">=</span><span class="s1">&#39;America/Los_Angeles&#39;</span><span class="o">)</span>
 </pre></div>
 </div>
 <p>This will parse all the JSON files in the <code class="code docutils literal notranslate"><span class="pre">IN_PATH</span></code> folder, convert them into Battle objects and serialize them to disk into the <code class="code docutils literal notranslate"><span class="pre">OUT_PATH</span></code> folder; and the battle objects would be stored in the <code class="code docutils literal notranslate"><span class="pre">battlesRecords</span></code> attribute of the <strong>plyr</strong> object.</p>
 <p>Alternatively, individual battle files can be read with the following command:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nv">battle</span> <span class="o">=</span> splat.loadBattle<span class="o">(</span>filePath<span class="o">)</span>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nv">battle</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>splat.loadBattle<span class="o">(</span>filePath<span class="o">)</span>
 </pre></div>
 </div>
 <p>Some important attributes in these objects include:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>datetime, duration, ko, matchType, matchMode, festMatch,
-stage, awards, alliedTeam, enemyTeams
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>datetime,<span class="w"> </span>duration,<span class="w"> </span>ko,<span class="w"> </span>matchType,<span class="w"> </span>matchMode,<span class="w"> </span>festMatch,
+stage,<span class="w"> </span>awards,<span class="w"> </span>alliedTeam,<span class="w"> </span>enemyTeams
 </pre></div>
 </div>
 <p>Most of them are pretty self-explanatory, but more information on them can be found on the <a class="reference external" href="./SplatStats.html#module-SplatStats.Battle">class’ docs</a>.
@@ -320,11 +317,11 @@ In general, calculated stats revolve around the following numbers:</p>
 <h2>Stages Stats Dataframe<a class="headerlink" href="#stages-stats-dataframe" title="Permalink to this heading">¶</a></h2>
 <p>This structure is by calculating the stages stats from a battleHistory dataframe, which can be achieved by using either the <code class="code docutils literal notranslate"><span class="pre">splat.calcStagesStatsByType(battleHistory)</span></code> or <code class="code docutils literal notranslate"><span class="pre">splat.calcStagesStats(battleHistory)</span></code> functions.
 Once done this, we can get the following information:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="s1">&#39;stage&#39;</span>, <span class="s1">&#39;total matches&#39;</span>, <span class="s1">&#39;paint&#39;</span>, <span class="s1">&#39;win&#39;</span>, <span class="s1">&#39;loss&#39;</span>, <span class="s1">&#39;win ratio&#39;</span>,
-<span class="s1">&#39;kill ratio&#39;</span>, <span class="s1">&#39;kassists ratio&#39;</span>, <span class="s1">&#39;kills&#39;</span>, <span class="s1">&#39;deaths&#39;</span>, <span class="s1">&#39;assists&#39;</span>, <span class="s1">&#39;special&#39;</span>,
-<span class="s1">&#39;kassists&#39;</span>, <span class="s1">&#39;kills avg&#39;</span>, <span class="s1">&#39;deaths avg&#39;</span>, <span class="s1">&#39;assists avg&#39;</span>, <span class="s1">&#39;special avg&#39;</span>,
-<span class="s1">&#39;paint avg&#39;</span>, <span class="s1">&#39;kassists avg&#39;</span>, <span class="s1">&#39;kills prm&#39;</span>, <span class="s1">&#39;deaths prm&#39;</span>, <span class="s1">&#39;assists prm&#39;</span>,
-<span class="s1">&#39;special prm&#39;</span>, <span class="s1">&#39;paint prm&#39;</span>, <span class="s1">&#39;kassists prm&#39;</span>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="s1">&#39;stage&#39;</span>,<span class="w"> </span><span class="s1">&#39;total matches&#39;</span>,<span class="w"> </span><span class="s1">&#39;paint&#39;</span>,<span class="w"> </span><span class="s1">&#39;win&#39;</span>,<span class="w"> </span><span class="s1">&#39;loss&#39;</span>,<span class="w"> </span><span class="s1">&#39;win ratio&#39;</span>,
+<span class="s1">&#39;kill ratio&#39;</span>,<span class="w"> </span><span class="s1">&#39;kassists ratio&#39;</span>,<span class="w"> </span><span class="s1">&#39;kills&#39;</span>,<span class="w"> </span><span class="s1">&#39;deaths&#39;</span>,<span class="w"> </span><span class="s1">&#39;assists&#39;</span>,<span class="w"> </span><span class="s1">&#39;special&#39;</span>,
+<span class="s1">&#39;kassists&#39;</span>,<span class="w"> </span><span class="s1">&#39;kills avg&#39;</span>,<span class="w"> </span><span class="s1">&#39;deaths avg&#39;</span>,<span class="w"> </span><span class="s1">&#39;assists avg&#39;</span>,<span class="w"> </span><span class="s1">&#39;special avg&#39;</span>,
+<span class="s1">&#39;paint avg&#39;</span>,<span class="w"> </span><span class="s1">&#39;kassists avg&#39;</span>,<span class="w"> </span><span class="s1">&#39;kills prm&#39;</span>,<span class="w"> </span><span class="s1">&#39;deaths prm&#39;</span>,<span class="w"> </span><span class="s1">&#39;assists prm&#39;</span>,
+<span class="s1">&#39;special prm&#39;</span>,<span class="w"> </span><span class="s1">&#39;paint prm&#39;</span>,<span class="w"> </span><span class="s1">&#39;kassists prm&#39;</span>
 </pre></div>
 </div>
 <p>Where each row will be a different stage (sorted by “win ratio” by default).</p>
@@ -334,7 +331,7 @@ Once done this, we can get the following information:</p>
 <section id="weapons-stats-dataframe">
 <h2>Weapons Stats Dataframe<a class="headerlink" href="#weapons-stats-dataframe" title="Permalink to this heading">¶</a></h2>
 <p>Finally, the same dataframe can be calculated for any arbitrary key in the dataframe by running:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>splat.calcStatsByKey<span class="o">(</span>playerHistory, <span class="s1">&#39;main weapon&#39;</span><span class="o">)</span>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>splat.calcStatsByKey<span class="o">(</span>playerHistory,<span class="w"> </span><span class="s1">&#39;main weapon&#39;</span><span class="o">)</span>
 </pre></div>
 </div>
 <p>Which results in an equivalent dataframe for the selected key.</p>
@@ -356,7 +353,7 @@ Once done this, we can get the following information:</p>
 </ul><div class="footer" role="contentinfo">
       &#169; Copyright 2022, chipdelmal.
     <br>
-    Created using <a href="http://sphinx-doc.org/">Sphinx</a> 5.2.3 with <a href="https://github.com/schettino72/sphinx_press_theme">Press Theme</a> 0.8.0.
+    Created using <a href="http://sphinx-doc.org/">Sphinx</a> 6.2.1 with <a href="https://github.com/schettino72/sphinx_press_theme">Press Theme</a> 0.8.0.
 </div>
             </div>
           </div>

@@ -2,7 +2,7 @@
 <html  lang="en">
   <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width,initial-scale=1"><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+    <meta name="viewport" content="width=device-width,initial-scale=1"><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
       <title>Quickstart</title>
     
@@ -11,9 +11,6 @@
       
       <!-- sphinx script_files -->
         <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
-        <script src="_static/jquery.js"></script>
-        <script src="_static/underscore.js"></script>
-        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="_static/doctools.js"></script>
         <script src="_static/sphinx_highlight.js"></script>
 
@@ -181,11 +178,11 @@ Even though <a class="reference external" href="https://chipdelmal.github.io/Spl
 <h2>Getting s3s up and running<a class="headerlink" href="#getting-s3s-up-and-running" title="Permalink to this heading">¶</a></h2>
 <p>We will provide a brief set of instructions to get <a class="reference external" href="https://github.com/frozenpandaman/s3s/">s3s</a> running, but please refer to <a class="reference external" href="https://github.com/frozenpandaman/s3s/">their repo</a> for more information.</p>
 <p>First, we need to clone or download the <a class="reference external" href="https://github.com/frozenpandaman/s3s/">repository</a>. Once we do this, we navigate to the folder and install the required libraries with:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip install -r requirements.txt
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>-r<span class="w"> </span>requirements.txt
 </pre></div>
 </div>
 <p>With those in place, we run the main script with the <cite>-o</cite> flag so that it exports the JSON files to disk:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python s3s.py -o
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>s3s.py<span class="w"> </span>-o
 </pre></div>
 </div>
 <p>The first time it’s run, it will ask us to follow some instructions so that it can gain access to your splatoon data (for more information have a look at <a class="reference external" href="https://github.com/frozenpandaman/s3s/">s3s</a> or <a class="reference external" href="https://github.com/frozenpandaman/splatnet2statink">splatnet2statink</a>  instructions).
@@ -195,11 +192,11 @@ Please note that it might be necessary to create an account in <a class="referen
 <section id="installing-splatstats">
 <h2>Installing SplatStats<a class="headerlink" href="#installing-splatstats" title="Permalink to this heading">¶</a></h2>
 <p>To install the latest <a class="reference external" href="https://chipdelmal.github.io/SplatStats/">SplatStats</a> version, simply run:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip install SplatStats
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>SplatStats
 </pre></div>
 </div>
 <p>And to upgrade it:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip install SplatStats --upgrade
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>SplatStats<span class="w"> </span>--upgrade
 </pre></div>
 </div>
 <p>The use of virtual environments is highly recommended, and we do provide our <a class="reference external" href="https://github.com/Chipdelmal/SplatStats/blob/main/requirements.yml">requirements.yml</a> file to install all the required dependencies to run both <a class="reference external" href="https://chipdelmal.github.io/SplatStats/">SplatStats</a> and <a class="reference external" href="https://github.com/frozenpandaman/s3s/">s3s</a> in an <a class="reference external" href="https://www.anaconda.com/">anaconda</a> virtual environment.</p>
@@ -213,19 +210,19 @@ Please note that it might be necessary to create an account in <a class="referen
 <p>First, we need to have our <cite>export</cite> folders in one location (there could be other files/folder in the path, SplatStats pattern matches <cite>export-*</cite>, but can be modified).
 An example of the structure follows:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>dataJSON
-    export-1663442390
-        coop_results.json
-        overview.json
-        results.json
-    export-1663442341
-        coop_results.json
-        overview.json
-        results.json
-    export-1663442130
-        coop_results.json
-        overview.json
-        results.json
-    ...
+<span class="w">    </span>export-1663442390
+<span class="w">        </span>coop_results.json
+<span class="w">        </span>overview.json
+<span class="w">        </span>results.json
+<span class="w">    </span>export-1663442341
+<span class="w">        </span>coop_results.json
+<span class="w">        </span>overview.json
+<span class="w">        </span>results.json
+<span class="w">    </span>export-1663442130
+<span class="w">        </span>coop_results.json
+<span class="w">        </span>overview.json
+<span class="w">        </span>results.json
+<span class="w">    </span>...
 </pre></div>
 </div>
 <p>Where the ID number of the folder is not relevant as it will be auto-matched by our parsing routines. For an example of these files, follow <a class="reference external" href="https://github.com/Chipdelmal/SplatStats/tree/main/SplatStats/demos">this link</a>.</p>
@@ -319,7 +316,7 @@ An example of the structure follows:</p>
 </ul><div class="footer" role="contentinfo">
       &#169; Copyright 2022, chipdelmal.
     <br>
-    Created using <a href="http://sphinx-doc.org/">Sphinx</a> 5.2.3 with <a href="https://github.com/schettino72/sphinx_press_theme">Press Theme</a> 0.8.0.
+    Created using <a href="http://sphinx-doc.org/">Sphinx</a> 6.2.1 with <a href="https://github.com/schettino72/sphinx_press_theme">Press Theme</a> 0.8.0.
 </div>
             </div>
           </div>

@@ -34,7 +34,7 @@ clean_pypi:
 	- rm -rf build/
 
 doc:
-	- pip install .
+	- python -m pip install .
 	- sphinx-apidoc -f -o docs/source SplatStats
 	- sphinx-build -b html docs/source/ docs/build/html
 

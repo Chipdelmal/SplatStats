@@ -46,7 +46,7 @@ To run the image, navigate to the :code:`data` folder location and run the follo
     --net=host \
     --user "$(id -u):$(id -g)" \
     -v "$(pwd)":/data/ \
-    splatstats:dev \
+    chipdelmal/splatstats \
     --player "čħîþ ウナギ" --download True --upload False --overwrite True --weapon All
 
 
