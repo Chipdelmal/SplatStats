@@ -170,7 +170,7 @@ dfRanksR = dfCountsR.rank(ascending=False, method='first', axis=0)
 ###############################################################################
 # Strips
 ###############################################################################
-STAT = 'kill'
+STAT = 'kassist'
 # Weapon groups --------------------------------------------------------------
 grpd = pHist.groupby(['main weapon', 'DateGroup']).sum('kill')
 grpd['kad'] = grpd['kassist']/grpd['death']
@@ -228,18 +228,23 @@ for (row, label) in enumerate(list(wpnSorting.index[::-1])):
 # Polar Strips
 ###############################################################################
 clockwise=True
-rRange=(0, 270)
+rRange=(0, 180)
 origin='N' 
 direction=1
 offset=4
-height=2
+height=1
+double_label=True
 wpnsNumber = len(wpnSorting)
 (fig, ax) = plt.subplots(
     figsize=(10, 10), subplot_kw={"projection": "polar"}
 )
 wpix = 25
 for wpix in range(wpnsNumber):
-    wpnCurrent = wpnSorting.index[::-1][wpix]
+    (wpnCurrent, wpnTotal) = (
+        wpnSorting.index[::-1][wpix],
+        wpnSorting.values[::-1][wpix]
+    )
+    wpnLabel = f' {wpnCurrent} ({wpnTotal})'
     clr = MAPS[wpix%len(MAPS)]
     # Get weapon values and dates ------------------------------------------------
     rowValues = dfCounts.loc[wpnCurrent]
@@ -251,13 +256,47 @@ for wpix in range(wpnsNumber):
     rDelta = radians(rRange[1])/weekNumber[-1]
     deltas = np.arange(0, radians(rRange[1])+rDelta, rDelta)
     weekBars = [(i*rDelta, rDelta) for i in range(len(deltas)-1)]
-    colors = [clr(norm(value)) for value in rowMagnitudes]
+    clrsBlocks = [clr(norm(value)) for value in rowMagnitudes]
     ax.broken_barh(
         weekBars, (offset+wpix*height, height),
-        facecolors=colors, 
+        facecolors=clrsBlocks, 
         edgecolors='#ffffff55'
     )
-    
+    ax.text(
+        0, offset+wpix*height+height/2, 
+        wpnLabel,
+        va='center', ha='left', fontsize=8.5
+    )
+    if double_label:
+        ax.text(
+            radians(rRange[1]), 
+            offset+wpix*height+height/2, 
+            wpnLabel,
+            va='center', ha='left', fontsize=8.5
+        )
+ax.set_xticklabels([])
+ax.set_yticklabels([])
+major_ticks = np.arange(
+    offset+wpnsNumber*height, offset, -len(MAPS)*height
+)
+minor_ticks = np.arange(
+    offset+wpnsNumber*height, offset, height
+)
+ax.set_rticks(major_ticks)
+ax.grid(which='both')
+ax.grid(which='major', alpha=0.75)
+ax.set_xlim(0, radians(rRange[1]))
 ax.set_ylim(0, offset+wpnsNumber*height)
 ax.set_theta_zero_location(origin)
 ax.set_theta_direction(direction)
+ax.spines['polar'].set_visible(False)
+ax.set_rlabel_position(0)
+ax.xaxis.grid(False)
+ax.yaxis.grid(True)
+plt.savefig(
+    path.expanduser('~/Desktop/weaponRank.png'),
+    dpi=300, orientation='portrait', format=None,
+    facecolor='w', edgecolor='w',
+    transparent=True,
+    bbox_inches='tight', pad_inches=0, metadata=None
+)
