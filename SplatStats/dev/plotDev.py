@@ -228,7 +228,7 @@ for (row, label) in enumerate(list(wpnSorting.index[::-1])):
 # Polar Strips
 ###############################################################################
 clockwise=True
-rRange=(0, 2*math.pi)
+rRange=(0, 270)
 origin='N' 
 direction=1
 offset=4
@@ -240,6 +240,7 @@ wpnsNumber = len(wpnSorting)
 wpix = 25
 for wpix in range(wpnsNumber):
     wpnCurrent = wpnSorting.index[::-1][wpix]
+    clr = MAPS[wpix%len(MAPS)]
     # Get weapon values and dates ------------------------------------------------
     rowValues = dfCounts.loc[wpnCurrent]
     (rowDates, rowMagnitudes) = (list(rowValues.index), list(rowValues.values))
@@ -247,17 +248,16 @@ for wpix in range(wpnsNumber):
     dateTuples = [[int(x) for x in d.split('/')] for d in rowDates]
     weekNumber = [(y%minYear)*52+w-minWeek+1 for (y, w) in dateTuples]
     # Convert values to colors ---------------------------------------------------
-    clr = MAPS[wpix%len(MAPS)]
-    zipper = zip(rowMagnitudes, weekNumber)
-    rDelta = rRange[1]/weekNumber[-1]
-    deltas = np.arange(0, 2*math.pi, rDelta)
-    weekBars = [(i, rDelta) for i in range(len(deltas)-1)]
+    rDelta = radians(rRange[1])/weekNumber[-1]
+    deltas = np.arange(0, radians(rRange[1])+rDelta, rDelta)
+    weekBars = [(i*rDelta, rDelta) for i in range(len(deltas)-1)]
     colors = [clr(norm(value)) for value in rowMagnitudes]
     ax.broken_barh(
         weekBars, (offset+wpix*height, height),
         facecolors=colors, 
-        edgecolors='#00000000'
+        edgecolors='#ffffff55'
     )
-    ax.set_ylim(0, offset+wpnsNumber*height+height)
-    ax.set_theta_zero_location(origin)
-    ax.set_theta_direction(direction)
+    
+ax.set_ylim(0, offset+wpnsNumber*height)
+ax.set_theta_zero_location(origin)
+ax.set_theta_direction(direction)
