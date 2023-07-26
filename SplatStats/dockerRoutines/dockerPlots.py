@@ -54,41 +54,28 @@ if weapon!='All':
     playerHistory = playerHistory[playerHistory['main weapon']==weapon]
 else:
     playerHistory = playerHistory
-    # splat.addDateGroup(
-    #     playerHistory, slicer=(lambda x: "{}/{}".format(
-    #         x.isocalendar().year, x.isocalendar().week
-    #     ))
-    # )
-    # grpd = playerHistory.groupby(['main weapon', 'DateGroup']).sum('kill')
-    # grpd['kad'] = grpd['kassist']/grpd['death']
-    # grpd.replace([np.inf, np.nan, -np.inf], 0, inplace=True)
-    # grpd.reset_index()
-# Battle mode filter ----------------------------------------------------------
 ###############################################################################
-# Iris
+# Timecard
 ###############################################################################
-# (fig, ax) = plt.subplots(figsize=(10, 10), subplot_kw={"projection": "polar"})
-# (fig, ax) = splat.plotkillDeathIris(
-#     (fig, ax), playerHistory,
-#     alpha=.9,
-#     innerGuides=(0, 10, 1), outerGuides=(10, 50, 10),
-#     fontColor='#000000CC', frameColor="#000000AA",
-#     innerGuidesColor="#000000BB", outerGuidesColor="#000000BB",
-#     innerTextFmt='{:.2f}'
-# )
-# ax.set_title(title+'\n', fontsize=18)
-# ax.set_facecolor("w")
-# ax.set_yticklabels(
-#     ["", 10, 20, 30, 40], 
-#     fontdict={'fontsize': 8.5, 'color': '#000000BB', 'ha': 'center'}
-# )
-# ax.set_rlabel_position(0)
-# fig.savefig(
-#     path.join(oPath, f'{fNameID}_Iris.png'), 
-#     dpi=300, bbox_inches='tight',
-#     facecolor=fig.get_facecolor()
-# )
-# plt.close()
+if weapon=='All':
+    TCARD_STAT = 'duration'
+    try:
+        tCard = splat.getTimecard(playerHistory)[TCARD_STAT]
+    except:
+        pass
+    wpnSorting = tCard.sum(axis=1).sort_values(ascending=False)
+    wpnsNumber = len(wpnSorting)
+    fontSize = np.interp(wpnsNumber, [1, 10, 30, 50], [30, 20, 14, 5])
+    (fig, ax) = splat.plotTimecard(
+        tCard, wpnSorting, 
+        fontSize=fontSize, statScaler=60,
+        highColors=['#DE0B64AA', '#311AA8AA', '#6BFF00AA', '#9030FFAA', '#B62EA7AA']
+    )
+    fig.savefig(
+        path.join(oPath, f'{fNameID}_Timecard-Duration.png'), 
+        dpi=300, bbox_inches='tight', facecolor=fig.get_facecolor()
+    )
+    plt.close()
 ###############################################################################
 #  Circle Barchart Kills
 ###############################################################################

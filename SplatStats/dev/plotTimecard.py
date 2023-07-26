@@ -56,28 +56,22 @@ if weapon != 'All':
     pHist = playerHistory[playerHistory['main weapon']==weapon]
 else:
     pHist = playerHistory
-splat.addDateGroup(
-    pHist, slicer=(lambda x: "{}/{:02d}".format(
-        x.isocalendar().year, x.isocalendar().week
-    ))
-)
+    tCards = splat.getTimecard(playerHistory)
 ###############################################################################
 # Strips
 ###############################################################################
 STAT = 'duration'
-# Weapon groups --------------------------------------------------------------
-grpd = pHist.groupby(['main weapon', 'DateGroup']).sum('kill')
-grpd['kad'] = grpd['kassist']/grpd['death']
-grpd.replace([np.inf, np.nan, -np.inf], 0, inplace=True)
-dfTable = grpd.unstack().reset_index().set_index("main weapon")[STAT]
-dfCounts = dfTable.replace(np.nan, 0)
+tCard = tCards[STAT]
 # Auxiliary variables --------------------------------------------------------
-(minDate, maxDate) = (sorted(dfCounts.columns)[0], sorted(dfCounts.columns)[-1])
-wpnSorting = pHist.groupby('main weapon').sum(STAT)[STAT].sort_values(
-    ascending=False
+wpnSorting = tCard.sum(axis=1).sort_values(ascending=False)
+wpnsNumber = len(wpnSorting)
+fontSize = np.interp(wpnsNumber, [1, 10, 30, 50], [30, 20, 14, 5])
+splat.plotTimecard(
+    tCard, wpnSorting, 
+    fontSize=fontSize, statScaler=60,
+    highColors=['#DE0B64AA', '#311AA8AA', '#6BFF00AA', '#9030FFAA', '#B62EA7AA']
 )
-(minYear, minWeek) = (int(minDate[:4]), int(minDate[5:])) # Can be modified manually
-(maxYear, maxWeek) = (int(maxDate[:4]), int(maxDate[5:]))
+
 maxValue = max(dfCounts.max())
 norm = colors.LogNorm(vmin=1, vmax=maxValue)
 
@@ -85,6 +79,13 @@ SAT_CATS = [
     '#311AA8AA', '#DE0B64AA', '#6BFF00AA', '#B62EA7AA', '#9030FF55',
 ]
 MAPS = [splat.colorPaletteFromHexList(['#ffffff99', c]) for c in SAT_CATS]
+
+
+wpnSorting = pHist.groupby('main weapon').sum(STAT)[STAT].sort_values(
+    ascending=False
+)
+
+
 ###############################################################################
 # Polar Strips
 ###############################################################################
@@ -101,7 +102,6 @@ fontSize = np.interp(wpnsNumber, [1, 10, 30, 50], [30, 20, 14, 5])
 (fig, ax) = plt.subplots(
     figsize=(10, 10), subplot_kw={"projection": "polar"}
 )
-wpix = 25
 for wpix in range(wpnsNumber):
     (wpnCurrent, wpnTotal) = (
         wpnSorting.index[::-1][wpix],

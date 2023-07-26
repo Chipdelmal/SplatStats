@@ -6,6 +6,7 @@ import pandas as pd
 import numpy as np
 import seaborn as sns
 from pywaffle import Waffle
+from matplotlib.colors import LogNorm
 import matplotlib.pyplot as plt
 from math import radians, log10
 import matplotlib.colors as mcolors
@@ -1317,4 +1318,78 @@ def plotIrisHistory(
             lw=0.25
         )
     # Return figAx ------------------------------------------------------------
+    return (fig, ax)
+
+
+def plotTimecard(
+        timecard, wpnSorting,
+        figAx=None, yearRange=None, weekRange=None,
+        origin='N', direction=1, rRange=(0, 90), 
+        offset=0, height=1, edgeWidth=1, fontSize=12,
+        highColors=['#DE0B64AA', '#311AA8AA', '#6BFF00AA', '#9030FF55', '#B62EA7AA'],
+        baseColor='#ffffff55', maxValue=None,
+        fmtStr='  {} ({:.2f})', statScaler=1 
+    ):
+    # Get auxiliary variables -------------------------------------------------
+    wpnsNumber = len(wpnSorting)
+    cmaps = [clr.colorPaletteFromHexList([baseColor, c]) for c in highColors]
+    if not maxValue:
+        maxMag = max(timecard.max())
+        norm = LogNorm(vmin=1, vmax=maxMag)
+    else:
+        norm = LogNorm(vmin=1, vmax=maxValue)
+    if (yearRange is None) or (weekRange is None):
+        (minDate, maxDate) = (
+            sorted(timecard.columns)[0], sorted(timecard.columns)[-1]
+        )
+        (minYear, minWeek) = (int(minDate[:4]), int(minDate[5:]))
+        (maxYear, maxWeek) = (int(maxDate[:4]), int(maxDate[5:]))
+    else:
+        (minYear, maxYear) = yearRange
+        (minWeek, maxWeek) = weekRange
+    # Plot --------------------------------------------------------------------
+    if not figAx:
+        (fig, ax) = plt.subplots(
+            figsize=(10, 10), subplot_kw={"projection": "polar"}
+        )
+    for wpix in range(wpnsNumber):
+        (wpnCurrent, wpnTotal) = (
+            wpnSorting.index[::-1][wpix], wpnSorting.values[::-1][wpix]
+        )
+        wpnLabel = fmtStr.format(wpnCurrent, wpnTotal/statScaler)
+        cmapCurrent = cmaps[wpix%len(cmaps)]
+        # Get weapon values and dates -----------------------------------------
+        rowValues = timecard.loc[wpnCurrent]
+        (rowDates, rowMagnitudes) = (
+            list(rowValues.index), list(rowValues.values)
+        )
+        # Convert dates to x coordinates --------------------------------------
+        dateTuples = [[int(x) for x in d.split('/')] for d in rowDates]
+        weekNumber = [(y%minYear)*52+w-minWeek+1 for (y, w) in dateTuples]
+        # Convert values to colors --------------------------------------------
+        rDelta = radians(rRange[1])/weekNumber[-1]
+        deltas = np.arange(0, radians(rRange[1])+rDelta, rDelta)
+        weekBars = [(i*rDelta, rDelta) for i in range(len(deltas)-1)]
+        clrsBlocks = [cmapCurrent(norm(value)) for value in rowMagnitudes]
+        ax.broken_barh(
+            weekBars, (offset+wpix*height, height), lw=edgeWidth,
+            facecolors=clrsBlocks, edgecolors=baseColor
+        )
+        ax.text(
+            0, offset+wpix*height+height/2, wpnLabel,
+            va='center', ha='left', fontsize=fontSize
+        )
+    # Axis tweaks -------------------------------------------------------------
+    ax.set_xticklabels([])
+    ax.set_yticklabels([])
+    ax.set_thetamin(0)
+    ax.set_thetamax(rRange[1])
+    ax.set_ylim(0, offset+wpnsNumber*height)
+    ax.set_theta_zero_location(origin)
+    ax.set_theta_direction(direction)
+    ax.spines['polar'].set_visible(False)
+    ax.axis("off")
+    ax.set_rlabel_position(0)
+    ax.xaxis.grid(False)
+    ax.yaxis.grid(False)
     return (fig, ax)

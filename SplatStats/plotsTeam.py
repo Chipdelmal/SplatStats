@@ -1,12 +1,12 @@
 
 import numpy as np
 import SplatStats.stats as stats
-import SplatStats.colors as clrs
+import SplatStats.colors as clr
 
 
 def plotStreamTeam(
         figAx, team, teamHistBT,
-        colors=clrs.ALL_COLORS,
+        colors=clr.ALL_COLORS,
         metric='kill', normalized=False, smooth=True, 
         smoothness=0.75, gridSize=500, baseline='sym'
     ):

@@ -4,6 +4,7 @@
 import numpy as np
 import pandas as pd
 import scipy.stats as sts
+import SplatStats.parsers as par
 
 
 def calcBattleHistoryStats(bHist, kassistWeight=0.5):
@@ -369,3 +370,19 @@ def statPerMinute(playerHistory, stat, summaryFun=None):
     statPM = (playerHistory[stat]/(playerHistory['duration']/60))
     stpm = summaryFun(statPM) if summaryFun else statPM
     return stpm
+
+
+def getTimecard(
+        playerHistory, 
+        slicer=(lambda x: "{}/{:02d}".format(
+            x.isocalendar().year, x.isocalendar().week
+        ))
+    ):
+    par.addDateGroup(playerHistory, slicer=slicer)
+    grpd = playerHistory.groupby(['main weapon', 'DateGroup']).sum('kill')
+    grpd['kad'] = grpd['kassist']/grpd['death']
+    grpd.replace([np.inf, np.nan, -np.inf], 0, inplace=True)
+    dfGroups = grpd.unstack().reset_index().set_index("main weapon")
+    statsCats = sorted(list(set([i[0] for i in list(dfGroups.columns)])))
+    tCardsDict = {cat: dfGroups[cat] for cat in statsCats}
+    return tCardsDict
