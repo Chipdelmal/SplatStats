@@ -72,20 +72,16 @@ splat.plotTimecard(
     highColors=['#DE0B64AA', '#311AA8AA', '#6BFF00AA', '#9030FFAA', '#B62EA7AA']
 )
 
+dfCounts = tCard
 maxValue = max(dfCounts.max())
 norm = colors.LogNorm(vmin=1, vmax=maxValue)
-
 SAT_CATS = [
     '#311AA8AA', '#DE0B64AA', '#6BFF00AA', '#B62EA7AA', '#9030FF55',
 ]
 MAPS = [splat.colorPaletteFromHexList(['#ffffff99', c]) for c in SAT_CATS]
-
-
 wpnSorting = pHist.groupby('main weapon').sum(STAT)[STAT].sort_values(
     ascending=False
 )
-
-
 ###############################################################################
 # Polar Strips
 ###############################################################################

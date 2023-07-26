@@ -68,7 +68,8 @@ if weapon=='All':
     fontSize = np.interp(wpnsNumber, [1, 10, 30, 50], [30, 20, 14, 5])
     (fig, ax) = splat.plotTimecard(
         tCard, wpnSorting, 
-        fontSize=fontSize, statScaler=60,
+        fontSize=fontSize, 
+        fmtStr='  {} ({:.0f})', statScaler=60,
         highColors=['#DE0B64AA', '#311AA8AA', '#6BFF00AA', '#9030FFAA', '#B62EA7AA']
     )
     fig.savefig(
