@@ -3,6 +3,7 @@ import math
 import numpy as np
 from os import path
 from sys import argv
+import matplotlib.pyplot as plt
 from matplotlib.patches import Rectangle
 import SplatStats as splat
 from scipy import interpolate
@@ -13,7 +14,7 @@ import matplotlib.colors as mcolors
 from collections import Counter
 import warnings
 warnings.filterwarnings("ignore")
-import matplotlib.pyplot as plt
+
 
 if splat.isNotebook():
     (plyrName, weapon, mode, overwrite) = ('čħîþ ウナギ', 'All', 'All', 'False')
@@ -37,7 +38,7 @@ LEN_LIMIT = 400
 # Auxiliary 
 ###############################################################################
 fNameID = f'{plyrName}-{weapon}'
-# splat.setSplatoonFont(fontPath, fontName="Splatfont 2")
+splat.setSplatoonFont(fontPath, fontName="Splatfont 2")
 ###############################################################################
 # Process JSON files into battle objects
 ###############################################################################
@@ -71,7 +72,7 @@ wpnGrpBy = pHist.groupby('main weapon').sum('kill').reset_index()
 weapons = sorted(list(wpnSet))
 weaponsCount = pHist.groupby('main weapon').size().sort_values(ascending=False)
 # Constants ------------------------------------------------------------------
-STAT = 'participation'
+STAT = 'paint'
 RANKS = len(weapons)
 # HIGHLIGHT = {'Tentatek Splattershot', 'Splattershot', 'Neo Splash-o-matic'}
 HIGHLIGHT = set(weapons)
@@ -170,7 +171,7 @@ dfRanksR = dfCountsR.rank(ascending=False, method='first', axis=0)
 ###############################################################################
 # Strips
 ###############################################################################
-STAT = 'kassist'
+STAT = 'duration'
 # Weapon groups --------------------------------------------------------------
 grpd = pHist.groupby(['main weapon', 'DateGroup']).sum('kill')
 grpd['kad'] = grpd['kassist']/grpd['death']
@@ -193,48 +194,20 @@ SAT_CATS = [
 OTHER = '#101044'
 MAPS = [splat.colorPaletteFromHexList(['#ffffff99', c]) for c in SAT_CATS]
 
-wpnsNumber = len(wpnSorting)
-(width, height) = (0.4, 0.4)
-(fig, ax) = plt.subplots(figsize=(10, 6), dpi=300)
-for wpix in range(wpnsNumber):
-    wpnCurrent = wpnSorting.index[::-1][wpix]
-    # Get weapon values and dates ------------------------------------------------
-    rowValues = dfCounts.loc[wpnCurrent]
-    (rowDates, rowMagnitudes) = (list(rowValues.index), list(rowValues.values))
-    # Convert dates to x coordinates ---------------------------------------------
-    dateTuples = [[int(x) for x in d.split('/')] for d in rowDates]
-    weekNumber = [(y%minYear)*52+w-minWeek+1 for (y, w) in dateTuples]
-    # Convert values to colors ---------------------------------------------------
-    clr = MAPS[wpix%len(MAPS)]
-    zipper = zip(rowMagnitudes, weekNumber)
-    rects = []
-    for (value, week) in zipper:
-        ax.add_patch(Rectangle(
-            (week-width, wpix-height), 2*width, 2*height,
-            color=clr(norm(value))
-        ))
-ax.set_xlim(min(weekNumber)-0.5, max(weekNumber)+0.5)
-ax.set_ylim(-1-height, wpnsNumber+height)
-ax.spines[['right', 'left', 'bottom', 'top']].set_visible(False)
-ax.set_xticklabels([])
-ax.set_yticks(range(0, wpnsNumber), list(wpnSorting.index[::-1]))
-ax.set_yticklabels([])
-ax.tick_params(left=False, bottom=False)
-for (row, label) in enumerate(list(wpnSorting.index[::-1])):
-    ax.text(0, row, label, va='center', ha='right')
-    ax.text(weekNumber[-1]+1, row, label, va='center', ha='left')
     
 ###############################################################################
 # Polar Strips
 ###############################################################################
 clockwise=True
-rRange=(0, 180)
+rRange=(0, 90)
 origin='N' 
 direction=1
-offset=4
+offset=0
 height=1
-double_label=True
+double_label=False
 wpnsNumber = len(wpnSorting)
+fontSize = np.interp( wpnsNumber, [1, 30], [20, 14])
+
 (fig, ax) = plt.subplots(
     figsize=(10, 10), subplot_kw={"projection": "polar"}
 )
@@ -265,14 +238,14 @@ for wpix in range(wpnsNumber):
     ax.text(
         0, offset+wpix*height+height/2, 
         wpnLabel,
-        va='center', ha='left', fontsize=8.5
+        va='center', ha='left', fontsize=fontSize
     )
     if double_label:
         ax.text(
             radians(rRange[1]), 
             offset+wpix*height+height/2, 
             wpnLabel,
-            va='center', ha='left', fontsize=8.5
+            va='center', ha='left', fontsize=fontSize
         )
 ax.set_xticklabels([])
 ax.set_yticklabels([])
@@ -285,14 +258,16 @@ minor_ticks = np.arange(
 ax.set_rticks(major_ticks)
 ax.grid(which='both')
 ax.grid(which='major', alpha=0.75)
-ax.set_xlim(0, radians(rRange[1]))
+ax.set_thetamin(0)
+ax.set_thetamax(rRange[1])
 ax.set_ylim(0, offset+wpnsNumber*height)
 ax.set_theta_zero_location(origin)
 ax.set_theta_direction(direction)
 ax.spines['polar'].set_visible(False)
+ax.axis("off")
 ax.set_rlabel_position(0)
 ax.xaxis.grid(False)
-ax.yaxis.grid(True)
+ax.yaxis.grid(False)
 plt.savefig(
     path.expanduser('~/Desktop/weaponRank.png'),
     dpi=300, orientation='portrait', format=None,
@@ -300,3 +275,39 @@ plt.savefig(
     transparent=True,
     bbox_inches='tight', pad_inches=0, metadata=None
 )
+
+
+
+###############################################################################
+# Horizontal Strips
+###############################################################################
+wpnsNumber = len(wpnSorting)
+(width, height) = (0.4, 0.4)
+(fig, ax) = plt.subplots(figsize=(10, 6), dpi=300)
+for wpix in range(wpnsNumber):
+    wpnCurrent = wpnSorting.index[::-1][wpix]
+    # Get weapon values and dates ------------------------------------------------
+    rowValues = dfCounts.loc[wpnCurrent]
+    (rowDates, rowMagnitudes) = (list(rowValues.index), list(rowValues.values))
+    # Convert dates to x coordinates ---------------------------------------------
+    dateTuples = [[int(x) for x in d.split('/')] for d in rowDates]
+    weekNumber = [(y%minYear)*52+w-minWeek+1 for (y, w) in dateTuples]
+    # Convert values to colors ---------------------------------------------------
+    clr = MAPS[wpix%len(MAPS)]
+    zipper = zip(rowMagnitudes, weekNumber)
+    rects = []
+    for (value, week) in zipper:
+        ax.add_patch(Rectangle(
+            (week-width, wpix-height), 2*width, 2*height,
+            color=clr(norm(value))
+        ))
+ax.set_xlim(min(weekNumber)-0.5, max(weekNumber)+0.5)
+ax.set_ylim(-1-height, wpnsNumber+height)
+ax.spines[['right', 'left', 'bottom', 'top']].set_visible(False)
+ax.set_xticklabels([])
+ax.set_yticks(range(0, wpnsNumber), list(wpnSorting.index[::-1]))
+ax.set_yticklabels([])
+ax.tick_params(left=False, bottom=False)
+for (row, label) in enumerate(list(wpnSorting.index[::-1])):
+    ax.text(0, row, label, va='center', ha='right')
+    ax.text(weekNumber[-1]+1, row, label, va='center', ha='left')
