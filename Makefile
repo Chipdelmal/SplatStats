@@ -76,8 +76,8 @@ docker_exec:
 docker_release:
 	- docker build -f Dockerfile.splatstats -t chipdelmal/splatstats:$(version) .
 	- docker push chipdelmal/splatstats:$(version)
-	# - docker build -f Dockerfile.splatstats -t chipdelmal/splatstats:latest .
-	# - docker push chipdelmal/splatstats:latest
+	- docker build -f Dockerfile.splatstats -t chipdelmal/splatstats:latest .
+	- docker push chipdelmal/splatstats:latest
 
 ###############################################################################
 # Docker InkStats

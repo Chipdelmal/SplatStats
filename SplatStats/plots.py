@@ -1367,7 +1367,7 @@ def plotTimecard(
         dateTuples = [[int(x) for x in d.split('/')] for d in rowDates]
         weekNumber = [(y%minYear)*52+w-minWeek+1 for (y, w) in dateTuples]
         # Convert values to colors --------------------------------------------
-        rDelta = radians(rRange[1])/weekNumber[-1]
+        rDelta = radians(rRange[1])/len(weekNumber)
         deltas = np.arange(0, radians(rRange[1])+rDelta, rDelta)
         weekBars = [(i*rDelta, rDelta) for i in range(len(deltas)-1)]
         clrsBlocks = [cmapCurrent(norm(value)) for value in rowMagnitudes]

@@ -5,6 +5,7 @@ from os import path
 from sys import argv
 import matplotlib.pyplot as plt
 from matplotlib.patches import Rectangle
+from matplotlib.colors import LogNorm
 import SplatStats as splat
 from scipy import interpolate
 from os import path
@@ -17,7 +18,7 @@ warnings.filterwarnings("ignore")
 
 
 if splat.isNotebook():
-    (plyrName, weapon, mode, overwrite) = ('čħîþ ウナギ', 'All', 'All', 'False')
+    (plyrName, weapon, mode, overwrite) = ('April ウナギ', 'All', 'All', 'False')
     (iPath, bPath, oPath) = (
         path.expanduser('~/Documents/BattlesDocker/jsons'),
         path.expanduser('~/Documents/BattlesDocker/battles'),
