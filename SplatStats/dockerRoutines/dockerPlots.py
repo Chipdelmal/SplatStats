@@ -179,7 +179,8 @@ if weapon=='All':
         (fig, ax), playerHistory,
         function=sum, grouping='main weapon', stat='kassist',
         rows=75, columns=75, vertical=True,
-        colors=splat.CLR_CLS_LONG, alpha=0.8
+        colors=splat.ALL_COLORS,
+        alpha=0.65
     )
     ax.set_title(f'(Kills+0.5*Assists) = {killsTotal}\n', fontsize=18)
     fig.savefig(
