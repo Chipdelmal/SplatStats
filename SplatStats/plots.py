@@ -1323,12 +1323,12 @@ def plotIrisHistory(
 
 def plotTimecard(
         timecard, wpnSorting,
-        figAx=None, yearRange=None, weekRange=None,
+        figAx=None, yearRange=None, weekRange=None, reversed=False,
         origin='N', direction=1, rRange=(0, 90), 
         offset=0, height=1, edgeWidth=1, fontSize=12,
         highColors=['#DE0B64AA', '#311AA8AA', '#6BFF00AA', '#9030FF55', '#B62EA7AA'],
         baseColor='#ffffff55', maxValue=None,
-        fmtStr='  {} ({:.2f})', statScaler=1 
+        fmtStr='  {} ({:.2f})', statScaler=1
     ):
     # Get auxiliary variables -------------------------------------------------
     wpnsNumber = len(wpnSorting)
@@ -1360,9 +1360,14 @@ def plotTimecard(
         cmapCurrent = cmaps[wpix%len(cmaps)]
         # Get weapon values and dates -----------------------------------------
         rowValues = timecard.loc[wpnCurrent]
-        (rowDates, rowMagnitudes) = (
-            list(rowValues.index), list(rowValues.values)
-        )
+        if not reversed:
+            (rowDates, rowMagnitudes) = (
+                list(rowValues.index)[::-1], list(rowValues.values)[::-1]
+            )
+        else:
+            (rowDates, rowMagnitudes) = (
+                list(rowValues.index), list(rowValues.values)
+            )
         # Convert dates to x coordinates --------------------------------------
         dateTuples = [[int(x) for x in d.split('/')] for d in rowDates]
         weekNumber = [(y%minYear)*52+w-minWeek+1 for (y, w) in dateTuples]
