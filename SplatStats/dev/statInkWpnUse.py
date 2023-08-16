@@ -150,7 +150,7 @@ timecard=tCard
 wpnSorting=wpnSorting
 
 from math import radians
-from matplotlib.colors import LogNorm
+from matplotlib.colors import LogNorm, PowerNorm, SymLogNorm
 
 figAx=None
 yearRange=None
@@ -163,21 +163,29 @@ offset=0
 height=1
 edgeWidth=1
 fontSize=np.interp(wpnsNumber, [1, 10, 30, 50], [30, 20, 14, 5])
-highColors=['#DE0B64AA', '#311AA8AA', '#6BFF00AA', '#9030FF55', '#B62EA7AA']
+highColors=[
+    '#DE0B64AA', '#311AA8AA', '#6BFF00AA', '#9030FF55', 
+    '#B62EA7AA', '#7d8597AA', '#faa6ffAA', '#f4845fAA'
+]
 baseColor='#ffffff55'
 maxValue=None
-fmtStr='  {} ({:.2f})'
+fmtStr='  {} ({:.0f})'
 statScaler=1
+normalized=True
 # normFunction=LogNorm
 normFunction=lambda x: np.interp(x, [0, maxMag], [0, 1], left=None)
-
+normFunction=PowerNorm(gamma=1/2, vmin=0, vmax=1)
+normFunction=SymLogNorm(0.025, vmin=0, vmax=0.1)
 
 wpnsNumber = len(wpnSorting)
 cmaps = [splat.colorPaletteFromHexList([baseColor, c]) for c in highColors]
+if normalized:
+    timecard = timecard/timecard.sum(axis=0)
 if not maxValue:
     maxMag = max(timecard.max())
     # norm = LogNorm(vmin=1, vmax=maxMag)
-    norm = lambda x: np.interp(x, [0, maxMag/5], [0, 1], left=None)
+    # norm = lambda x: np.interp(x, [0, maxMag/5], [0, 1], left=None)
+    norm = normFunction# PowerNorm(gamma=1/2, vmin=0, vmax=maxMag)
 else:
     norm = LogNorm(vmin=1, vmax=maxValue)
 if (yearRange is None) or (weekRange is None):
@@ -192,7 +200,7 @@ else:
 # Plot --------------------------------------------------------------------
 if not figAx:
     (fig, ax) = plt.subplots(
-        figsize=(10, 10), # subplot_kw={"projection": "polar"}
+        figsize=(10, 10),  subplot_kw={"projection": "polar"}
     )
 for wpix in range(wpnsNumber):
     (wpnCurrent, wpnTotal) = (
@@ -204,7 +212,7 @@ for wpix in range(wpnsNumber):
     rowValues = timecard.loc[wpnCurrent]
     if not reversed:
         (rowDates, rowMagnitudes) = (
-            list(rowValues.index), list(rowValues.values)
+            list(rowValues.index)[::-1], list(rowValues.values)[::-1]
         )
     else:
         (rowDates, rowMagnitudes) = (
@@ -223,13 +231,13 @@ for wpix in range(wpnsNumber):
         facecolors=clrsBlocks, edgecolors=baseColor
     )
     ax.text(
-        deltas[-1], offset+wpix*height+height/2, wpnLabel,
+        0, # deltas[-1], 
+        offset+wpix*height+height/2, wpnLabel,
         va='center', ha='left', fontsize=fontSize
     )
 ax.set_xticklabels([])
 ax.set_yticklabels([])
 ax.axis("off")
-
 ax.set_thetamin(0)
 ax.set_thetamax(rRange[1])
 ax.set_ylim(0, offset+wpnsNumber*height)
@@ -239,6 +247,13 @@ ax.spines['polar'].set_visible(False)
 ax.set_rlabel_position(0)
 ax.xaxis.grid(False)
 ax.yaxis.grid(False)
+
+
+fig.savefig(
+    path.join('Timecard-Duration.png'), 
+    dpi=300, bbox_inches='tight', facecolor=fig.get_facecolor()
+)
+    
 
 
 # grpdDF = [
