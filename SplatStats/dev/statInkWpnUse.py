@@ -99,21 +99,58 @@ def addDateGroup(
     dteSlice = playerHistory[dateColumn].apply(slicer).copy()
     playerHistory.insert(3, 'DateGroup', dteSlice)
     return playerHistory        
+
+LABELS = ('kill', 'kill-assist', 'assist', 'death', 'inked')
+PLAYERS = ('A1', 'A2', 'A3', 'A4', 'B1', 'B2', 'B3', 'B4')
         
 slicer = (lambda x: "{}/{:02d}/{}".format(
     x.isocalendar().year, x.isocalendar().week, x.day
 ))
 addDateGroup(btlsFiltered, slicer=slicer, dateColumn='period')
 wpnsSet = splat.getWeaponsSet(btlsFiltered)
-grpdDF = [
-    btlsFiltered.groupby([f'{plyr}-weapon', 'DateGroup']).sum('kill')
-    for plyr in ('A1', 'A2', 'A3', 'A4', 'B1', 'B2', 'B3', 'B4')
-]
-for (ix, plyr) in enumerate(('A1', 'A2', 'A3', 'A4', 'B1', 'B2', 'B3', 'B4')):
-    grpdDF[ix].index.names = ['main weapon', 'DateGroup']
-grpd = pd.concat(grpdDF)
-# grpd['kad'] = grpd['kassist']/grpd['death']
+
+
+dfs = []
+for plyNme in PLAYERS:
+    plyLbs = {f'{plyNme}-{c}': c for c in LABELS}
+    fltr = btlsFiltered.groupby([f'{plyNme}-weapon', 'DateGroup']).sum('kill')[
+        plyLbs.keys()
+    ]
+    fltr.rename(plyLbs, axis='columns', inplace=True)
+    fltr.index.names = ['main weapon', 'DateGroup']
+    dfs.append(fltr)
+grpd = pd.concat(dfs)
 grpd.replace([np.inf, np.nan, -np.inf], 0, inplace=True)
-dfGroups = grpd.unstack().reset_index().set_index("main weapon")
-statsCats = sorted(list(set([i[0] for i in list(dfGroups.columns)])))
-tCardsDict = {cat: dfGroups[cat] for cat in statsCats}
+pivot = grpd.reset_index().pivot_table(
+    values=LABELS, index=['main weapon', 'DateGroup'], aggfunc='sum'
+)
+tCardsDict = {cat: pivot[cat] for cat in LABELS}
+
+tCard = tCardsDict['kill']
+
+wpnSorting = tCard.sum(axis=1).sort_values(ascending=False)
+wpnsNumber = len(wpnSorting)
+fontSize = np.interp(wpnsNumber, [1, 10, 30, 50], [30, 20, 14, 5])
+(fig, ax) = splat.plotTimecard(
+    tCard, wpnSorting, 
+    fontSize=fontSize, 
+    fmtStr='  {} ({:.0f})', statScaler=60,
+    highColors=['#DE0B64AA', '#311AA8AA', '#6BFF00AA', '#9030FFAA', '#B62EA7AA']
+)
+
+
+
+# grpdDF = [
+#     btlsFiltered.groupby([f'{plyr}-weapon', 'DateGroup']).sum('kill')
+#     for plyr in ('A1', 'A2', 'A3', 'A4', 'B1', 'B2', 'B3', 'B4')
+# ]
+# for (ix, plyr) in enumerate(('A1', 'A2', 'A3', 'A4', 'B1', 'B2', 'B3', 'B4')):
+#     grpdDF[ix].index.names = ['main weapon', 'DateGroup']
+# grpd = pd.concat(grpdDF)
+# # grpd['kad'] = grpd['kassist']/grpd['death']
+# grpd.replace([np.inf, np.nan, -np.inf], 0, inplace=True)
+# dfGroups = grpd.unstack().reset_index().set_index("main weapon")
+# statsCats = sorted(list(set([i[0] for i in list(dfGroups.columns)])))
+# tCardsDict = {cat: dfGroups[cat] for cat in statsCats}
+
+
