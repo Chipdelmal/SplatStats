@@ -16,7 +16,7 @@ import SplatStats as splat
 
 if splat.isNotebook():
     (SEASON, GMODE, TITLES, OVERWRITE, DPI) = (
-        'Drizzle Season 2022', 'All Modes', 'False', 'True', '500'
+        'All', 'All Modes', 'False', 'True', '500'
     )
 else:
     (SEASON, GMODE, TITLES, OVERWRITE, DPI) = argv[1:]
@@ -103,8 +103,8 @@ def addDateGroup(
 LABELS = ('kill', 'kill-assist', 'assist', 'death', 'inked')
 PLAYERS = ('A1', 'A2', 'A3', 'A4', 'B1', 'B2', 'B3', 'B4')
         
-slicer = (lambda x: "{}/{:02d}/{}".format(
-    x.isocalendar().year, x.isocalendar().week, x.day
+slicer = (lambda x: "{}/{:02d}".format(
+    x.isocalendar().year, x.isocalendar().week
 ))
 addDateGroup(btlsFiltered, slicer=slicer, dateColumn='period')
 wpnsSet = splat.getWeaponsSet(btlsFiltered)
@@ -113,6 +113,7 @@ wpnsSet = splat.getWeaponsSet(btlsFiltered)
 dfs = []
 for plyNme in PLAYERS:
     plyLbs = {f'{plyNme}-{c}': c for c in LABELS}
+    plyLbs['time'] = 'time'
     fltr = btlsFiltered.groupby([f'{plyNme}-weapon', 'DateGroup']).sum('kill')[
         plyLbs.keys()
     ]
@@ -122,11 +123,17 @@ for plyNme in PLAYERS:
 grpd = pd.concat(dfs)
 grpd.replace([np.inf, np.nan, -np.inf], 0, inplace=True)
 pivot = grpd.reset_index().pivot_table(
-    values=LABELS, index=['main weapon', 'DateGroup'], aggfunc='sum'
+    values=list(LABELS)+['time'], 
+    index=['main weapon', 'DateGroup'], 
+    aggfunc='sum'
 )
-tCardsDict = {cat: pivot[cat] for cat in LABELS}
+tCardsDict = {cat: pivot[cat].unstack() for cat in list(LABELS)+['time']}
+[
+    tCardsDict[c].replace([np.inf, np.nan, -np.inf], 0, inplace=True) 
+    for c in LABELS
+]
 
-tCard = tCardsDict['kill']
+tCard = tCardsDict['time']
 
 wpnSorting = tCard.sum(axis=1).sort_values(ascending=False)
 wpnsNumber = len(wpnSorting)
@@ -137,6 +144,9 @@ fontSize = np.interp(wpnsNumber, [1, 10, 30, 50], [30, 20, 14, 5])
     fmtStr='  {} ({:.0f})', statScaler=60,
     highColors=['#DE0B64AA', '#311AA8AA', '#6BFF00AA', '#9030FFAA', '#B62EA7AA']
 )
+
+
+
 
 
 

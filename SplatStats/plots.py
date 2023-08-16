@@ -1328,7 +1328,7 @@ def plotTimecard(
         offset=0, height=1, edgeWidth=1, fontSize=12,
         highColors=['#DE0B64AA', '#311AA8AA', '#6BFF00AA', '#9030FF55', '#B62EA7AA'],
         baseColor='#ffffff55', maxValue=None,
-        fmtStr='  {} ({:.2f})', statScaler=1
+        fmtStr='  {} ({:.2f})', statScaler=1,
     ):
     # Get auxiliary variables -------------------------------------------------
     wpnsNumber = len(wpnSorting)
