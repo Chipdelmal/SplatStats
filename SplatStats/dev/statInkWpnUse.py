@@ -168,6 +168,8 @@ baseColor='#ffffff55'
 maxValue=None
 fmtStr='  {} ({:.2f})'
 statScaler=1
+# normFunction=LogNorm
+normFunction=lambda x: np.interp(x, [0, maxMag], [0, 1], left=None)
 
 
 wpnsNumber = len(wpnSorting)
@@ -175,7 +177,7 @@ cmaps = [splat.colorPaletteFromHexList([baseColor, c]) for c in highColors]
 if not maxValue:
     maxMag = max(timecard.max())
     # norm = LogNorm(vmin=1, vmax=maxMag)
-    norm = lambda x: np.interp(x, [0, maxMag], [0, 1], left=None)
+    norm = lambda x: np.interp(x, [0, maxMag/5], [0, 1], left=None)
 else:
     norm = LogNorm(vmin=1, vmax=maxValue)
 if (yearRange is None) or (weekRange is None):
