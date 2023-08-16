@@ -133,21 +133,110 @@ tCardsDict = {cat: pivot[cat].unstack() for cat in list(LABELS)+['time']}
     for c in LABELS
 ]
 
-tCard = tCardsDict['time']
+tCard = tCardsDict['kill']
 
 wpnSorting = tCard.sum(axis=1).sort_values(ascending=False)
 wpnsNumber = len(wpnSorting)
 fontSize = np.interp(wpnsNumber, [1, 10, 30, 50], [30, 20, 14, 5])
-(fig, ax) = splat.plotTimecard(
-    tCard, wpnSorting, 
-    fontSize=fontSize, 
-    fmtStr='  {} ({:.0f})', statScaler=60,
-    highColors=['#DE0B64AA', '#311AA8AA', '#6BFF00AA', '#9030FFAA', '#B62EA7AA']
-)
+# (fig, ax) = splat.plotTimecard(
+#     tCard, wpnSorting, 
+#     fontSize=fontSize, 
+#     fmtStr='  {} ({:.0f})', statScaler=60,
+#     highColors=['#DE0B64AA', '#311AA8AA', '#6BFF00AA', '#9030FFAA', '#B62EA7AA']
+# )
 
 
+timecard=tCard
+wpnSorting=wpnSorting
+
+from math import radians
+from matplotlib.colors import LogNorm
+
+figAx=None
+yearRange=None
+weekRange=None
+reversed=False
+origin='N'
+direction=1
+rRange=(0, 90)
+offset=0
+height=1
+edgeWidth=1
+fontSize=np.interp(wpnsNumber, [1, 10, 30, 50], [30, 20, 14, 5])
+highColors=['#DE0B64AA', '#311AA8AA', '#6BFF00AA', '#9030FF55', '#B62EA7AA']
+baseColor='#ffffff55'
+maxValue=None
+fmtStr='  {} ({:.2f})'
+statScaler=1
 
 
+wpnsNumber = len(wpnSorting)
+cmaps = [splat.colorPaletteFromHexList([baseColor, c]) for c in highColors]
+if not maxValue:
+    maxMag = max(timecard.max())
+    # norm = LogNorm(vmin=1, vmax=maxMag)
+    norm = lambda x: np.interp(x, [0, maxMag], [0, 1], left=None)
+else:
+    norm = LogNorm(vmin=1, vmax=maxValue)
+if (yearRange is None) or (weekRange is None):
+    (minDate, maxDate) = (
+        sorted(timecard.columns)[0], sorted(timecard.columns)[-1]
+    )
+    (minYear, minWeek) = (int(minDate[:4]), int(minDate[5:]))
+    (maxYear, maxWeek) = (int(maxDate[:4]), int(maxDate[5:]))
+else:
+    (minYear, maxYear) = yearRange
+    (minWeek, maxWeek) = weekRange
+# Plot --------------------------------------------------------------------
+if not figAx:
+    (fig, ax) = plt.subplots(
+        figsize=(10, 10), # subplot_kw={"projection": "polar"}
+    )
+for wpix in range(wpnsNumber):
+    (wpnCurrent, wpnTotal) = (
+        wpnSorting.index[::-1][wpix], wpnSorting.values[::-1][wpix]
+    )
+    wpnLabel = fmtStr.format(wpnCurrent, wpnTotal/statScaler)
+    cmapCurrent = cmaps[wpix%len(cmaps)]
+    # Get weapon values and dates -----------------------------------------
+    rowValues = timecard.loc[wpnCurrent]
+    if not reversed:
+        (rowDates, rowMagnitudes) = (
+            list(rowValues.index), list(rowValues.values)
+        )
+    else:
+        (rowDates, rowMagnitudes) = (
+            list(rowValues.index), list(rowValues.values)
+        )
+    # Convert dates to x coordinates --------------------------------------
+    dateTuples = [[int(x) for x in d.split('/')] for d in rowDates]
+    weekNumber = [(y%minYear)*52+w-minWeek+1 for (y, w) in dateTuples]
+    # Convert values to colors --------------------------------------------
+    rDelta = radians(rRange[1])/len(weekNumber)
+    deltas = np.arange(0, radians(rRange[1])+rDelta, rDelta)
+    weekBars = [(i*rDelta, rDelta) for i in range(len(deltas)-1)]
+    clrsBlocks = [cmapCurrent(norm(value)) for value in rowMagnitudes]
+    ax.broken_barh(
+        weekBars, (offset+wpix*height, height), lw=edgeWidth,
+        facecolors=clrsBlocks, edgecolors=baseColor
+    )
+    ax.text(
+        deltas[-1], offset+wpix*height+height/2, wpnLabel,
+        va='center', ha='left', fontsize=fontSize
+    )
+ax.set_xticklabels([])
+ax.set_yticklabels([])
+ax.axis("off")
+
+ax.set_thetamin(0)
+ax.set_thetamax(rRange[1])
+ax.set_ylim(0, offset+wpnsNumber*height)
+ax.set_theta_zero_location(origin)
+ax.set_theta_direction(direction)
+ax.spines['polar'].set_visible(False)
+ax.set_rlabel_position(0)
+ax.xaxis.grid(False)
+ax.yaxis.grid(False)
 
 
 # grpdDF = [
