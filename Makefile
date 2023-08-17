@@ -74,10 +74,11 @@ docker_exec:
 	- docker run --mount type=bind,source=${PWD},target=/data -it splatstats:dev bash
 
 docker_release:
-	- docker build -f Dockerfile.splatstats -t chipdelmal/splatstats:$(version) .
-	- docker push chipdelmal/splatstats:$(version)
-	- docker build -f Dockerfile.splatstats -t chipdelmal/splatstats:latest .
-	- docker push chipdelmal/splatstats:latest
+	- docker buildx build -f Dockerfile.splatstats .\
+		--platform=linux/amd64,linux/arm64,linux/x86_64 \
+		-t chipdelmal/splatstats:$(version) \
+		-t chipdelmal/splatstats:latest \
+		--push
 
 ###############################################################################
 # Docker InkStats
@@ -103,12 +104,12 @@ docker_exec_ink:
 	- docker run --mount type=bind,source=${PWD},target=/data -it inkstats:dev bash
 
 docker_release_ink:
-	- docker build -f Dockerfile.inkstats -t chipdelmal/inkstats:$(version) .
-	- docker push chipdelmal/inkstats:$(version)
-	- docker build -f Dockerfile.inkstats -t chipdelmal/inkstats:latest .
-	- docker push chipdelmal/inkstats:latest
-
-# 
+	- docker buildx build -f Dockerfile.inkstats .\
+		--platform=linux/amd64,linux/arm64,linux/x86_64 \
+		-t chipdelmal/inkstats:$(version) \
+		-t chipdelmal/inkstats:latest \
+		--push
+ 
 ###############################################################################
 # Full version release
 ###############################################################################

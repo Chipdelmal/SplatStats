@@ -133,7 +133,8 @@ tCardsDict = {cat: pivot[cat].unstack() for cat in list(LABELS)+['time']}
     for c in LABELS
 ]
 
-tCard = tCardsDict['kill']
+stat = 'time'
+tCard = tCardsDict[stat]
 
 wpnSorting = tCard.sum(axis=1).sort_values(ascending=False)
 wpnsNumber = len(wpnSorting)
@@ -161,26 +162,26 @@ direction=1
 rRange=(0, 90)
 offset=0
 height=1
-edgeWidth=1
+edgeWidth=0.1
 fontSize=np.interp(wpnsNumber, [1, 10, 30, 50], [30, 20, 14, 5])
 highColors=[
-    '#DE0B64AA', '#311AA8AA', '#6BFF00AA', '#9030FF55', 
-    '#B62EA7AA', '#7d8597AA', '#faa6ffAA', '#f4845fAA'
+    '#DE0B64FF', '#311AA8FF', '#6BFF00FF', '#9030FFFF', 
+    '#B62EA7FF', '#7d8597FF', '#faa6ffFF', '#f4845fFF'
 ]
-baseColor='#ffffff55'
+baseColor='#00000066'
 maxValue=None
-fmtStr='  {} ({:.0f})'
+fmtStr='  {}'
 statScaler=1
 normalized=True
 # normFunction=LogNorm
 normFunction=lambda x: np.interp(x, [0, maxMag], [0, 1], left=None)
 normFunction=PowerNorm(gamma=1/2, vmin=0, vmax=1)
-normFunction=SymLogNorm(0.025, vmin=0, vmax=0.1)
+normFunction=SymLogNorm(1e7/5, vmin=0, vmax=1e7/1.5)
 
 wpnsNumber = len(wpnSorting)
 cmaps = [splat.colorPaletteFromHexList([baseColor, c]) for c in highColors]
 if normalized:
-    timecard = timecard/timecard.sum(axis=0)
+    timecard = timecard# /timecard.sum(axis=0)
 if not maxValue:
     maxMag = max(timecard.max())
     # norm = LogNorm(vmin=1, vmax=maxMag)
@@ -228,13 +229,20 @@ for wpix in range(wpnsNumber):
     clrsBlocks = [cmapCurrent(norm(value)) for value in rowMagnitudes]
     ax.broken_barh(
         weekBars, (offset+wpix*height, height), lw=edgeWidth,
-        facecolors=clrsBlocks, edgecolors=baseColor
+        facecolors=clrsBlocks, edgecolors='#ffffff44'
     )
     ax.text(
         0, # deltas[-1], 
         offset+wpix*height+height/2, wpnLabel,
-        va='center', ha='left', fontsize=fontSize
+        va='center', ha='left', fontsize=fontSize,
+        color='#ffffffDD'
     )
+ax.text(
+    0.2, 0.8, f'Weapon usage\nby {stat}',
+    va='center', ha='center', rotation=45,
+    transform=ax.transAxes, fontsize=fontSize*6,
+    color='#ffffffDD'
+)
 ax.set_xticklabels([])
 ax.set_yticklabels([])
 ax.axis("off")
@@ -247,10 +255,13 @@ ax.spines['polar'].set_visible(False)
 ax.set_rlabel_position(0)
 ax.xaxis.grid(False)
 ax.yaxis.grid(False)
+ax.set_facecolor("#000000")
+plt.figure(facecolor="#000000")
+fig.patch.set_facecolor("#000000")
 
-
+fName = f'Timecard-{stat}.png'
 fig.savefig(
-    path.join('Timecard-Duration.png'), 
+    path.join(DATA_PATH, 'inkstats/'+fName), 
     dpi=300, bbox_inches='tight', facecolor=fig.get_facecolor()
 )
     
