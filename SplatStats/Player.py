@@ -39,14 +39,14 @@ class Player:
     ###########################################################################
     # Player info
     ###########################################################################
-    def __init__(self, name, bPaths, id=None, timezone=None):
+    def __init__(self, name, bPaths, id=None, timezone=None, replaceNAN=True):
         self.name = name
         self.id = id
         self.bPaths = bPaths
         self.timezone = timezone
         # Parse player's battles dataframes -----------------------------------
         self.battleRecords = self.getBattleRecords()
-        self.battlesHistory = self.parsePlayerHistoryFromBattles()
+        self.battlesHistory = self.parsePlayerHistoryFromBattles(replaceNAN=replaceNAN)
         self.battlesHistoryByType = self.getPlayerHistoryByTypes()
         # Assign stats --------------------------------------------------------
         self.playerStats = self.calcPlayerStats()
@@ -76,7 +76,9 @@ class Player:
     ###########################################################################
     # Get player history dataframe
     ###########################################################################
-    def parsePlayerHistoryFromBattles(self, validOnly=True, ammendWeapons=True):
+    def parsePlayerHistoryFromBattles(
+            self, validOnly=True, ammendWeapons=True, replaceNAN=True
+        ):
         """Extracts the player's history from the battle records by matching the name in the dataframes.
 
         Args:
@@ -93,8 +95,9 @@ class Player:
         battlesHistory['loseBool'] = [1 if i=='L' else 0 for i in battlesHistory['win']]
         battlesHistory['participation'] = [1]*battlesHistory.shape[0]
         battlesHistory['kassist'] = (battlesHistory['kill']+0.5*battlesHistory['assist'])
-        battlesHistory['kad'] = battlesHistory['kassist']/battlesHistory['death']
-        battlesHistory.replace([np.inf, np.nan, -np.inf], 0, inplace=True)
+        battlesHistory['kad'] = battlesHistory['kassist']/ [max(i, 1) for i in battlesHistory['death']]
+        if replaceNAN:
+            battlesHistory.replace([np.inf, np.nan, -np.inf], 0, inplace=True)
         if ammendWeapons:
             self.battlesHistory = battlesHistory.replace('Hero Shot Replica', 'Splattershot')
         else:

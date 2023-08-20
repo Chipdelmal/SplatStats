@@ -7,6 +7,7 @@ os.environ['MPLCONFIGDIR'] = tempfile.mkdtemp()
 import numpy as np
 from os import path
 from sys import argv
+from math import ceil
 import SplatStats as splat
 import warnings
 warnings.filterwarnings("ignore")
@@ -31,10 +32,14 @@ else:
     fontPath = '/other/'
 overwrite = (True if overwrite=="True"  else False)
 LEN_LIMIT = 400
+NAMES = (
+    'čħîþ ウナギ', 'Yami ウナギ', 'Riché ウナギ', 'Oswal　ウナギ',
+    'April ウナギ', 'Rei ウナギ', 'DantoNnoob', 'Murazee', 'HSR'
+)
+# for plyrName in NAMES:
 ###############################################################################
 # Auxiliary 
 ###############################################################################
-title = '(Kills+0.5*Assists)/Deaths'
 fNameID = f'{plyrName}-{weapon}'
 splat.setSplatoonFont(fontPath, fontName="Splatfont 2")
 ###############################################################################
@@ -58,8 +63,12 @@ else:
 # Initial Explorations 
 ###############################################################################
 stat='kad'
+
+playerHistory['kad2'] = ((playerHistory['kill']+0.5*playerHistory['assist'])) / [max(i, 1) for i in playerHistory['death']]
+
 results = []
-(delta, xlim) = (0.1, 20)
+(delta, xlim) = (0.5, 25+0.5)
+totalMatches = playerHistory.shape[0]
 for threshold in np.arange(0, xlim+delta, delta):
     (won, lost) = [playerHistory[playerHistory['winBool']==i] for i in (1, 0)]
     (wonCount, lostCount) = (
@@ -67,15 +76,37 @@ for threshold in np.arange(0, xlim+delta, delta):
         lost[lost[stat]>=threshold].shape[0]
     )
     ratio = (wonCount+lostCount) and wonCount / (wonCount+lostCount) or 0
-    results.append((threshold, ratio))
+    matchFreq = (wonCount+lostCount) / totalMatches
+    results.append((threshold, ratio, matchFreq))
+top = min([i[0] for i in results if i[1]==0])
 
-(fig, ax) = plt.subplots(figsize=(10, 4))
+(fig, ax) = plt.subplots(figsize=(10, 3))
 ax.bar(
     [i[0] for i in results], 
     [i[1] for i in results],
-    width=delta
+    width=delta, color='#502EBAAA'
 )
-ax.set_xlim(0, xlim)
+for (x, v, f) in results:
+    if (v>0) and (x>0):
+        ax.hlines([f, ], x-delta/2, x+delta/2, color='#CB085688', lw=2)
+ax.bar(
+    np.arange(top, xlim+delta, delta), 
+    [1]*len(np.arange(top, xlim+delta, delta)),
+    width=delta, color='#7F7F9955'
+)
+ax.vlines(
+    np.arange(-delta/2, xlim+delta/2, 1), 
+    ymin=0, ymax=1, zorder=10, 
+    color='#000000CC', lw=1
+)
+ax.set_xticks(np.arange(0+delta/2, xlim+delta/2, 1))
+ax.set_xticklabels([int(i) for i in np.arange(0, xlim, 1)])
+ax.set_xlim(-delta/2, xlim+delta/2)
 ax.set_ylim(0, 1)
 ax.set_xlabel(stat)
 ax.set_ylabel('win ratio')
+ax.grid(False)
+fig.savefig(
+    path.join(oPath, f'{fNameID}_RateKAD.png'), 
+    dpi=500, bbox_inches='tight', facecolor=fig.get_facecolor()
+)
