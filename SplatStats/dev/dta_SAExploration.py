@@ -57,15 +57,25 @@ else:
 ###############################################################################
 # Initial Explorations 
 ###############################################################################
-won = playerHistory[playerHistory['winBool']==1]
-won[((won['kill']+0.5*won['assist'])/won['death']>=1.5)]
+stat='kad'
+results = []
+(delta, xlim) = (0.1, 20)
+for threshold in np.arange(0, xlim+delta, delta):
+    (won, lost) = [playerHistory[playerHistory['winBool']==i] for i in (1, 0)]
+    (wonCount, lostCount) = (
+        won[won[stat]>=threshold].shape[0],
+        lost[lost[stat]>=threshold].shape[0]
+    )
+    ratio = (wonCount+lostCount) and wonCount / (wonCount+lostCount) or 0
+    results.append((threshold, ratio))
 
-
-threshold = 0.5
-
-(won, lost) = [playerHistory[playerHistory['winBool']==i] for i in (1, 0)]
-(wonCount, lostCount) = (
-    won[won['kad']>=threshold].shape[0],
-    lost[lost['kad']>=threshold].shape[0]
+(fig, ax) = plt.subplots(figsize=(10, 4))
+ax.bar(
+    [i[0] for i in results], 
+    [i[1] for i in results],
+    width=delta
 )
-wonCount/lostCount
+ax.set_xlim(0, xlim)
+ax.set_ylim(0, 1)
+ax.set_xlabel(stat)
+ax.set_ylabel('win ratio')
