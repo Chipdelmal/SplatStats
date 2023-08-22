@@ -7,7 +7,7 @@ os.environ['MPLCONFIGDIR'] = tempfile.mkdtemp()
 import numpy as np
 from os import path
 from sys import argv
-from math import ceil
+from math import ceil, floor
 import SplatStats as splat
 import warnings
 warnings.filterwarnings("ignore")
@@ -67,7 +67,7 @@ for plyrName in NAMES:
     playerHistory['kad2'] = ((playerHistory['kill']+0.5*playerHistory['assist'])) / [max(i, 1) for i in playerHistory['death']]
 
     results = []
-    (delta, xlim, cumFreq) = (0.5, 25+0.5, False)
+    (delta, xlim, cumFreq) = (0.5 , 24.5, False)
     totalMatches = playerHistory.shape[0]
     for threshold in np.arange(0, xlim+delta, delta):
         (won, lost) = [playerHistory[playerHistory['winBool']==i] for i in (1, 0)]
@@ -92,7 +92,7 @@ for plyrName in NAMES:
     )
     for (x, v, f) in results:
         if (v>0) and (f<1):
-            ax.hlines([f, ], x-delta/2, x+delta/2, color='#CB0856DD', lw=2)
+            ax.hlines([f, ], x-delta/2, x+delta/2, color='#CB0856EE', lw=2)
     ax.bar(
         np.arange(top, xlim+delta, delta), 
         [1]*len(np.arange(top, xlim+delta, delta)),
@@ -103,8 +103,10 @@ for plyrName in NAMES:
         ymin=0, ymax=1, zorder=10, 
         color='#000000CC', lw=1
     )
-    ax.set_xticks(np.arange(0+delta/2, xlim+delta/2, 1))
-    ax.set_xticklabels([int(i) for i in np.arange(0, xlim, 1)])
+    ax.set_xticks(np.arange(0-delta/2, xlim+delta, 1))
+    ax.set_xticklabels([floor(i)+1 for i in np.arange(0-delta/2, xlim+delta, 1)])
+    # ax.set_xticks(np.arange(0+delta/2, xlim+delta/2, 1))
+    # ax.set_xticklabels([int(i) for i in np.arange(0, xlim, 1)])
     ax.set_xlim(-delta/2, xlim+delta/2)
     ax.set_ylim(0, 1)
     ax.set_xlabel(stat)

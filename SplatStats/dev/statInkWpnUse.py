@@ -177,6 +177,7 @@ normalized=True
 normFunction=lambda x: np.interp(x, [0, maxMag], [0, 1], left=None)
 normFunction=PowerNorm(gamma=1/2, vmin=0, vmax=1)
 normFunction=SymLogNorm(1e7/5, vmin=0, vmax=1e7/1.5)
+# normFunction=SymLogNorm(3e5/5, vmin=0, vmax=3e5/1.5)
 
 wpnsNumber = len(wpnSorting)
 cmaps = [splat.colorPaletteFromHexList([baseColor, c]) for c in highColors]
