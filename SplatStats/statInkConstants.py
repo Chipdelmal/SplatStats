@@ -117,6 +117,7 @@ WPNS_DICT = {
   'spygadget': 'Undercover Brella',
   'lact450': 'REEF-LUX 450',
   'tristringer': 'Tri-Stringer'
+  # Dread Wringer Heavy Edit Splatling
 }
 
 STGS_DICT = {
@@ -128,7 +129,8 @@ STGS_DICT = {
   'amabi': 'Inkblot Art Academy', 'sumeshi': 'Wahoo World',
   'hirame': 'Flounder Heights', 'kusaya': 'Brinewater Springs',
   'manta': 'Manta Maria', 'nampla': "Um'ami Ruins", 
-  'taraport':'Barnacle & Dime', 'kombu': 'Humpback Pump Track'
+  'taraport':'Barnacle & Dime', 'kombu': 'Humpback Pump Track',
+  # 'Shipshape Cargo Co.' 'Crableg Capital'
 }
 
 STATINK_DTYPES = {

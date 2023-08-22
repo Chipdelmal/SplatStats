@@ -171,7 +171,7 @@ DARK_MILK_WHITE_S3          = ('#3D1F7A', '#995935', '#D6BF8F', '#FFFF00')
 NESSIE_ALIENS_BIGFOOT_S3    = ('#118F32', '#793199', '#A1482B', '#0935A6')
 POWER_WISDOM_COURAGE_S3     = ('#AB2A5C', '#488DB5', '#03A65F', '#ba8500')
 VANILLA_STRAWBERRY_MINT_S3  = ('#cca770', '#bc6d75', '#2ac29e', '#adff6b')
-MONEY_FAME_LOVE             = ('#c8752d', '#73bd49', '#73bd49', '#5998ff')
+MONEY_FAME_LOVE             = ('#c8752d', '#73bd49', '#bb497b', '#5998ff')
 SHIVER_FRYE_BIGMAN_S3       = ('#253fc5', '#d3b113', '#d80501', '#6dda25')
 # Return of the Mammalians ----------------------------------------------------
 ORANGE_V_BLUE_S3            = ('#EE8711', '#0943F0', '#81DE17')
