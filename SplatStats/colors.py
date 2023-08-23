@@ -1,5 +1,5 @@
 ###############################################################################
-# Color Constants (source: https://splatoonwiki.org/wiki/Ink)
+# Color Constants (source: https://splatoonwiki.org/wiki/Ink#Color_Lock_3)
 #   The use of a VSCode extension like "Color Highlight" is highly 
 #   recommended to explore this file.
 ###############################################################################

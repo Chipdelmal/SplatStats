@@ -1,7 +1,11 @@
 
 import numpy as np
-# import json
 
+###############################################################################
+# Schemas from:
+#   https://github.com/fetus-hina/stat.ink/wiki/Spl3-%EF%BC%8D-CSV-Schema-%EF%BC%8D-Battle
+###############################################################################
+# import json
 # with open('./InkStat/weapon.json', 'r') as f:
 #   WEAPONS = json.load(f)
 # wpnKeys = [i['key'] for i in WEAPONS]
