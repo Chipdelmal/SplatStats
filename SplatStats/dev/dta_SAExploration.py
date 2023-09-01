@@ -10,6 +10,7 @@ from sys import argv
 from math import ceil, floor
 import SplatStats as splat
 import warnings
+from collections import Counter
 warnings.filterwarnings("ignore")
 import matplotlib.pyplot as plt
 
@@ -93,6 +94,11 @@ for plyrName in NAMES:
     for (x, v, f) in results:
         if (v>0) and (f<1):
             ax.hlines([f, ], x-delta/2, x+delta/2, color='#CB0856EE', lw=2)
+            ax.text(
+                x+.1, 1, f' {int(totalMatches*f):03d} ', 
+                rotation=90, ha='center', va='bottom',
+                fontsize=8, alpha=0.75
+            )
     ax.bar(
         np.arange(top, xlim+delta, delta), 
         [1]*len(np.arange(top, xlim+delta, delta)),
@@ -109,10 +115,34 @@ for plyrName in NAMES:
     # ax.set_xticklabels([int(i) for i in np.arange(0, xlim, 1)])
     ax.set_xlim(-delta/2, xlim+delta/2)
     ax.set_ylim(0, 1)
-    ax.set_xlabel(stat)
+    ax.set_xlabel('x ≤ (kill+0.5*assist)/death')
     ax.set_ylabel('win ratio')
     ax.grid(False)
     fig.savefig(
         path.join(oPath, f'{fNameID}_RateKAD.png'), 
         dpi=500, bbox_inches='tight', facecolor=fig.get_facecolor()
     )
+    
+###############################################################################
+# Other Explorations
+###############################################################################
+plyrName = NAMES[0]
+fNameID = f'{plyrName}-{weapon}'
+splat.setSplatoonFont(fontPath, fontName="Splatfont 2")
+###############################################################################
+# Process JSON files into battle objects
+###############################################################################
+hFilepaths = splat.getDataFilepaths(iPath, filePat='results.json')
+bPaths = splat.dumpBattlesFromJSONS(hFilepaths, bPath, overwrite=overwrite)
+bFilepaths = splat.getBattleFilepaths(bPath)
+###############################################################################
+# Create Player Object
+###############################################################################
+plyr = splat.Player(plyrName, bFilepaths, timezone='America/Los_Angeles')
+playerHistory = plyr.battlesHistory
+playerHistory = playerHistory[playerHistory['match mode']!='PRIVATE']
+# Weapon filter ---------------------------------------------------------------
+if weapon!='All':
+    playerHistory = playerHistory[playerHistory['main weapon']==weapon]
+else:
+    playerHistory = playerHistory

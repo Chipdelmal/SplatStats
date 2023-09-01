@@ -161,7 +161,7 @@ kassistTotal = np.sum(playerHistory['kassist'])/np.sum(playerHistory['death'])
 g = splat.plotMatchTypeBars(
     dfFlat, metric, aggMetrics, yRange=(0, 4), digs=4,
     countsLegend={'color': '#00000077', 'fontsize': 5},
-    percentage=False, textOffset=0.005, alpha=0.98, fontsize=7
+    percentage=False, textOffset=0.005, alpha=0.98, fontsize=5.5
 )
 g.fig.subplots_adjust(top=0.8)
 g.fig.suptitle(f'{title} = {kassistTotal:.4f}\n', fontsize=18)

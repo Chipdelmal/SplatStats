@@ -7,12 +7,36 @@
             "1"
         ],
         "name": {
+            "de_DE": "Sengkluft",
+            "en_GB": "Scorch Gorge",
             "en_US": "Scorch Gorge",
-            "ja_JP": "ユノハナ大渓谷"
+            "es_ES": "Desfiladero Fumarola",
+            "es_MX": "Desfiladero Fumarola",
+            "fr_CA": "Canyon aux colonnes",
+            "fr_FR": "Canyon aux colonnes",
+            "it_IT": "Grank Canyon",
+            "ja_JP": "ユノハナ大渓谷",
+            "ko_KR": "석순 대협곡",
+            "nl_NL": "Roggentrog",
+            "ru_RU": "Опаленное ущелье",
+            "zh_CN": "温泉花大峡谷",
+            "zh_TW": "溫泉花大峽谷"
         },
         "short_name": {
+            "de_DE": "Sengkluft",
+            "en_GB": "Gorge",
             "en_US": "Gorge",
-            "ja_JP": "ユノハナ"
+            "es_ES": "Desfiladero Fumarola",
+            "es_MX": "Desfiladero Fumarola",
+            "fr_CA": "Canyon aux colonnes",
+            "fr_FR": "Canyon aux colonnes",
+            "it_IT": "Grank Canyon",
+            "ja_JP": "ユノハナ",
+            "ko_KR": "석순 대협곡",
+            "nl_NL": "Roggentrog",
+            "ru_RU": "Опаленное ущелье",
+            "zh_CN": "大峡谷",
+            "zh_TW": "大峽谷"
         },
         "area": 2144,
         "release_at": {
@@ -28,12 +52,36 @@
             "2"
         ],
         "name": {
+            "de_DE": "Streifenaal-Straße",
+            "en_GB": "Eeltail Alley",
             "en_US": "Eeltail Alley",
-            "ja_JP": "ゴンズイ地区"
+            "es_ES": "Callejones Crustáceo",
+            "es_MX": "Callejones Crustáceo",
+            "fr_CA": "Banlieue Balibot",
+            "fr_FR": "Banlieue Balibot",
+            "it_IT": "Sobborgo Siluriano",
+            "ja_JP": "ゴンズイ地区",
+            "ko_KR": "메기 지구",
+            "nl_NL": "Forelviaduct",
+            "ru_RU": "Угрево-Скатово",
+            "zh_CN": "鳗鲶区",
+            "zh_TW": "鰻鯰區"
         },
         "short_name": {
+            "de_DE": "Streifenaal-Straße",
+            "en_GB": "Alley",
             "en_US": "Alley",
-            "ja_JP": "ゴンズイ"
+            "es_ES": "Callejones Crustáceo",
+            "es_MX": "Callejones Crustáceo",
+            "fr_CA": "Banlieue Balibot",
+            "fr_FR": "Banlieue Balibot",
+            "it_IT": "Sobborgo Siluriano",
+            "ja_JP": "ゴンズイ",
+            "ko_KR": "메기 지구",
+            "nl_NL": "Forelviaduct",
+            "ru_RU": "Угрево-Скатово",
+            "zh_CN": "鳗鲶区",
+            "zh_TW": "鰻鯰區"
         },
         "area": 2773,
         "release_at": {
@@ -49,12 +97,36 @@
             "11"
         ],
         "name": {
+            "de_DE": "Pinakoithek",
+            "en_GB": "Museum d'Alfonsino",
             "en_US": "Museum d'Alfonsino",
-            "ja_JP": "キンメダイ美術館"
+            "es_ES": "Museo del Pargo",
+            "es_MX": "Museo del Pargo",
+            "fr_CA": "Galeries Guppy",
+            "fr_FR": "Galeries Guppy",
+            "it_IT": "Museo di Cefalò",
+            "ja_JP": "キンメダイ美術館",
+            "ko_KR": "도미 미술관",
+            "nl_NL": "Galerie Le Guppy",
+            "ru_RU": "Галерея «Де Берикс»",
+            "zh_CN": "金眼鲷美术馆",
+            "zh_TW": "金眼鯛美術館"
         },
         "short_name": {
+            "de_DE": "Pinakoithek",
+            "en_GB": "Museum",
             "en_US": "Museum",
-            "ja_JP": "キンメダイ"
+            "es_ES": "Museo del Pargo",
+            "es_MX": "Museo del Pargo",
+            "fr_CA": "Galeries Guppy",
+            "fr_FR": "Galeries Guppy",
+            "it_IT": "Museo di Cefalò",
+            "ja_JP": "キンメダイ",
+            "ko_KR": "도미 미술관",
+            "nl_NL": "Galerie Le Guppy",
+            "ru_RU": "Галерея «Де Берикс»",
+            "zh_CN": "美术馆",
+            "zh_TW": "美術館"
         },
         "area": 2332,
         "release_at": {
@@ -67,15 +139,40 @@
         "aliases": [
             "spillway",
             "undertow_spillway",
-            "4"
+            "4",
+            "103"
         ],
         "name": {
+            "de_DE": "Schwertmuschel-Reservoir",
+            "en_GB": "Undertow Spillway",
             "en_US": "Undertow Spillway",
-            "ja_JP": "マテガイ放水路"
+            "es_ES": "Cisterna Navajuela",
+            "es_MX": "Desagüe Navajuela",
+            "fr_CA": "Réservoir Rigadelle",
+            "fr_FR": "Réservoir Rigadelle",
+            "it_IT": "Cisterna Cernia",
+            "ja_JP": "マテガイ放水路",
+            "ko_KR": "맛조개 방수로",
+            "nl_NL": "Baarsreservoir",
+            "ru_RU": "Приливослив",
+            "zh_CN": "竹蛏疏洪道",
+            "zh_TW": "竹蟶疏洪道"
         },
         "short_name": {
+            "de_DE": "Schwertmuschel-Reservoir",
+            "en_GB": "Spillway",
             "en_US": "Spillway",
-            "ja_JP": "マテガイ"
+            "es_ES": "Cisterna Navajuela",
+            "es_MX": "Cisterna Navajuela",
+            "fr_CA": "Réservoir Rigadelle",
+            "fr_FR": "Réservoir Rigadelle",
+            "it_IT": "Cisterna Cernia",
+            "ja_JP": "マテガイ",
+            "ko_KR": "맛조개 방수로",
+            "nl_NL": "Baarsreservoir",
+            "ru_RU": "Приливослив",
+            "zh_CN": "疏洪道",
+            "zh_TW": "疏洪道"
         },
         "area": 2440,
         "release_at": {
@@ -91,12 +188,36 @@
             "6"
         ],
         "name": {
+            "de_DE": "Aalstahl-Metallwerk",
+            "en_GB": "Mincemeat Metalworks",
             "en_US": "Mincemeat Metalworks",
-            "ja_JP": "ナメロウ金属"
+            "es_ES": "Desguace Mero",
+            "es_MX": "Desguace Mero",
+            "fr_CA": "Casse Rascasse",
+            "fr_FR": "Casse Rascasse",
+            "it_IT": "Discarica Tritatutto",
+            "ja_JP": "ナメロウ金属",
+            "ko_KR": "나메로우 금속",
+            "nl_NL": "Zilversmelt-hoogovens",
+            "ru_RU": "Цех «Тартар»",
+            "zh_CN": "鱼肉碎金属",
+            "zh_TW": "魚肉碎金屬"
         },
         "short_name": {
+            "de_DE": "Aalstahl-Metallwerk",
+            "en_GB": "Metalworks",
             "en_US": "Metalworks",
-            "ja_JP": "ナメロウ"
+            "es_ES": "Desguace Mero",
+            "es_MX": "Desguace Mero",
+            "fr_CA": "Casse Rascasse",
+            "fr_FR": "Casse Rascasse",
+            "it_IT": "Discarica Tritatutto",
+            "ja_JP": "ナメロウ",
+            "ko_KR": "나메로우 금속",
+            "nl_NL": "Zilversmelt-hoogovens",
+            "ru_RU": "Цех «Тартар»",
+            "zh_CN": "碎金属",
+            "zh_TW": "碎金屬"
         },
         "area": 2177,
         "release_at": {
@@ -112,12 +233,36 @@
             "3"
         ],
         "name": {
+            "de_DE": "Schnapperchen-Basar",
+            "en_GB": "Hagglefish Market",
             "en_US": "Hagglefish Market",
-            "ja_JP": "ヤガラ市場"
+            "es_ES": "Mercado Lenguado",
+            "es_MX": "Mercado Lenguado",
+            "fr_CA": "Marché Grefin",
+            "fr_FR": "Marché Grefin",
+            "it_IT": "Mercato Fruttato",
+            "ja_JP": "ヤガラ市場",
+            "ko_KR": "대치 시장",
+            "nl_NL": "Boter-bij-de-vismarkt",
+            "ru_RU": "Рынок «Свисторыб»",
+            "zh_CN": "烟管鱼市场",
+            "zh_TW": "煙管魚市場"
         },
         "short_name": {
+            "de_DE": "Schnapperchen-Basar",
+            "en_GB": "Market",
             "en_US": "Market",
-            "ja_JP": "ヤガラ"
+            "es_ES": "Mercado Lenguado",
+            "es_MX": "Mercado Lenguado",
+            "fr_CA": "Marché Grefin",
+            "fr_FR": "Marché Grefin",
+            "it_IT": "Mercato Fruttato",
+            "ja_JP": "ヤガラ",
+            "ko_KR": "대치 시장",
+            "nl_NL": "Boter-bij-de-vismarkt",
+            "ru_RU": "Рынок «Свисторыб»",
+            "zh_CN": "市场",
+            "zh_TW": "市場"
         },
         "area": 2631,
         "release_at": {
@@ -133,12 +278,36 @@
             "10"
         ],
         "name": {
+            "de_DE": "Makrelenbrücke",
+            "en_GB": "Hammerhead Bridge",
             "en_US": "Hammerhead Bridge",
-            "ja_JP": "マサバ海峡大橋"
+            "es_ES": "Puente Salmón",
+            "es_MX": "Puente Salmón",
+            "fr_CA": "Pont Esturgeon",
+            "fr_FR": "Pont Esturgeon",
+            "it_IT": "Ponte Sgombro",
+            "ja_JP": "マサバ海峡大橋",
+            "ko_KR": "고등어 해협 대교",
+            "nl_NL": "Brandingbrug",
+            "ru_RU": "Акулий мост",
+            "zh_CN": "真鲭跨海大桥",
+            "zh_TW": "真鯖跨海大橋"
         },
         "short_name": {
+            "de_DE": "Makrelenbrücke",
+            "en_GB": "Bridge",
             "en_US": "Bridge",
-            "ja_JP": "マサバ"
+            "es_ES": "Puente Salmón",
+            "es_MX": "Puente Salmón",
+            "fr_CA": "Pont Esturgon",
+            "fr_FR": "Pont Esturgeon",
+            "it_IT": "Ponte Sgombro",
+            "ja_JP": "マサバ",
+            "ko_KR": "고등어 해협 대교",
+            "nl_NL": "Brandingbrug",
+            "ru_RU": "Акулий мост",
+            "zh_CN": "大桥",
+            "zh_TW": "跨海大橋"
         },
         "area": 2501,
         "release_at": {
@@ -154,12 +323,36 @@
             "12"
         ],
         "name": {
+            "de_DE": "Mahi-Mahi-Resort",
+            "en_GB": "Mahi-Mahi Resort",
             "en_US": "Mahi-Mahi Resort",
-            "ja_JP": "マヒマヒリゾート＆スパ"
+            "es_ES": "Spa Cala Bacalao",
+            "es_MX": "Spa Cala Bacalao",
+            "fr_CA": "Spa C-ta-C",
+            "fr_FR": "Club Ca$halot",
+            "it_IT": "Villanguilla",
+            "ja_JP": "マヒマヒリゾート＆スパ",
+            "ko_KR": "만새기 리조트＆스파",
+            "nl_NL": "El Dorade-resort",
+            "ru_RU": "Спа-курорт «Золотая рыбка»",
+            "zh_CN": "鬼头刀SPA度假区",
+            "zh_TW": "鬼頭刀SPA度假區"
         },
         "short_name": {
+            "de_DE": "Mahi-Mahi-Resort",
+            "en_GB": "Resort",
             "en_US": "Resort",
-            "ja_JP": "マヒマヒ"
+            "es_ES": "Spa Cala Bacalao",
+            "es_MX": "Spa Cala Bacalao",
+            "fr_CA": "Spa C-ta-C",
+            "fr_FR": "Club Ca$halot",
+            "it_IT": "Villanguilla",
+            "ja_JP": "マヒマヒ",
+            "ko_KR": "만새기 리조트&스파",
+            "nl_NL": "El Dorade-resort",
+            "ru_RU": "Спа-курорт «Золотая рыбка»",
+            "zh_CN": "度假区",
+            "zh_TW": "鬼頭刀"
         },
         "area": 1693,
         "release_at": {
@@ -175,12 +368,36 @@
             "15"
         ],
         "name": {
+            "de_DE": "Cetacea-Markt",
+            "en_GB": "MakoMart",
             "en_US": "MakoMart",
-            "ja_JP": "ザトウマーケット"
+            "es_ES": "Ultramarinos Orca",
+            "es_MX": "Ultramarinos Orca",
+            "fr_CA": "Supermarché Cétacé",
+            "fr_FR": "Supermarché Cétacé",
+            "it_IT": "Mercatotano",
+            "ja_JP": "ザトウマーケット",
+            "ko_KR": "혹등 마켓",
+            "nl_NL": "Bultrugbazaar",
+            "ru_RU": "«Горбуша-Маркет»",
+            "zh_CN": "座头购物中心",
+            "zh_TW": "座頭購物中心"
         },
         "short_name": {
+            "de_DE": "Cetacea-Markt",
+            "en_GB": "Mart",
             "en_US": "Mart",
-            "ja_JP": "ザトウ"
+            "es_ES": "Ultramarinos Orca",
+            "es_MX": "Ultramarinos Orca",
+            "fr_CA": "Supermarché Cétacé",
+            "fr_FR": "Supermarché Cétacé",
+            "it_IT": "Mercatotano",
+            "ja_JP": "ザトウ",
+            "ko_KR": "혹등 마켓",
+            "nl_NL": "Bultrugbazaar",
+            "ru_RU": " Горбуша-Маркет",
+            "zh_CN": "购物中心",
+            "zh_TW": "購物中心"
         },
         "area": 2275,
         "release_at": {
@@ -196,12 +413,36 @@
             "14"
         ],
         "name": {
+            "de_DE": "Störwerft",
+            "en_GB": "Sturgeon Shipyard",
             "en_US": "Sturgeon Shipyard",
-            "ja_JP": "チョウザメ造船"
+            "es_ES": "Astillero Beluga",
+            "es_MX": "Astillero Beluga",
+            "fr_CA": "Chantier Narval",
+            "fr_FR": "Chantier Narval",
+            "it_IT": "Cantiere Pinnenere",
+            "ja_JP": "チョウザメ造船",
+            "ko_KR": "철갑상어 조선소",
+            "nl_NL": "Walruswerf",
+            "ru_RU": "Осетровые верфи",
+            "zh_CN": "鲟鱼造船厂",
+            "zh_TW": "鱘魚造船廠"
         },
         "short_name": {
+            "de_DE": "Störwerft",
+            "en_GB": "Shipyard",
             "en_US": "Shipyard",
-            "ja_JP": "チョウザメ"
+            "es_ES": "Astillero Beluga",
+            "es_MX": "Astillero Beluga",
+            "fr_CA": "Chantier Narval",
+            "fr_FR": "Chantier Narval",
+            "it_IT": "Cantiere Pinnenere",
+            "ja_JP": "チョウザメ",
+            "ko_KR": "철갑상어 조선소",
+            "nl_NL": "Walruswerf",
+            "ru_RU": "Осетровые верфи",
+            "zh_CN": "造船厂",
+            "zh_TW": "造船廠"
         },
         "area": 2880,
         "release_at": {
@@ -219,12 +460,36 @@
             "102"
         ],
         "name": {
+            "de_DE": "Perlmutt-Akademie",
+            "en_GB": "Inkblot Art Academy",
             "en_US": "Inkblot Art Academy",
-            "ja_JP": "海女美術大学"
+            "es_ES": "Instituto Coralino",
+            "es_MX": "Instituto Coralino",
+            "fr_CA": "Institut Calm'arts",
+            "fr_FR": "Institut Calam'arts",
+            "it_IT": "Campus Hippocampus",
+            "ja_JP": "海女美術大学",
+            "ko_KR": "해녀 미술 대학",
+            "nl_NL": "Koraalcampus",
+            "ru_RU": "Академия «Лепота»",
+            "zh_CN": "海女美术大学",
+            "zh_TW": "海女美術大學"
         },
         "short_name": {
+            "de_DE": "Perlmutt-Akademie",
+            "en_GB": "Academy",
             "en_US": "Academy",
-            "ja_JP": "海女美"
+            "es_ES": "Instituto Coralino",
+            "es_MX": "Instituto Coralino",
+            "fr_CA": "Institut Calm'arts",
+            "fr_FR": "Institut Calam'arts",
+            "it_IT": "Campus Hippocampus",
+            "ja_JP": "海女美",
+            "ko_KR": "해녀 미술 대학",
+            "nl_NL": "Koraalcampus",
+            "ru_RU": "Академия «Лепота»",
+            "zh_CN": "海女",
+            "zh_TW": "海女"
         },
         "area": 2591,
         "release_at": {
@@ -241,12 +506,36 @@
             "100"
         ],
         "name": {
+            "de_DE": "Flunder-Funpark",
+            "en_GB": "Wahoo World",
             "en_US": "Wahoo World",
-            "ja_JP": "スメーシーワールド"
+            "es_ES": "Pirañalandia",
+            "es_MX": "Pirañalandia",
+            "fr_CA": "Parc Carapince",
+            "fr_FR": "Parc Carapince",
+            "it_IT": "Soglioland",
+            "ja_JP": "スメーシーワールド",
+            "ko_KR": "초밥 월드",
+            "nl_NL": "Waterwonderland",
+            "ru_RU": "Луна-парк «Язь»",
+            "zh_CN": "醋饭海洋世界",
+            "zh_TW": "醋飯海洋世界"
         },
         "short_name": {
+            "de_DE": "Flunder-Funpark",
+            "en_GB": "World",
             "en_US": "World",
-            "ja_JP": "スメーシー"
+            "es_ES": "Pirañalandia",
+            "es_MX": "Pirañalandia",
+            "fr_CA": "Parc Carapince",
+            "fr_FR": "Parc Carapince",
+            "it_IT": "Soglioland",
+            "ja_JP": "スメーシー",
+            "ko_KR": "초밥 월드",
+            "nl_NL": "Waterwonderland",
+            "ru_RU": "Луна-парк «Язь»",
+            "zh_CN": "游乐园",
+            "zh_TW": "遊樂園"
         },
         "area": 3044,
         "release_at": {
@@ -262,12 +551,36 @@
             "9"
         ],
         "name": {
+            "de_DE": "Schollensiedlung",
+            "en_GB": "Flounder Heights",
             "en_US": "Flounder Heights",
-            "ja_JP": "ヒラメが丘団地"
+            "es_ES": "Complejo Medusa",
+            "es_MX": "Complejo Medusa",
+            "fr_CA": "Appartements Filament",
+            "fr_FR": "Lotissement Filament",
+            "it_IT": "Cime Sogliolose",
+            "ja_JP": "ヒラメが丘団地",
+            "ko_KR": "넙치 언덕 단지",
+            "nl_NL": "Baleinbuurt",
+            "ru_RU": "Микрорайон «Камбалово»",
+            "zh_CN": "比目鱼住宅区",
+            "zh_TW": "比目魚住宅區"
         },
         "short_name": {
+            "de_DE": "Siedlung",
+            "en_GB": "Heights",
             "en_US": "Heights",
-            "ja_JP": "ヒラメ"
+            "es_ES": "Complejo Medusa",
+            "es_MX": "Complejo Medusa",
+            "fr_CA": "Appartements Filament",
+            "fr_FR": "Lotissement Filament",
+            "it_IT": "Cime sogliolose",
+            "ja_JP": "ヒラメ",
+            "ko_KR": "넙치 언덕 단지",
+            "nl_NL": "Baleinbuurt",
+            "ru_RU": "Микрорайон «Камбалово»",
+            "zh_CN": "住宅区",
+            "zh_TW": "住宅區"
         },
         "area": 2591,
         "release_at": {
@@ -283,12 +596,36 @@
             "7"
         ],
         "name": {
+            "de_DE": "Kusaya-Quellen",
+            "en_GB": "Brinewater Springs",
             "en_US": "Brinewater Springs",
-            "ja_JP": "クサヤ温泉"
+            "es_ES": "Balneario Aguasal",
+            "es_MX": "Balneario Aguasal",
+            "fr_CA": "Sources Sauret",
+            "fr_FR": "Sources Sauret",
+            "it_IT": "Fermenterme",
+            "ja_JP": "クサヤ温泉",
+            "ko_KR": "과메기 온천",
+            "nl_NL": "Barbeelbaden",
+            "ru_RU": "Тухловодск",
+            "zh_CN": "臭鱼干温泉",
+            "zh_TW": "臭魚乾溫泉"
         },
         "short_name": {
+            "de_DE": "Kusaya-Quellen",
+            "en_GB": "Springs",
             "en_US": "Springs",
-            "ja_JP": "クサヤ"
+            "es_ES": "Balneario Aguasal",
+            "es_MX": "Balneario Aguasal",
+            "fr_CA": "Sources Sauret",
+            "fr_FR": "Sources Sauret",
+            "it_IT": "Fermenterme",
+            "ja_JP": "クサヤ",
+            "ko_KR": "과메기 온천",
+            "nl_NL": "Barbeelbaden",
+            "ru_RU": "Тухловодск",
+            "zh_CN": "温泉",
+            "zh_TW": "溫泉"
         },
         "area": 2045,
         "release_at": {
@@ -303,12 +640,36 @@
             "18"
         ],
         "name": {
+            "de_DE": "Manta Maria",
+            "en_GB": "Manta Maria",
             "en_US": "Manta Maria",
-            "ja_JP": "マンタマリア号"
+            "es_ES": "Corbeta Corvina",
+            "es_MX": "Corbeta Corvina",
+            "fr_CA": "Manta Maria",
+            "fr_FR": "Manta Maria",
+            "it_IT": "Manta Maria",
+            "ja_JP": "マンタマリア号",
+            "ko_KR": "만타 마리아호",
+            "nl_NL": "Klipvisklipper",
+            "ru_RU": "«Манта-Мария»",
+            "zh_CN": "鬼蝠鲼玛利亚号",
+            "zh_TW": "鬼蝠魟瑪利亞號"
         },
         "short_name": {
+            "de_DE": "Manta Maria",
+            "en_GB": "Manta",
             "en_US": "Manta",
-            "ja_JP": "マンタ"
+            "es_ES": "Corbeta Corvina",
+            "es_MX": "Corbeta Corvina",
+            "fr_CA": "Manta",
+            "fr_FR": "Manta",
+            "it_IT": "Manta Maria",
+            "ja_JP": "マンタ",
+            "ko_KR": "만타",
+            "nl_NL": "Klipvisklipper",
+            "ru_RU": "Манта Мария",
+            "zh_CN": "玛利亚号",
+            "zh_TW": "瑪利亞號"
         },
         "area": 2765,
         "release_at": {
@@ -324,12 +685,36 @@
             "ruins"
         ],
         "name": {
+            "de_DE": "Um'ami-Ruinen",
+            "en_GB": "Um'ami Ruins",
             "en_US": "Um'ami Ruins",
-            "ja_JP": "ナンプラー遺跡"
+            "es_ES": "Ruinas Ceviche",
+            "es_MX": "Ruinas Ceviche",
+            "fr_CA": "Ruines Uma'mi",
+            "fr_FR": "Ruines Uma'mi",
+            "it_IT": "Rovine Salsadipesce",
+            "ja_JP": "ナンプラー遺跡",
+            "ko_KR": "남플라 유적",
+            "nl_NL": "Ruisvoornruïnes",
+            "ru_RU": "Рыбожирные руины",
+            "zh_CN": "鱼露遗迹",
+            "zh_TW": "魚露遺跡"
         },
         "short_name": {
+            "de_DE": "Ruins",
+            "en_GB": "Ruins",
             "en_US": "Ruins",
-            "ja_JP": "ナンプラー"
+            "es_ES": "Ruins",
+            "es_MX": "Ruins",
+            "fr_CA": "Ruins",
+            "fr_FR": "Ruins",
+            "it_IT": "Ruins",
+            "ja_JP": "ナンプラー",
+            "ko_KR": "유적",
+            "nl_NL": "Ruins",
+            "ru_RU": "Рыбожирные руины",
+            "zh_CN": "遗迹",
+            "zh_TW": "遺跡"
         },
         "area": 2020,
         "release_at": {
@@ -345,12 +730,36 @@
             "8"
         ],
         "name": {
+            "de_DE": "Talerfisch & Pock",
+            "en_GB": "Barnacle & Dime",
             "en_US": "Barnacle & Dime",
-            "ja_JP": "タラポートショッピングパーク"
+            "es_ES": "Centro Comercial Fletán",
+            "es_MX": "Unicentro Carite",
+            "fr_CA": "Halles de Port-merlu",
+            "fr_FR": "Halles de Port-merlu",
+            "it_IT": "Empolporio",
+            "ja_JP": "タラポートショッピングパーク",
+            "ko_KR": "대구 포트 쇼핑 파크",
+            "nl_NL": "Winkelcentrum Poon & Zeehaan",
+            "ru_RU": "УсоногТорг",
+            "zh_CN": "塔拉波特购物公园",
+            "zh_TW": "塔拉波特購物公園"
         },
         "short_name": {
+            "de_DE": "Talerfisch & Pock",
+            "en_GB": "B&D",
             "en_US": "B&D",
-            "ja_JP": "タラポート"
+            "es_ES": "Centro Comercial Fletán",
+            "es_MX": "Centro Comercial Fletán",
+            "fr_CA": "Halles de Port-merlu",
+            "fr_FR": "Halles de Port-merlu",
+            "it_IT": "Empolporio",
+            "ja_JP": "タラポート",
+            "ko_KR": "대구 포트 쇼핑 파크",
+            "nl_NL": "Winkelcentrum Poon & Zeehaan",
+            "ru_RU": "B&D",
+            "zh_CN": "购物公园",
+            "zh_TW": "購物公園"
         },
         "area": 2274,
         "release_at": {
@@ -367,17 +776,131 @@
             "17"
         ],
         "name": {
+            "de_DE": "Buckelwal-Piste",
+            "en_GB": "Humpback Pump Track",
             "en_US": "Humpback Pump Track",
-            "ja_JP": "コンブトラック"
+            "es_ES": "Tiburódromo",
+            "es_MX": "Tiburódromo",
+            "fr_CA": "Piste Méroule",
+            "fr_FR": "Piste Méroule",
+            "it_IT": "Tintodromo Montecarpa",
+            "ja_JP": "コンブトラック",
+            "ko_KR": "다시마 트랙",
+            "nl_NL": "Lekkerbektrack",
+            "ru_RU": "Велозал «9-й вал»",
+            "zh_CN": "昆布赛道",
+            "zh_TW": "昆布賽道"
         },
         "short_name": {
+            "de_DE": "Buckelwal-Piste",
+            "en_GB": "Track",
             "en_US": "Track",
-            "ja_JP": "コンブ"
+            "es_ES": "Tiburódromo",
+            "es_MX": "Tiburódromo",
+            "fr_CA": "Piste Méroule",
+            "fr_FR": "Piste Méroule",
+            "it_IT": "Tintodromo Montecarpa",
+            "ja_JP": "コンブ",
+            "ko_KR": "다시마 트랙",
+            "nl_NL": "Lekkerbektrack",
+            "ru_RU": "Велозал «9-й вал»",
+            "zh_CN": "赛道",
+            "zh_TW": "賽道"
         },
         "area": 2326,
         "release_at": {
             "time": 1685577600,
             "iso8601": "2023-06-01T00:00:00+00:00"
+        }
+    },
+    {
+        "key": "takaashi",
+        "aliases": [
+            "crableg_capital",
+            "capital",
+            "19"
+        ],
+        "name": {
+            "de_DE": "Seespinnen-Skyline",
+            "en_GB": "Crableg Capital",
+            "en_US": "Crableg Capital",
+            "es_ES": "Distrito Rascalópodo",
+            "es_MX": "Distrito Rascalópodo",
+            "fr_CA": "Quartier Crabe-ciels",
+            "fr_FR": "Quartier Crabe-ciels",
+            "it_IT": "Granchiacieli",
+            "ja_JP": "タカアシ経済特区",
+            "ko_KR": "거미게 경제특구",
+            "nl_NL": "Visstickdistrict",
+            "ru_RU": "Крабхэттен",
+            "zh_CN": "高脚经济特区",
+            "zh_TW": "高腳經濟特區"
+        },
+        "short_name": {
+            "de_DE": "Capital",
+            "en_GB": "Capital",
+            "en_US": "Capital",
+            "es_ES": "Capital",
+            "es_MX": "Capital",
+            "fr_CA": "Capital",
+            "fr_FR": "Capital",
+            "it_IT": "Capital",
+            "ja_JP": "タカアシ",
+            "ko_KR": "Capital",
+            "nl_NL": "Capital",
+            "ru_RU": "Capital",
+            "zh_CN": "经济特区",
+            "zh_TW": "經濟特區"
+        },
+        "area": null,
+        "release_at": {
+            "time": 1693526400,
+            "iso8601": "2023-09-01T00:00:00+00:00"
+        }
+    },
+    {
+        "key": "ohyo",
+        "aliases": [
+            "shipshape_cargo_co",
+            "cargo",
+            "20"
+        ],
+        "name": {
+            "de_DE": "Frachtschiff Schwerfisch",
+            "en_GB": "Shipshape Cargo Co.",
+            "en_US": "Shipshape Cargo Co.",
+            "es_ES": "Carguero Platija",
+            "es_MX": "Carguero Platija",
+            "fr_CA": "Cargo Flétan",
+            "fr_FR": "Chaland Flétan",
+            "it_IT": "Platessa Trasporti S.r.l.",
+            "ja_JP": "オヒョウ海運",
+            "ko_KR": "광어 해운",
+            "nl_NL": "Tarbot Transport",
+            "ru_RU": "«Палтус-карго»",
+            "zh_CN": "大比目鱼海运中心",
+            "zh_TW": "大比目魚海運中心"
+        },
+        "short_name": {
+            "de_DE": "Cargo",
+            "en_GB": "Cargo",
+            "en_US": "Cargo",
+            "es_ES": "Cargo",
+            "es_MX": "Cargo",
+            "fr_CA": "Cargo",
+            "fr_FR": "Cargo",
+            "it_IT": "Cargo",
+            "ja_JP": "オヒョウ",
+            "ko_KR": "Cargo",
+            "nl_NL": "Cargo",
+            "ru_RU": "Cargo",
+            "zh_CN": "海运中心",
+            "zh_TW": "海運中心"
+        },
+        "area": null,
+        "release_at": {
+            "time": 1693526400,
+            "iso8601": "2023-09-01T00:00:00+00:00"
         }
     }
 ]

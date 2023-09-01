@@ -5,13 +5,13 @@ import numpy as np
 # Schemas from:
 #   https://github.com/fetus-hina/stat.ink/wiki/Spl3-%EF%BC%8D-CSV-Schema-%EF%BC%8D-Battle
 ###############################################################################
-# import json
-# with open('./InkStat/weapon.json', 'r') as f:
-#   WEAPONS = json.load(f)
-# wpnKeys = [i['key'] for i in WEAPONS]
-# wpnDict = {
-#   wpnKeys[ix]: WEAPONS[ix]['name']['en_US'] for ix in range(len(wpnKeys))
-# }
+import json
+with open('./InkStat/weapon.json', 'r') as f:
+  WEAPONS = json.load(f)
+wpnKeys = [i['key'] for i in WEAPONS]
+wpnDict = {
+  wpnKeys[ix]: WEAPONS[ix]['name']['en_US'] for ix in range(len(wpnKeys))
+}
 
 GAME_MODE = {
   'nawabari': 'Turf War', 'area': 'Splat Zones', 
@@ -79,6 +79,7 @@ WPNS_DICT = {
   'carbon': 'Carbon Roller',
   'carbon_deco': 'Carbon Roller Deco',
   'dynamo': 'Dynamo Roller',
+  'dynamo_tesla': 'Gold Dynamo Roller',
   'splatroller': 'Splat Roller',
   'splatroller_collabo': 'Krak-On Splat Roller',
   'variableroller': 'Flingza Roller',
@@ -86,6 +87,7 @@ WPNS_DICT = {
   'wideroller_collabo': 'Big Swig Roller Express',
   'fincent': 'Painbrush',
   'hokusai': 'Octobrush',
+  'hokusai_hue': 'Octobrush Nouveau',
   'pablo': 'Inkbrush',
   'pablo_hue': 'Inkbrush Nouveau',
   'drivewiper': 'Splatana Wiper',
@@ -96,6 +98,7 @@ WPNS_DICT = {
   'liter4k_scope': 'E-liter 4K Scope',
   'rpen_5h': 'Snipewriter 5H',
   'soytuber': 'Goo Tuber',
+  'soytuber_custom': 'Custom Goo Tuber',
   'splatcharger': 'Splat Charger',
   'splatcharger_collabo': 'Z+F Splat Charger',
   'splatscope': 'Splatterscope',
@@ -105,23 +108,29 @@ WPNS_DICT = {
   'bucketslosher_deco': 'Slosher Deco',
   'explosher': 'Explosher',
   'furo': 'Bloblobber',
+  'furo_deco': 'Bloblobber Deco',
   'hissen': 'Tri-Slosher',
   'hissen_hue': 'Tri-Slosher Nouveau',
+  'moprin': 'Dread Wringer',
   'screwslosher': 'Sloshing Machine',
+  'screwslosher_neo': 'Sloshing Machine Neo',
   'barrelspinner': 'Heavy Splatling',
   'barrelspinner_deco': 'Heavy Splatling Deco',
+  'examiner': 'Heavy Edit Splatling',
   'hydra': 'Hydra Splatling',
   'kugelschreiber': 'Ballpoint Splatling',
+  'kugelschreiber_hue': 'Ballpoint Splatling Nouveau',
   'nautilus47': 'Nautilus 47',
   'splatspinner': 'Mini Splatling',
   'splatspinner_collabo': 'Zink Mini Splatling',
   'campingshelter': 'Tenta Brella',
   'campingshelter_sorella': 'Tenta Sorella Brella',
   'parashelter': 'Splat Brella',
+  'parashelter_sorella': 'Sorella Brella',
   'spygadget': 'Undercover Brella',
   'lact450': 'REEF-LUX 450',
-  'tristringer': 'Tri-Stringer'
-  # Dread Wringer Heavy Edit Splatling
+  'tristringer': 'Tri-Stringer',
+  'tristringer_collabo': 'Inkline Tri-Stringer'
 }
 
 STGS_DICT = {
@@ -134,7 +143,7 @@ STGS_DICT = {
   'hirame': 'Flounder Heights', 'kusaya': 'Brinewater Springs',
   'manta': 'Manta Maria', 'nampla': "Um'ami Ruins", 
   'taraport':'Barnacle & Dime', 'kombu': 'Humpback Pump Track',
-  # 'Shipshape Cargo Co.' 'Crableg Capital'
+  'ohyo': 'Shipshape Cargo Co.', 'takaashi': 'Crableg Capital'
 }
 
 STATINK_DTYPES = {
