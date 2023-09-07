@@ -15,7 +15,7 @@ import SplatStats as splat
 
 if splat.isNotebook():
     (SEASON, GMODE, TITLES, OVERWRITE, DPI) = (
-        'Drizzle Season 2022', 'All Modes', 'False', 'True', '500'
+        'Drizzle Season 2023', 'All Modes', 'False', 'True', '500'
     )
 else:
     (SEASON, GMODE, TITLES, OVERWRITE, DPI) = argv[1:]
@@ -36,7 +36,7 @@ if GMODE in GMODES:
     TITLES = True
 else:
     POLAR = {
-        'fontSizes': (12, 3.75), 'ticksStep': 4,
+        'fontSizes': (12, 3), 'ticksStep': 4,
         'yRange': (0, 300e3), 'rRange': (0, 180),
         'topRank': None
     }
@@ -137,7 +137,8 @@ cPal = splat.colorPaletteFromHexList([COLS[six][0]+'DD', '#FFFFFF99', COLS[six][
 (fig, ax) = plt.subplots(figsize=(20, 20))
 (fig, ax) = splat.plotDominanceMatrix(
     sNames, sMatrix, sSort, mMatrix,
-    figAx=(fig, ax), vRange=(-0.75, 0.75), cmap=cPal
+    figAx=(fig, ax), vRange=(-0.75, 0.75), cmap=cPal,
+    fontSize=8
 )
 plt.tick_params(
     axis='x', which='both',

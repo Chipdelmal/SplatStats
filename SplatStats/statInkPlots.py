@@ -107,7 +107,8 @@ def barChartLobby(
 def plotDominanceMatrix(
         sNames, sMatrix, sSort, mMatrix,
         figAx=None, vRange=(-1, 1), scaler=('k', 1e3),
-        cmap=clr.colorPaletteFromHexList(['#D01D79', '#FFFFFF', '#1D07AC'])
+        cmap=clr.colorPaletteFromHexList(['#D01D79', '#FFFFFF', '#1D07AC']),
+        fontSize=10
     ):
     counts = [np.sum(r>0) for r in sMatrix]
     (mWpnWins, mWpnLoss) = (
@@ -131,8 +132,8 @@ def plotDominanceMatrix(
     ax.matshow(sMatrix, vmin=vRange[0], vmax=vRange[1], cmap=cmap)
     ax.set_xticks(np.arange(0, len(sNames)))
     ax.set_yticks(np.arange(0, len(sNames)))
-    ax.set_xticklabels(tLabs, rotation=90, fontsize=12.5)
-    ax.set_yticklabels(lLabs, fontsize=12.5)
+    ax.set_xticklabels(tLabs, rotation=90, fontsize=fontSize)
+    ax.set_yticklabels(lLabs, fontsize=fontSize)
     return (fig, ax)
 
 
