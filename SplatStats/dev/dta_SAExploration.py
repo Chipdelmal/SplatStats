@@ -37,7 +37,7 @@ NAMES = (
     'čħîþ ウナギ', 'Yami ウナギ', 'Riché ウナギ', 'Oswal　ウナギ',
     'April ウナギ', 'Rei ウナギ', 'DantoNnoob', 'Murazee', 'HSR'
 )
-plyrName = NAMES[1]
+plyrName = NAMES[0]
 # for plyrName in NAMES:
 ###############################################################################
 # Auxiliary 
