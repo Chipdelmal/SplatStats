@@ -195,10 +195,16 @@ class Player:
         # Compile counter object 
         awds = []
         for awdRaw in awdsRaw:
-            awd = [i.split('@')[0] for i in awdRaw]
-            awds.extend(awd)
-        awdsCount = Counter(awds).most_common()
-        return awdsCount
+            awdX = [i for i in awdRaw if type(i) is str]
+            awd = [i.split('@')[0] for i in awdX]
+            entry = [i.split('@') for i in awdX]
+            # Count gold as double than silver
+            centry = [[e[0], e[0]] if e[1]=='gold' else [e[0], ] for e in entry]
+            awds.extend(centry)
+        awdsFlat = [item for sublist in awds for item in sublist]
+        awdsCount = Counter(awdsFlat).most_common()
+        awdsCountNorm = [(i[0], i[1]/2) for i in awdsCount]
+        return awdsCountNorm
     
     ###########################################################################
     # Get player rankings

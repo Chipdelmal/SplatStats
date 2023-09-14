@@ -83,11 +83,12 @@ if weapon=='All':
 if weapon=='All':
     killsTotal = playerHistory['kassist'].sum()
     wColors = [
-        '#2DD9B6', '#4F55ED', '#B14A8D', '#C70864', '#2CB721', 
-        '#4B25C9', '#830B9C', '#C6D314', '#0D37C3', '#C920B7', 
-        '#571DB1', '#14BBE7', '#38377A', '#990F2B', '#7F7F99',
-    ][::-1]
-    wColors = wColors*10
+        '#C70864', '#6BFF00', '#4F55ED', '#B14A8D', 
+        '#D645C8', '#830B9C', '#C6D314', '#0D37C3', 
+        '#F52E71', '#571DB1', '#14BBE7', '#38377A',
+    ][::]
+    wColors = [i+'BB' for i in wColors]
+    wColors = wColors*50
     (fig, ax) = splat.plotCircularBarchartStat(
         playerHistory, cat='main weapon', stat='kassist', aggFun=np.sum,
         colors=wColors, # yRange=(0, 10e3), 
@@ -215,20 +216,22 @@ plt.close()
 ###############################################################################
 if weapon=='All':
     try:
+        wColors = [
+            '#C70864', '#6BFF00', '#4F55ED', '#B14A8D', 
+            '#D645C8', '#830B9C', '#C6D314', '#0D37C3', 
+            '#F52E71', '#571DB1', '#14BBE7', '#38377A',
+        ][::]
+        wColors = [i+'BB' for i in wColors]
+        wColors = wColors*50
         awds = plyr.getAwardFrequencies()
         (fig, ax) = splat.polarBarChart(
             [i[0] for i in awds[::-1]], 
             [i[1] for i in awds[::-1]],
             labelFmt={
-                'color': '#000000EE', 'fontsize': 7.5, 
+                'color': '#000000EE', 'fontsize': 6, 
                 'ha': 'left', 'fmt': '{:.1f}'
             },
-            colors=[
-                '#C70864', '#571DB1', '#C920B7', '#4F55ED', '#B14A8D', '#7F7F99', 
-                '#C70864', 
-                '#2CB721', '#4B25C9', '#830B9C', '#C6D314', '#0D37C3', 
-                '#14BBE7', '#38377A', '#C70864'
-            ][::-1]*10
+            colors=wColors
         )
         ax.set_title(f'Awards\n', fontsize=18)
         fig.savefig(
