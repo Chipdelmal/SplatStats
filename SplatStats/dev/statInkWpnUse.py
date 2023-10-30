@@ -9,6 +9,8 @@ from sys import argv
 from glob import glob
 from random import shuffle
 import pandas as pd
+from math import radians
+from matplotlib.colors import LogNorm, PowerNorm, SymLogNorm
 import matplotlib.pyplot as plt
 from matplotlib.transforms import Bbox
 import SplatStats as splat
@@ -87,6 +89,24 @@ else:
     else:
         btlsFiltered = btls
 ###############################################################################
+# Get Season Dates
+###############################################################################
+seasons = list(set(btls['season']))
+seasonDtes = dict()
+for ssn in seasons:
+    dtesSet = set(btls[btls['season']==ssn]['DateGroup'])
+    dteRange = (min(dtesSet), max(dtesSet))
+    seasonDtes[ssn] = dteRange
+###############################################################################
+# Get Version Dates
+###############################################################################
+versions = sorted(list(set(btls['game-ver'])))
+versionDtes = dict()
+for vrs in versions:
+    dtesSet = set(btls[btls['game-ver']==vrs]['DateGroup'])
+    dteRange = (min(dtesSet), max(dtesSet))
+    versionDtes[vrs] = dteRange
+###############################################################################
 # Get Weapon use Stats
 ###############################################################################
 def addDateGroup(
@@ -147,11 +167,10 @@ fontSize = np.interp(wpnsNumber, [1, 10, 30, 50], [30, 20, 14, 5])
 # )
 
 
+
 timecard=tCard
 wpnSorting=wpnSorting
 
-from math import radians
-from matplotlib.colors import LogNorm, PowerNorm, SymLogNorm
 
 figAx=None
 yearRange=None
@@ -244,6 +263,32 @@ ax.text(
     transform=ax.transAxes, fontsize=fontSize*6,
     color='#ffffffDD'
 )
+# Plot version ----------------------------------------------------------------
+verTuples = [(k, versionDtes[k][0]) for k in versionDtes.keys()]
+(verLbl, verDte) = list(zip(*verTuples))
+dteTuples = [[int(x) for x in d.split('/')] for d in verDte]
+weekNumber = [(y%minYear)*52+w-minWeek+1 for (y, w) in dteTuples]
+wix = weekNumber[10]
+for wix in weekNumber:
+    ax.plot(
+        [0, weekBars[wix-1][0]], [0, wpnsNumber+20], 
+        alpha=0.75,
+        color='#ffffff', lw=0.5, 
+        zorder=10
+    )
+# Plot season ----------------------------------------------------------------
+ssnTuples = [(k, seasonDtes[k][0]) for k in seasonDtes.keys()]
+(ssnLbl, ssnDte) = list(zip(*ssnTuples))
+dteTuples = [[int(x) for x in d.split('/')] for d in ssnDte]
+weekNumber = [(y%minYear)*52+w-minWeek+1 for (y, w) in dteTuples]
+# wix = weekNumber[0]
+for wix in weekNumber:
+    ax.plot(
+        [0, weekBars[wix-1][0]], [0, wpnsNumber+20], 
+        alpha=0.75,
+        color='#D60E6E', lw=2, 
+        zorder=10
+    )
 ax.set_xticklabels([])
 ax.set_yticklabels([])
 ax.axis("off")
@@ -259,7 +304,6 @@ ax.yaxis.grid(False)
 ax.set_facecolor("#000000")
 plt.figure(facecolor="#000000")
 fig.patch.set_facecolor("#000000")
-
 fName = f'Timecard-{stat}.png'
 fig.savefig(
     path.join(DATA_PATH, 'inkstats/'+fName), 
