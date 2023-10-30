@@ -239,7 +239,7 @@ for wpix in range(wpnsNumber):
         color='#ffffffDD'
     )
 ax.text(
-    0.2, 0.8, f'Weapon usage\nby {stat}',
+    0.2, 0.8, f'Weapon usage\nby week', # \nby {stat}',
     va='center', ha='center', rotation=45,
     transform=ax.transAxes, fontsize=fontSize*6,
     color='#ffffffDD'

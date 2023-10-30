@@ -173,6 +173,7 @@ POWER_WISDOM_COURAGE_S3     = ('#AB2A5C', '#488DB5', '#03A65F', '#ba8500')
 VANILLA_STRAWBERRY_MINT_S3  = ('#cca770', '#bc6d75', '#2ac29e', '#adff6b')
 MONEY_FAME_LOVE             = ('#c8752d', '#73bd49', '#bb497b', '#5998ff')
 SHIVER_FRYE_BIGMAN_S3       = ('#253fc5', '#d3b113', '#d80501', '#6dda25')
+ZOMBIE_SKELETON_GHOST       = ('#0ca34b', '#b04f23', '#964996', '#bfed1c')
 # Return of the Mammalians ----------------------------------------------------
 ORANGE_V_BLUE_S3            = ('#EE8711', '#0943F0', '#81DE17')
 YELLOW_V_INDIGO_S3          = ('#DEC109', '#531BBA', '#C920B7')

@@ -54,6 +54,7 @@ if weapon!='All':
     playerHistory = playerHistory[playerHistory['main weapon']==weapon]
 else:
     playerHistory = playerHistory
+# playerHistory = playerHistory.iloc[:5000]
 ###############################################################################
 # Timecard
 ###############################################################################
