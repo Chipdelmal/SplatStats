@@ -89,24 +89,6 @@ else:
     else:
         btlsFiltered = btls
 ###############################################################################
-# Get Season Dates
-###############################################################################
-seasons = list(set(btls['season']))
-seasonDtes = dict()
-for ssn in seasons:
-    dtesSet = set(btls[btls['season']==ssn]['DateGroup'])
-    dteRange = (min(dtesSet), max(dtesSet))
-    seasonDtes[ssn] = dteRange
-###############################################################################
-# Get Version Dates
-###############################################################################
-versions = sorted(list(set(btls['game-ver'])))
-versionDtes = dict()
-for vrs in versions:
-    dtesSet = set(btls[btls['game-ver']==vrs]['DateGroup'])
-    dteRange = (min(dtesSet), max(dtesSet))
-    versionDtes[vrs] = dteRange
-###############################################################################
 # Get Weapon use Stats
 ###############################################################################
 def addDateGroup(
@@ -128,7 +110,45 @@ slicer = (lambda x: "{}/{:02d}".format(
 ))
 addDateGroup(btlsFiltered, slicer=slicer, dateColumn='period')
 wpnsSet = splat.getWeaponsSet(btlsFiltered)
-
+###############################################################################
+# Get Season Dates
+###############################################################################
+seasons = list(set(btls['season']))
+seasonDtes = dict()
+for ssn in seasons:
+    dtesSet = set(btls[btls['season']==ssn]['DateGroup'])
+    dteRange = (min(dtesSet), max(dtesSet))
+    seasonDtes[ssn] = dteRange
+###############################################################################
+# Get Version Dates
+###############################################################################
+versions = sorted(list(set(btls['game-ver'])))
+versionDtes = dict()
+for vrs in versions[:-1]:
+    dtesSet = set(btls[btls['game-ver']==vrs]['DateGroup'])
+    dteRange = (min(dtesSet), max(dtesSet))
+    versionDtes[vrs] = dteRange
+###############################################################################
+# Get Splatfest
+###############################################################################
+fest = sorted(list(set(btls[btls['lobby']=='Splatfest (Open)']['DateGroup'])))
+fix = fest[0]
+flag = False
+fDates = []
+for (ix, fix) in enumerate(fest):
+    if ix < (len(fest)-1):
+        cfix = int(fest[ix].split('/')[1])
+        ffix = int(fest[ix+1].split('/')[1])
+        if flag:
+            flag = False
+        else:
+            if ffix == cfix+1:
+                flag = True
+            else:
+                flag = False
+            fDates.append(fest[ix])
+    else:
+        fDates.append(fest[ix])
 
 dfs = []
 for plyNme in PLAYERS:
@@ -153,6 +173,8 @@ tCardsDict = {cat: pivot[cat].unstack() for cat in list(LABELS)+['time']}
     for c in LABELS
 ]
 
+
+
 stat = 'time'
 tCard = tCardsDict[stat]
 
@@ -165,7 +187,6 @@ fontSize = np.interp(wpnsNumber, [1, 10, 30, 50], [30, 20, 14, 5])
 #     fmtStr='  {} ({:.0f})', statScaler=60,
 #     highColors=['#DE0B64AA', '#311AA8AA', '#6BFF00AA', '#9030FFAA', '#B62EA7AA']
 # )
-
 
 
 timecard=tCard
@@ -257,23 +278,28 @@ for wpix in range(wpnsNumber):
         va='center', ha='left', fontsize=fontSize,
         color='#ffffffDD'
     )
-ax.text(
-    0.2, 0.8, f'Weapon usage\nby week', # \nby {stat}',
-    va='center', ha='center', rotation=45,
-    transform=ax.transAxes, fontsize=fontSize*6,
-    color='#ffffffDD'
-)
 # Plot version ----------------------------------------------------------------
 verTuples = [(k, versionDtes[k][0]) for k in versionDtes.keys()]
 (verLbl, verDte) = list(zip(*verTuples))
 dteTuples = [[int(x) for x in d.split('/')] for d in verDte]
 weekNumber = [(y%minYear)*52+w-minWeek+1 for (y, w) in dteTuples]
-wix = weekNumber[10]
+# wix = weekNumber[10]
 for wix in weekNumber:
     ax.plot(
-        [0, weekBars[wix-1][0]], [0, wpnsNumber+20], 
-        alpha=0.75,
-        color='#ffffff', lw=0.5, 
+        [0, weekBars[-wix][0]+rDelta], [0, wpnsNumber+0], 
+        alpha=0.25,
+        color='#ffffff', lw=1, ls=':',
+        zorder=20
+    )
+# Plot splatfest --------------------------------------------------------------
+dteTuples = [[int(x) for x in d.split('/')] for d in fDates]
+weekNumber = [(y%minYear)*52+w-minWeek+1 for (y, w) in dteTuples]
+# wix = weekNumber[0]
+for wix in weekNumber:
+    ax.plot(
+        [0, weekBars[-wix][0]+rDelta], [0, wpnsNumber+1], 
+        alpha=0.5,
+        color='#bdd5ea', lw=1, ls='-',
         zorder=10
     )
 # Plot season ----------------------------------------------------------------
@@ -284,17 +310,25 @@ weekNumber = [(y%minYear)*52+w-minWeek+1 for (y, w) in dteTuples]
 # wix = weekNumber[0]
 for wix in weekNumber:
     ax.plot(
-        [0, weekBars[wix-1][0]], [0, wpnsNumber+20], 
+        [0, weekBars[-wix][0]+rDelta], [0, wpnsNumber+2], 
         alpha=0.75,
-        color='#D60E6E', lw=2, 
+        color='#D60E6E', lw=1, 
         zorder=10
     )
-ax.set_xticklabels([])
+
+ax.text(
+    0.5, -0.025, f'Weapon usage\n(binned by week)', # \nby {stat}',
+    va='top', ha='center', rotation=0,
+    transform=ax.transAxes, fontsize=fontSize*6,
+    color='#ffffffDD'
+)
+# ax.set_xticks()
+# ax.set_xticklabels()
 ax.set_yticklabels([])
-ax.axis("off")
+# ax.axis("off")
 ax.set_thetamin(0)
-ax.set_thetamax(rRange[1])
-ax.set_ylim(0, offset+wpnsNumber*height)
+ax.set_thetamax(rRange[1]+.1)
+ax.set_ylim(0, offset+wpnsNumber*height+5)
 ax.set_theta_zero_location(origin)
 ax.set_theta_direction(direction)
 ax.spines['polar'].set_visible(False)
@@ -307,7 +341,7 @@ fig.patch.set_facecolor("#000000")
 fName = f'Timecard-{stat}.png'
 fig.savefig(
     path.join(DATA_PATH, 'inkstats/'+fName), 
-    dpi=300, bbox_inches='tight', facecolor=fig.get_facecolor()
+    dpi=350, bbox_inches='tight', facecolor=fig.get_facecolor()
 )
     
 
