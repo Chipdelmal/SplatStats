@@ -9,7 +9,7 @@ from sys import argv
 from glob import glob
 from random import shuffle
 import pandas as pd
-from math import radians
+from math import radians, sin, cos
 from matplotlib.colors import LogNorm, PowerNorm, SymLogNorm
 import matplotlib.pyplot as plt
 from matplotlib.transforms import Bbox
@@ -115,10 +115,12 @@ wpnsSet = splat.getWeaponsSet(btlsFiltered)
 ###############################################################################
 seasons = list(set(btls['season']))
 seasonDtes = dict()
+seasonLsts = []
 for ssn in seasons:
     dtesSet = set(btls[btls['season']==ssn]['DateGroup'])
     dteRange = (min(dtesSet), max(dtesSet))
     seasonDtes[ssn] = dteRange
+    seasonLsts.append(ssn)
 ###############################################################################
 # Get Version Dates
 ###############################################################################
@@ -232,7 +234,8 @@ else:
     norm = LogNorm(vmin=1, vmax=maxValue)
 if (yearRange is None) or (weekRange is None):
     (minDate, maxDate) = (
-        sorted(timecard.columns)[0], sorted(timecard.columns)[-1]
+        sorted(timecard.columns)[0], 
+        sorted(timecard.columns)[-1]
     )
     (minYear, minWeek) = (int(minDate[:4]), int(minDate[5:]))
     (maxYear, maxWeek) = (int(maxDate[:4]), int(maxDate[5:]))
@@ -246,7 +249,8 @@ if not figAx:
     )
 for wpix in range(wpnsNumber):
     (wpnCurrent, wpnTotal) = (
-        wpnSorting.index[::-1][wpix], wpnSorting.values[::-1][wpix]
+        wpnSorting.index[::-1][wpix], 
+        wpnSorting.values[::-1][wpix]
     )
     wpnLabel = fmtStr.format(wpnCurrent, wpnTotal/statScaler)
     cmapCurrent = cmaps[wpix%len(cmaps)]
@@ -254,11 +258,13 @@ for wpix in range(wpnsNumber):
     rowValues = timecard.loc[wpnCurrent]
     if not reversed:
         (rowDates, rowMagnitudes) = (
-            list(rowValues.index)[::-1], list(rowValues.values)[::-1]
+            list(rowValues.index)[::-1], 
+            list(rowValues.values)[::-1]
         )
     else:
         (rowDates, rowMagnitudes) = (
-            list(rowValues.index), list(rowValues.values)
+            list(rowValues.index), 
+            list(rowValues.values)
         )
     # Convert dates to x coordinates --------------------------------------
     dateTuples = [[int(x) for x in d.split('/')] for d in rowDates]
@@ -278,6 +284,7 @@ for wpix in range(wpnsNumber):
         va='center', ha='left', fontsize=fontSize,
         color='#ffffffDD'
     )
+maxWeek = max(weekNumber)
 # Plot version ----------------------------------------------------------------
 verTuples = [(k, versionDtes[k][0]) for k in versionDtes.keys()]
 (verLbl, verDte) = list(zip(*verTuples))
@@ -297,7 +304,8 @@ weekNumber = [(y%minYear)*52+w-minWeek+1 for (y, w) in dteTuples]
 # wix = weekNumber[0]
 for wix in weekNumber:
     ax.plot(
-        [0, weekBars[-wix][0]+rDelta], [0, wpnsNumber+1], 
+        [0, weekBars[-wix][0]+rDelta], 
+        [0, wpnsNumber+1], 
         alpha=0.5,
         color='#bdd5ea', lw=1, ls='-',
         zorder=10
@@ -308,6 +316,7 @@ ssnTuples = [(k, seasonDtes[k][0]) for k in seasonDtes.keys()]
 dteTuples = [[int(x) for x in d.split('/')] for d in ssnDte]
 weekNumber = [(y%minYear)*52+w-minWeek+1 for (y, w) in dteTuples]
 # wix = weekNumber[0]
+ix = 0
 for wix in weekNumber:
     ax.plot(
         [0, weekBars[-wix][0]+rDelta], [0, wpnsNumber+2], 
@@ -315,9 +324,17 @@ for wix in weekNumber:
         color='#D60E6E', lw=1, 
         zorder=10
     )
-
+    ax.text(
+        weekBars[-wix][0]+rDelta,
+        wpnsNumber+2.5, 
+        ' '+seasonLsts[ix].replace(' Season 20', ' (')+')',
+        va='bottom', ha='left', fontsize=fontSize*1.75,
+        color='#ffffffDD', 
+        rotation=np.interp(wix, [0, maxWeek], [90, 0])
+    )
+    ix = ix + 1 
 ax.text(
-    0.5, -0.025, f'Weapon usage\n(binned by week)', # \nby {stat}',
+    0.5, -0.025, f'Weapon usage (binned by week)', # \nby {stat}',
     va='top', ha='center', rotation=0,
     transform=ax.transAxes, fontsize=fontSize*6,
     color='#ffffffDD'
