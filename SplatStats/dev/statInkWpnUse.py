@@ -293,10 +293,11 @@ weekNumber = [(y%minYear)*52+w-minWeek+1 for (y, w) in dteTuples]
 # wix = weekNumber[10]
 for wix in weekNumber:
     ax.plot(
-        [0, weekBars[-wix][0]+rDelta], [0, wpnsNumber+0], 
+        [0, weekBars[-wix][0]+rDelta], 
+        [0, wpnsNumber+0], 
         alpha=0.25,
         color='#bdd5ea', 
-        lw=0.75, ls=(0, (1, 10)),
+        lw=1, ls=(0, (1, 10)),
         zorder=20
     )
 # Plot splatfest --------------------------------------------------------------
@@ -305,11 +306,11 @@ weekNumber = [(y%minYear)*52+w-minWeek+1 for (y, w) in dteTuples]
 # wix = weekNumber[0]
 for wix in weekNumber:
     ax.plot(
-        [0, weekBars[-wix][0]+rDelta], 
+        [0, weekBars[-wix][0]], 
         [0, wpnsNumber], 
         alpha=0.25,
         color='#bdd5ea', 
-        lw=1, ls=(0, (5, 1)),
+        lw=1, # ls=(0, (10, 5)),
         zorder=10
     )
 # Plot season ----------------------------------------------------------------
@@ -321,17 +322,16 @@ weekNumber = [(y%minYear)*52+w-minWeek+1 for (y, w) in dteTuples]
 ix = 0
 for wix in weekNumber:
     ax.plot(
-        [0, weekBars[-wix][0]+rDelta], 
+        [0, weekBars[-wix][0]], 
         [0, wpnsNumber], 
-        alpha=0.0,
-        color='#D60E6E', lw=1.5, 
+        alpha=0.75, lw=1.25, 
+        color='#B986ED', 
         zorder=10
     )
     ax.text(
-        weekBars[-wix][0]+rDelta,
+        weekBars[-wix][0],
         wpnsNumber+4, 
-        # ' '+seasonLsts[ix].replace(' Season 20', ' (')+')  ',
-        seasonLsts[ix][:-12],
+        '{} ({})      '.format(seasonLsts[ix][:-12], seasonLsts[ix][-2:]),
         va='center', ha='center', fontsize=fontSize*2,
         color='#ffffffDD', 
         rotation=np.interp(wix, [0, maxWeek], [0, -90])
