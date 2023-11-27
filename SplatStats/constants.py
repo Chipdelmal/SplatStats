@@ -75,6 +75,7 @@ CLR_FEST = {
 }
 CLR_STAGE = {
     'Barnacle & Dime': clr.GHERKOUT_V_GHERKIN_S2[1],
+    'Bluefin Depot': clr.SHIVER_FRYE_BIGMAN_S3[2],
     'Brinewater Springs': clr.GRAPE_V_TURQUOISE_S2[0], 
     'Crableg Capital': clr.SHIVER_FRYE_BIGMAN_S3[-1],
     'Eeltail Alley': clr.PINK_V_ORANGE_S1[1],
@@ -87,6 +88,7 @@ CLR_STAGE = {
     'MakoMart': clr.PINK_V_GREEN_S1[2],
     'Mincemeat Metalworks': clr.TSUBUAN_V_KOSHIAN_S2[1],
     "Museum d'Alfonsino": clr.SALTY_V_SWEET_S2[0],
+    'Robo ROM-en': clr.SHIVER_FRYE_BIGMAN_S3[0],
     'Scorch Gorge': clr.UNICORN_V_NARWHAL_S2[0],
     'Shipshape Cargo Co.': clr.MONEY_FAME_LOVE[2],
     'Sturgeon Shipyard': clr.VAMPIRE_V_WEREWOLF_S2[2],
