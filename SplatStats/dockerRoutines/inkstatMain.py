@@ -15,7 +15,7 @@ import SplatStats as splat
 
 if splat.isNotebook():
     (SEASON, GMODE, TITLES, OVERWRITE, DPI) = (
-        'Drizzle Season 2023', 'All Modes', 'False', 'True', '500'
+        'Drizzle Season 2023', 'Turf War', 'True', 'True', '500'
     )
 else:
     (SEASON, GMODE, TITLES, OVERWRITE, DPI) = argv[1:]
@@ -30,14 +30,14 @@ GMODES = {'Clam Blitz', 'Splat Zones', 'Tower Control', 'Turf War', 'Rainmaker'}
 if GMODE in GMODES:
     POLAR = {
         'fontSizes': (12, 10), 'ticksStep': 1,
-        'yRange': (0, 75e3), 'rRange': (0, 90)
+        'yRange': (0, 100e3), 'rRange': (0, 90)
     }
     PART_SCALER = ['k', 1e3]
     TITLES = True
 else:
     POLAR = {
-        'fontSizes': (12, 3), 'ticksStep': 4,
-        'yRange': (0, 300e3), 'rRange': (0, 180),
+        'fontSizes': (12, 5), 'ticksStep': 4,
+        'yRange': (0, 300e3), 'rRange': (0, 90),
         'topRank': None
     }
     PART_SCALER = ['M', 1e6]
@@ -128,6 +128,59 @@ wpnHists = splat.getWeaponsStatsHistograms(
 wpnMeans = splat.getWeaponsStatsSummary(
     dfStats, weapons, summaryFunction=np.mean, stats=wpnStats
 )
+###############################################################################
+# Plot Total Frequencies
+###############################################################################
+fName = FNSTR+prepFnme+'Polar.png'
+if GMODE in GMODES:
+    POLAR['topRank'] = (len(wpnRank)-50, len(wpnRank))
+if titles:
+    POLAR['ticksStep'] = 4
+(fig, ax) = plt.subplots(
+    figsize=(12, 12), subplot_kw={"projection": "polar"}, facecolor='black'
+)
+ax.set_facecolor('#000000')
+ax.set_thetamin(POLAR['rRange'][0])
+ax.set_thetamax(POLAR['rRange'][1])
+(fig, ax) = splat.plotPolarFrequencies(
+    wpnFreq, wpnRank, figAx=(fig, ax),
+    fontSizes=POLAR['fontSizes'], 
+    fontColors=('#ffffff', '#ffffff'),
+    ticksStep=POLAR['ticksStep'],
+    yRange=POLAR['yRange'], rRange=POLAR['rRange'],
+    topRank=POLAR['topRank'],
+    logScale=False
+    # colors=[
+    #     '#DE0B64', '#311AA8', '#9030FF', '#B62EA7', '#6BFF00'
+    # ]*100
+)
+partp = np.sum(list(wpnFreq.values()))
+fstr = 'Participation: {:.2f}{}'.format(partp/PART_SCALER[1], PART_SCALER[0])
+if titles:
+    ax.text(
+        0.45, 0, f'{SEASON} ({GMODE})\n{fstr}', 
+        fontsize=25, 
+        horizontalalignment='center',
+        verticalalignment='top',
+        rotation=0,
+        transform=ax.transAxes,
+        color='#ffffff'
+    )
+else:
+    ax.text(
+        0.45, 0, fstr,
+        fontsize=20,
+        horizontalalignment='center',
+        verticalalignment='top',
+        rotation=0,
+        transform=ax.transAxes,
+        color='#ffffff'
+    )
+plt.savefig(
+    path.join(DATA_PATH, 'inkstats/'+fName),
+    dpi=dpi, transparent=False, facecolor='#000000', bbox_inches='tight'
+)
+plt.close('all')
 ###########################################################################
 # Weapon Matrix
 ###########################################################################
@@ -163,54 +216,6 @@ else:
 plt.savefig(
     path.join(DATA_PATH, 'inkstats/'+fName),
     dpi=dpi, transparent=transp, facecolor=fc, bbox_inches='tight'
-)
-plt.close('all')
-###############################################################################
-# Plot Total Frequencies
-###############################################################################
-fName = FNSTR+prepFnme+'Polar.png'
-if GMODE in GMODES:
-    POLAR['topRank'] = (len(wpnRank)-20, len(wpnRank))
-if titles:
-    POLAR['ticksStep'] = 4
-(fig, ax) = plt.subplots(figsize=(12, 12), subplot_kw={"projection": "polar"})
-(fig, ax) = splat.plotPolarFrequencies(
-    wpnFreq, wpnRank, figAx=(fig, ax),
-    fontSizes=POLAR['fontSizes'], ticksStep=POLAR['ticksStep'],
-    yRange=POLAR['yRange'], rRange=POLAR['rRange'],
-    topRank=POLAR['topRank']
-)
-partp = np.sum(list(wpnFreq.values()))
-fstr = 'Participation: {:.2f}{}'.format(partp/PART_SCALER[1], PART_SCALER[0])
-if titles:
-    ax.text(
-        0.5, 0.48, f'{SEASON} ({GMODE})', 
-        fontsize=25, 
-        horizontalalignment='right',
-        verticalalignment='top',
-        rotation=0,
-        transform=ax.transAxes
-    )
-    ax.text(
-        0.5, 0.44, fstr,
-        fontsize=20,
-        horizontalalignment='right',
-        verticalalignment='top',
-        rotation=0,
-        transform=ax.transAxes
-    )
-else:
-    ax.text(
-        0.5, 0.48, fstr,
-        fontsize=20,
-        horizontalalignment='right',
-        verticalalignment='top',
-        rotation=0,
-        transform=ax.transAxes
-    )
-plt.savefig(
-    path.join(DATA_PATH, 'inkstats/'+fName),
-    dpi=dpi, transparent=False, facecolor='#ffffff', bbox_inches='tight'
 )
 plt.close('all')
 ###############################################################################

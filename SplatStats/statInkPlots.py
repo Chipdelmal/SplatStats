@@ -141,8 +141,12 @@ def plotPolarFrequencies(
         wpnFreq, wpnRank, 
         figAx=None, topRank=None,
         yRange=(0, 3e5), rRange=(0, 180), 
-        ticksStep=4, fontSizes=(1, 3.75), direction=1,
-        colors=clr.ALL_COLORS
+        edge={'lw': 0, 'lc': '#000000'},
+        fontSizes=(1, 3.75), fontColors=('#000000', '#000000'),
+        ticksStep=4, 
+        direction=1,
+        colors=clr.ALL_COLORS,
+        logScale=False
     ):
     # Generate figAx if needed ------------------------------------------------
     if not figAx:
@@ -166,17 +170,18 @@ def plotPolarFrequencies(
     # Generate plot -----------------------------------------------------------
     (fig, ax) = pts.polarBarChart(
         labs, freqs,
+        logScale=logScale,
         direction=direction, ticksStep=ticksStep,
         yRange=yRange, rRange=rRange, 
         colors=[c+'DD' for c in colors],
-        edgecolor='#00000088', linewidth=0,
+        edgecolor=edge['lc'], linewidth=edge['lw'],
         figAx=(fig, ax),
         ticksFmt={
             'lw': 1, 'range': (-.2, 1), 
-            'color': '#000000DD', 'fontsize': fontSizes[0], 'fmt': '{:.1e}'
+            'color': fontColors[0], 'fontsize': fontSizes[0], 'fmt': '{:.1e}'
         },
         labelFmt={
-            'color': '#000000EE', 'fontsize': fontSizes[1], 
+            'color': fontColors[1], 'fontsize': fontSizes[1], 
             'ha': 'left', 'fmt': '{:.1f}'
         }
     )
