@@ -240,7 +240,9 @@ def plotWeaponsStrips(
         weaponsSummary=None,
         color='#1A1AAEDD', range=(0, 50),
         cScaler=(lambda x: np.interp(x, [0, 0.125, 0.25], [0, .70, 1])),
-        binSize=1
+        binSize=1,
+        edgecolor='#000000dd',
+        statcolor='#000000ff'
     ):
     wpnList = weaponsList[::-1]
     bCol = mcolors.ColorConverter().to_rgba(color)
@@ -256,7 +258,7 @@ def plotWeaponsStrips(
                 Rectangle(
                     (x, ix), binSize, 1,
                     facecolor=(bCol[0], bCol[1], bCol[2], alpha),
-                    edgecolor='#00000088',
+                    edgecolor=edgecolor,
                 )
             )
     if weaponsSummary:
@@ -264,7 +266,7 @@ def plotWeaponsStrips(
             wpnData = weaponsSummary[wpn][stat] + binSize/2
             ax.vlines(
                 wpnData, ix+0.25, ix+0.75,
-                colors='#000000AA',
+                colors=statcolor,
                 lw=2.5, ls='-'
             )
     ax.set_ylim(0, len(wpnList))
@@ -284,7 +286,9 @@ def plotWeaponStrip(
         figAx=None,
         weaponsSummary=None,
         styleDictionary=cst.INKSTATS_STYLE,
-        binSize=1
+        binSize=1,
+        edgecolor='#000000',
+        statcolor='#000000'
     ):
     ranges = np.array([styleDictionary[c]['range'] for c in wpnStats]).T
     range = (min(ranges[0]), max(ranges[1]))
@@ -307,7 +311,7 @@ def plotWeaponStrip(
                 Rectangle(
                     (x, ix), binSize, 1,
                     facecolor=(bCol[0], bCol[1], bCol[2], alpha),
-                    edgecolor='#00000088',
+                    edgecolor=edgecolor,
                 )
             )
     if weaponsSummary:
@@ -316,7 +320,7 @@ def plotWeaponStrip(
             wpnData = wpnFullSummary[sta] + binSize/2
             ax.vlines(
                 wpnData, ix+0.25, ix+0.75,
-                colors='#000000AA',
+                colors=statcolor,
                 lw=2.5, ls='-'
             )
     ax.set_xticks(np.arange(range[0]+binSize/2, range[1]+binSize/2+1/2, 5))

@@ -37,7 +37,7 @@ if GMODE in GMODES:
 else:
     POLAR = {
         'fontSizes': (12, 5), 'ticksStep': 4,
-        'yRange': (0, 300e3), 'rRange': (0, 90),
+        'yRange': (0, 400e3), 'rRange': (0, 90),
         'topRank': None
     }
     PART_SCALER = ['M', 1e6]
@@ -74,7 +74,7 @@ if SEASON!='All Seasons':
         fltrBool = [all(i) for i in zip(*fltrs)]
         btlsFiltered = btls[fltrBool]
     else:
-        GMODE = 'All'
+        GMODE = 'All Modes'
         fltrs = (btls['season']==SEASON, )
         fltrBool = [all(i) for i in zip(*fltrs)]
         btlsFiltered = btls[fltrBool]
@@ -128,6 +128,55 @@ wpnHists = splat.getWeaponsStatsHistograms(
 wpnMeans = splat.getWeaponsStatsSummary(
     dfStats, weapons, summaryFunction=np.mean, stats=wpnStats
 )
+###########################################################################
+# Weapon Matrix
+###########################################################################
+fName = FNSTR+prepFnme+'Matrix.png'
+# COLS = splat.SEASON_COLORS
+# cPal = splat.colorPaletteFromHexList(
+#     [COLS[six][0]+'FF', '#ffffff00', COLS[six][1]+'FF']
+# )
+COLS = [
+    '#4361ee', '#9030FF', '#B62EA7', 
+    '#ff006e', '#fb8b24', '#b5e48c'
+]*100
+cPal = splat.colorPaletteFromHexList(
+    [COLS[six]+'DD', '#000000', '#000000']
+)
+(fig, ax) = plt.subplots(figsize=(20, 20), facecolor='#000000')
+ax.set_facecolor('#000000')
+(fig, ax) = splat.plotDominanceMatrix(
+    sNames, sMatrix, sSort, mMatrix,
+    figAx=(fig, ax), vRange=(-1, 1), cmap=cPal,
+    fontSize=8
+)
+plt.tick_params(
+    axis='x', which='both',
+    bottom=False, top=True, labelbottom=False
+)
+if titles:
+    ax.set_title(
+        '{}\n{} matches from {} to {}'.format(
+            f'{SEASON} ({GMODE})', btlsFiltered.shape[0],
+            period[0].strftime("%b %d"), 
+            period[1].strftime("%b %d")
+        )
+        , fontsize=35, y=-.085, color='#ffffff'
+    )
+    (transp, fc) = (False, '#000000')
+else:
+    ax.set_title(
+        'Matches: {}'.format(btlsFiltered.shape[0])
+        , fontsize=35, y=-.045
+    )
+    (transp, fc) = (True, '#000000')
+ax.tick_params(axis='x', colors='#ffffff')
+ax.tick_params(axis='y', colors='#ffffff')
+plt.savefig(
+    path.join(DATA_PATH, 'inkstats/'+fName),
+    dpi=dpi, transparent=False, facecolor=fc, bbox_inches='tight'
+)
+plt.close('all')
 ###############################################################################
 # Plot Total Frequencies
 ###############################################################################
@@ -137,7 +186,8 @@ if GMODE in GMODES:
 if titles:
     POLAR['ticksStep'] = 4
 (fig, ax) = plt.subplots(
-    figsize=(12, 12), subplot_kw={"projection": "polar"}, facecolor='black'
+    figsize=(12, 12), subplot_kw={"projection": "polar"}, 
+    facecolor='#000000'
 )
 ax.set_facecolor('#000000')
 ax.set_thetamin(POLAR['rRange'][0])
@@ -181,139 +231,118 @@ plt.savefig(
     dpi=dpi, transparent=False, facecolor='#000000', bbox_inches='tight'
 )
 plt.close('all')
-###########################################################################
-# Weapon Matrix
-###########################################################################
-fName = FNSTR+prepFnme+'Matrix.png'
-COLS = splat.SEASON_COLORS
-cPal = splat.colorPaletteFromHexList([COLS[six][0]+'DD', '#FFFFFF99', COLS[six][1]+'DD'])
-(fig, ax) = plt.subplots(figsize=(20, 20))
-(fig, ax) = splat.plotDominanceMatrix(
-    sNames, sMatrix, sSort, mMatrix,
-    figAx=(fig, ax), vRange=(-0.75, 0.75), cmap=cPal,
-    fontSize=8
-)
-plt.tick_params(
-    axis='x', which='both',
-    bottom=False, top=True, labelbottom=False
-)
-if titles:
-    ax.set_title(
-        '{}\n{} matches from {} to {}'.format(
-            f'{SEASON} ({GMODE})', btlsFiltered.shape[0],
-            period[0].strftime("%b %d"), 
-            period[1].strftime("%b %d")
-        )
-        , fontsize=35, y=-.085
-    )
-    (transp, fc) = (False, '#ffffff')
-else:
-    ax.set_title(
-        'Matches: {}'.format(btlsFiltered.shape[0])
-        , fontsize=35, y=-.045
-    )
-    (transp, fc) = (True, '#ffffff00')
-plt.savefig(
-    path.join(DATA_PATH, 'inkstats/'+fName),
-    dpi=dpi, transparent=transp, facecolor=fc, bbox_inches='tight'
-)
-plt.close('all')
-###############################################################################
-# Gaussian Lobby
-###############################################################################
-YLIM = (0, -1500)
-if SEASON=='All Seasons':
-    YLIM = (0, -7500)
-if GMODE not in GMODES:
-    fName = FNSTR+prepFnme+'Mode.png'
-    (fig, ax) = (plt.figure(figsize=(20, 3)), plt.axes())
-    (fig, ax) = splat.plotGaussianLobby(
-        lbyDaily, lbyGaussDaily, figAx=(fig, ax), ylim=YLIM
-    )
-    ax.set_ylim(*YLIM)
-    ax.set_ylim(ax.get_ylim()[::-1])
-    if titles:
-        ax.legend(loc='lower left', frameon=False, fancybox=False, fontsize=12)
-    plt.savefig(
-        path.join(DATA_PATH, 'inkstats/'+fName),
-        dpi=dpi, transparent=False, facecolor='#ffffff', bbox_inches='tight'
-    )
-    plt.close('all')
-###############################################################################
-# Lobby Type
-###############################################################################
-if GMODE not in GMODES:
-    fName = FNSTR+prepFnme+'Lobby.png'
-    (fig, ax) = plt.subplots(figsize=(0.4, 20))
-    (fig, ax) = splat.barChartLobby(lbyFreq)
-    plt.savefig(
-        path.join(DATA_PATH, 'inkstats/'+fName), dpi=dpi, 
-        transparent=False, facecolor='#ffffff', bbox_inches='tight'
-    )
-    plt.close('all')
+# ###############################################################################
+# # Gaussian Lobby
+# ###############################################################################
+# YLIM = (0, -1500)
+# if SEASON=='All Seasons':
+#     YLIM = (0, -7500)
+# if GMODE not in GMODES:
+#     fName = FNSTR+prepFnme+'Mode.png'
+#     (fig, ax) = (plt.figure(figsize=(20, 3)), plt.axes())
+#     (fig, ax) = splat.plotGaussianLobby(
+#         lbyDaily, lbyGaussDaily, figAx=(fig, ax), ylim=YLIM
+#     )
+#     ax.set_ylim(*YLIM)
+#     ax.set_ylim(ax.get_ylim()[::-1])
+#     if titles:
+#         ax.legend(loc='lower left', frameon=False, fancybox=False, fontsize=12)
+#     plt.savefig(
+#         path.join(DATA_PATH, 'inkstats/'+fName),
+#         dpi=dpi, transparent=False, facecolor='#ffffff', bbox_inches='tight'
+#     )
+#     plt.close('all')
+# ###############################################################################
+# # Lobby Type
+# ###############################################################################
+# if GMODE not in GMODES:
+#     fName = FNSTR+prepFnme+'Lobby.png'
+#     (fig, ax) = plt.subplots(figsize=(0.4, 20))
+#     (fig, ax) = splat.barChartLobby(lbyFreq)
+#     plt.savefig(
+#         path.join(DATA_PATH, 'inkstats/'+fName), dpi=dpi, 
+#         transparent=False, facecolor='#ffffff', bbox_inches='tight'
+#     )
+#     plt.close('all')
 ###############################################################################
 # Weapons Strips
 ###############################################################################
 INKSTATS_STYLE = {
     'kill': {
-        'color': '#1A1AAEDD', 'range': (0, 15),
-        'scaler': lambda x: np.interp(x, [0, 0.125, 0.25], [0, .70, 0.95]),
+        'color': '#4361eeee', 'range': (0, 15),
+        'scaler': lambda x: np.interp(x, [0, 0.125, 0.25], [0, .625, 0.95]),
         'range': (0, 15)
     },
     'death': {
-        'color': '#801AB3DD', 'range': (0, 15),
-        'scaler': lambda x: np.interp(x, [0, 0.125, 0.25], [0, .70, 0.95]),
+        'color': '#801AB3ee', 'range': (0, 15),
+        'scaler': lambda x: np.interp(x, [0, 0.125, 0.25], [0, .625, 0.95]),
         'range': (0, 15)
     },
     'assist': {
-        'color': '#C12D74DD', 'range': (0, 10),
-        'scaler': lambda x: np.interp(x, [0, 0.25, 0.65], [0, .70, 0.95]),
+        'color': '#C12D74ee', 'range': (0, 10),
+        'scaler': lambda x: np.interp(x, [0, 0.25, 0.65], [0, .625, 0.95]),
         
     },
     'special': {
-        'color': '#1FAFE8DD', 'range': (0, 10),
-        'scaler': lambda x: np.interp(x, [0, 0.25, 0.65], [0, .70, 0.95]),
+        'color': '#4ad66dee', 'range': (0, 10),
+        'scaler': lambda x: np.interp(x, [0, 0.25, 0.65], [0, .625, 0.95]),
     },
     'paint': {
-        'color': '#35BA49DD', 'range': (0, 20),
-        'scaler': lambda x: np.interp(x, [0, 0.1, 0.2], [0, .70, 0.95]),
+        'color': '#b8c0ffee', 'range': (0, 20),
+        'scaler': lambda x: np.interp(x, [0, 0.1, 0.2], [0, .625, 0.95]),
     }
 }
 # (fig, axs) = plt.subplots(1, 5, figsize=(5*5, 20), sharey=True)
 fName = FNSTR+prepFnme+'Strips.png'
-fig = plt.figure(figsize=(5*5, 20))
+fig = plt.figure(figsize=(15, 20), facecolor='#000000')
 gs = fig.add_gridspec(1, 5, hspace=1, wspace=0.05)
 axs = gs.subplots()# sharex='col', sharey='row')
 for (ix, stat) in enumerate(wpnStats):
+    axs[ix].set_facecolor('#000000')
     statPars = INKSTATS_STYLE[stat]
     (_, ax) = splat.plotWeaponsStrips(
         wpnHists, weapons, stat,
         figAx=(fig, axs[ix]),
         weaponsSummary=wpnMeans,
         color=statPars['color'], range=statPars['range'],
-        cScaler=statPars['scaler']
+        cScaler=statPars['scaler'],
+        edgecolor='#ffffff22',
+        statcolor='#ffffff'
     )
     axs[ix].xaxis.set_tick_params(labelsize=11)
     axs[ix].yaxis.set_tick_params(labelsize=11)
     axs[ix].yaxis.set_ticks_position('both')
+    for ax in axs:
+        ax.tick_params(color='#ffffff', labelcolor='#ffffff')
+        ax.set_title(ax.get_title(), color='#ffffff', fontsize=20)
+        for spine in ax.spines.values():
+            spine.set_edgecolor('#ffffff')
+    if (ix==0):
+        lbs = [i.get_text() for i in axs[0].get_yticklabels()]
+        axs[ix].set_yticklabels(lbs, color='#ffffff', fontsize=9)
+        lbs = [int(i.get_text()) for i in axs[ix].get_xticklabels()]
+        axs[ix].set_xticklabels(lbs, color='#ffffff')
     if (ix>0) and (ix<len(wpnStats)-1):
         axs[ix].set_yticklabels([])
+        lbs = [int(i.get_text()) for i in axs[ix].get_xticklabels()]
+        axs[ix].set_xticklabels(lbs, color='#ffffff')
     if ix == (len(wpnStats)-1):
         axs[ix].yaxis.tick_right()
         lbs = [i.get_text() for i in axs[0].get_yticklabels()]
-        axs[ix].set_yticklabels(lbs)
+        axs[ix].set_yticklabels(lbs, color='#ffffff', fontsize=9)
         lbs = [int(i.get_text())*100 for i in axs[ix].get_xticklabels()]
-        axs[ix].set_xticklabels(lbs)
+        axs[ix].set_xticklabels(lbs, color='#ffffff')
         axs[ix].yaxis.set_ticks_position('both')
 if titles:
     axs[2].text(
         0.5, 1.025, f'{SEASON} ({GMODE})',
         ha='center', va='bottom', 
-        transform=axs[2].transAxes, fontsize=35
+        transform=axs[2].transAxes, fontsize=35,
+        color='#ffffff'
     )
 plt.savefig(
     path.join(DATA_PATH, 'inkstats/'+fName), dpi=dpi, 
-    transparent=False, facecolor='#ffffff', bbox_inches='tight'
+    transparent=False, facecolor='#000000', bbox_inches='tight'
 )
 plt.close('all')
 
