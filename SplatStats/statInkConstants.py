@@ -57,6 +57,7 @@ WPNS_DICT = {
   'clashblaster': 'Clash Blaster',
   'clashblaster_neo': 'Clash Blaster Neo',
   'hotblaster': 'Blaster',
+  'hotblaster_custom': 'Custom Blaster',
   'longblaster': 'Range Blaster',
   'nova': 'Luna Blaster',
   'nova_neo': 'Luna Blaster Neo',
@@ -74,6 +75,7 @@ WPNS_DICT = {
   'dualsweeper_custom': 'Custom Dualie Squelchers',
   'kelvin525': 'Glooga Dualies',
   'maneuver': 'Splat Dualies',
+  'maneuver_collabo': 'Enperry Splat Dualies',
   'quadhopper_black': 'Dark Tetra Dualies',
   'quadhopper_white': 'Light Tetra Dualies',
   'sputtery': 'Dapple Dualies',
@@ -96,7 +98,7 @@ WPNS_DICT = {
   'drivewiper': 'Splatana Wiper',
   'drivewiper_deco': 'Splatana Wiper Deco',
   'jimuwiper': 'Splatana Stamper',
-  'jimuwiper_hue': 'Splatana Stamper Nouveau',
+  'jimuwiper_hue': 'Neo Splatana Stamper',
   'bamboo14mk1': 'Bamboozler 14 Mk I',
   'liter4k': 'E-liter 4K',
   'liter4k_scope': 'E-liter 4K Scope',
@@ -150,7 +152,8 @@ STGS_DICT = {
   'hirame': 'Flounder Heights', 'kusaya': 'Brinewater Springs',
   'manta': 'Manta Maria', 'nampla': "Um'ami Ruins", 
   'taraport':'Barnacle & Dime', 'kombu': 'Humpback Pump Track',
-  'ohyo': 'Shipshape Cargo Co.', 'takaashi': 'Crableg Capital'
+  'ohyo': 'Shipshape Cargo Co.', 'takaashi': 'Crableg Capital',
+  'baigai': 'Robo ROM-en', 'negitoro': 'Bluefin Depot'
 }
 
 STATINK_DTYPES = {

@@ -999,6 +999,43 @@
         "reskin_of": "hotblaster"
     },
     {
+        "key": "hotblaster_custom",
+        "aliases": [
+            "211",
+            "custom_blaster"
+        ],
+        "type": {
+            "key": "blaster",
+            "aliases": [],
+            "name": {
+                "en_US": "Blasters",
+                "ja_JP": "ブラスター"
+            }
+        },
+        "name": {
+            "en_US": "Custom Blaster",
+            "ja_JP": "ホットブラスターカスタム"
+        },
+        "main": "hotblaster",
+        "sub": {
+            "key": "pointsensor",
+            "aliases": [],
+            "name": {
+                "en_US": "Point Sensor",
+                "ja_JP": "ポイントセンサー"
+            }
+        },
+        "special": {
+            "key": "ultra_chakuchi",
+            "aliases": [],
+            "name": {
+                "en_US": "Triple Splashdown",
+                "ja_JP": "ウルトラチャクチ"
+            }
+        },
+        "reskin_of": "hotblaster_custom"
+    },
+    {
         "key": "longblaster",
         "aliases": [
             "220",
@@ -1626,6 +1663,43 @@
             }
         },
         "reskin_of": "maneuver"
+    },
+    {
+        "key": "maneuver_collabo",
+        "aliases": [
+            "5011",
+            "enperry_splat_dualies"
+        ],
+        "type": {
+            "key": "maneuver",
+            "aliases": [],
+            "name": {
+                "en_US": "Dualies",
+                "ja_JP": "マニューバー"
+            }
+        },
+        "name": {
+            "en_US": "Enperry Splat Dualies",
+            "ja_JP": "スプラマニューバーコラボ"
+        },
+        "main": "maneuver",
+        "sub": {
+            "key": "curlingbomb",
+            "aliases": [],
+            "name": {
+                "en_US": "Curling Bomb",
+                "ja_JP": "カーリングボム"
+            }
+        },
+        "special": {
+            "key": "ultra_chakuchi",
+            "aliases": [],
+            "name": {
+                "en_US": "Triple Splashdown",
+                "ja_JP": "ウルトラチャクチ"
+            }
+        },
+        "reskin_of": "maneuver_collabo"
     },
     {
         "key": "quadhopper_black",
@@ -2447,7 +2521,7 @@
         "key": "jimuwiper_hue",
         "aliases": [
             "8001",
-            "splatana_stamper_nouveau"
+            "neo_splatana_stamper"
         ],
         "type": {
             "key": "wiper",
@@ -2458,7 +2532,7 @@
             }
         },
         "name": {
-            "en_US": "Splatana Stamper Nouveau",
+            "en_US": "Neo Splatana Stamper",
             "ja_JP": "ジムワイパー・ヒュー"
         },
         "main": "jimuwiper",
