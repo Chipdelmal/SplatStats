@@ -15,7 +15,7 @@ import SplatStats as splat
 
 if splat.isNotebook():
     (SEASON, GMODE, TITLES, OVERWRITE, DPI) = (
-        'Chill Season 2023', 'All Modes', 'True', 'True', '500'
+        'All Seasons', 'All Modes', 'True', 'True', '500'
     )
 else:
     (SEASON, GMODE, TITLES, OVERWRITE, DPI) = argv[1:]
@@ -346,3 +346,22 @@ plt.savefig(
 )
 plt.close('all')
 
+
+
+
+###############################################################################
+# Bumpchart
+###############################################################################
+ssn = 'Drizzle Season 2023'
+freqSSN = {}
+for ssn in list(btls['season'].unique()):
+    if GMODE in GMODES:
+        fltrs = (btls['season']==ssn, btls['mode']==GMODE)
+        fltrBool = [all(i) for i in zip(*fltrs)]
+        btlsFiltered = btls[fltrBool]
+    else:
+        fltrs = (btls['season']==ssn, )
+        fltrBool = [all(i) for i in zip(*fltrs)]
+        btlsFiltered = btls[fltrBool]
+    freq = splat.getWeaponsFrequencies(btlsFiltered)
+    freqSSN[ssn] = freq
