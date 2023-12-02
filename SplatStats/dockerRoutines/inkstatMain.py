@@ -354,14 +354,18 @@ plt.close('all')
 ###############################################################################
 ssn = 'Drizzle Season 2023'
 freqSSN = {}
-for ssn in list(btls['season'].unique()):
+key = 'game-ver'
+for ssn in sorted(btls[key].unique()):
     if GMODE in GMODES:
-        fltrs = (btls['season']==ssn, btls['mode']==GMODE)
+        fltrs = (btls[key]==ssn, btls['mode']==GMODE)
         fltrBool = [all(i) for i in zip(*fltrs)]
         btlsFiltered = btls[fltrBool]
     else:
-        fltrs = (btls['season']==ssn, )
+        fltrs = (btls[key]==ssn, )
         fltrBool = [all(i) for i in zip(*fltrs)]
         btlsFiltered = btls[fltrBool]
     freq = splat.getWeaponsFrequencies(btlsFiltered)
     freqSSN[ssn] = freq
+freqSSN
+
+btls[['game-ver', 'period']]
