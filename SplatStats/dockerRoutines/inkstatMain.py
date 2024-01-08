@@ -138,10 +138,10 @@ fName = FNSTR+prepFnme+'Matrix.png'
 # )
 COLS = [
     '#4361ee', '#9030FF', '#B62EA7', 
-    '#ff006e', '#fb8b24', '#b5e48c'
+    '#ff006e', '#fb8b24', '#80ed99'
 ]*100
 cPal = splat.colorPaletteFromHexList(
-    [COLS[six]+'DD', '#000000', '#000000']
+    [COLS[six]+'FF', COLS[3]+'AA', '#000000', '#000000', '#000000']
 )
 (fig, ax) = plt.subplots(figsize=(20, 20), facecolor='#000000')
 ax.set_facecolor('#000000')

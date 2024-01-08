@@ -75,7 +75,7 @@ if weapon=='All':
     )
     fig.savefig(
         path.join(oPath, f'{fNameID}_Timecard-Duration.png'), 
-        dpi=300, bbox_inches='tight', facecolor=fig.get_facecolor()
+        dpi=250, bbox_inches='tight', facecolor=fig.get_facecolor()
     )
     plt.close()
 ###############################################################################
@@ -106,7 +106,7 @@ if weapon=='All':
     ax.set_title(f'(Kills+0.5*Assists) = {killsTotal}\n', fontsize=18)
     fig.savefig(
         path.join(oPath, f'{fNameID}_Polar-Kill.png'), 
-        dpi=300, bbox_inches='tight', facecolor=fig.get_facecolor()
+        dpi=250, bbox_inches='tight', facecolor=fig.get_facecolor()
     )
     plt.close()
 ###############################################################################
@@ -130,7 +130,7 @@ if weapon=='All':
     ax.set_title(f'Wins = {winsTotal}\n', fontsize=18)
     fig.savefig(
         path.join(oPath, f'{fNameID}_Polar-Win.png'), 
-        dpi=300, bbox_inches='tight', facecolor=fig.get_facecolor()
+        dpi=250, bbox_inches='tight', facecolor=fig.get_facecolor()
     )
     plt.close()
 ###############################################################################
@@ -152,7 +152,7 @@ g.fig.subplots_adjust(top=0.8)
 g.fig.suptitle(f'Wins = {winRatio:.0f}% ({winsTotal}/{matchesTotal})\n', fontsize=18)
 g.savefig(
     path.join(oPath, f'{fNameID}_Bars-Win.png'), 
-    dpi=300, bbox_inches='tight'
+    dpi=250, bbox_inches='tight'
 )
 plt.close(g.fig)
 ###############################################################################
@@ -169,7 +169,7 @@ g.fig.subplots_adjust(top=0.8)
 g.fig.suptitle(f'{title} = {kassistTotal:.4f}\n', fontsize=18)
 g.savefig(
     path.join(oPath, f'{fNameID}_Bars-Kill.png'), 
-    dpi=300, bbox_inches='tight'
+    dpi=250, bbox_inches='tight'
 )
 plt.close(g.fig)
 ###############################################################################
@@ -187,7 +187,7 @@ if weapon=='All':
     ax.set_title(f'(Kills+0.5*Assists) = {killsTotal}\n', fontsize=18)
     fig.savefig(
         path.join(oPath, f'{fNameID}_Waffle-Kill.png'), 
-        dpi=300, bbox_inches='tight', facecolor=fig.get_facecolor()
+        dpi=250, bbox_inches='tight', facecolor=fig.get_facecolor()
     )
     plt.close()
 ###############################################################################
@@ -209,7 +209,7 @@ ax.set_xlim(0, 35)
 ax.set_aspect(.25/ax.get_data_ratio())
 plt.savefig(
     path.join(oPath, f'{fNameID}_Histogram-Kill.png'),  
-    dpi=300, bbox_inches='tight', facecolor=fig.get_facecolor()
+    dpi=250, bbox_inches='tight', facecolor=fig.get_facecolor()
 )
 plt.close()
 ###############################################################################
@@ -237,7 +237,7 @@ if weapon=='All':
         ax.set_title(f'Awards\n', fontsize=18)
         fig.savefig(
             path.join(oPath, f'{fNameID}_Awards.png'), 
-            dpi=300, bbox_inches='tight', facecolor=fig.get_facecolor()
+            dpi=250, bbox_inches='tight', facecolor=fig.get_facecolor()
         )
         plt.close()
     except:
@@ -273,7 +273,7 @@ ax_bottom.set_yticks([])
 plt.setp(ax_bottom.get_xticklabels(), rotation=90, ha='right')
 plt.savefig(
     path.join(oPath, f'{fNameID}_History.png'), 
-    dpi=300, bbox_inches='tight', facecolor=fig.get_facecolor()
+    dpi=250, bbox_inches='tight', facecolor=fig.get_facecolor()
 )
 plt.close()
 ###############################################################################
@@ -288,7 +288,7 @@ for x in ax:
 fig.suptitle(f'Team Ranking Frequency\n', fontsize=18)
 fig.savefig(
     path.join(oPath, f'{fNameID}_RanksAllied.png'), 
-    dpi=300, bbox_inches='tight', facecolor=fig.get_facecolor()
+    dpi=250, bbox_inches='tight', facecolor=fig.get_facecolor()
 )
 plt.close()
 # Full Rank ---------------------------------------------------------------
@@ -302,7 +302,7 @@ for x in ax:
 fig.suptitle(f'Overall Ranking Frequency\n', fontsize=18)
 fig.savefig(
     path.join(oPath, f'{fNameID}_RanksFull.png'), 
-    dpi=300, bbox_inches='tight', facecolor=fig.get_facecolor()
+    dpi=250, bbox_inches='tight', facecolor=fig.get_facecolor()
 )
 plt.close()
 ###############################################################################
