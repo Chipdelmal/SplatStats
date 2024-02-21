@@ -175,6 +175,8 @@ MONEY_FAME_LOVE             = ('#c8752d', '#73bd49', '#bb497b', '#5998ff')
 SHIVER_FRYE_BIGMAN_S3       = ('#253fc5', '#d3b113', '#d80501', '#6dda25')
 ZOMBIE_SKELETON_GHOST       = ('#0ca34b', '#b04f23', '#964996', '#bfed1c')
 HANDSHAKE_FISTBUMP_HUG      = ('#b02a57', '#c58650', '#97c22a', '#a7ffd3')
+FRIDAY_SATURDAY_SUNDAY      = ('#b49109', '#284ca7', '#ab3e28', '#319941')
+REDBEAN_CUSTARD_WCREAM      = ('#ab0072', '#b66400', '#c1ae88', '#ffff00')
 # Return of the Mammalians ----------------------------------------------------
 ORANGE_V_BLUE_S3            = ('#EE8711', '#0943F0', '#81DE17')
 YELLOW_V_INDIGO_S3          = ('#DEC109', '#531BBA', '#C920B7')
