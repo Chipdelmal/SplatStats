@@ -16,11 +16,11 @@ import matplotlib.pyplot as plt
 if splat.isNotebook():
     (plyrName, weapon, mode, overwrite) = ('čħîþ ウナギ', 'All', 'All', 'False')
     (iPath, bPath, oPath) = (
-        path.expanduser('/Users/sanchez.hmsc/Documents/BattlesDocker/jsons'),
-        path.expanduser('/Users/sanchez.hmsc/Documents/BattlesDocker/battles'),
-        path.expanduser('/Users/sanchez.hmsc/Documents/BattlesDocker/out')
+        path.expanduser('/Users/chipdelmal/Documents/BattlesDocker/jsons'),
+        path.expanduser('/Users/chipdelmal/Documents/BattlesDocker/battles'),
+        path.expanduser('/Users/chipdelmal/Documents/BattlesDocker/out')
     )
-    fontPath = '/Users/sanchez.hmsc/Documents/GitHub/SplatStats/other/'
+    fontPath = '/Users/chipdelmal/Documents/GitHub/SplatStats/other/'
 else:
     (plyrName, weapon, mode, overwrite) = argv[1:]
     (iPath, bPath, oPath) = (
