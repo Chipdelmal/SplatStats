@@ -11,6 +11,7 @@ import SplatStats.Battle as bat
 import SplatStats.parsers as par
 import SplatStats.auxiliary as aux
 import SplatStats.constants as cst
+import SplatStats.statInkConstants as ink
 
 
 class Player:
@@ -99,7 +100,7 @@ class Player:
         if replaceNAN:
             battlesHistory.replace([np.inf, np.nan, -np.inf], 0, inplace=True)
         if ammendWeapons:
-            for wpnTuple in cst.WPNS_REPLICAS:
+            for wpnTuple in ink.WPNS_REPLICAS:
                 self.battlesHistory = battlesHistory.replace(
                     wpnTuple[0], wpnTuple[1]
                 )
