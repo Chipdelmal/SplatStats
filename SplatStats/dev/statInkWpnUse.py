@@ -49,7 +49,7 @@ else:
 # Get files and set font
 ###############################################################################
 if splat.isNotebook():
-    DATA_PATH = '/Users/sanchez.hmsc/Documents/BattlesDocker/'
+    DATA_PATH = '/Users/chipdelmal/Documents/BattlesDocker/'
     splat.setSplatoonFont(DATA_PATH, fontName="Splatfont 2")
 else:
     DATA_PATH = '/data/'

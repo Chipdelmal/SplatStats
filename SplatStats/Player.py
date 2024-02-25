@@ -99,7 +99,10 @@ class Player:
         if replaceNAN:
             battlesHistory.replace([np.inf, np.nan, -np.inf], 0, inplace=True)
         if ammendWeapons:
-            self.battlesHistory = battlesHistory.replace('Hero Shot Replica', 'Splattershot')
+            for wpnTuple in cst.WPNS_REPLICAS:
+                self.battlesHistory = battlesHistory.replace(
+                    wpnTuple[0], wpnTuple[1]
+                )
         else:
             self.battlesHistory = battlesHistory
         return self.battlesHistory
