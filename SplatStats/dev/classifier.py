@@ -16,9 +16,9 @@ from sklearn.metrics import classification_report, confusion_matrix, accuracy_sc
 
 plyrName = 'čħîþ ウナギ'
 (iPath, bPath, oPath) = (
-    path.expanduser('~/Documents/Sync/BattlesDocker/jsons'),
-    path.expanduser('~/Documents/Sync/BattlesDocker/battles'),
-    path.expanduser('~/Documents/Sync/BattlesDocker/out')
+    path.expanduser('~/Documents/BattlesDocker/jsons'),
+    path.expanduser('~/Documents/BattlesDocker/battles'),
+    path.expanduser('~/Documents/BattlesDocker/out')
 )
 fontPath = '/home/chipdelmal/Documents/GitHub/SplatStats/other/'
 splat.setSplatoonFont(fontPath, fontName="Splatfont 2")

@@ -100,10 +100,10 @@ class Player:
         if replaceNAN:
             battlesHistory.replace([np.inf, np.nan, -np.inf], 0, inplace=True)
         if ammendWeapons:
+            btlsHistoryDummy = battlesHistory.copy()
             for wpnTuple in ink.WPNS_REPLICAS:
-                self.battlesHistory = battlesHistory.replace(
-                    wpnTuple[0], wpnTuple[1]
-                )
+                btlsHistoryDummy.replace(wpnTuple[0], wpnTuple[1], inplace=True)
+            self.battlesHistory = btlsHistoryDummy
         else:
             self.battlesHistory = battlesHistory
         return self.battlesHistory

@@ -53,7 +53,8 @@ class StatInk:
             df[f'B{i}-weapon'] = [ink.WPNS_DICT[w] for w in df[f'B{i}-weapon']]
         # Ammend Duplicate Weapons (US standard) -----------------------------
         if ammendWeapons:
-            df = df.replace('Hero Shot Replica', 'Splattershot')
+            for wpnTuple in ink.WPNS_REPLICAS:
+                df.replace(wpnTuple[0], wpnTuple[1], inplace=True)
         # Replace knockouts, ranks and wins ----------------------------------
         df['knockout'] = [int(k) if (type(k) is bool) else naBool for k in df['knockout']]
         df['rank'] = [r if type(r) is str else naString for r in df['rank']]

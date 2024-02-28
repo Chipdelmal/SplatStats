@@ -177,6 +177,7 @@ WPNS_REPLICAS = (
   ('Order Slosher Replica', 'Slosher'),
   ('Order Brella Replica', 'Splat Brella'),
   ('Order Stringer Replica', 'Tri-Stringer'),
+  ('Order Splatling Replica', 'Heavy Splatling')
 )
 
 STGS_DICT = {
