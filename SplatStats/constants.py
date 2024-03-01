@@ -86,6 +86,7 @@ CLR_STAGE = {
     'Inkblot Art Academy': clr.LPINK_V_BLUE_S2[0],
     'Mahi-Mahi Resort': clr.CHAOS_V_ORDER_S2[1],
     'MakoMart': clr.PINK_V_GREEN_S1[2],
+    'Marlin Airport': clr.LPINK_V_BLUE_S2[1],
     'Mincemeat Metalworks': clr.TSUBUAN_V_KOSHIAN_S2[1],
     "Museum d'Alfonsino": clr.SALTY_V_SWEET_S2[0],
     'Robo ROM-en': clr.SHIVER_FRYE_BIGMAN_S3[0],
