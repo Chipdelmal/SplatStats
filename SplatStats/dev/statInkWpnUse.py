@@ -182,7 +182,7 @@ tCard = tCardsDict[stat]
 
 wpnSorting = tCard.sum(axis=1).sort_values(ascending=False)
 wpnsNumber = len(wpnSorting)
-fontSize = np.interp(wpnsNumber, [1, 10, 30, 50], [30, 20, 14, 5])
+fontSize = np.interp(wpnsNumber, [1, 10, 30, 50], [30, 18, 12, 3])
 # (fig, ax) = splat.plotTimecard(
 #     tCard, wpnSorting, 
 #     fontSize=fontSize, 
@@ -322,14 +322,14 @@ weekNumber = [(y%minYear)*52+w-minWeek+1 for (y, w) in dteTuples]
 ix = 0
 for wix in weekNumber:
     ax.plot(
-        [0, weekBars[-wix][0]+rDelta], 
+        [0, weekBars[-wix][0]], 
         [0, wpnsNumber], 
         alpha=0.75, lw=1.25, 
         color='#B986ED', 
         zorder=10
     )
     ax.text(
-        weekBars[-wix][0]+rDelta*0.5,
+        weekBars[-wix][0]-rDelta*0.5,
         wpnsNumber+4, 
         '{} ({})      '.format(seasonLsts[ix][:-12], seasonLsts[ix][-2:]),
         va='center', ha='center', fontsize=fontSize*2,
@@ -348,7 +348,7 @@ ax.text(
 ax.set_yticklabels([])
 # ax.axis("off")
 ax.set_thetamin(0)
-ax.set_thetamax(rRange[1]+1)
+ax.set_thetamax(rRange[1])
 ax.set_ylim(0, offset+wpnsNumber*height+5)
 ax.set_theta_zero_location(origin)
 ax.set_theta_direction(direction)

@@ -191,7 +191,8 @@ STGS_DICT = {
   'manta': 'Manta Maria', 'nampla': "Um'ami Ruins", 
   'taraport':'Barnacle & Dime', 'kombu': 'Humpback Pump Track',
   'ohyo': 'Shipshape Cargo Co.', 'takaashi': 'Crableg Capital',
-  'baigai': 'Robo ROM-en', 'negitoro': 'Bluefin Depot'
+  'baigai': 'Robo ROM-en', 'negitoro': 'Bluefin Depot', 
+  'kajiki': 'Marlin Airport'
 }
 
 STATINK_DTYPES = {
