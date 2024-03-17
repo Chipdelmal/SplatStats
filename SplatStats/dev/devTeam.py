@@ -15,8 +15,8 @@ from SplatStats.constants import MKR_STATS
 
 if splat.isNotebook():
     (iPath, oPath) = (
-        path.expanduser('~/Documents/GitHub/s3s/'),
-        path.expanduser('~/Documents/Sync/BattlesData/')
+        path.expanduser('/Users/chipdelmal/Documents/BattlesDocker/jsons'),
+        path.expanduser('/Users/chipdelmal/Documents/BattlesDocker/battles')
     )
 else:
     (iPath, oPath) = argv[1:]
@@ -28,8 +28,8 @@ bPaths = splat.getBattleFilepaths(oPath)
 # Create Team Objects
 ###############################################################################
 NAMES = (
-    'čħîþ ウナギ', 'Yami ウナギ', 'Riché ウナギ', 'Oswal　ウナギ',
-    'April ウナギ', 'Rei ウナギ', 'DantoNnoob', 'Murazee'
+    'čħîþ ウナギ', 'Yami ウナギ', 'Riché ウナギ', 'April ウナギ', 
+    'Rei ウナギ', 'Oswal　ウナギ', 'DantoNnoob', 'Murazee'
 )
 COLORS = (
     

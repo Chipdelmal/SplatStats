@@ -9,14 +9,14 @@ from matplotlib import font_manager
 
 if splat.isNotebook():
     (iPath, bPath, oPath) = (
-        path.expanduser('~/Documents/Sync/BattlesDocker/jsons'),
-        path.expanduser('~/Documents/Sync/BattlesDocker/battles'),
-        path.expanduser('~/Documents/Sync/BattlesDocker/out')
+        path.expanduser('~/Documents/BattlesDocker/jsons'),
+        path.expanduser('~/Documents/BattlesDocker/battles'),
+        path.expanduser('~/Documents/BattlesDocker/out')
     )
-    fontPath = '/home/chipdelmal/Documents/GitHub/SplatStats/other/'
+    fontPath = path.expanduser('~/Documents/BattlesDocker/')
 else:
     (iPath, oPath) = argv[1:]
-    fontPath = '/home/chipdelmal/Documents/GitHub/SplatStats/other/'
+    fontPath = '~/Documents/BattlesDocker'
 ###############################################################################
 # Setup Splats Font
 ###############################################################################
@@ -35,9 +35,9 @@ NAMES = (
     'April ウナギ', 'Rei ウナギ', 'DantoNnoob', 'Murazee', 'HSR'
 )
 COLORS = (
-    "#0D40DE", "#EC0B68", "#6ABF0B", "#A577FF",
-    "#D645C8", "#941A88", "#CFD1C7", "#E4E567", 
-    '#8CE47F'
+    "#0D40DEEE", "#EC0B68EE", "#6ABF0BEE", "#A5EEFFEE",
+    "#D645C8EE", "#941A88EE", "#CFD1EEC7", "#E4E56EE7", 
+    '#8CE47FEE'
 )
 TZ = 'America/Los_Angeles'
 team = splat.Team(NAMES, bPaths, TZ)
@@ -47,7 +47,10 @@ teamHistBT = team.reshapeTeamHistoryByPeriod(period='24H')
 # Plotting Stream
 ###############################################################################
 (fig, ax) = plt.subplots(figsize=(10, 2))
-(fig, ax) = splat.plotStreamTeam((fig, ax), team, teamHistBT, colors=COLORS)
+(fig, ax) = splat.plotStreamTeam(
+    (fig, ax), team, teamHistBT, 
+    baseline='sym', colors=COLORS
+)
 fig.savefig(
     path.join(oPath, f'Team-Wave.png'), 
     dpi=500, bbox_inches='tight', facecolor=fig.get_facecolor()
