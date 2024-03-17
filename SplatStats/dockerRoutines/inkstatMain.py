@@ -15,7 +15,7 @@ import SplatStats as splat
 
 if splat.isNotebook():
     (SEASON, GMODE, TITLES, OVERWRITE, DPI) = (
-        'All Seasons', 'All Modes', 'True', 'True', '500'
+        'Fresh Season 2024', 'All Modes', 'True', 'True', '500'
     )
 else:
     (SEASON, GMODE, TITLES, OVERWRITE, DPI) = argv[1:]
