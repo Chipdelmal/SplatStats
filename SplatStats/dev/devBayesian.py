@@ -15,7 +15,10 @@ import SplatStats as splat
         'čħîþ ウナギ', 'Yami ウナギ', 'Riché ウナギ', 'April ウナギ', 'Rei ウナギ',
         'Oswal　ウナギ', 'Murazee'
     ],
-    ('win', 'kill', 'death', 'assist', 'paint', 'special'),
+    (
+        'main weapon', 'sub weapon', 'special weapon', 
+        'win', 'kill', 'death', 'assist', 'paint', 'special'
+    ),
     ('ko', 'matchType', 'duration', 'stage', 'festMatch')
 )
 (iPath, bPath, oPath) = (
@@ -68,5 +71,54 @@ df = df[df['win']!='NA']
 df['win'] = df['win'].map({'W': 1, 'L': 0})
 ###############################################################################
 # Return dataframe
+#     'čħîþ ウナギ', 'Yami ウナギ', 'Riché ウナギ', 'April ウナギ', 'Rei ウナギ',
+#     'Oswal　ウナギ', 'Murazee'
 ###############################################################################
-df
+ally = 'April ウナギ'
+# Wins with ally --------------------------------------------------------------
+fltr = (df['win']==True, df[ally]==True)
+bools = [all(i) for i in zip(*fltr)]
+wins_w_ally = df[bools].shape[0]
+# Wins without ally -----------------------------------------------------------
+fltr = (df['win']==True, df[ally]==False)
+bools = [all(i) for i in zip(*fltr)]
+win_n_ally = df[bools]
+# Matches counts --------------------------------------------------------------
+wins = df[df['win']==True].shape[0]
+allyMatches = df[df[ally]==True].shape[0]
+totals = df.shape[0]
+# Elements --------------------------------------------------------------------
+(pa, pw, paw) = (
+    allyMatches/totals, 
+    wins/totals,
+    wins_w_ally/wins
+)
+bayes = (paw*pw)/pa
+# Wins with ally --------------------------------------------------------------
+f'{PLYR} with {ally}: {bayes/pw:.4f} ({bayes:.4f}/{pw:.4f})'
+###############################################################################
+# Return dataframe
+###############################################################################
+df['main weapon'].unique()
+ally = 'Splattershot Jr.'
+# Wins with ally --------------------------------------------------------------
+fltr = (df['win']==True, df['main weapon']==ally)
+bools = [all(i) for i in zip(*fltr)]
+wins_w_ally = df[bools].shape[0]
+# Wins without ally -----------------------------------------------------------
+fltr = (df['win']==True, df['main weapon']!=ally)
+bools = [all(i) for i in zip(*fltr)]
+win_n_ally = df[bools]
+# Matches counts --------------------------------------------------------------
+wins = df[df['win']==True].shape[0]
+allyMatches = df[df['main weapon']==ally].shape[0]
+totals = df.shape[0]
+# Elements --------------------------------------------------------------------
+(pa, pw, paw) = (
+    allyMatches/totals, 
+    wins/totals,
+    wins_w_ally/wins
+)
+bayes = (paw*pw)/pa
+# Wins with ally --------------------------------------------------------------
+f'{PLYR} with {ally}: {bayes/pw:.4f} ({bayes:.4f}/{pw:.4f})'
