@@ -256,3 +256,42 @@ def addDateGroup(
     dteSlice = playerHistory['datetime'].apply(slicer).copy()
     playerHistory.insert(3, 'DateGroup', dteSlice)
     return playerHistory
+
+
+def getAlliesEnemiesDataFrames(
+        battleRecords, player, teammates,
+        STATS=(
+            'main weapon', 'sub weapon', 'special weapon', 
+            'win', 'kill', 'death', 'assist', 'paint', 'special'
+        ),
+        BATTLE=('ko', 'matchType', 'duration', 'stage', 'festMatch')
+    ):
+    (aList, eList, nBattles) = ([], [], len(battleRecords))
+    for ix in range(nBattles):
+        bRecord = battleRecords[ix]
+        (allies, enemies) = (bRecord.alliedTeam, pd.concat(bRecord.enemyTeams))
+        if player not in set(allies['player name']):
+            continue
+        # Get battle stats ----------------------------------------------------
+        bttlStats = {s: bRecord.__getattribute__(s) for s in BATTLE}
+        # Get player row and outcome ------------------------------------------
+        plyrEntry = allies[allies['player name']==player]
+        plyrStats = {s: plyrEntry[s].values[0] for s in STATS}
+        # Get if team members are present -------------------------------------
+        allyPrsnt = {n: (n in set(allies['player name'])) for n in teammates}
+        enmyPrsnt = {n: (n in set(enemies['player name'])) for n in teammates}
+        # Assemble full dictionary --------------------------------------------
+        bDicts = [bttlStats, plyrStats, allyPrsnt]
+        aList.append({k: v for d in bDicts for k, v in d.items()})
+        # Assemble full dictionary --------------------------------------------
+        bDicts = [bttlStats, plyrStats, enmyPrsnt]
+        eList.append({k: v for d in bDicts for k, v in d.items()})
+    # Generate dataframe and clean --------------------------------------------
+    dfAllies = pd.DataFrame.from_dict(aList)
+    dfAllies = dfAllies[dfAllies['win']!='NA']
+    dfAllies['win'] = dfAllies['win'].map({'W': 1, 'L': 0})
+    dfEnemies = pd.DataFrame.from_dict(aList)
+    dfEnemies = dfEnemies[dfEnemies['win']!='NA']
+    dfEnemies['win'] = dfEnemies['win'].map({'W': 1, 'L': 0})
+    # Return dataframes -------------------------------------------------------
+    return {'allies': dfAllies, 'enemies': dfEnemies}

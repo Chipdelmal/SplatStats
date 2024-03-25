@@ -1,4 +1,5 @@
 other/
+**/.DS_Store
 
 # Serialized data
 *.bz

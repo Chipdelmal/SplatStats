@@ -74,7 +74,7 @@ df['win'] = df['win'].map({'W': 1, 'L': 0})
 #     'čħîþ ウナギ', 'Yami ウナギ', 'Riché ウナギ', 'April ウナギ', 'Rei ウナギ',
 #     'Oswal　ウナギ', 'Murazee'
 ###############################################################################
-ally = 'April ウナギ'
+ally = 'Riché ウナギ'
 # Wins with ally --------------------------------------------------------------
 fltr = (df['win']==True, df[ally]==True)
 bools = [all(i) for i in zip(*fltr)]
@@ -121,4 +121,37 @@ totals = df.shape[0]
 )
 bayes = (paw*pw)/pa
 # Wins with ally --------------------------------------------------------------
-f'{PLYR} with {ally}: {bayes/pw:.4f} ({bayes:.4f}/{pw:.4f})'
+print(f'{PLYR} with {ally}: {bayes/pw:.4f} ({bayes:.4f}/{pw:.4f})')
+###############################################################################
+# Return dataframe
+###############################################################################
+(MIN_MATCHES, dWpn) = (25, {})
+aWpns = df['main weapon'].unique()
+nWpns = len(aWpns)
+for ally in aWpns:
+    nMatches = df[df['main weapon']==ally].shape[0]
+    if (nMatches<MIN_MATCHES):
+        continue
+    # Wins with ally ----------------------------------------------------------
+    fltr = (df['win']==True, df['main weapon']==ally)
+    bools = [all(i) for i in zip(*fltr)]
+    wins_w_ally = df[bools].shape[0]
+    # Wins without ally -------------------------------------------------------
+    fltr = (df['win']==True, df['main weapon']!=ally)
+    bools = [all(i) for i in zip(*fltr)]
+    win_n_ally = df[bools]
+    # Matches counts ----------------------------------------------------------
+    wins = df[df['win']==True].shape[0]
+    allyMatches = df[df['main weapon']==ally].shape[0]
+    totals = df.shape[0]
+    # Elements ----------------------------------------------------------------
+    (pa, pw, paw) = (
+        allyMatches/totals, 
+        wins/totals,
+        wins_w_ally/wins
+    )
+    bayes = (paw*pw)/pa
+    # Wins with ally ----------------------------------------------------------
+    print(f'{PLYR} with {ally}: {bayes/pw:.4f} ({bayes:.4f}/{pw:.4f})')
+    dWpn[ally] = bayes
+dWpn
