@@ -42,5 +42,18 @@ PLYR = TEAM[0]
 # Load current player's stats -------------------------------------------------
 plyr = splat.Player(PLYR, bFilepaths, timezone='America/Los_Angeles')
 btlsDF = splat.getAlliesEnemiesDataFrames(plyr.battleRecords, PLYR, TEAM)
+(dfA, dfB) = (btlsDF['allies'], btlsDF['enemies'])
+###############################################################################
+# Bayes
+###############################################################################
+ally = TEAM[6]
 
+matches = dfA.shape[0]
+(likelihood, prior, marginal) = (
+    dfA.loc[(dfA[ally] & dfA['win'])].shape[0]/dfA.loc[(dfA['win'])].shape[0],
+    dfA.loc[(dfA['win'])].shape[0]/matches,
+    dfA.loc[(dfA[ally])].shape[0]/matches
+)
+bayes = (likelihood*prior)/marginal
+bayes
 

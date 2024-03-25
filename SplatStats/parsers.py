@@ -289,9 +289,9 @@ def getAlliesEnemiesDataFrames(
     # Generate dataframe and clean --------------------------------------------
     dfAllies = pd.DataFrame.from_dict(aList)
     dfAllies = dfAllies[dfAllies['win']!='NA']
-    dfAllies['win'] = dfAllies['win'].map({'W': 1, 'L': 0})
-    dfEnemies = pd.DataFrame.from_dict(aList)
+    dfAllies['win'] = dfAllies['win'].map({'W': True, 'L': False})
+    dfEnemies = pd.DataFrame.from_dict(eList)
     dfEnemies = dfEnemies[dfEnemies['win']!='NA']
-    dfEnemies['win'] = dfEnemies['win'].map({'W': 1, 'L': 0})
+    dfEnemies['win'] = dfEnemies['win'].map({'W': True, 'L': False})
     # Return dataframes -------------------------------------------------------
     return {'allies': dfAllies, 'enemies': dfEnemies}
