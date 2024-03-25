@@ -74,7 +74,7 @@ df['win'] = df['win'].map({'W': 1, 'L': 0})
 #     'čħîþ ウナギ', 'Yami ウナギ', 'Riché ウナギ', 'April ウナギ', 'Rei ウナギ',
 #     'Oswal　ウナギ', 'Murazee'
 ###############################################################################
-ally = 'Riché ウナギ'
+ally = 'Yami ウナギ'
 # Wins with ally --------------------------------------------------------------
 fltr = (df['win']==True, df[ally]==True)
 bools = [all(i) for i in zip(*fltr)]
