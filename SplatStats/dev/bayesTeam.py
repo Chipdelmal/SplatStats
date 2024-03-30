@@ -8,6 +8,7 @@ import bambi as bmb
 import matplotlib.pyplot as plt
 from collections import Counter
 import SplatStats as splat
+import matplotlib.colors as colors
 
 
 (TEAM, STATS, BATS) = (
@@ -39,13 +40,16 @@ bFilepaths = splat.getBattleFilepaths(bPath)
 ###############################################################################
 # Iterate over players
 ###############################################################################
-pMat = np.zeros((len(TEAM), len(TEAM)))
+(pMat, mMat) = (
+    np.zeros((len(TEAM), len(TEAM))),
+    np.zeros((len(TEAM), len(TEAM)))
+)
 PLYR = TEAM[0]
 for (r, PLYR) in enumerate(TEAM):
     # Load current player's stats ---------------------------------------------
     plyr = splat.Player(PLYR, bFilepaths, timezone='America/Los_Angeles')
     btlsDF = splat.getAlliesEnemiesDataFrames(plyr.battleRecords, PLYR, TEAM)
-    (dfA, dfB) = (btlsDF['allies'], btlsDF['enemies'])
+    (dfA, dfE) = (btlsDF['allies'], btlsDF['enemies'])
     ###########################################################################
     # Bayes
     ###########################################################################
@@ -61,4 +65,19 @@ for (r, PLYR) in enumerate(TEAM):
         )
         bayes = (0 if (marginal==0) else (likelihood*prior)/marginal)
         pMat[r,c] = bayes
-plt.matshow(pMat)
+        mMat[r,c] = dfA.loc[(dfA[ALLY])].shape[0]
+###############################################################################
+# Plot Matrix
+###############################################################################
+delta = 0.075  
+cmap = splat.colorPaletteFromHexList(['#E84E73', '#f8f7ff', '#f8f7ff', '#9381ff'])
+(fig, ax) = plt.subplots(figsize=(6, 6))
+ax.matshow(pMat, cmap=cmap, vmin=0.5-delta, vmax=0.5+delta)
+for (i, j), z in np.ndenumerate(pMat):
+    ax.text(
+        j, i, 
+        '{:0.2f}\n({:0.0f})'.format(z, mMat[j, i]), 
+        ha='center', va='center', fontsize=9
+    )
+ax.set_xticklabels(['']+TEAM, rotation=90)
+ax.set_yticklabels(['']+TEAM)
