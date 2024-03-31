@@ -69,8 +69,8 @@ for (r, PLYR) in enumerate(TEAM):
 ###############################################################################
 # Plot Matrix
 ###############################################################################
-delta = 0.075  
-cmap = splat.colorPaletteFromHexList(['#E84E73', '#f8f7ff', '#f8f7ff', '#9381ff'])
+(delta, cList) = (0.075, ['#E84E73', '#f8f7ff', '#f8f7ff', '#9381ff'])
+cmap = splat.colorPaletteFromHexList(cList)
 (fig, ax) = plt.subplots(figsize=(6, 6))
 ax.matshow(pMat, cmap=cmap, vmin=0.5-delta, vmax=0.5+delta)
 for (i, j), z in np.ndenumerate(pMat):
