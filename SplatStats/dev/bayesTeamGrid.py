@@ -44,18 +44,20 @@ bFilepaths = splat.getBattleFilepaths(bPath)
 ###############################################################################
 tLen = len(TEAM)
 (pMat, mMat) = (np.zeros((tLen, tLen))), np.zeros((tLen, tLen))
-PLYR = TEAM[0]
-for (r, PLYR) in enumerate(TEAM):
-    # Load current player's stats ---------------------------------------------
-    plyr = splat.Player(PLYR, bFilepaths, timezone='America/Los_Angeles')
-    btlsDF = splat.getAlliesEnemiesDataFrames(plyr.battleRecords, PLYR, TEAM)
-    (dfA, dfE) = (btlsDF['allies'], btlsDF['enemies'])
-    ###########################################################################
-    # Bayes
-    ###########################################################################
-    ALLY = TEAM[0]
+PLYR = TEAM[2]
+# Load current player's stats ---------------------------------------------
+plyr = splat.Player(PLYR, bFilepaths, timezone='America/Los_Angeles')
+btlsDF = splat.getAlliesEnemiesDataFrames(plyr.battleRecords, PLYR, TEAM)
+(dfA, dfE) = (btlsDF['allies'], btlsDF['enemies'])
+###########################################################################
+# Bayes
+###########################################################################
+grid = np.arange(0, 20, 0.1)
+(tLen, rLen) = (len(TEAM), grid.shape[0])
+(pMat, mMat) = (np.zeros((rLen, tLen))), np.zeros((rLen, tLen))
+for (r, ths) in enumerate(grid):
     for (c, ALLY) in enumerate(TEAM):
-        cond = (dfA['kill']>=3*dfA['death'])
+        cond = (dfA['kill'] >= ths*dfA['death'])
         (wins, matches) = (
             dfA.loc[(cond)].shape[0],
             dfA.shape[0]    
@@ -68,22 +70,28 @@ for (r, PLYR) in enumerate(TEAM):
         )
         bayes = (0 if (marginal==0) else (likelihood*prior)/marginal)
         pMat[r,c] = bayes
-        mMat[r,c] = dfA.loc[(dfA[ALLY])].shape[0]
+        mMat[r,c] = dfA.loc[(dfA[ALLY])].shape[0]     
 ###############################################################################
 # Plot Matrix
 ###############################################################################
-(ctr, delta, cList) = (
-    0, 0.5, 
-    ['#E84E73', '#f8f7ff', '#f8f7ff', '#9381ff']
-)
+cList = [
+    '#C1D0F9', '#D6F6F6', '#A9A7BC', '#FEF0FB', 
+    '#FEDEF7', '#E1CCEE', '#E6AFC3', '#FFCC9C'
+]
 cmap = splat.colorPaletteFromHexList(cList)
-(fig, ax) = plt.subplots(figsize=(6, 6))
-ax.matshow(pMat, cmap=cmap, vmin=ctr-delta, vmax=ctr+delta)
-for (i, j), z in np.ndenumerate(pMat):
-    ax.text(
-        j, i, 
-        '{:0.2f}\n({:0.0f})'.format(z, mMat[j, i]), 
-        ha='center', va='center', fontsize=9
-    )
-ax.set_xticklabels(['']+TEAM, rotation=90)
-ax.set_yticklabels(['']+TEAM)
+(fig, ax) = plt.subplots(figsize=(10, 10))
+for (ix, row) in enumerate(pMat.T):
+    ax.plot(range(rLen), row, color=cList[ix], lw=4, alpha=0.5)
+    # ax.scatter(range(rLen), row, color=cList[ix], alpha=0.75, zorder=1)
+xLen = np.arange(0, max(grid), 1).shape[0]
+ax.set_xticks(
+    np.arange(0, rLen, rLen/xLen), 
+    [int(i) for i in np.arange(0, max(grid), 1)]
+)
+ax.set_yticks(np.arange(0, 1, 0.1))
+ax.set_xlim(0, rLen-1)
+ax.set_ylim(0, 1)
+ax.legend(TEAM)
+ax.grid(True)
+
+

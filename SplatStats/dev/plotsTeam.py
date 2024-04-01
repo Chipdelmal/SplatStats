@@ -25,7 +25,7 @@ splat.setSplatoonFont(fontPath, fontName="Splatfont 2")
 # Process JSON files into battle objects
 ###############################################################################
 hFilepaths = splat.getDataFilepaths(iPath, filePat='results.json')
-bPaths = splat.dumpBattlesFromJSONS(hFilepaths, bPath, overwrite=True)
+bPaths = splat.dumpBattlesFromJSONS(hFilepaths, bPath, overwrite=False)
 bFilepaths = splat.getBattleFilepaths(bPath)
 ###############################################################################
 # Create Team Objects
@@ -46,7 +46,7 @@ teamHistBT = team.reshapeTeamHistoryByPeriod(period='24H')
 ###############################################################################
 # Plotting Stream
 ###############################################################################
-(fig, ax) = plt.subplots(figsize=(10, 2))
+(fig, ax) = plt.subplots(figsize=(10, 2), subplot_kw={'projection': 'polar'})
 (fig, ax) = splat.plotStreamTeam(
     (fig, ax), team, teamHistBT, 
     baseline='sym', colors=COLORS
