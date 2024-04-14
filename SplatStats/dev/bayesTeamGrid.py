@@ -4,13 +4,8 @@
 import numpy as np
 import pandas as pd
 from os import path
-import bambi as bmb
-import matplotlib.pyplot as plt
-from collections import Counter
 import SplatStats as splat
-import matplotlib.colors as colors
-from mpl_chord_diagram import chord_diagram
-
+import matplotlib.pyplot as plt
 
 
 (TEAM, STATS, BATS) = (
@@ -44,7 +39,7 @@ bFilepaths = splat.getBattleFilepaths(bPath)
 ###############################################################################
 tLen = len(TEAM)
 (pMat, mMat) = (np.zeros((tLen, tLen))), np.zeros((tLen, tLen))
-PLYR = TEAM[2]
+PLYR = TEAM[0]
 # Load current player's stats ---------------------------------------------
 plyr = splat.Player(PLYR, bFilepaths, timezone='America/Los_Angeles')
 btlsDF = splat.getAlliesEnemiesDataFrames(plyr.battleRecords, PLYR, TEAM)
@@ -52,23 +47,26 @@ btlsDF = splat.getAlliesEnemiesDataFrames(plyr.battleRecords, PLYR, TEAM)
 ###########################################################################
 # Bayes
 ###########################################################################
-grid = np.arange(0, 20, 0.1)
+grid = np.arange(0, 21.5, 0.5)
 (tLen, rLen) = (len(TEAM), grid.shape[0])
 (pMat, mMat) = (np.zeros((rLen, tLen))), np.zeros((rLen, tLen))
 for (r, ths) in enumerate(grid):
     for (c, ALLY) in enumerate(TEAM):
-        cond = (dfA['kill'] >= ths*dfA['death'])
+        cond = (
+            ((dfA['kill']+dfA['assist']*0.5)<=ths*dfA['death']) 
+            # (dfA['win']==True)
+        )
         (wins, matches) = (
             dfA.loc[(cond)].shape[0],
             dfA.shape[0]    
         )
         like = dfA.loc[(dfA[ALLY] & cond)].shape[0]
         (likelihood, prior, marginal) = (
-            (like/wins if like>0 else 0),
+            (like/wins if wins>0 else 0),
             dfA.loc[(cond)].shape[0]/matches,
             dfA.loc[(dfA[ALLY])].shape[0]/matches
         )
-        bayes = (0 if (marginal==0) else (likelihood*prior)/marginal)
+        bayes = (likelihood*prior)/marginal # (0 if (marginal==0) else )
         pMat[r,c] = bayes
         mMat[r,c] = dfA.loc[(dfA[ALLY])].shape[0]     
 ###############################################################################
@@ -81,17 +79,21 @@ cList = [
 cmap = splat.colorPaletteFromHexList(cList)
 (fig, ax) = plt.subplots(figsize=(10, 10))
 for (ix, row) in enumerate(pMat.T):
-    ax.plot(range(rLen), row, color=cList[ix], lw=4, alpha=0.5)
+    ax.plot(range(rLen), row, color=cList[ix], lw=3, alpha=0.7)
     # ax.scatter(range(rLen), row, color=cList[ix], alpha=0.75, zorder=1)
-xLen = np.arange(0, max(grid), 1).shape[0]
+xLen = np.arange(0, int(max(grid)), 1).shape[0]
 ax.set_xticks(
     np.arange(0, rLen, rLen/xLen), 
     [int(i) for i in np.arange(0, max(grid), 1)]
 )
-ax.set_yticks(np.arange(0, 1, 0.1))
-ax.set_xlim(0, rLen-1)
+ax.set_ylabel("P(Event | Ally)", fontsize=20)
+ax.set_yticks(np.arange(0, 1.1, 0.1))
+ax.set_xlim(0, rLen-2)
 ax.set_ylim(0, 1)
 ax.legend(TEAM)
 ax.grid(True)
+# ax.set_facecolor("#000000")
+# plt.figure(facecolor="#000000")
+# fig.patch.set_facecolor("#000000")
 
 

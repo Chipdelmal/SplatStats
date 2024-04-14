@@ -205,7 +205,7 @@ rRange=(0, 90)
 offset=0
 height=1
 edgeWidth=0.1
-fontSize=np.interp(wpnsNumber, [1, 10, 30, 50], [30, 20, 14, 5])
+fontSize=np.interp(wpnsNumber, [1, 10, 30, 50], [30, 20, 12, 4])
 highColors=[
     '#DE0B64FF', '#311AA8FF', '#6BFF00FF', '#9030FFFF', 
     '#B62EA7FF', '#7d8597FF', '#faa6ffFF', '#f4845fFF'
@@ -286,27 +286,27 @@ for wpix in range(wpnsNumber):
     )
 maxWeek = max(weekNumber)
 # Plot version ----------------------------------------------------------------
-verTuples = [(k, versionDtes[k][0]) for k in versionDtes.keys()]
-(verLbl, verDte) = list(zip(*verTuples))
-dteTuples = [[int(x) for x in d.split('/')] for d in verDte]
-weekNumber = [(y%minYear)*52+w-minWeek+1 for (y, w) in dteTuples]
-# wix = weekNumber[10]
-for wix in weekNumber:
-    ax.plot(
-        [0, weekBars[-wix][0]+rDelta], 
-        [0, wpnsNumber+0], 
-        alpha=0.25,
-        color='#bdd5ea', 
-        lw=1, ls=(0, (1, 10)),
-        zorder=20
-    )
+# verTuples = [(k, versionDtes[k][0]) for k in versionDtes.keys()]
+# (verLbl, verDte) = list(zip(*verTuples))
+# dteTuples = [[int(x) for x in d.split('/')] for d in verDte]
+# weekNumber = [(y%minYear)*52+w-minWeek+1 for (y, w) in dteTuples]
+# # wix = weekNumber[10]
+# for wix in weekNumber:
+#     ax.plot(
+#         [0, weekBars[-wix][0]+rDelta], 
+#         [0, wpnsNumber+0], 
+#         alpha=0.25,
+#         color='#bdd5ea', 
+#         lw=1, ls=(0, (1, 10)),
+#         zorder=20
+#     )
 # Plot splatfest --------------------------------------------------------------
 dteTuples = [[int(x) for x in d.split('/')] for d in fDates]
 weekNumber = [(y%minYear)*52+w-minWeek+1 for (y, w) in dteTuples]
 # wix = weekNumber[0]
 for wix in weekNumber:
     ax.plot(
-        [0, weekBars[-wix][0]], 
+        [0, weekBars[-wix][0]+rDelta], 
         [0, wpnsNumber], 
         alpha=0.25,
         color='#bdd5ea', 
@@ -322,14 +322,14 @@ weekNumber = [(y%minYear)*52+w-minWeek+1 for (y, w) in dteTuples]
 ix = 0
 for wix in weekNumber:
     ax.plot(
-        [0, weekBars[-wix][0]], 
+        [0, weekBars[-wix][0]+rDelta], 
         [0, wpnsNumber], 
         alpha=0.75, lw=1.25, 
-        color='#B986ED', 
+        color='#C1D0F9', 
         zorder=10
     )
     ax.text(
-        weekBars[-wix][0]-rDelta*0.5,
+        weekBars[-wix][0]-rDelta*0.5+rDelta,
         wpnsNumber+4, 
         '{} ({})      '.format(seasonLsts[ix][:-12], seasonLsts[ix][-2:]),
         va='center', ha='center', fontsize=fontSize*2,

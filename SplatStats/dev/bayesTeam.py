@@ -4,12 +4,8 @@
 import numpy as np
 import pandas as pd
 from os import path
-import bambi as bmb
 import matplotlib.pyplot as plt
-from collections import Counter
 import SplatStats as splat
-import matplotlib.colors as colors
-from mpl_chord_diagram import chord_diagram
 
 
 
@@ -55,7 +51,9 @@ for (r, PLYR) in enumerate(TEAM):
     ###########################################################################
     ALLY = TEAM[0]
     for (c, ALLY) in enumerate(TEAM):
-        cond = (dfA['kill']>=3*dfA['death'])
+        cond = (
+            (dfA['kill'] < dfA['death'])
+        )
         (wins, matches) = (
             dfA.loc[(cond)].shape[0],
             dfA.shape[0]    
