@@ -12,6 +12,8 @@ import pandas as pd
 from math import radians, sin, cos
 from matplotlib.colors import LogNorm, PowerNorm, SymLogNorm
 import matplotlib.pyplot as plt
+import matplotlib as mpl
+from matplotlib import colors
 from matplotlib.transforms import Bbox
 from collections import Counter, OrderedDict
 import SplatStats as splat
@@ -132,3 +134,46 @@ SPLATFEST_DAYS = sorted(list(
         (dfBtls['lobby']=='Splatfest (Pro)')
     ]['day'].unique()
 ))
+###############################################################################
+# Get Splatfest
+############################################################################### 
+(xStep, xDelta) = (1, 0)
+(yStep, yDelta) = (1, 0.5)
+# wpns = WPNS_FREQ_DF.columns[::-1]
+wpns = [i[0] for i in WPNS_TOTAL.most_common()][::-1]
+days = list(WPNS_FREQ_DF.index.values)
+SAT_CATS = [
+    '#8338ecAA', '#ff006eAA', '#3a86ffAA', '#f15bb5AA' # '#ccff3355',
+]
+NORM = colors.LogNorm(vmin=1, vmax=17.5e3)
+MAPS = [
+    splat.colorPaletteFromHexList(['#000000', '#000000', c, '#ffffff']) 
+    for c in SAT_CATS
+]
+
+(fig, ax) = plt.subplots(figsize=(30, 15))
+ax1 = ax.twinx()
+for (row, wpn) in enumerate(wpns):
+    wpnName = wpns[row]
+    wpnCount = WPNS_FREQ_DF[wpnName].values
+    # with mpl.rc_context({'path.sketch': (2, 0.1, 100)}):
+    for day in range(0, len(days)):
+        ax.plot(
+            (day*xStep, day*xStep+xDelta), 
+            (row*yStep, row*yStep+yDelta), 
+            color=MAPS[row%len(MAPS)](NORM(wpnCount[day]))
+        )
+ax.set_xlim(0, len(days))
+ax.set_ylim(0, len(wpns))
+ax.set_yticks([i+yDelta/2 for i in range(0, len(wpns))])
+ax.set_yticklabels(wpns, fontsize=6, color='#ffffff')
+ax1.set_yticks([i+yDelta/2 for i in range(0, len(wpns))])
+ax1.set_yticklabels(wpns, fontsize=6, color='#ffffff')
+ax.set_facecolor('#000000')
+plt.figure(facecolor="#000000")
+fig.patch.set_facecolor("#000000")
+fName = f'WeaponUsage.png'
+fig.savefig(
+    path.join(DATA_PATH, 'inkstats/'+fName), 
+    dpi=350, bbox_inches='tight', facecolor=fig.get_facecolor()
+)
