@@ -139,18 +139,32 @@ SPLATFEST_DAYS = sorted(list(
 ############################################################################### 
 (xStep, xDelta) = (1, 0)
 (yStep, yDelta) = (1, 0.5)
-# wpns = WPNS_FREQ_DF.columns[::-1]
-wpns = [i[0] for i in WPNS_TOTAL.most_common()][::-1]
-days = list(WPNS_FREQ_DF.index.values)
 SAT_CATS = [
-    '#8338ecAA', '#ff006eAA', '#3a86ffAA', '#f15bb5AA' # '#ccff3355',
+    '#8338ec', '#ff006e', '#3a86ff', '#f15bb5', '#6BFF00',
 ]
 NORM = colors.LogNorm(vmin=1, vmax=17.5e3)
 MAPS = [
     splat.colorPaletteFromHexList(['#000000', '#000000', c, '#ffffff']) 
     for c in SAT_CATS
 ]
-
+# Get weapons sorting ---------------------------------------------------------
+wpns = [i[0] for i in WPNS_TOTAL.most_common()][::-1]
+# wpns = WPNS_FREQ_DF.columns[::-1]
+days = list(WPNS_FREQ_DF.index.values)
+# Map dates to columns --------------------------------------------------------
+seasons_column = [
+    (days.index(SEASONS_START[k].to_numpy()), k) 
+    for k in SEASONS_START.keys()
+]
+version_column = [
+    (days.index(VERSIONS_START[k].to_numpy()), k) 
+    for k in VERSIONS_START.keys()
+]
+fest_column = [
+    days.index(d.to_numpy())
+    for d in SPLATFEST_DAYS
+]
+# Plot frequency --------------------------------------------------------------
 (fig, ax) = plt.subplots(figsize=(30, 30))
 ax1 = ax.twinx()
 for (row, wpn) in enumerate(wpns):
@@ -163,7 +177,36 @@ for (row, wpn) in enumerate(wpns):
             (row*yStep, row*yStep+yDelta), 
             color=MAPS[row%len(MAPS)](NORM(wpnCount[day]))
         )
-ax.set_xlim(0, len(days))
+ax.vlines(
+    [i[0] for i in version_column], 0, 1, 
+    color='#ffffff00', ls='--', lw=0.15,
+    zorder=2,
+    transform=ax.get_xaxis_transform()
+)
+ax.vlines(
+    [i[0] for i in seasons_column], 0, 1.1, 
+    color='#ffffff', ls='-', lw=0.5,
+    zorder=0,
+    transform=ax.get_xaxis_transform()
+)
+ax.vlines(
+    fest_column, -0.1, 1.1, 
+    color='#ffffff', ls=':', lw=1,
+    zorder=0,
+    transform=ax.get_xaxis_transform()
+)
+sSeasons = sorted(seasons_column)
+for (ix, (i, t)) in enumerate(sSeasons):
+    if ix<(len(seasons_column)-1):
+        ax.text(
+            (i+sSeasons[ix+1][0])/2, len(wpns), 
+            t.replace("Season", ""), 
+            rotation=0, ha='center', va='bottom',
+            fontsize=25, color='#ffffff', 
+            zorder=1
+        )
+# Axes ------------------------------------------------------------------------
+ax.set_xlim(-.5, len(days)+.5)
 ax.set_ylim(0, len(wpns))
 ax.set_yticks([i+yDelta/2 for i in range(0, len(wpns))])
 ax.set_yticklabels(wpns, fontsize=12, color='#ffffff')
@@ -173,6 +216,7 @@ ax1.set_yticklabels(wpns, fontsize=12, color='#ffffff')
 ax.set_facecolor('#000000')
 plt.figure(facecolor="#000000")
 fig.patch.set_facecolor("#000000")
+# Export ----------------------------------------------------------------------
 fName = f'WeaponUsage.png'
 fig.savefig(
     path.join(DATA_PATH, 'inkstats/'+fName), 
