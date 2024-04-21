@@ -94,7 +94,7 @@ else:
 # Add 'day' to dataset for filtering ------------------------------------------
 dfBtls = btlsFiltered.copy()
 dfBtls['day'] = dfBtls['period'].dt.floor('d')
-UNIQUE_DAYS = sorted(btlsFiltered['day'].unique())
+UNIQUE_DAYS = sorted(dfBtls['day'].unique())
 ###############################################################################
 # Aggregate
 ###############################################################################       
@@ -124,7 +124,7 @@ WPNS_FREQ_DF = pd.DataFrame.from_records(
     list(dfBtls['season'].unique()),
     sorted(list(dfBtls['game-ver'].unique()))
 )
-(SESONS_START, VERSIONS_START) = (
+(SEASONS_START, VERSIONS_START) = (
     {s: min(dfBtls[dfBtls['season']==s]['day']) for s in seasons},
     {s: min(dfBtls[dfBtls['game-ver']==s]['day']) for s in versions}
 )
@@ -151,7 +151,7 @@ MAPS = [
     for c in SAT_CATS
 ]
 
-(fig, ax) = plt.subplots(figsize=(30, 15))
+(fig, ax) = plt.subplots(figsize=(30, 30))
 ax1 = ax.twinx()
 for (row, wpn) in enumerate(wpns):
     wpnName = wpns[row]
@@ -166,9 +166,10 @@ for (row, wpn) in enumerate(wpns):
 ax.set_xlim(0, len(days))
 ax.set_ylim(0, len(wpns))
 ax.set_yticks([i+yDelta/2 for i in range(0, len(wpns))])
-ax.set_yticklabels(wpns, fontsize=6, color='#ffffff')
+ax.set_yticklabels(wpns, fontsize=12, color='#ffffff')
+ax1.set_ylim(ax.get_ylim())
 ax1.set_yticks([i+yDelta/2 for i in range(0, len(wpns))])
-ax1.set_yticklabels(wpns, fontsize=6, color='#ffffff')
+ax1.set_yticklabels(wpns, fontsize=12, color='#ffffff')
 ax.set_facecolor('#000000')
 plt.figure(facecolor="#000000")
 fig.patch.set_facecolor("#000000")

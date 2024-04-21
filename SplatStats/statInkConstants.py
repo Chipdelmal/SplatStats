@@ -166,7 +166,7 @@ WPNS_DICT = {
 }
 WPNS_REPLICAS = (
   ('Hero Shot Replica', 'Splattershot'),
-  ('Octo Shot Replica', 'Tenktatek Splattershot'),
+  ('Octo Shot Replica', 'Tentatek Splattershot'),
   ('Order Shot Replica', 'Splattershot'),
   ('Order Blaster Replica', 'Luna Blaster'),
   ('Order Dualie Replicas', 'Splat Dualies'),
