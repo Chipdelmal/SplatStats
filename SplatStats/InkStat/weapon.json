@@ -1184,6 +1184,43 @@
         "reskin_of": "longblaster"
     },
     {
+        "key": "longblaster_custom",
+        "aliases": [
+            "221",
+            "custom_range_blaster"
+        ],
+        "type": {
+            "key": "blaster",
+            "aliases": [],
+            "name": {
+                "en_US": "Blasters",
+                "ja_JP": "ブラスター"
+            }
+        },
+        "name": {
+            "en_US": "Custom Range Blaster",
+            "ja_JP": "ロングブラスターカスタム"
+        },
+        "main": "longblaster",
+        "sub": {
+            "key": "splashbomb",
+            "aliases": [],
+            "name": {
+                "en_US": "Splat Bomb",
+                "ja_JP": "スプラッシュボム"
+            }
+        },
+        "special": {
+            "key": "teioika",
+            "aliases": [],
+            "name": {
+                "en_US": "Kraken Royale",
+                "ja_JP": "テイオウイカ"
+            }
+        },
+        "reskin_of": "longblaster_custom"
+    },
+    {
         "key": "nova",
         "aliases": [
             "200",
@@ -1773,6 +1810,43 @@
             }
         },
         "reskin_of": "gaen_ff"
+    },
+    {
+        "key": "gaen_ff_custom",
+        "aliases": [
+            "5051",
+            "custom_douser_dualies_ff"
+        ],
+        "type": {
+            "key": "maneuver",
+            "aliases": [],
+            "name": {
+                "en_US": "Dualies",
+                "ja_JP": "マニューバー"
+            }
+        },
+        "name": {
+            "en_US": "Custom Douser Dualies FF",
+            "ja_JP": "ガエンFFカスタム"
+        },
+        "main": "gaen_ff",
+        "sub": {
+            "key": "quickbomb",
+            "aliases": [],
+            "name": {
+                "en_US": "Burst Bomb",
+                "ja_JP": "クイックボム"
+            }
+        },
+        "special": {
+            "key": "tripletornado",
+            "aliases": [],
+            "name": {
+                "en_US": "Triple Inkstrike",
+                "ja_JP": "トリプルトルネード"
+            }
+        },
+        "reskin_of": "gaen_ff_custom"
     },
     {
         "key": "kelvin525",
@@ -2775,6 +2849,80 @@
         "reskin_of": "pablo_hue"
     },
     {
+        "key": "dentalwiper_mint",
+        "aliases": [
+            "8020",
+            "mint_decavitator"
+        ],
+        "type": {
+            "key": "wiper",
+            "aliases": [],
+            "name": {
+                "en_US": "Splatanas",
+                "ja_JP": "ワイパー"
+            }
+        },
+        "name": {
+            "en_US": "Mint Decavitator",
+            "ja_JP": "デンタルワイパーミント"
+        },
+        "main": "dentalwiper_mint",
+        "sub": {
+            "key": "kyubanbomb",
+            "aliases": [],
+            "name": {
+                "en_US": "Suction Bomb",
+                "ja_JP": "キューバンボム"
+            }
+        },
+        "special": {
+            "key": "greatbarrier",
+            "aliases": [],
+            "name": {
+                "en_US": "Big Bubbler",
+                "ja_JP": "グレートバリア"
+            }
+        },
+        "reskin_of": "dentalwiper_mint"
+    },
+    {
+        "key": "dentalwiper_sumi",
+        "aliases": [
+            "8021",
+            "charcoal_decavitator"
+        ],
+        "type": {
+            "key": "wiper",
+            "aliases": [],
+            "name": {
+                "en_US": "Splatanas",
+                "ja_JP": "ワイパー"
+            }
+        },
+        "name": {
+            "en_US": "Charcoal Decavitator",
+            "ja_JP": "デンタルワイパースミ"
+        },
+        "main": "dentalwiper_mint",
+        "sub": {
+            "key": "splashshield",
+            "aliases": [],
+            "name": {
+                "en_US": "Splash Wall",
+                "ja_JP": "スプラッシュシールド"
+            }
+        },
+        "special": {
+            "key": "jetpack",
+            "aliases": [],
+            "name": {
+                "en_US": "Inkjet",
+                "ja_JP": "ジェットパック"
+            }
+        },
+        "reskin_of": "dentalwiper_sumi"
+    },
+    {
         "key": "drivewiper",
         "aliases": [
             "8010",
@@ -2889,7 +3037,8 @@
         "key": "jimuwiper_hue",
         "aliases": [
             "8001",
-            "neo_splatana_stamper"
+            "neo_splatana_stamper",
+            "splatana_stamper_nouveau"
         ],
         "type": {
             "key": "wiper",
@@ -2900,7 +3049,7 @@
             }
         },
         "name": {
-            "en_US": "Neo Splatana Stamper",
+            "en_US": "Splatana Stamper Nouveau",
             "ja_JP": "ジムワイパー・ヒュー"
         },
         "main": "jimuwiper",
@@ -2995,6 +3144,43 @@
             }
         },
         "reskin_of": "bamboo14mk1"
+    },
+    {
+        "key": "bamboo14mk2",
+        "aliases": [
+            "2051",
+            "bamboozler_14_mk_ii"
+        ],
+        "type": {
+            "key": "charger",
+            "aliases": [],
+            "name": {
+                "en_US": "Chargers",
+                "ja_JP": "チャージャー"
+            }
+        },
+        "name": {
+            "en_US": "Bamboozler 14 Mk II",
+            "ja_JP": "14式竹筒銃・乙"
+        },
+        "main": "bamboo14mk1",
+        "sub": {
+            "key": "tansanbomb",
+            "aliases": [],
+            "name": {
+                "en_US": "Fizzy Bomb",
+                "ja_JP": "タンサンボム"
+            }
+        },
+        "special": {
+            "key": "decoy",
+            "aliases": [],
+            "name": {
+                "en_US": "Super Chump",
+                "ja_JP": "デコイチラシ"
+            }
+        },
+        "reskin_of": "bamboo14mk2"
     },
     {
         "key": "liter4k",
@@ -4141,6 +4327,43 @@
         "reskin_of": "examiner"
     },
     {
+        "key": "examiner_hue",
+        "aliases": [
+            "4051",
+            "heavy_edit_splatling_nouveau"
+        ],
+        "type": {
+            "key": "spinner",
+            "aliases": [],
+            "name": {
+                "en_US": "Splatlings",
+                "ja_JP": "スピナー"
+            }
+        },
+        "name": {
+            "en_US": "Heavy Edit Splatling Nouveau",
+            "ja_JP": "イグザミナー・ヒュー"
+        },
+        "main": "examiner",
+        "sub": {
+            "key": "splashbomb",
+            "aliases": [],
+            "name": {
+                "en_US": "Splat Bomb",
+                "ja_JP": "スプラッシュボム"
+            }
+        },
+        "special": {
+            "key": "kanitank",
+            "aliases": [],
+            "name": {
+                "en_US": "Crab Tank",
+                "ja_JP": "カニタンク"
+            }
+        },
+        "reskin_of": "examiner_hue"
+    },
+    {
         "key": "hydra",
         "aliases": [
             "4020",
@@ -4176,6 +4399,43 @@
             }
         },
         "reskin_of": "hydra"
+    },
+    {
+        "key": "hydra_custom",
+        "aliases": [
+            "4021",
+            "custom_hydra_splatling"
+        ],
+        "type": {
+            "key": "spinner",
+            "aliases": [],
+            "name": {
+                "en_US": "Splatlings",
+                "ja_JP": "スピナー"
+            }
+        },
+        "name": {
+            "en_US": "Custom Hydra Splatling",
+            "ja_JP": "ハイドラントカスタム"
+        },
+        "main": "hydra",
+        "sub": {
+            "key": "trap",
+            "aliases": [],
+            "name": {
+                "en_US": "Ink Mine",
+                "ja_JP": "トラップ"
+            }
+        },
+        "special": {
+            "key": "suminagasheet",
+            "aliases": [],
+            "name": {
+                "en_US": "Splattercolor Screen",
+                "ja_JP": "スミナガシート"
+            }
+        },
+        "reskin_of": "hydra_custom"
     },
     {
         "key": "kugelschreiber",
@@ -4474,6 +4734,43 @@
         "reskin_of": "brella24mk1"
     },
     {
+        "key": "brella24mk2",
+        "aliases": [
+            "6031",
+            "recycled_brella_24_mk_ii"
+        ],
+        "type": {
+            "key": "brella",
+            "aliases": [],
+            "name": {
+                "en_US": "Brellas",
+                "ja_JP": "シェルター"
+            }
+        },
+        "name": {
+            "en_US": "Recycled Brella 24 Mk II",
+            "ja_JP": "24式張替傘・乙"
+        },
+        "main": "brella24mk1",
+        "sub": {
+            "key": "poisonmist",
+            "aliases": [],
+            "name": {
+                "en_US": "Toxic Mist",
+                "ja_JP": "ポイズンミスト"
+            }
+        },
+        "special": {
+            "key": "ultra_chakuchi",
+            "aliases": [],
+            "name": {
+                "en_US": "Triple Splashdown",
+                "ja_JP": "ウルトラチャクチ"
+            }
+        },
+        "reskin_of": "brella24mk2"
+    },
+    {
         "key": "campingshelter",
         "aliases": [
             "6010",
@@ -4731,6 +5028,80 @@
             }
         },
         "reskin_of": "spygadget_sorella"
+    },
+    {
+        "key": "furuido",
+        "aliases": [
+            "7030",
+            "wellstring_v"
+        ],
+        "type": {
+            "key": "stringer",
+            "aliases": [],
+            "name": {
+                "en_US": "Stringers",
+                "ja_JP": "ストリンガー"
+            }
+        },
+        "name": {
+            "en_US": "Wellstring V",
+            "ja_JP": "フルイドV"
+        },
+        "main": "furuido",
+        "sub": {
+            "key": "robotbomb",
+            "aliases": [],
+            "name": {
+                "en_US": "Autobomb",
+                "ja_JP": "ロボットボム"
+            }
+        },
+        "special": {
+            "key": "ultrahanko",
+            "aliases": [],
+            "name": {
+                "en_US": "Ultra Stamp",
+                "ja_JP": "ウルトラハンコ"
+            }
+        },
+        "reskin_of": "furuido"
+    },
+    {
+        "key": "furuido_custom",
+        "aliases": [
+            "7031",
+            "custom_wellstring_v"
+        ],
+        "type": {
+            "key": "stringer",
+            "aliases": [],
+            "name": {
+                "en_US": "Stringers",
+                "ja_JP": "ストリンガー"
+            }
+        },
+        "name": {
+            "en_US": "Custom Wellstring V",
+            "ja_JP": "フルイドVカスタム"
+        },
+        "main": "furuido",
+        "sub": {
+            "key": "pointsensor",
+            "aliases": [],
+            "name": {
+                "en_US": "Point Sensor",
+                "ja_JP": "ポイントセンサー"
+            }
+        },
+        "special": {
+            "key": "hopsonar",
+            "aliases": [],
+            "name": {
+                "en_US": "Wave Breaker",
+                "ja_JP": "ホップソナー"
+            }
+        },
+        "reskin_of": "furuido_custom"
     },
     {
         "key": "lact450",

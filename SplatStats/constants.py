@@ -97,6 +97,7 @@ CLR_STAGE = {
     'Wahoo World': clr.PINK_V_ORANGE_S1[2],
     'Manta Maria': clr.DARK_MILK_WHITE_S3[-1],
     "Um'ami Ruins": clr.YELLOW_V_INDIGO_S3 [-1],
+    'Lemuria Hub': clr.SALTY_V_SWEET_S2[0]
 }
 CLR_WEAPON = {
     'Clash Blaster': '#0D37C3',

@@ -142,9 +142,9 @@ SPLATFEST_DAYS = sorted(list(
 SAT_CATS = [
     '#8338ec', '#ff006e', '#3a86ff', '#f15bb5', '#6BFF00',
 ]
-NORM = colors.LogNorm(vmin=1, vmax=17.5e3)
+NORM = colors.SymLogNorm(linthresh=.250e3, vmin=0, vmax=17.5e3)
 MAPS = [
-    splat.colorPaletteFromHexList(['#000000', '#000000', c, '#ffffff']) 
+    splat.colorPaletteFromHexList(['#000000', c, '#ffffff']) 
     for c in SAT_CATS
 ]
 # Get weapons sorting ---------------------------------------------------------
@@ -178,36 +178,51 @@ for (row, wpn) in enumerate(wpns):
             color=MAPS[row%len(MAPS)](NORM(wpnCount[day]))
         )
 ax.vlines(
-    [i[0] for i in version_column], 0, 1, 
-    color='#ffffff00', ls='--', lw=0.15,
+    [i[0] for i in version_column], 
+    0-.5, len(wpns)-.5, 
+    color='#ffffff44', ls=':', lw=0.5,
     zorder=2,
-    transform=ax.get_xaxis_transform()
+    # transform=ax.get_xaxis_transform()
 )
 ax.vlines(
-    [i[0] for i in seasons_column], 0, 1.1, 
-    color='#ffffff', ls='-', lw=0.5,
-    zorder=0,
-    transform=ax.get_xaxis_transform()
+    [i[0] for i in seasons_column], 
+    0-.5, len(wpns)+1, 
+    color='#ffffff44', ls=':', lw=0.5,
+    zorder=2,
+    # transform=ax.get_xaxis_transform()
 )
 ax.vlines(
-    fest_column, -0.1, 1.1, 
-    color='#ffffff', ls=':', lw=1,
-    zorder=0,
-    transform=ax.get_xaxis_transform()
+    [i[0] for i in seasons_column], 
+    len(wpns), len(wpns)+10, 
+    color='#ffffffCC', ls='-', lw=5,
+    zorder=4,
+    # transform=ax.get_xaxis_transform()
+)
+# ax.vlines(
+#     fest_column, 0-.25, -1, 
+#     color='#ffffff66', ls='-', lw=2,
+#     zorder=5,
+#     # transform=ax.get_xaxis_transform()
+# )
+ax.vlines(
+    fest_column, len(wpns), len(wpns)+1, 
+    color='#ffffff66', ls='-', lw=2,
+    zorder=5,
+    # transform=ax.get_xaxis_transform()
 )
 sSeasons = sorted(seasons_column)
 for (ix, (i, t)) in enumerate(sSeasons):
     if ix<(len(seasons_column)-1):
         ax.text(
-            (i+sSeasons[ix+1][0])/2, len(wpns), 
+            (i+sSeasons[ix+1][0])/2, len(wpns)+2, 
             t.replace("Season", ""), 
             rotation=0, ha='center', va='bottom',
             fontsize=25, color='#ffffff', 
-            zorder=1
+            zorder=5
         )
 # Axes ------------------------------------------------------------------------
-ax.set_xlim(-.5, len(days)+.5)
-ax.set_ylim(0, len(wpns))
+ax.set_xlim(-1, len(days)+1)
+ax.set_ylim(-1, len(wpns)+2)
 ax.set_yticks([i+yDelta/2 for i in range(0, len(wpns))])
 ax.set_yticklabels(wpns, fontsize=12, color='#ffffff')
 ax1.set_ylim(ax.get_ylim())
@@ -216,6 +231,10 @@ ax1.set_yticklabels(wpns, fontsize=12, color='#ffffff')
 ax.set_facecolor('#000000')
 plt.figure(facecolor="#000000")
 fig.patch.set_facecolor("#000000")
+[s.set_visible(False) for s in ax.spines.values()]
+[t.set_visible(False) for t in ax.get_xticklines()]
+[t.set_visible(False) for t in ax.get_yticklines()]
+
 # Export ----------------------------------------------------------------------
 fName = f'WeaponUsage.png'
 fig.savefig(

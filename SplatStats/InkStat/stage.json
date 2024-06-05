@@ -25,7 +25,8 @@
         "aliases": [
             "alley",
             "eeltail_alley",
-            "2"
+            "2",
+            "106"
         ],
         "name": {
             "en_US": "Eeltail Alley",
@@ -428,6 +429,7 @@
     {
         "key": "negitoro",
         "aliases": [
+            "22",
             "depot",
             "bluefin_depot"
         ],
@@ -449,7 +451,8 @@
         "key": "baigai",
         "aliases": [
             "rom_en",
-            "robo_rom_en"
+            "robo_rom_en",
+            "21"
         ],
         "name": {
             "en_US": "Robo ROM-en",
@@ -463,6 +466,48 @@
         "release_at": {
             "time": 1701388800,
             "iso8601": "2023-12-01T00:00:00+00:00"
+        }
+    },
+    {
+        "key": "kajiki",
+        "aliases": [
+            "airport",
+            "marlin_airport",
+            "23"
+        ],
+        "name": {
+            "en_US": "Marlin Airport",
+            "ja_JP": "カジキ空港"
+        },
+        "short_name": {
+            "en_US": "Airport",
+            "ja_JP": "カジキ"
+        },
+        "area": null,
+        "release_at": {
+            "time": 1709251200,
+            "iso8601": "2024-03-01T00:00:00+00:00"
+        }
+    },
+    {
+        "key": "ryugu",
+        "aliases": [
+            "lemuria_hub",
+            "hub",
+            "24"
+        ],
+        "name": {
+            "en_US": "Lemuria Hub",
+            "ja_JP": "リュウグウターミナル"
+        },
+        "short_name": {
+            "en_US": "Hub",
+            "ja_JP": "リュウグウ"
+        },
+        "area": null,
+        "release_at": {
+            "time": 1717200000,
+            "iso8601": "2024-06-01T00:00:00+00:00"
         }
     }
 ]
