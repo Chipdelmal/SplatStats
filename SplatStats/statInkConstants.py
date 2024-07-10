@@ -202,7 +202,7 @@ STGS_DICT = {
   'taraport':'Barnacle & Dime', 'kombu': 'Humpback Pump Track',
   'ohyo': 'Shipshape Cargo Co.', 'takaashi': 'Crableg Capital',
   'baigai': 'Robo ROM-en', 'negitoro': 'Bluefin Depot', 
-  'kajiki': 'Marlin Airport'
+  'kajiki': 'Marlin Airport', 'ryugu': 'Lemuria Hub'
 }
 
 STATINK_DTYPES = {

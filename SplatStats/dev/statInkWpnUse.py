@@ -182,7 +182,7 @@ tCard = tCardsDict[stat]
 
 wpnSorting = tCard.sum(axis=1).sort_values(ascending=False)
 wpnsNumber = len(wpnSorting)
-fontSize = np.interp(wpnsNumber, [1, 10, 30, 50], [30, 18, 12, 3])
+fontSize = np.interp(wpnsNumber, [1, 10, 30, 50], [30, 18, 10, 3])
 # (fig, ax) = splat.plotTimecard(
 #     tCard, wpnSorting, 
 #     fontSize=fontSize, 
